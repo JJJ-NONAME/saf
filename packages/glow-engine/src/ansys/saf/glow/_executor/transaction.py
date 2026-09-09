@@ -17,6 +17,7 @@
 from collections.abc import Callable
 import json
 import logging
+from pathlib import Path
 import string
 from types import MethodType
 from typing import Any, ClassVar, get_type_hints
@@ -33,6 +34,7 @@ from ansys.saf.glow._config.settings import Settings
 from ansys.saf.glow._core.blob_managers import AssetManager, HpsBlobManager
 from ansys.saf.glow._core.gql import GqlClientConnectionPool
 from ansys.saf.glow._core.gql_helper import perform_update_via_graphql
+from ansys.saf.glow._core.live_files import LiveFile, TransactionLiveFile
 from ansys.saf.glow._core.step_model import StepModel
 from ansys.saf.glow._core.step_spec import StepSpec
 from ansys.saf.glow._hps_auth.hps_authenticator import create_hps_authenticator
@@ -127,6 +129,7 @@ class TransactionStepModel:
         step_type: type[StepModel],
         http_client: httpx2.Client,
         settings: Settings,
+        project_files_dir: Path,
         storage_scope: IStorageScope,
         graphql_client: GqlClientConnectionPool,
         oidc_client: OidcClient,
@@ -185,6 +188,7 @@ class TransactionStepModel:
         )
         self._http_client = http_client
         self._settings = settings
+        self._project_files_dir = Path(project_files_dir)
         self._storage_scope = storage_scope
         self._data_repository = data_repository
         self._graphql_client = graphql_client
@@ -221,7 +225,9 @@ class TransactionStepModel:
         so that the field can be used only in the case of an
         upload."""
         field_value = getattr(step_model, field_name)
-        if isinstance(field_value, HpsParametricStudyProjectBase):
+        if isinstance(field_value, LiveFile):
+            field_value = TransactionLiveFile(str(field_value), self._project_files_dir)
+        elif isinstance(field_value, HpsParametricStudyProjectBase):
             hps_authenticator = create_hps_authenticator(self._settings, self._access_token)
             field_value = DynamicHpsParametricStudyProject(field_value, self._hps_blob_manager, hps_authenticator)
         elif isinstance(field_value, HpsSimpleProjectBase):

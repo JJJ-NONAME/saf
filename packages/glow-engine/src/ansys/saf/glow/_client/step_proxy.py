@@ -26,6 +26,7 @@ from pydantic import TypeAdapter
 from ansys.saf.glow._core.client_exceptions import BadRequestException, NotFoundException, check
 from ansys.saf.glow._core.gql import GqlClientConnectionPool
 from ansys.saf.glow._core.gql_helper import perform_update_via_graphql
+from ansys.saf.glow._core.live_files import LiveFileProxy
 from ansys.saf.glow._core.long_running import LongRunning
 from ansys.saf.glow._core.method_status import MethodState
 from ansys.saf.glow._core.step_model import StepModel
@@ -68,6 +69,11 @@ class StepProxy:
         return field_type_name == field_type
 
     def _convert_server_value_into_client_value(self, name: str, json_fields: Any) -> Any:
+        if self._is_field_type(name, "LiveFile"):
+            return LiveFileProxy(
+                value=json_fields[name],
+                project_files_dir=self._project_files_dir,
+            )
         if self._is_field_type(name, "HpsSimpleProject") or self._is_field_type(name, "HpsParametricStudyProject"):
             return HpsProject(**json_fields[name])
         field_value = self._get_field_value(name, json_fields)

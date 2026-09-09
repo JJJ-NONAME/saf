@@ -107,7 +107,7 @@ class ProjectProxy:
             url=self._url,
             external_url=self._external_url,
             http_client=self._http_client,
-            project_files_dir=self._project_files_dir,
+            project_files_dir=self._project_files_dir / self.project_id,
             graphql_client=self._graphql_client,
             access_token=self._access_token,
         )
