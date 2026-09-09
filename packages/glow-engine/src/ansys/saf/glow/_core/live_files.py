@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import shutil
-from typing import TYPE_CHECKING, Any, BinaryIO
+from typing import TYPE_CHECKING, Any, BinaryIO, Literal
 
 from pydantic_core import core_schema
 
@@ -12,6 +12,10 @@ from ansys.saf.glow._storage.os import INVALID_CHARACTERS, is_filepath_invalid
 if TYPE_CHECKING:
     from pydantic import GetCoreSchemaHandler, GetJsonSchemaHandler
     from pydantic.json_schema import JsonSchemaValue
+
+
+BinaryWriteMode = Literal["wb", "ab"]
+TextWriteMode = Literal["w", "a"]
 
 
 class LiveFile(str):
@@ -106,13 +110,13 @@ class TransactionLiveFile(LiveFile):
     def _ensure_parent_directory(self, absolute_path: Path) -> None:
         absolute_path.parent.mkdir(parents=True, exist_ok=True)
 
-    def write(self, binary_fileobj: BinaryIO) -> None:
+    def write(self, binary_fileobj: BinaryIO, mode: BinaryWriteMode = "wb") -> None:
         absolute_path = Path(self.path)
         self._ensure_parent_directory(absolute_path)
-        with absolute_path.open("wb") as destination_buffer:
+        with absolute_path.open(mode) as destination_buffer:
             shutil.copyfileobj(binary_fileobj, destination_buffer)
 
-    def write_from_file(self, data_file: str | Path | LiveFile) -> None:
+    def write_from_file(self, data_file: str | Path | LiveFile, mode: BinaryWriteMode = "wb") -> None:
         if isinstance(data_file, LiveFile):
             source_bytes = data_file.read_bytes()
         else:
@@ -123,17 +127,20 @@ class TransactionLiveFile(LiveFile):
 
         absolute_path = Path(self.path)
         self._ensure_parent_directory(absolute_path)
-        absolute_path.write_bytes(source_bytes)
+        with absolute_path.open(mode) as destination_buffer:
+            destination_buffer.write(source_bytes)
 
-    def write_text(self, text: str, encoding: str = "utf-8") -> None:
+    def write_text(self, text: str, encoding: str = "utf-8", mode: TextWriteMode = "w") -> None:
         absolute_path = Path(self.path)
         self._ensure_parent_directory(absolute_path)
-        absolute_path.write_text(text, encoding=encoding)
+        with absolute_path.open(mode, encoding=encoding) as destination_buffer:
+            destination_buffer.write(text)
 
-    def write_bytes(self, data: bytes) -> None:
+    def write_bytes(self, data: bytes, mode: BinaryWriteMode = "wb") -> None:
         absolute_path = Path(self.path)
         self._ensure_parent_directory(absolute_path)
-        absolute_path.write_bytes(data)
+        with absolute_path.open(mode) as destination_buffer:
+            destination_buffer.write(data)
 
     def delete(self) -> None:
         absolute_path = Path(self.path)
@@ -166,16 +173,16 @@ class LiveFileProxy(LiveFile):
     def _raise_read_only(self) -> None:
         raise PermissionError("The content of a LiveFile cannot be mutated from the Client scope.")
 
-    def write(self, binary_fileobj: BinaryIO) -> None:
+    def write(self, binary_fileobj: BinaryIO, mode: BinaryWriteMode = "wb") -> None:
         self._raise_read_only()
 
-    def write_from_file(self, data_file: str | Path | LiveFile) -> None:
+    def write_from_file(self, data_file: str | Path | LiveFile, mode: BinaryWriteMode = "wb") -> None:
         self._raise_read_only()
 
-    def write_text(self, text: str, encoding: str = "utf-8") -> None:
+    def write_text(self, text: str, encoding: str = "utf-8", mode: TextWriteMode = "w") -> None:
         self._raise_read_only()
 
-    def write_bytes(self, data: bytes) -> None:
+    def write_bytes(self, data: bytes, mode: BinaryWriteMode = "wb") -> None:
         self._raise_read_only()
 
     def delete(self) -> None:
