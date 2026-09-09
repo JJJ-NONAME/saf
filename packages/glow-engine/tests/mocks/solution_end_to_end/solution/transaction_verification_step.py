@@ -31,6 +31,7 @@ from pydantic import BaseModel
 
 from ansys.saf.glow.solution import (
     BadRequestError,
+    LiveFile,
     SolutionConfiguration,
     StepModel,
     StepSpec,
@@ -101,6 +102,7 @@ class TransactionVerificationStep(StepModel):
     field_2: float = 0
     result: float = 0
     text_content: str | None = ""
+    live_file: LiveFile = LiveFile("live-file.txt")
     text_file: EntityHandle = NO_ENTITY
     text_file_2: EntityHandle = NO_ENTITY
     # Logging
@@ -192,6 +194,36 @@ class TransactionVerificationStep(StepModel):
         f.parent.mkdir(parents=True, exist_ok=True)
         f.write_text(TEXT_FILE_DUMMY_STRING)
         self.text_file = self.storage_scope.store(f)
+
+    @transaction(self=StepSpec(download=["live_file"]))
+    def create_live_file(self, write_type: str = "text", mode: str = "w") -> None:
+        if write_type == "text":
+            self.live_file.write_text(TEXT_FILE_DUMMY_STRING, mode=mode)
+        elif write_type == "stream":
+            source_path = self.live_file.parent / "live-file-stream-source.bin"
+            source_path.write_bytes(TEXT_FILE_DUMMY_STRING.encode())
+            with source_path.open("rb") as source_buffer:
+                self.live_file.write(source_buffer, mode=mode)
+        elif write_type == "file":
+            source_path = self.live_file.parent / "live-file-file-source.txt"
+            source_path.write_text(TEXT_FILE_DUMMY_STRING)
+            self.live_file.write_from_file(source_path, mode=mode)
+        elif write_type == "bytes":
+            self.live_file.write_bytes(TEXT_FILE_DUMMY_STRING.encode(), mode=mode)
+        else:
+            raise ValueError(f"Unsupported {write_type=}")
+
+    @transaction(self=StepSpec(download=["live_file"], upload=["text_content"]))
+    def read_live_file_upload_content(self) -> None:
+        self.text_content = self.live_file.read_text()
+
+    @transaction(self=StepSpec(download=["live_file"]))
+    @long_running
+    def write_live_file_progressively(self) -> None:
+        self.live_file.write_text("")
+        for content in ("0", "01", "012", "0123", "01234", "012345"):
+            self.live_file.write_text(content)
+            time.sleep(0.1)
 
     @transaction(self=StepSpec())
     def create_text_outside_storage_scope(self) -> None:

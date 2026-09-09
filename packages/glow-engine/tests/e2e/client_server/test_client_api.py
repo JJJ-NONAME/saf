@@ -16,6 +16,7 @@
 
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
+import contextlib
 import re
 from threading import Thread
 import time
@@ -28,6 +29,7 @@ from ansys.saf.glow.client import BadRequestException, Client, NotFoundException
 from ansys.saf.glow.solution import MethodState, MethodStatus
 from tests.mocks.solution_end_to_end.solution.definition import EndToEndSolution
 from tests.mocks.solution_end_to_end.solution.transaction_verification_step import (
+    TEXT_FILE_DUMMY_STRING,
     CustomTypeABC,
     CustomTypeXYZ,
 )
@@ -98,6 +100,130 @@ class TestClientAPI:
         step.set_field_1_to_1()
         # THEN: The field value should be the set by the transaction
         assert step.field_1 == 1
+
+    def test_live_file_read_from_transaction(self, function_project: ProjectFixture[EndToEndSolution]):
+        """Test that a transaction can write and read a LiveFile."""
+        step = function_project.project.steps.transaction_verification_step
+
+        step.create_live_file()
+        step.read_live_file_upload_content()
+
+        assert step.text_content == TEXT_FILE_DUMMY_STRING
+
+    def test_live_file_write_and_append_from_stream_in_transaction(
+        self,
+        function_project: ProjectFixture[EndToEndSolution],
+    ):
+        """Test that a transaction can write and append a LiveFile from a binary stream."""
+        step = function_project.project.steps.transaction_verification_step
+
+        assert not step.live_file.exists()
+        step.create_live_file(write_type="stream", mode="wb")
+
+        assert step.live_file.exists()
+        assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING
+
+        step.create_live_file(write_type="stream", mode="ab")
+
+        assert step.live_file.exists()
+        assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING * 2
+
+    def test_live_file_write_and_append_from_file_in_transaction(
+        self,
+        function_project: ProjectFixture[EndToEndSolution],
+    ):
+        """Test that a transaction can write and append a LiveFile from another file path."""
+        step = function_project.project.steps.transaction_verification_step
+
+        assert not step.live_file.exists()
+        step.create_live_file(write_type="file", mode="wb")
+
+        assert step.live_file.exists()
+        assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING
+
+        step.create_live_file(write_type="file", mode="ab")
+
+        assert step.live_file.exists()
+        assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING * 2
+
+    def test_live_file_write_and_append_bytes_in_transaction(
+        self,
+        function_project: ProjectFixture[EndToEndSolution],
+    ):
+        """Test that a transaction can write and append a LiveFile from bytes."""
+        step = function_project.project.steps.transaction_verification_step
+
+        assert not step.live_file.exists()
+        step.create_live_file(write_type="bytes", mode="wb")
+
+        assert step.live_file.exists()
+        assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING
+
+        step.create_live_file(write_type="bytes", mode="ab")
+
+        assert step.live_file.exists()
+        assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING * 2
+
+    def test_live_file_write_and_append_text_in_transaction(
+        self,
+        function_project: ProjectFixture[EndToEndSolution],
+    ):
+        """Test that a transaction can write and append a text LiveFile."""
+        step = function_project.project.steps.transaction_verification_step
+
+        assert not step.live_file.exists()
+        step.create_live_file(write_type="text", mode="w")
+
+        assert step.live_file.exists()
+        assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING
+
+        step.create_live_file(write_type="text", mode="a")
+
+        assert step.live_file.exists()
+        assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING * 2
+
+    def test_live_file_read_from_client(self, function_project: ProjectFixture[EndToEndSolution]):
+        """Test that the client can read a LiveFile."""
+        step = function_project.project.steps.transaction_verification_step
+
+        step.create_live_file()
+
+        assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING
+
+    def test_live_file_write_from_client_forbidden(self, function_project: ProjectFixture[EndToEndSolution]):
+        """Test that the client cannot mutate a LiveFile."""
+        step = function_project.project.steps.transaction_verification_step
+
+        step.create_live_file()
+
+        with pytest.raises(PermissionError, match="cannot be mutated from the Client scope"):
+            step.live_file.write_text("forbidden")
+
+    def test_client_can_read_live_file_while_transaction_writes(
+        self,
+        function_project: ProjectFixture[EndToEndSolution],
+    ):
+        """Test that the client can observe intermediate LiveFile contents during a long-running transaction."""
+        step = function_project.project.steps.transaction_verification_step
+        step.create_live_file()
+
+        method = step.write_live_file_progressively()
+        wait_for_method("write_live_file_progressively", step.get_method_state, MethodStatus.RunRequired)
+
+        observed_contents: set[str] = set()
+        deadline = time.time() + 5
+        while step.get_method_state("write_live_file_progressively").status == MethodStatus.Running:
+            with contextlib.suppress(FileNotFoundError):
+                observed_contents.add(step.live_file.read_text())
+            time.sleep(0.02)
+            if time.time() >= deadline:
+                pytest.fail("Timed out while waiting to observe LiveFile updates during transaction execution.")
+
+        method.wait()
+        observed_contents.add(step.live_file.read_text())
+
+        assert step.live_file.read_text() == "012345"
+        assert any(content in {"0", "01", "012", "0123", "01234"} for content in observed_contents)
 
     def test_set_attr_twice(self, function_project: ProjectFixture[EndToEndSolution]):
         """
