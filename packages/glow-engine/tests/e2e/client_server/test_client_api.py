@@ -106,8 +106,8 @@ class TestClientAPI:
         """Test that a transaction can write and read a LiveFile."""
         step = function_project.project.steps.transaction_verification_step
 
-        step.create_live_file()
-        step.read_live_file_upload_content()
+        step.write_to_live_file()
+        step.read_live_file_and_upload_content()
 
         assert step.text_content == TEXT_FILE_DUMMY_STRING
 
@@ -119,12 +119,12 @@ class TestClientAPI:
         step = function_project.project.steps.transaction_verification_step
 
         assert not step.live_file.exists()
-        step.create_live_file(write_type="stream", mode="wb")
+        step.write_to_live_file(write_type="stream", mode="wb")
 
         assert step.live_file.exists()
         assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING
 
-        step.create_live_file(write_type="stream", mode="ab")
+        step.write_to_live_file(write_type="stream", mode="ab")
 
         assert step.live_file.exists()
         assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING * 2
@@ -137,12 +137,12 @@ class TestClientAPI:
         step = function_project.project.steps.transaction_verification_step
 
         assert not step.live_file.exists()
-        step.create_live_file(write_type="file", mode="wb")
+        step.write_to_live_file(write_type="file", mode="wb")
 
         assert step.live_file.exists()
         assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING
 
-        step.create_live_file(write_type="file", mode="ab")
+        step.write_to_live_file(write_type="file", mode="ab")
 
         assert step.live_file.exists()
         assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING * 2
@@ -155,12 +155,12 @@ class TestClientAPI:
         step = function_project.project.steps.transaction_verification_step
 
         assert not step.live_file.exists()
-        step.create_live_file(write_type="bytes", mode="wb")
+        step.write_to_live_file(write_type="bytes", mode="wb")
 
         assert step.live_file.exists()
         assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING
 
-        step.create_live_file(write_type="bytes", mode="ab")
+        step.write_to_live_file(write_type="bytes", mode="ab")
 
         assert step.live_file.exists()
         assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING * 2
@@ -173,12 +173,12 @@ class TestClientAPI:
         step = function_project.project.steps.transaction_verification_step
 
         assert not step.live_file.exists()
-        step.create_live_file(write_type="text", mode="w")
+        step.write_to_live_file(write_type="text", mode="w")
 
         assert step.live_file.exists()
         assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING
 
-        step.create_live_file(write_type="text", mode="a")
+        step.write_to_live_file(write_type="text", mode="a")
 
         assert step.live_file.exists()
         assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING * 2
@@ -187,7 +187,7 @@ class TestClientAPI:
         """Test that the client can read a LiveFile."""
         step = function_project.project.steps.transaction_verification_step
 
-        step.create_live_file()
+        step.write_to_live_file()
 
         assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING
 
@@ -195,7 +195,7 @@ class TestClientAPI:
         """Test that the client cannot mutate a LiveFile."""
         step = function_project.project.steps.transaction_verification_step
 
-        step.create_live_file()
+        step.write_to_live_file()
 
         with pytest.raises(PermissionError, match="cannot be mutated from the Client scope"):
             step.live_file.write_text("forbidden")
@@ -217,7 +217,7 @@ class TestClientAPI:
         source_content: str,
     ):
         step = function_project.project.steps.transaction_verification_step
-        step.create_live_file()
+        step.write_to_live_file()
         source_path = tmp_path / "source.txt"
         source_path.write_text(source_content)
 
@@ -228,7 +228,7 @@ class TestClientAPI:
 
     def test_live_file_path_from_client_forbidden(self, function_project: ProjectFixture[EndToEndSolution]):
         step = function_project.project.steps.transaction_verification_step
-        step.create_live_file()
+        step.write_to_live_file()
 
         with pytest.raises(NotImplementedError):
             _ = step.live_file.path
@@ -239,14 +239,14 @@ class TestClientAPI:
     ):
         """Test that the client can observe intermediate LiveFile contents during a long-running transaction."""
         step = function_project.project.steps.transaction_verification_step
-        step.create_live_file()
+        step.write_to_live_file()
 
-        method = step.write_live_file_progressively()
-        wait_for_method("write_live_file_progressively", step.get_method_state, MethodStatus.RunRequired)
+        method = step.write_to_live_file_progressively()
+        wait_for_method("write_to_live_file_progressively", step.get_method_state, MethodStatus.RunRequired)
 
         observed_contents: set[str] = set()
         deadline = time.time() + 5
-        while step.get_method_state("write_live_file_progressively").status == MethodStatus.Running:
+        while step.get_method_state("write_to_live_file_progressively").status == MethodStatus.Running:
             with contextlib.suppress(FileNotFoundError):
                 observed_contents.add(step.live_file.read_text())
             time.sleep(0.02)

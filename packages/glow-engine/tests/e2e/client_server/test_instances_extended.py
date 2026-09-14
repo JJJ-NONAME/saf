@@ -72,11 +72,11 @@ class TestCustomProductInstances:
 
         assert not step.live_file.exists()
 
-        method = step.write_live_file_progressively_from_custom_http_product_instance()
+        method = step.write_to_live_file_progressively_from_custom_http_product_instance()
         startup_deadline = time.time() + 10
         observed_contents: set[str] = set()
 
-        while step.get_method_state("write_live_file_progressively_from_custom_http_product_instance").status == (
+        while step.get_method_state("write_to_live_file_progressively_from_custom_http_product_instance").status == (
             MethodStatus.RunRequired
         ):
             time.sleep(0.05)
@@ -85,7 +85,7 @@ class TestCustomProductInstances:
 
         observation_deadline = time.time() + 20
 
-        while step.get_method_state("write_live_file_progressively_from_custom_http_product_instance").status == (
+        while step.get_method_state("write_to_live_file_progressively_from_custom_http_product_instance").status == (
             MethodStatus.Running
         ):
             with contextlib.suppress(FileNotFoundError):
@@ -114,7 +114,7 @@ class TestCustomProductInstances:
         assert step.live_file.read_text() == "Hello WorldHello World"
         assert step.value == "Hello World|Hello WorldHello World"
 
-    def test_client_cannot_write_live_file_written_by_custom_http_product(
+    def test_client_cannot_write_to_live_file_written_by_custom_http_product(
         self,
         function_project: ProjectFixture[EndToEndSolution],
     ):

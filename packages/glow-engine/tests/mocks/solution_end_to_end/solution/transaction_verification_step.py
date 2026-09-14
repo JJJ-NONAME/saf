@@ -196,7 +196,7 @@ class TransactionVerificationStep(StepModel):
         self.text_file = self.storage_scope.store(f)
 
     @transaction(self=StepSpec(download=["live_file"]))
-    def create_live_file(self, write_type: str = "text", mode: str = "w") -> None:
+    def write_to_live_file(self, write_type: str = "text", mode: str = "w") -> None:
         if write_type == "text":
             self.live_file.write_text(TEXT_FILE_DUMMY_STRING, mode=mode)
         elif write_type == "stream":
@@ -214,12 +214,12 @@ class TransactionVerificationStep(StepModel):
             raise ValueError(f"Unsupported {write_type=}")
 
     @transaction(self=StepSpec(download=["live_file"], upload=["text_content"]))
-    def read_live_file_upload_content(self) -> None:
+    def read_live_file_and_upload_content(self) -> None:
         self.text_content = self.live_file.read_text()
 
     @transaction(self=StepSpec(download=["live_file"]))
     @long_running
-    def write_live_file_progressively(self) -> None:
+    def write_to_live_file_progressively(self) -> None:
         self.live_file.write_text("")
         for content in ("0", "01", "012", "0123", "01234", "012345"):
             self.live_file.write_text(content)

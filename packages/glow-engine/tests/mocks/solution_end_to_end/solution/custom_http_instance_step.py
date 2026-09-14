@@ -60,7 +60,7 @@ class CustomHttpSharedInstanceStep(StepModel):
     @transaction(self=StepSpec(download=["live_file"]))
     @create_instance("custom_http_product_instance", MockHttpProductInstanceManager)
     @long_running
-    def write_live_file_progressively_from_custom_http_product_instance(
+    def write_to_live_file_progressively_from_custom_http_product_instance(
         self,
         custom_http_product_instance: MockHttpProductInstanceManager,
     ) -> None:
