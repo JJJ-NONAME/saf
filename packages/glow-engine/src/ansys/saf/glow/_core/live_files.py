@@ -96,7 +96,7 @@ class TransactionLiveFile(LiveFile):
 
     def __new__(cls, value: str, project_files_dir: Path):
         self = super().__new__(cls, value)
-        self._project_files_dir = Path(project_files_dir)
+        self._project_files_dir = project_files_dir
         return self
 
     @property
@@ -159,7 +159,7 @@ class LiveFileProxy(LiveFile):
 
     def __new__(cls, value: str, project_files_dir: Path):
         self = super().__new__(cls, value)
-        self._project_files_dir = Path(project_files_dir)
+        self._project_files_dir = project_files_dir
         return self
 
     @property
