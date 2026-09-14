@@ -111,74 +111,22 @@ class TestClientAPI:
 
         assert step.text_content == TEXT_FILE_DUMMY_STRING
 
-    def test_live_file_write_and_append_from_stream_in_transaction(
+    @pytest.mark.parametrize("write_type", ["stream", "file", "bytes", "text"])
+    def test_live_file_write_and_append_in_transaction(
         self,
         function_project: ProjectFixture[EndToEndSolution],
+        write_type: str,
     ):
-        """Test that a transaction can write and append a LiveFile from a binary stream."""
+        """Test that a transaction can write and append a LiveFile for supported write types."""
         step = function_project.project.steps.transaction_verification_step
 
         assert not step.live_file.exists()
-        step.write_to_live_file(write_type="stream", mode="wb")
+        step.write_to_live_file(write_type=write_type, mode="w" if write_type == "text" else "wb")
 
         assert step.live_file.exists()
         assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING
 
-        step.write_to_live_file(write_type="stream", mode="ab")
-
-        assert step.live_file.exists()
-        assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING * 2
-
-    def test_live_file_write_and_append_from_file_in_transaction(
-        self,
-        function_project: ProjectFixture[EndToEndSolution],
-    ):
-        """Test that a transaction can write and append a LiveFile from another file path."""
-        step = function_project.project.steps.transaction_verification_step
-
-        assert not step.live_file.exists()
-        step.write_to_live_file(write_type="file", mode="wb")
-
-        assert step.live_file.exists()
-        assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING
-
-        step.write_to_live_file(write_type="file", mode="ab")
-
-        assert step.live_file.exists()
-        assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING * 2
-
-    def test_live_file_write_and_append_bytes_in_transaction(
-        self,
-        function_project: ProjectFixture[EndToEndSolution],
-    ):
-        """Test that a transaction can write and append a LiveFile from bytes."""
-        step = function_project.project.steps.transaction_verification_step
-
-        assert not step.live_file.exists()
-        step.write_to_live_file(write_type="bytes", mode="wb")
-
-        assert step.live_file.exists()
-        assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING
-
-        step.write_to_live_file(write_type="bytes", mode="ab")
-
-        assert step.live_file.exists()
-        assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING * 2
-
-    def test_live_file_write_and_append_text_in_transaction(
-        self,
-        function_project: ProjectFixture[EndToEndSolution],
-    ):
-        """Test that a transaction can write and append a text LiveFile."""
-        step = function_project.project.steps.transaction_verification_step
-
-        assert not step.live_file.exists()
-        step.write_to_live_file(write_type="text", mode="w")
-
-        assert step.live_file.exists()
-        assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING
-
-        step.write_to_live_file(write_type="text", mode="a")
+        step.write_to_live_file(write_type=write_type, mode="a" if write_type == "text" else "ab")
 
         assert step.live_file.exists()
         assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING * 2
