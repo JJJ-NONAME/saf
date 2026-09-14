@@ -43,6 +43,7 @@ class StepProxy:
         step_name: str,
         step_model_type: type[StepModel],
         http_client: httpx2.Client,
+        project_id: str,
         project_files_dir: Path,
         graphql_client: GqlClientConnectionPool,
     ) -> None:
@@ -55,6 +56,7 @@ class StepProxy:
         object.__setattr__(self, "_step_model_type", step_model_type)
         object.__setattr__(self, "_step_name", step_name)
         object.__setattr__(self, "_http_client", http_client)
+        object.__setattr__(self, "_project_id", project_id)
         object.__setattr__(self, "_project_files_dir", project_files_dir)
         object.__setattr__(self, "_graphql_client", graphql_client)
 
@@ -72,7 +74,7 @@ class StepProxy:
         if self._is_field_type(name, "LiveFile"):
             return LiveFileProxy(
                 value=json_fields[name],
-                project_files_dir=self._project_files_dir,
+                project_files_dir=self._project_files_dir / self._project_id,
             )
         if self._is_field_type(name, "HpsSimpleProject") or self._is_field_type(name, "HpsParametricStudyProject"):
             return HpsProject(**json_fields[name])
