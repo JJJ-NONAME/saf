@@ -104,6 +104,18 @@ def test_transaction_live_file_supports_binary_write_and_copy_from_live_file(tmp
     assert destination.read_bytes() == b"abcd"
 
 
+def test_transaction_live_file_write_from_str_path_and_append_stream(tmp_path: Path):
+    project_dir = tmp_path / "project-id"
+    source_path = tmp_path / "source.txt"
+    source_path.write_text("from-str")
+    destination = TransactionLiveFile("outputs/destination.txt", project_dir)
+
+    destination.write_from_file(str(source_path))
+    destination.write(BytesIO(b"-appended"), mode="ab")
+
+    assert destination.read_text() == "from-str-appended"
+
+
 def test_transaction_live_file_write_from_missing_file_raises(tmp_path: Path):
     live_file = TransactionLiveFile("outputs/runtime.log", tmp_path / "project-id")
     missing_source = tmp_path / "missing.txt"
