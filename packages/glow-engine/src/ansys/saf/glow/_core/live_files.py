@@ -114,34 +114,27 @@ class TransactionLiveFile(LiveFile):
     def path(self) -> Path:
         return self._absolute_path
 
-    def _ensure_parent_directory(self, absolute_path: Path) -> None:
-        absolute_path.parent.mkdir(parents=True, exist_ok=True)
+    def _ensure_parent_directory(self) -> None:
+        self._absolute_path.parent.mkdir(parents=True, exist_ok=True)
 
     def write(self, binary_fileobj: BinaryIO, mode: BinaryWriteMode = "wb") -> None:
-        self._ensure_parent_directory(self._absolute_path)
+        self._ensure_parent_directory()
         with self._absolute_path.open(mode) as destination_buffer:
             shutil.copyfileobj(binary_fileobj, destination_buffer)
 
     def write_from_file(self, data_file: str | Path | LiveFile, mode: BinaryWriteMode = "wb") -> None:
-        if isinstance(data_file, LiveFile):
-            source_bytes = data_file.read_bytes()
-        else:
-            source = Path(data_file)
-            if not source.is_file():
-                raise FileNotFoundError(f"The source file '{source}' does not exist.")
-            source_bytes = source.read_bytes()
-
-        self._ensure_parent_directory(self._absolute_path)
+        source_bytes = data_file.read_bytes() if isinstance(data_file, LiveFile) else Path(data_file).read_bytes()
+        self._ensure_parent_directory()
         with self._absolute_path.open(mode) as destination_buffer:
             destination_buffer.write(source_bytes)
 
     def write_text(self, text: str, encoding: str = "utf-8", mode: TextWriteMode = "w") -> None:
-        self._ensure_parent_directory(self._absolute_path)
+        self._ensure_parent_directory()
         with self._absolute_path.open(mode, encoding=encoding) as destination_buffer:
             destination_buffer.write(text)
 
     def write_bytes(self, data: bytes, mode: BinaryWriteMode = "wb") -> None:
-        self._ensure_parent_directory(self._absolute_path)
+        self._ensure_parent_directory()
         with self._absolute_path.open(mode) as destination_buffer:
             destination_buffer.write(data)
 

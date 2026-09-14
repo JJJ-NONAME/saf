@@ -120,7 +120,7 @@ def test_transaction_live_file_write_from_missing_file_raises(tmp_path: Path):
     live_file = TransactionLiveFile("outputs/runtime.log", tmp_path / "project-id")
     missing_source = tmp_path / "missing.txt"
 
-    with pytest.raises(FileNotFoundError, match="does not exist"):
+    with pytest.raises(FileNotFoundError):
         live_file.write_from_file(missing_source)
 
 
