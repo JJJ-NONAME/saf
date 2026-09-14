@@ -21,8 +21,7 @@ TextWriteMode = Literal["w", "a"]
 class LiveFile(str):
     """Relative path to a mutable file in a GLOW project.
 
-    This type is intended to replace deprecated file references for mutable file
-    workflows where file content is expected to change during solution execution.
+    This class represents a file that can be read while being written.
     """
 
     def __new__(
@@ -96,7 +95,11 @@ class LiveFile(str):
 
 
 class TransactionLiveFile(LiveFile):
-    """Transaction-scoped LiveFile rooted at the method execution project files directory."""
+    """Transaction-scoped mutable file for the current project.
+
+    The relative path is resolved from ``project_files_dir / project_id``.
+    This class supports both reading and writing file content.
+    """
 
     def __new__(cls, value: str, project_files_dir: Path):
         self = super().__new__(cls, value)
@@ -151,9 +154,10 @@ class TransactionLiveFile(LiveFile):
 
 
 class LiveFileProxy(LiveFile):
-    """Client-side proxy for LiveFile.
+    """Client-side read-only view of a LiveFile.
 
-    This proxy reads from the client-visible project filesystem and is read-only.
+    The relative path is resolved from ``project_files_dir / project_id``.
+    This class allows reading file content while blocking all mutation operations.
     """
 
     def __new__(cls, value: str, project_files_dir: Path):
