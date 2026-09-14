@@ -200,12 +200,12 @@ class TransactionVerificationStep(StepModel):
         if write_type == "text":
             self.live_file.write_text(TEXT_FILE_DUMMY_STRING, mode=mode)
         elif write_type == "stream":
-            source_path = self.live_file.parent / "live-file-stream-source.bin"
+            source_path = self.live_file.path.parent / "live-file-stream-source.bin"
             source_path.write_bytes(TEXT_FILE_DUMMY_STRING.encode())
             with source_path.open("rb") as source_buffer:
                 self.live_file.write(source_buffer, mode=mode)
         elif write_type == "file":
-            source_path = self.live_file.parent / "live-file-file-source.txt"
+            source_path = self.live_file.path.parent / "live-file-file-source.txt"
             source_path.write_text(TEXT_FILE_DUMMY_STRING)
             self.live_file.write_from_file(source_path, mode=mode)
         elif write_type == "bytes":

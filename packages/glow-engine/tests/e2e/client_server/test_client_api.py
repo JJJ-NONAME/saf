@@ -17,6 +17,7 @@
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
 import contextlib
+from io import BytesIO
 import re
 from threading import Thread
 import time
@@ -198,6 +199,39 @@ class TestClientAPI:
 
         with pytest.raises(PermissionError, match="cannot be mutated from the Client scope"):
             step.live_file.write_text("forbidden")
+
+    @pytest.mark.parametrize(
+        ("operation", "source_content"),
+        [
+            (lambda live_file, source_path: live_file.write(BytesIO(b"forbidden")), ""),
+            (lambda live_file, source_path: live_file.write_bytes(b"forbidden"), ""),
+            (lambda live_file, source_path: live_file.write_from_file(source_path), "forbidden"),
+            (lambda live_file, source_path: live_file.delete(), ""),
+        ],
+    )
+    def test_live_file_mutation_methods_from_client_forbidden(
+        self,
+        function_project: ProjectFixture[EndToEndSolution],
+        tmp_path,
+        operation: Callable,
+        source_content: str,
+    ):
+        step = function_project.project.steps.transaction_verification_step
+        step.create_live_file()
+        source_path = tmp_path / "source.txt"
+        source_path.write_text(source_content)
+
+        with pytest.raises(PermissionError, match="cannot be mutated from the Client scope"):
+            operation(step.live_file, source_path)
+
+        assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING
+
+    def test_live_file_path_from_client_forbidden(self, function_project: ProjectFixture[EndToEndSolution]):
+        step = function_project.project.steps.transaction_verification_step
+        step.create_live_file()
+
+        with pytest.raises(NotImplementedError):
+            _ = step.live_file.path
 
     def test_client_can_read_live_file_while_transaction_writes(
         self,

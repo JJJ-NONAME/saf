@@ -50,6 +50,7 @@ class ProjectProxy:
         context_mgr_used: bool = False,
     ) -> None:
         self._name = name
+        self._project_id = name.removeprefix("projects/")
         self._solution_type = solution_type
         self._url = url
         self._external_url = external_url
@@ -122,7 +123,7 @@ class ProjectProxy:
 
     @property
     def project_id(self) -> str:
-        return self._name.removeprefix("projects/")
+        return self._project_id
 
     @property
     def project_name(self) -> str:

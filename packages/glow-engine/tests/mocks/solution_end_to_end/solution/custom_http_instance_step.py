@@ -65,7 +65,7 @@ class CustomHttpSharedInstanceStep(StepModel):
         custom_http_product_instance: MockHttpProductInstanceManager,
     ) -> None:
         custom_http_product_instance.initialize(version="1")
-        live_file_path = self.live_file.path
+        live_file_path = str(self.live_file.path)
         for content in ("0", "01", "012", "0123", "01234", "012345"):
             custom_http_product_instance.instance.the_property = content
             custom_http_product_instance.instance.store_given_absolute_path(live_file_path)
@@ -78,7 +78,7 @@ class CustomHttpSharedInstanceStep(StepModel):
         custom_http_product_instance: MockHttpProductInstanceManager,
     ) -> None:
         custom_http_product_instance.initialize(version="1")
-        live_file_path = self.live_file.path
+        live_file_path = str(self.live_file.path)
         observed_contents: list[str] = []
         for content in (TEXT_FILE_DUMMY_STRING, TEXT_FILE_DUMMY_STRING * 2):
             custom_http_product_instance.instance.the_property = content

@@ -81,14 +81,18 @@ class LiveFile(str):
         return self._relative_path.name
 
     @property
-    def path(self) -> str:
+    def _absolute_path(self) -> Path:
         raise NotImplementedError()
 
     def read_text(self, encoding: str = "utf-8") -> str:
-        return Path(self.path).read_text(encoding=encoding)
+        return self._absolute_path.read_text(encoding=encoding)
 
     def read_bytes(self) -> bytes:
-        return Path(self.path).read_bytes()
+        return self._absolute_path.read_bytes()
+
+    @property
+    def path(self) -> Path:
+        raise NotImplementedError()
 
 
 class TransactionLiveFile(LiveFile):
@@ -100,20 +104,19 @@ class TransactionLiveFile(LiveFile):
         return self
 
     @property
-    def path(self) -> str:
-        return str(self._project_files_dir / self._relative_path)
+    def _absolute_path(self) -> Path:
+        return self._project_files_dir / self._relative_path
 
     @property
-    def parent(self) -> Path:
-        return Path(self.path).parent
+    def path(self) -> Path:
+        return self._absolute_path
 
     def _ensure_parent_directory(self, absolute_path: Path) -> None:
         absolute_path.parent.mkdir(parents=True, exist_ok=True)
 
     def write(self, binary_fileobj: BinaryIO, mode: BinaryWriteMode = "wb") -> None:
-        absolute_path = Path(self.path)
-        self._ensure_parent_directory(absolute_path)
-        with absolute_path.open(mode) as destination_buffer:
+        self._ensure_parent_directory(self._absolute_path)
+        with self._absolute_path.open(mode) as destination_buffer:
             shutil.copyfileobj(binary_fileobj, destination_buffer)
 
     def write_from_file(self, data_file: str | Path | LiveFile, mode: BinaryWriteMode = "wb") -> None:
@@ -125,30 +128,26 @@ class TransactionLiveFile(LiveFile):
                 raise FileNotFoundError(f"The source file '{source}' does not exist.")
             source_bytes = source.read_bytes()
 
-        absolute_path = Path(self.path)
-        self._ensure_parent_directory(absolute_path)
-        with absolute_path.open(mode) as destination_buffer:
+        self._ensure_parent_directory(self._absolute_path)
+        with self._absolute_path.open(mode) as destination_buffer:
             destination_buffer.write(source_bytes)
 
     def write_text(self, text: str, encoding: str = "utf-8", mode: TextWriteMode = "w") -> None:
-        absolute_path = Path(self.path)
-        self._ensure_parent_directory(absolute_path)
-        with absolute_path.open(mode, encoding=encoding) as destination_buffer:
+        self._ensure_parent_directory(self._absolute_path)
+        with self._absolute_path.open(mode, encoding=encoding) as destination_buffer:
             destination_buffer.write(text)
 
     def write_bytes(self, data: bytes, mode: BinaryWriteMode = "wb") -> None:
-        absolute_path = Path(self.path)
-        self._ensure_parent_directory(absolute_path)
-        with absolute_path.open(mode) as destination_buffer:
+        self._ensure_parent_directory(self._absolute_path)
+        with self._absolute_path.open(mode) as destination_buffer:
             destination_buffer.write(data)
 
     def delete(self) -> None:
-        absolute_path = Path(self.path)
-        if absolute_path.exists():
-            absolute_path.unlink()
+        if self._absolute_path.exists():
+            self._absolute_path.unlink()
 
     def exists(self) -> bool:
-        return Path(self.path).exists()
+        return self._absolute_path.exists()
 
 
 class LiveFileProxy(LiveFile):
@@ -163,12 +162,8 @@ class LiveFileProxy(LiveFile):
         return self
 
     @property
-    def path(self) -> str:
-        return str(self._project_files_dir / self._relative_path)
-
-    @property
-    def parent(self) -> Path:
-        return self._relative_path.parent
+    def _absolute_path(self) -> Path:
+        return self._project_files_dir / self._relative_path
 
     def _raise_read_only(self) -> None:
         raise PermissionError("The content of a LiveFile cannot be mutated from the Client scope.")
@@ -189,4 +184,4 @@ class LiveFileProxy(LiveFile):
         self._raise_read_only()
 
     def exists(self) -> bool:
-        return Path(self.path).exists()
+        return self._absolute_path.exists()
