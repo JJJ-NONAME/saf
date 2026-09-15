@@ -1,0 +1,77 @@
+[
+    {
+        "test-report-artifact-name-suffix": "test_fluent_workflow_pim_linux",
+        "pytest-additional-arguments": "tests/e2e/test_fluent.py::TestFluent2DDPSolver tests/e2e/test_fluent.py::TestFluent3DDPSolver tests/e2e/test_fluent.py::TestFluent3DDPMeshing --docker",
+        "pytest-markers": "use_fluent and use_pim",
+        "runner-name": "testing-runner-lin",
+        "prepare-runner": "true",
+        "upgrade-docker": "true",
+        "install-pim-light-server": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_fluent_workflow_hps_linux",
+        "pytest-additional-arguments": "tests/e2e/test_fluent.py::TestFluent2DDPSolver tests/e2e/test_fluent.py::TestFluent3DDPSolver tests/e2e/test_fluent.py::TestFluent3DDPMeshing --docker -n 0",
+        "pytest-markers": "use_fluent and use_hps",
+        "runner-name": "testing-runner-lin",
+        "prepare-runner": "true",
+        "install-hps": "true",
+        "upgrade-docker": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_fluent_workflow_pim_windows",
+        "pytest-additional-arguments": "tests/e2e/test_fluent.py::TestFluent2DDPSolver tests/e2e/test_fluent.py::TestFluent3DDPSolver tests/e2e/test_fluent.py::TestFluent3DDPMeshing",
+        "pytest-markers": "use_fluent and use_pim",
+        "runner-name": "testing-runner-win-interactive",
+        "install-pim-light-server": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_fluent_secure_pim_linux",
+        "pytest-additional-arguments": "tests/e2e/test_fluent.py::TestFluentSecurePIM --docker",
+        "pytest-markers": "use_fluent and use_pim",
+        "runner-name": "testing-runner-lin",
+        "prepare-runner": "true",
+        "upgrade-docker": "true",
+        "install-pim-light-server": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_fluent_secure_hps_linux",
+        "pytest-additional-arguments": "tests/e2e/test_fluent.py::test_secure_fluent_on_hps --docker -n 0",
+        "pytest-markers": "use_fluent and use_hps",
+        "runner-name": "testing-runner-lin",
+        "prepare-runner": "true",
+        "install-hps": "true",
+        "upgrade-docker": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_fluent_secure_pim_windows",
+        "pytest-additional-arguments": "tests/e2e/test_fluent.py::TestFluentSecurePIM",
+        "pytest-markers": "use_fluent and use_pim",
+        "runner-name": "testing-runner-win-interactive",
+        "install-pim-light-server": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_fluent_custom_pim_linux",
+        "pytest-additional-arguments": "tests/e2e/test_fluent_custom.py::TestCustomFluent --docker",
+        "pytest-markers": "use_fluent and use_pim",
+        "runner-name": "testing-runner-lin",
+        "prepare-runner": "true",
+        "upgrade-docker": "true",
+        "install-pim-light-server": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_fluent_custom_hps_linux",
+        "pytest-additional-arguments": "tests/e2e/test_fluent_custom.py::TestCustomFluent --docker -n 0",
+        "pytest-markers": "use_fluent and use_hps",
+        "runner-name": "testing-runner-lin",
+        "prepare-runner": "true",
+        "install-hps": "true",
+        "upgrade-docker": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_fluent_custom_pim_windows",
+        "pytest-additional-arguments": "tests/e2e/test_fluent_custom.py::TestCustomFluent",
+        "pytest-markers": "use_fluent and use_pim",
+        "runner-name": "testing-runner-win-interactive",
+        "install-pim-light-server": "true"
+    }
+]

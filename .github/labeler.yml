@@ -1,0 +1,108 @@
+# This file is required by the the action 'https://github.com/actions/labeler'
+# and used in the '.github/workflows/ci_cd_pr.yml' workflow
+
+# -- Labels based on PR title ------------------------------------------------
+'bug':
+  - head-branch: ['fix']
+
+'enhancement':
+  - head-branch: ['feat']
+
+# -- Labels for specific files -------------------------------------------
+'documentation':
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: ['doc/**']
+
+'dependencies':
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: ['**/poetry.lock']
+
+'devops':
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: ['.github/workflows/**']
+
+'testing':
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: ['**/tests/**']
+
+# -- Labels for specific packages -------------------------------------------
+'bdm-python-api':
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: ['packages/bdm-python-api/**']
+          - any-glob-to-any-file: ['.github/workflows/tests_groups_definitions/bdm-python-api.json']
+
+'bdm-python-shared-volume':
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: ['packages/bdm-python-shared-volume/**']
+          - any-glob-to-any-file: ['.github/workflows/tests_groups_definitions/bdm-python-shared-volume.json']
+
+'glow-engine':
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: ['packages/glow-engine/**']
+          - any-glob-to-any-file: ['.github/workflows/tests_groups_definitions/glow-engine.json']
+          - any-glob-to-any-file: ['.github/workflows/tests_groups_definitions/glow-engine-extended.json']
+
+'saf-desktop-installer':
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: ['packages/saf-desktop-installer/**']
+          - any-glob-to-any-file: ['.github/workflows/tests_groups_definitions/saf-desktop-installer.json']
+          - any-glob-to-any-file: ['.github/workflows/tests_groups_definitions/saf-desktop-installer-extended.json']
+
+'dash-super-components':
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: ['packages/dash-super-components/**']
+          - any-glob-to-any-file: ['.github/workflows/tests_groups_definitions/dash-super-components.json']
+
+'saf-desktop-orchestrator':
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: ['packages/saf-desktop-orchestrator/**']
+          - any-glob-to-any-file: ['.github/workflows/tests_groups_definitions/saf-desktop-orchestrator.json']
+
+'saf-iam-oidc':
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: ['packages/saf-iam-oidc/**']
+          - any-glob-to-any-file: ['.github/workflows/tests_groups_definitions/saf-iam-oidc.json']
+
+'saf-cli':
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: ['packages/saf-cli/**']
+          - any-glob-to-any-file: ['.github/workflows/tests_groups_definitions/saf-cli.json']
+          - any-glob-to-any-file: ['.github/workflows/tests_groups_definitions/saf-cli-extended.json']
+
+'saf-product-configuration':
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: ['packages/saf-product-configuration/**']
+          - any-glob-to-any-file: ['.github/workflows/tests_groups_definitions/saf-product-configuration.json']
+'saf-product-manager':
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: ['packages/saf-product-manager/**']
+          - any-glob-to-any-file: ['.github/workflows/tests_groups_definitions/saf-product-manager.json']
+          - any-glob-to-any-file: ['.github/workflows/tests_groups_definitions/saf-product-manager-extended.json']
+'saf-templates':
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: ['packages/saf-templates/**']
+          - any-glob-to-any-file: ['.github/workflows/tests_groups_definitions/saf-templates.json']
+'saf-testing':
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: ['packages/saf-testing/**']
+          - any-glob-to-any-file: ['.github/workflows/tests_groups_definitions/saf-testing.json']
+'saf-sdk':
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: ['packages/saf-sdk/**']

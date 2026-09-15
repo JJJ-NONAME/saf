@@ -1,0 +1,16 @@
+{
+    "__solution_name": "my_solution",
+    "__solution_module_name": "my_solution",
+    "__solution_definition_class_name": "MySolution",
+    "__solution_namespace": "ansys.solutions",
+    "__solution_namespace_path": "ansys/solutions",
+    "__solution_root_dir": "my_solution_dir",
+    "__ui_framework": "dash",
+    "__step_name": "my_new_step",
+    "__step_display_name": "{{ cookiecutter.__step_name | replace('_', ' ') | title }}",
+    "__step_name_hyphenated": "{{ cookiecutter.__step_name | replace('_', '-') }}",
+    "__step_module_name": "my_new_step",
+    "__step_module_name_hyphenated": "{{ cookiecutter.__step_module_name | replace('_', '-') }}",
+    "__step_definition_class_name": "MyNewStep",
+    "__ui_page_file_name": "my_new_page"
+}

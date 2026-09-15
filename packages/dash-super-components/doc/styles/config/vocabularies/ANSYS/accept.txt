@@ -1,0 +1,116 @@
+auto_mode
+[Cc]odespell
+[Dd]ocformatter
+[Dd]ocstring
+[Dd]ocstrings
+numpydoc
+[Pp]yright
+[Pp]ytest
+README
+rulesets
+aio_id
+ANSYS
+[Aa]nsys
+APIs
+API
+[Aa]pplication
+bool
+boolean
+breakpoint
+browse_button_props
+browse_from
+button_properties
+badge_props
+card_props
+clear_button_props
+clearable
+column_names
+column_widths
+[Cc]omponent IDs
+Command-Line Interface (CLI)
+CSS
+[Dd]ash
+dash_bootstrap_components
+dash_extensions
+dbc
+dbc.themes.BOOTSTRAP
+debounce
+decimal_scale
+default_icon
+default_path
+display_field
+disabled
+Dual Input Range Slider
+elapsed_time
+enable_multiple_rows
+[Ff]ilename
+full_width
+FolderSelector
+[Ff]older [Ss]elector
+font_size
+GLOW
+grid_props
+GUIs
+[Ii]nput [Ff]orm
+interval_props
+label_props
+log_file
+file path
+[Ii]conify
+Input Row Array
+jpg
+log_format
+[Ll]ogs [Ss]upervisor
+LogsSupervisor
+lower_bound_input_props
+Mantine
+max_children_per_node
+max_path_length
+max_tree_depth
+method_name
+monorepo
+my_function
+my_logger
+my_module
+namespace
+navigations
+pathname
+persistence_type
+Plotly
+png
+Python
+Python: Remote Attach
+Pythonic
+[Rr]eact
+resizable
+SAF
+selected_item
+show_error_notifications
+slider_props
+started_time
+step_name
+stop_monitoring_on_termination
+subcomponent
+subcomponents
+substrings
+[Ss]uper [Cc]omponents for [Dd]ash
+[Ss][Vv][Gg]
+[Ss]ynopsys
+Synopsys
+synopsys
+theme_contact_mail
+title_font_size
+title_props
+[Tt]kinter
+tooltip
+[Tt]ransaction [Mm]ethod [Ss]tatus [Bb]adge
+TransactionMethodStatusBadge
+[Tt]ransaction [Ss]upervisor
+TransactionSupervisor
+ui
+UI
+UIs
+uploader
+upper_bound_input_props
+[Uu][Rr][Ll]
+with_card

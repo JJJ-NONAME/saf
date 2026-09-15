@@ -1,0 +1,128 @@
+# Copyright (C) 2026 ANSYS, Inc. and/or its affiliates.
+# SPDX-License-Identifier: Apache-2.0
+
+#
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# ©2024, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+
+"""Frontend of the table step."""
+
+from ansys.saf.glow.client import callback
+import dash
+from dash import dash_table
+from dash_extensions.enrich import Input, Output, State, html
+from dash_iconify import DashIconify
+import dash_mantine_components as dmc
+import pandas as pd
+
+from saf.solutions.examples.solution.definition import ExamplesSolution
+
+dash.register_page(
+    __name__,
+    name="Table",
+    path_template="/projects/<project_id>/table",
+    icon_asset_name="game-icons--crossed-air-flows.svg",
+    icon_asset_path="icons",
+)
+
+
+def layout() -> html.Div:
+    """Layout of the table step page."""
+    return html.Div(
+        [
+            html.H1("Data table", className="display-3", style={"font-size": "40px", "font-weight": "bold"}),
+            html.Hr(className="my-2"),
+            html.Br(),
+            dmc.Blockquote(
+                "Use an interactive Dash table to display large datasets in a solution UI.",
+                icon=DashIconify(icon="material-symbols:info", width=30),
+                style={"font-size": "18px", "fontStyle": "italic"},
+            ),
+            html.Br(),
+            html.Br(),
+            dmc.Button(
+                "Generate data",
+                id="generate-data-button",
+                leftSection=DashIconify(icon="streamline:startup-solid"),
+                radius="xl",
+                disabled=False,
+                className="mantine-button",
+                style={
+                    "font-size": "16px",
+                    "width": "100%",
+                    "color": "var(--mantine-color-body)",
+                    "background-color": "#2790F1",
+                },
+            ),
+            html.Br(),
+            html.Br(),
+            html.Div(id="data-table"),
+        ]
+    )
+
+
+@callback(
+    Output("data-table", "children"),
+    Input("generate-data-button", "n_clicks"),
+    State("url", "pathname"),
+    prevent_initial_call=True,
+)
+def create_table_data(n_clicks: int, project: ExamplesSolution) -> html.Div:
+    """Create the table data."""
+    step = project.steps.basic_step
+    if n_clicks >= 1:
+        step.generate_data()
+        return _create_data_table(project)
+
+
+def _create_data_table(project: ExamplesSolution) -> html.Div:
+    """Create a Dash table."""
+    step = project.steps.basic_step
+    if step.table_flag:
+        df = pd.DataFrame(step.data_dict)
+        table_atti = html.Div(
+            [
+                dash_table.DataTable(
+                    data=df.to_dict("records"),
+                    columns=[{"name": i, "id": i} for i in df.columns],
+                    id="id_data_table",
+                    editable=True,
+                    filter_action="native",
+                    sort_action="native",
+                    sort_mode="multi",
+                    column_selectable="single",
+                    row_selectable="multi",
+                    row_deletable=True,
+                    selected_columns=[],
+                    selected_rows=[],
+                    page_action="native",
+                    page_current=0,
+                    page_size=10,
+                    style_filter={
+                        "color": "var(--mantine-color-text)",
+                        "background-color": "var(--mantine-color-body)",
+                    },
+                    style_header={
+                        "color": "var(--mantine-color-text)",
+                        "background-color": "var(--mantine-color-body)",
+                    },
+                    style_data={"color": "var(--mantine-color-text)", "background-color": "var(--mantine-color-body)"},
+                ),
+            ],
+        )
+    else:
+        table_atti = html.Div("")
+
+    return table_atti

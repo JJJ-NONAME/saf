@@ -1,0 +1,50 @@
+keycloak:
+  image: keycloak-action-token:26.3.5
+  command: >-
+    --proxy-headers=xforwarded --http-relative-path=${CUSTOM_PATH}/hps/auth/ --http-enabled=true
+    --import-realm --log-level=info --features=admin-fine-grained-authz,token-exchange
+  environment:
+    DB_VENDOR: postgres
+    DB_ADDR: postgres
+    DB_DATABASE: ${HPS_KC_POSTGRES_DB}
+    DB_SCHEMA: public
+    DB_USER: ${HPS_POSTGRES_USER}
+    DB_PASSWORD: ${HPS_POSTGRES_PASSWORD}
+    KEYCLOAK_ADMIN: ${KC_ADMIN_USER}
+    KEYCLOAK_ADMIN_PASSWORD: ${KC_ADMIN_PASSWORD}
+    KC_CLIENT_SECRET: ${KC_CLIENT_SECRET}
+    DOMAIN_NAME: ${DOMAIN_NAME}
+    PORT: ${PORT}
+    PROTOCOL: ${PROTOCOL}
+    KC_REALM_ADMIN_USER: ${KC_REALM_ADMIN_USER}
+    KC_REALM_ADMIN_PASSWORD: ${KC_REALM_ADMIN_PASSWORD}
+    KC_ALLOW_REGISTER: ${KC_ALLOW_REGISTER}
+    EMAIL_DOMAIN: ${OP_EMAIL_DOMAIN}
+    KC_SPI_REALM_RESTAPI_EXTENSION_JOB_ACTION_TOKEN_REALMS: ${KC_JOB_ACTION_TOKEN_REALMS}
+    KC_SPI_REALM_RESTAPI_EXTENSION_JOB_ACTION_TOKEN_AUTHORED_CLIENTS: ${KC_JOB_ACTION_TOKEN_AUTHORED_CLIENTS}
+    KC_SPI_REALM_RESTAPI_EXTENSION_JOB_ACTION_TOKEN_MANAGEMENT_ROLE: ${KC_JOB_ACTION_TOKEN_MANAGEMENT_ROLE}
+    KC_SPI_REALM_RESTAPI_EXTENSION_JOB_ACTION_TOKEN_TTL: ${KC_JOB_ACTION_TOKEN_TTL}
+    KC_HOSTNAME_STRICT: "false"
+  volumes:
+    - keycloak_data:/opt/keycloak/data/
+    - ./config/keycloak/realm.json:/opt/keycloak/data/import/realm.json
+  labels:
+    traefik.http.routers.keycloak.tls: true
+    traefik.http.routers.keycloak.rule: ( PathPrefix(`${CUSTOM_PATH:-}/rep/auth`)
+      || PathPrefix(`${CUSTOM_PATH:-}/hps/auth`) ) && Host(`${EXTERNAL_NAME}`)
+    traefik.http.routers.keycloak.entrypoints: external
+    traefik.http.routers.keycloak.priority: 100
+    traefik.http.services.keycloak.loadbalancer.server.port: 8080
+    traefik.http.routers.keycloak.middlewares: keycloak-rep-stripprefix,keycloak-hps-stripprefix,keycloak-addprefix
+    traefik.http.middlewares.keycloak-rep-stripprefix.stripprefix.prefixes: ${CUSTOM_PATH:-}/rep/auth
+    traefik.http.middlewares.keycloak-hps-stripprefix.stripprefix.prefixes: ${CUSTOM_PATH:-}/hps/auth
+    traefik.http.middlewares.keycloak-addprefix.addprefix.prefix: ${CUSTOM_PATH:-}/hps/auth
+  healthcheck:
+    test: "timeout 10s bash -c ':> /dev/tcp/127.0.0.1/8080' || exit 1"
+    interval: 10s
+    timeout: 1s
+    retries: 30
+  depends_on:
+    postgres:
+      condition: service_healthy
+  restart: ${DOCKER_RESTART_POLICY}

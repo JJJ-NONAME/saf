@@ -1,0 +1,16 @@
+# this is the link configuration for internal documentation (not for customers)
+[filtering]
+checkextern=1
+ignore=
+  # Keep only entries that are still directly referenced by the documentation source.
+  # These are intentional exceptions for local developer examples, published docs,
+  # or public links that are expected to remain reachable.
+  https://localhost:8443/*
+  https://symmetrical-barnacle-eg6ye7p.pages.github.io/
+  https://*.docs.solutions.ansys.com/
+  https://prerelease.awc.ansys.com/#/d/home
+  https://github.com/orgs/ansys/teams/developers
+  https://github.com/ansys/python-installer-qt-gui/releases/download/v0.3.10/Ansys-Python-Manager-Setup-v0.3.10.exe
+  https://developer.ansys.com/
+  https://developer.ansys.com/docs
+  https://developer.ansys.com/knowledge-base

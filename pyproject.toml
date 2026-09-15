@@ -1,0 +1,60 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [ "setuptools>=69", "wheel" ]
+
+[project]
+name = "ansys-saf-development"
+version = "0.1.0"
+description = "SAF Development Project"
+readme = "README.md"
+maintainers = [ { name = "ANSYS, Inc.", email = "pyansys-core@synopsys.com" } ]
+authors = [ { name = "ANSYS, Inc.", email = "pyansys-core@synopsys.com" } ]
+requires-python = ">=3.11,<4.0"
+classifiers = [
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Scientific/Engineering :: Information Analysis",
+]
+
+[dependency-groups]
+doc = [
+  "ansys-sphinx-theme>=1.9; python_version>='3.12'",
+  "click>=8.3.2; python_version>='3.12'",
+  "docutils>=0.21; python_version>='3.12' and python_version<'4.0'",
+  "linkchecker>=10.6.0; python_version>='3.12'",
+  "nbsphinx>=0.9.8; python_version>='3.12'",
+  "numpydoc>=1.10.0; python_version>='3.12'",
+  "rst2html>=2020.7.4; python_version>='3.12'",
+  "rst2html5>=2.0.1; python_version>='3.12' and python_version<'4.0'",
+  "ruamel-yaml>=0.19.1; python_version>='3.12'",
+  "sphinx>=9.1; python_version>='3.12'",
+  "sphinx-code-tabs>=0.5.5; python_version>='3.12'",
+  "sphinx-copybutton>=0.5.2; python_version>='3.12'",
+  "sphinx-design>=0.7.0; python_version>='3.12'",
+  "sphinx-gallery>=0.15.0; python_version>='3.12'",
+  "sphinx-markdown-builder>=0.6; python_version>='3.12'",
+  "sphinx-tabs>=3.5.0; python_version>='3.12'",
+  "sphinx-toolbox>=4.2.0; python_version>='3.12'",
+  "sphinxcontrib-mermaid>=0.7.1; python_version>='3.12'",
+  "sphinxemoji>=0.2; python_version>='3.12'",
+  "toml>=0.10.2; python_version>='3.12'",
+]
+
+[tool.poetry]
+package-mode = false
+
+[tool.poetry.group.doc]
+optional = true
+
+[tool.setuptools]
+py-modules = [  ]
+
+[tool.uv]
+package = false
+link-mode = "copy"

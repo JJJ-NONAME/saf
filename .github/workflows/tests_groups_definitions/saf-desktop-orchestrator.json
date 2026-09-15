@@ -1,0 +1,38 @@
+[
+  {
+    "test-report-artifact-name-suffix": "tests_unit_linux",
+    "pytest-additional-arguments": "tests/unit",
+    "runner-name": "ubuntu-latest"
+  },
+  {
+    "test-report-artifact-name-suffix": "tests_unit_windows",
+    "pytest-additional-arguments": "tests/unit",
+    "runner-name": "windows-latest"
+  },
+  {
+    "test-report-artifact-name-suffix": "tests_integration_linux",
+    "pytest-additional-arguments": "tests/integration",
+    "runner-name": "ubuntu-latest"
+  },
+  {
+    "test-report-artifact-name-suffix": "tests_integration_windows",
+    "pytest-additional-arguments": "tests/integration",
+    "runner-name": "windows-latest"
+  },
+  {
+    "test-report-artifact-name-suffix": "tests_e2e_linux",
+    "pytest-additional-arguments": "tests/e2e",
+    "runner-name": "ubuntu-latest",
+    "install-pim-light-server": "true",
+    "install-ansys-saf-aspire": "true",
+    "install-portal": "true"
+  },
+  {
+    "test-report-artifact-name-suffix": "tests_e2e_windows",
+    "pytest-additional-arguments": "tests/e2e --reruns 3 --reruns-delay 5",
+    "runner-name": "windows-latest",
+    "install-pim-light-server": "true",
+    "install-ansys-saf-aspire": "true",
+    "install-portal": "true"
+  }
+]

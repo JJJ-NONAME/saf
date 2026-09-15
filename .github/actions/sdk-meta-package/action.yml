@@ -1,0 +1,139 @@
+# Copyright (C) 2026 ANSYS, Inc. and/or its affiliates.
+# SPDX-License-Identifier: Apache-2.0
+#
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: |
+  "Build SAF SDK Meta Package"
+
+description: |
+  "Build SAF SDK Meta Package"
+
+inputs:
+  python-version:
+    description: "Python version to use for the meta-package update"
+    required: true
+  is-for-pypi-release:
+    description: "Indicates whether the current build is for a PyPI release."
+    required: true
+  meta-package-version-update-type:
+    description: "Requested SDK meta-package version update type."
+    required: true
+  minimum-pip-version:
+    description: "Minimum required pip version for installing the meta-package."
+    required: true
+  ansys-bdm-api-version-override:
+    description: "Override for the Ansys BDM API version. Only for release branch."
+    required: false
+    default: ""
+  ansys-bdm-shared-volume-version-override:
+    description: "Override for the Ansys BDM Shared Volume version. Only for release
+      branch."
+    required: false
+    default: ""
+  ansys-saf-glow-engine-version-override:
+    description: "Override for the Ansys SAF Glow Engine version. Only for release
+      branch."
+    required: false
+    default: ""
+  ansys-saf-desktop-installer-version-override:
+    description: "Override for the Ansys SAF Desktop Installer version. Only for release
+      branch."
+    required: false
+    default: ""
+  ansys-saf-desktop-orchestrator-version-override:
+    description: "Override for the Ansys SAF Desktop Orchestrator version. Only for
+      release branch."
+    required: false
+    default: ""
+  ansys-iam-oidc-version-override:
+    description: "Override for the Ansys IAM OIDC version. Only for release branch."
+    required: false
+    default: ""
+  ansys-saf-product-configuration-version-override:
+    description: "Override for the Ansys SAF Product Configuration version. Only for
+      release branch."
+    required: false
+    default: ""
+  ansys-saf-product-manager-version-override:
+    description: "Override for the Ansys SAF Product Manager version. Only for release
+      branch."
+    required: false
+    default: ""
+
+outputs:
+  update-type:
+    value: ${{ steps.update-pyproject.outputs.update_type }}
+  version:
+    value: ${{ steps.update-pyproject.outputs.version }}
+  changed:
+    value: ${{ steps.update-pyproject.outputs.changed }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install uv
+      uses: astral-sh/setup-uv@ed21f2f24f8dd64503750218de024bcf64c7250a # v7.1.5
+      with:
+        python-version: ${{ inputs.python-version }}
+        ignore-empty-workdir: true
+
+    - name: Update pyproject.toml/poetry.lock of meta package
+      id: update-pyproject
+      shell: bash
+      run: uv run "${GITHUB_ACTION_PATH}/sdk_meta_package_utilities.py"
+      env:
+        IS_FOR_PYPI_RELEASE: ${{ inputs.is-for-pypi-release }}
+        USER_SELECTED_UPDATE_TYPE: ${{ inputs.meta-package-version-update-type }}
+        USER_SELECTED_BDM_API_VERSION: ${{ inputs.ansys-bdm-api-version-override }}
+        USER_SELECTED_BDM_SHARED_VOLUME_VERSION: ${{ inputs.ansys-bdm-shared-volume-version-override
+          }}
+        USER_SELECTED_ANSYS_SAF_GLOW_ENGINE_VERSION: ${{ inputs.ansys-saf-glow-engine-version-override
+          }}
+        USER_SELECTED_ANSYS_SAF_DESKTOP_INSTALLER_VERSION: ${{ inputs.ansys-saf-desktop-installer-version-override
+          }}
+        USER_SELECTED_ANSYS_SAF_DESKTOP_ORCHESTRATOR_VERSION: ${{ inputs.ansys-saf-desktop-orchestrator-version-override
+          }}
+        USER_SELECTED_ANSYS_IAM_OIDC_VERSION: ${{ inputs.ansys-iam-oidc-version-override
+          }}
+        USER_SELECTED_ANSYS_SAF_PRODUCT_CONFIGURATION_VERSION: ${{ inputs.ansys-saf-product-configuration-version-override
+          }}
+        USER_SELECTED_ANSYS_SAF_PRODUCT_MANAGER_VERSION: ${{ inputs.ansys-saf-product-manager-version-override
+          }}
+
+    - name: Upload pyproject.toml artifact
+      if: ${{ steps.update-pyproject.outputs.changed == 'true' }}
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: pyproject
+        path: packages/saf-sdk/pyproject.toml
+        if-no-files-found: error
+        overwrite: true
+
+    - name: Upload uv lock file artifact
+      if: ${{ steps.update-pyproject.outputs.changed == 'true' }}
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: uv-lock
+        path: packages/saf-sdk/uv.lock
+        if-no-files-found: error
+        overwrite: true
+
+    - name: Upload release notes
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: release-notes
+        path: release_notes.md
+        if-no-files-found: error
+        overwrite: true

@@ -1,0 +1,8 @@
+[filtering]
+checkextern=1
+ignore=
+  # the following will be broken if the referenced ports are not open and served properly
+  # but because they are either examples or reference servers that the solution developer might
+  # usefully be able to link to we don't raise errors for them
+  https?\:\/\/localhost\:.*
+  file\:\/\/*

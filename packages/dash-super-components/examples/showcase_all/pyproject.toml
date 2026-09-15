@@ -1,0 +1,150 @@
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=2.0.0"]
+
+[project]
+name = "ansys-solutions-showcase-dash-super-components"
+version = "0.2.dev0"
+description = "A SAF-based showcase application for demonstrating and testing Super Components for Dash."
+license = "Apache-2.0"
+authors = [{ name = "ANSYS, Inc.", email = "pyansys-core@synopsys.com" }]
+maintainers = [{ name = "ANSYS, Inc.", email = "pyansys-core@synopsys.com" }]
+readme = "README.md"
+keywords = [
+  "super components for dash",
+  "dash",
+  "ansys solutions",
+  "solution application framework",
+  "python",
+  "saf",
+  "solution",
+]
+requires-python = ">=3.11,<3.15"
+dynamic = ["dependencies"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Other Audience",
+  "License :: OSI Approved :: Apache Software License",
+  "Natural Language :: English",
+  "Operating System :: Microsoft :: Windows",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Scientific/Engineering"
+]
+
+# The following lines were added to enforce the poetry version needed for the project.
+# This version will be used by saf-cli to install the solution's dependencies, and by saf-desktop-installer to
+# create the solution package and its installation executable.
+[build-system-requirements]
+build-system-version = "2.3.2"
+
+[tool.poetry]
+[[tool.poetry.packages]]
+include="ansys"
+from="src"
+
+[tool.poetry.dependencies]
+python = ">=3.11, <3.15"
+ansys-saf-glow-engine = "^2.0.0"
+
+[tool.poetry.group.desktop]
+optional = true
+[tool.poetry.group.desktop.dependencies]
+ansys-saf-desktop-orchestrator = {version = "^1.12.0", allow-prereleases=true}
+ansys-saf-product-manager = {version = ">=0.5.0", allow-prereleases=true}
+ansys-saf-product-configuration = {version = ">=0.20.0", allow-prereleases=true}
+
+[tool.poetry.group.ui]
+optional = true
+[tool.poetry.group.ui.dependencies]
+ansys-solutions-dash-super-components = {path = "../../", develop = true}
+dash = "==3.3.0"
+dash_bootstrap_components = "^2.0.4"
+dash-extensions = "^1.0.20"
+dash-mantine-components = "^2.6.0"
+
+[tool.poetry.group.style]
+optional = true
+[tool.poetry.group.style.dependencies]
+codespell = "^2.4.2"
+pyright = "^1.1.411"
+ruff = "^0.15.20"
+
+[tool.codespell]
+ignore-words = ".codespell.ignore"
+exclude-file = ".codespell.exclude"
+skip = [
+    "*.log",
+    "*.json",
+    ".git",
+    ".venv",
+    ".poetry",
+    "*.lcov",
+    "htmlcov",
+    "dist",
+    ".github",
+    "*.toml",
+]
+
+[tool.pyright]
+pythonVersion = "3.11"
+extraPaths = ["src"]
+include = [
+  ".",
+]
+exclude = [
+  ".venv",
+  ".poetry",
+  ".git",
+]
+venvPath = "."
+venv = ".venv"
+
+[tool.ruff]
+line-length = 100
+fix = true
+target-version = "py311"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.ruff.lint]
+select = [
+  "E",       # pycodestyle
+  "D",       # pydocstyle
+  "F",       # pyflakes
+  "I",       # isort
+  "N",       # pep8-naming
+  "PTH",     # flake8-use-pathlib
+  "TD",      # flake8-todos
+  "W",       # pycodestyle - warning
+  "C90",     # mccabe
+  "UP",      # pyupgrade
+  "ASYNC",   # flake8-async
+  "B",       # flake8-bugbear
+  "A",       # flake8-builtins
+  "COM",     # flake8-commas
+  "C4",      # flake8-comprehensions
+  "LOG",     # flake8-logging
+  "PIE",     # flake8-pie
+  "PYI",     # flake8-pyi
+  "PT",      # flake8-pytest-style
+  "Q",       # flake8-quotes
+  "SIM",     # flake8-simplify
+  "RUF100",  # ruff-specific rules: unused noqa
+]
+ignore = [
+  "COM812",   # This rule conflicts with ruff format settings
+  "PYI041",   # Allow redundant type specification to be consistent with subsequent type checks
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+force-sort-within-sections = true
+known-first-party = ["ansys.solutions.showcase_dash_super_components"]

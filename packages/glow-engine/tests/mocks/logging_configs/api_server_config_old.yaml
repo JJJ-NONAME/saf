@@ -1,0 +1,18 @@
+# example of default config used in GLOW <= 0.4
+version: 1
+disable_existing_loggers: False
+formatters:
+  fileFormat:
+    format: "%(asctime)s %(levelname)s [%(name)s] [%(filename)s:%(lineno)d] [trace_id=%(otelTraceID)s
+      span_id=%(otelSpanID)s resource.service.name=%(otelServiceName)s]- %(message)s"
+handlers:
+  rotatingFile:
+    class: logging.handlers.TimedRotatingFileHandler
+    level: INFO
+    formatter: fileFormat
+    when: "MIDNIGHT"
+    filename: "${glow_appdata_directory}/logs/${solution_name}/api_server/log_${process_identifier}.log"
+
+root:
+  level: INFO
+  handlers: [rotatingFile]

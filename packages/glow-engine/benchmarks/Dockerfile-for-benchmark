@@ -1,0 +1,16 @@
+FROM python:3.10-slim as solution_api
+
+RUN pip install --upgrade pip && \
+    pip install poetry==1.7.0
+
+WORKDIR /app
+
+COPY pyproject.toml poetry.lock /app/
+RUN poetry install --no-root
+COPY README.rst /app
+COPY src /app/src
+COPY benchmarks /app/benchmarks
+RUN poetry install
+
+ENTRYPOINT ["poetry", "run", "python", "-m", "ansys.saf.glow.cli", "api", "--port", "50000", "--definition", "benchmarks.solutions.simple_solution"]
+

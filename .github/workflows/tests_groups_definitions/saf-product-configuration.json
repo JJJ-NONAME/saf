@@ -1,0 +1,12 @@
+[
+    {
+        "test-report-artifact-name-suffix": "saf_product_configuration_linux",
+        "pytest-additional-arguments": "tests/",
+        "runner-name": "ubuntu-latest"
+    },
+    {
+        "test-report-artifact-name-suffix": "saf_product_configuration_windows",
+        "pytest-additional-arguments": "tests/",
+        "runner-name": "windows-latest"
+    }
+]

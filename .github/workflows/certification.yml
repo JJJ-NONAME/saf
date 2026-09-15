@@ -1,0 +1,533 @@
+name: Certify
+run-name: >-
+  Certify: ${{
+    inputs.library-name != '' && inputs.library-name ||
+    (github.event_name == 'schedule' && (
+      github.event.schedule == '0 0 * * 1,3,5' && 'bdm-python-api' ||
+      github.event.schedule == '0 1 * * 1,3,5' && 'bdm-python-shared-volume' ||
+      github.event.schedule == '0 2 * * 1,3,5' && 'saf-iam-oidc' ||
+      github.event.schedule == '0 3 * * 1,3,5' && 'saf-desktop-installer' ||
+      github.event.schedule == '0 4 * * 2,4' && 'saf-desktop-orchestrator' ||
+      github.event.schedule == '0 5 * * 2,4' && 'glow-engine' ||
+      github.event.schedule == '0 6 * * 2,4' && 'dash-super-components' ||
+      github.event.schedule == '0 7 * * 2,4' && 'saf-cli' ||
+      github.event.schedule == '0 8 * * 2,4' && 'saf-product-configuration' ||
+      github.event.schedule == '0 9 * * 2,4' && 'saf-product-manager' ||
+      github.event.schedule == '0 10 * * 2,4' && 'saf-templates' ||
+      github.event.schedule == '0 11 * * 2,4' && 'saf-testing' ||
+      'unknown-schedule'
+    )) ||
+    'unknown-library'
+  }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      library-name:
+        description: "Name of the library to certify"
+        required: true
+        type: choice
+        options:
+          - bdm-python-api
+          - bdm-python-shared-volume
+          - glow-engine
+          - saf-desktop-installer
+          - saf-desktop-orchestrator
+          - saf-iam-oidc
+          - dash-super-components
+          - saf-cli
+          - saf-product-configuration
+          - saf-product-manager
+          - saf-templates
+          - saf-testing
+  workflow_call:
+    inputs:
+      library-name:
+        type: string
+        required: true
+    secrets:
+      PYANSYS_CI_BOT_TOKEN:
+        description: "Token for the CI bot"
+        required: true
+      ANS_MINERVA_URL:
+        description: 'Minerva URL'
+        required: true
+      TEST_REP_CLIENT_SECRET:
+        description: "Secret for the test repository"
+        required: true
+      PYANSYS_PYPI_PRIVATE_PAT:
+        description: 'Token for the PyAnsys private PyPI'
+        required: true
+      PYANSYS_PYPI_PRIVATE_URL:
+        description: 'URL for the PyAnsys private PyPI'
+        required: true
+      LICENSE_SERVER:
+        description: 'License server for Ansys products'
+        required: true
+      GENERATED_SOLUTION_TOKEN:
+        description: 'Token for the generated solution'
+        required: true
+  schedule:
+    - cron: '0 0 * * 1,3,5'
+    - cron: '0 1 * * 1,3,5'
+    - cron: '0 2 * * 1,3,5'
+    - cron: '0 3 * * 1,3,5'
+    - cron: '0 4 * * 2,4'
+    - cron: '0 5 * * 2,4'
+    - cron: '0 6 * * 2,4'
+    - cron: '0 7 * * 2,4'
+    - cron: '0 8 * * 2,4'
+    - cron: '0 9 * * 2,4'
+    - cron: '0 10 * * 2,4'
+    - cron: '0 11 * * 2,4'
+
+# Apply the principle of least privilege to state at job level the right
+# permissions. More information about workflow permissions in the page
+# https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#permissions
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-certification-${{ inputs.library-name
+    }}-${{ github.event.schedule || 'manual' }}
+  cancel-in-progress: true
+
+jobs:
+  pre-certification:
+    name: "Check for certification tag"
+    permissions:
+      contents: read
+    runs-on:
+      - ubuntu-latest
+    steps:
+      - id: verify-tag
+        uses: ansys/saf-devops/verify-tag-and-commit@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
+        with:
+          tag: certified-${{ inputs.library-name }}
+
+      - id: library-name
+        shell: bash
+        env:
+          SCHEDULE: ${{ github.event.schedule }}
+          LIBRARY_NAME_INPUT: ${{ inputs.library-name }}
+          VARS_PYTHON_VERSION: ${{ vars.PYTHON_VERSION }}
+        run: |
+          if [[ "${GITHUB_EVENT_NAME}" == "schedule" ]]; then
+            case "${SCHEDULE}" in
+              '0 0 * * 1,3,5')
+                echo "library-name=bdm-python-api" >> "$GITHUB_OUTPUT"
+                ;;
+              '0 1 * * 1,3,5')
+                echo "library-name=bdm-python-shared-volume" >> "$GITHUB_OUTPUT"
+                ;;
+              '0 2 * * 1,3,5')
+                echo "library-name=saf-iam-oidc" >> "$GITHUB_OUTPUT"
+                ;;
+              '0 3 * * 1,3,5')
+                echo "library-name=saf-desktop-installer" >> "$GITHUB_OUTPUT"
+                ;;
+              '0 4 * * 2,4')
+                echo "library-name=saf-desktop-orchestrator" >> "$GITHUB_OUTPUT"
+                ;;
+              '0 5 * * 2,4')
+                echo "library-name=glow-engine" >> "$GITHUB_OUTPUT"
+                ;;
+              '0 6 * * 2,4')
+                echo "library-name=dash-super-components" >> "$GITHUB_OUTPUT"
+                ;;
+              '0 7 * * 2,4')
+                echo "library-name=saf-cli" >> "$GITHUB_OUTPUT"
+                ;;
+              '0 8 * * 2,4')
+                echo "library-name=saf-product-configuration" >> "$GITHUB_OUTPUT"
+                ;;
+              '0 9 * * 2,4')
+                echo "library-name=saf-product-manager" >> "$GITHUB_OUTPUT"
+                ;;
+              '0 10 * * 2,4')
+                echo "library-name=saf-templates" >> "$GITHUB_OUTPUT"
+                ;;
+              '0 11 * * 2,4')
+                echo "library-name=saf-testing" >> "$GITHUB_OUTPUT"
+                ;;
+              *)
+                echo "Unsupported schedule '${SCHEDULE}'" >&2
+                exit 1
+                ;;
+            esac
+          else
+            echo "library-name=${LIBRARY_NAME_INPUT}" >> "$GITHUB_OUTPUT"
+          fi
+    outputs:
+      commit-is-already-tagged: ${{ steps.verify-tag.outputs.commit-is-already-tagged
+        }}
+      library-name: ${{ steps.library-name.outputs.library-name }}
+
+  check-package-changes:
+    name: "Check if package files changed since certification"
+    needs: pre-certification
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      package-has-changes: ${{ steps.detect-changes.outputs.package-has-changes }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0 # Fetch all history to access all tags
+          persist-credentials: true # Required for git operations
+
+      - id: detect-changes
+        name: Detect file changes in package
+        shell: bash
+        env:
+          LIBRARY_NAME: ${{ needs.pre-certification.outputs.library-name }}
+          CERTIFICATION_TAG: certified-${{ needs.pre-certification.outputs.library-name
+            }}
+        run: |
+          # Check if certification tag exists
+          if ! git rev-parse "$CERTIFICATION_TAG" >/dev/null 2>&1; then
+            echo "No certification tag found: $CERTIFICATION_TAG"
+            echo "package-has-changes=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Get the commit of the certification tag
+          CERT_COMMIT=$(git rev-list -n 1 "$CERTIFICATION_TAG")
+          echo "Last certification commit: $CERT_COMMIT"
+
+          # Check if files in package have changed since certification tag
+          PACKAGE_PATH="packages/$LIBRARY_NAME"
+
+          # Use git diff to check if package files changed
+          if git diff --quiet "$CERTIFICATION_TAG" HEAD -- "$PACKAGE_PATH"; then
+            echo "No changes in package since certification tag"
+            echo "package-has-changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "Package files have changed since certification tag"
+            echo "package-has-changes=true" >> $GITHUB_OUTPUT
+
+            # Show which files changed
+            echo ""
+            echo "Changed files:"
+            git diff --name-only "$CERTIFICATION_TAG" HEAD -- "$PACKAGE_PATH"
+          fi
+
+  vulnerabilities:
+    name: "Vulnerabilities"
+    needs: pre-certification
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # Read the dependencies and source code of the library
+    steps:
+      - name: Check vulnerabilities
+        uses: ansys/saf-devops/check-deps-vulnerabilities@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
+        with:
+          python-version: ${{ vars.PYTHON_VERSION }}
+          poetry-version: ${{ vars.POETRY_VERSION }}
+          poetry-install-args: '--all-extras'
+          upgrade-pip: true
+          poetry-parent-directory: packages/${{ needs.pre-certification.outputs.library-name
+            }}
+          max-allowed-severity: medium
+
+  dependabot-alerts:
+    permissions:
+      contents: read
+      security-events: read # For Dependabot alerts
+    name: Get production Dependabot alerts
+    needs: pre-certification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get production dependencies
+        uses: ansys/saf-devops/get-production-dependencies@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
+        with:
+          poetry-version: ${{ vars.POETRY_VERSION }}
+          poetry-parent-directory: packages/${{ needs.pre-certification.outputs.library-name
+            }}
+          python-version: ${{ vars.PYTHON_VERSION }}
+
+      - name: Analyze Dependabot Alerts
+        id: analyze-dependabot
+        uses: ansys/saf-devops/analyze-dependabot-alerts@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
+        with:
+          severity-level: high
+          manifest-path: packages/${{ needs.pre-certification.outputs.library-name
+            }}/poetry.lock
+          read-dependabot-alerts-token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+
+  run-tests:
+    name: Tests ${{ matrix.python-version }}
+    needs: [pre-certification, check-package-changes]
+    permissions:
+      contents: read
+      packages: write # Allows this job to publish packages
+    if: needs.check-package-changes.outputs.package-has-changes == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version:
+          - "3.11"
+          - "3.12"
+          - "3.13"
+          - "3.14"
+    uses: ./.github/workflows/_test.yml
+    with:
+      python-version: ${{ matrix.python-version }}
+      tests-groups-file-path: .github/workflows/tests_groups_definitions/${{ needs.pre-certification.outputs.library-name
+        }}.json
+      working-directory: packages/${{ needs.pre-certification.outputs.library-name
+        }}
+    secrets:
+      ANS_MINERVA_URL: ${{ secrets.ANS_MINERVA_URL }}
+      TEST_REP_CLIENT_SECRET: ${{ secrets.TEST_REP_CLIENT_SECRET }}
+      PYANSYS_PYPI_PRIVATE_PAT: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}
+      PYANSYS_PYPI_PRIVATE_URL: ${{ secrets.PYANSYS_PYPI_PRIVATE_URL }}
+      LICENSE_SERVER: ${{ secrets.LICENSE_SERVER }}
+
+  run-tests-extended:
+    name: Tests (extended) ${{ matrix.python-version }}
+    needs:
+      - pre-certification
+      - check-package-changes
+    permissions:
+      contents: read
+      packages: write # Allows this job to publish packages
+    if: |
+      needs.check-package-changes.outputs.package-has-changes == 'true' && (
+        needs.pre-certification.outputs.library-name == 'saf-desktop-installer' ||
+        needs.pre-certification.outputs.library-name == 'saf-cli' ||
+        needs.pre-certification.outputs.library-name == 'glow-engine'
+      )
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version:
+          - "3.11"
+          - "3.12"
+          - "3.13"
+          - "3.14"
+    uses: ./.github/workflows/_test.yml
+    with:
+      python-version: ${{ matrix.python-version }}
+      tests-groups-file-path: .github/workflows/tests_groups_definitions/${{ needs.pre-certification.outputs.library-name
+        }}-extended.json
+      working-directory: packages/${{ needs.pre-certification.outputs.library-name
+        }}
+    secrets:
+      ANS_MINERVA_URL: ${{ secrets.ANS_MINERVA_URL }}
+      TEST_REP_CLIENT_SECRET: ${{ secrets.TEST_REP_CLIENT_SECRET }}
+      PYANSYS_PYPI_PRIVATE_PAT: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}
+      PYANSYS_PYPI_PRIVATE_URL: ${{ secrets.PYANSYS_PYPI_PRIVATE_URL }}
+      LICENSE_SERVER: ${{ secrets.LICENSE_SERVER }}
+
+  run-tests-flagships:
+    name: Tests (flagships) ${{ matrix.python-version }} ${{ matrix.flagship }}
+    needs:
+      - pre-certification
+      - check-package-changes
+    permissions:
+      contents: read
+      packages: write # Allows this job to publish packages
+    if: |
+      needs.check-package-changes.outputs.package-has-changes == 'true' &&
+      needs.pre-certification.outputs.library-name == 'saf-product-manager'
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version:
+          - "3.11"
+          - "3.12"
+          - "3.13"
+          - "3.14"
+        flagship:
+          - aedt
+          - fluent
+          - geometry
+          - mapdl
+          - mechanical
+          - optislang
+          - visor
+
+    uses: ./.github/workflows/_test.yml
+    with:
+      python-version: ${{ matrix.python-version }}
+      tests-groups-file-path: .github/workflows/tests_groups_definitions/${{ needs.pre-certification.outputs.library-name
+        }}-${{ matrix.flagship }}.json
+      working-directory: packages/${{ needs.pre-certification.outputs.library-name
+        }}
+    secrets:
+      ANS_MINERVA_URL: ${{ secrets.ANS_MINERVA_URL }}
+      TEST_REP_CLIENT_SECRET: ${{ secrets.TEST_REP_CLIENT_SECRET }}
+      PYANSYS_PYPI_PRIVATE_PAT: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}
+      PYANSYS_PYPI_PRIVATE_URL: ${{ secrets.PYANSYS_PYPI_PRIVATE_URL }}
+      LICENSE_SERVER: ${{ secrets.LICENSE_SERVER }}
+
+  run-github-workflows-of-generated-solution:
+    name: Tests (generated solution) ${{ matrix.python-version }} ${{ matrix.ui-framework
+      }} ${{ matrix.use-encryption }}
+    permissions:
+      contents: write # Required to create branches and commit results in the generated solution branch
+      actions: write # Required to trigger the workflow
+    needs:
+      - pre-certification
+      - check-package-changes
+    if: |
+      needs.check-package-changes.outputs.package-has-changes == 'true' &&
+      needs.pre-certification.outputs.library-name == 'saf-cli'
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version:
+          - "3.11"
+          - "3.12"
+          - "3.13"
+          - "3.14"
+        use-encryption:
+          - true
+          - false
+        ui-framework:
+          - "dash"
+          - "none"
+    uses: ./.github/workflows/_test_generated_solution.yml
+    with:
+      use-encryption: ${{ matrix.use-encryption }}
+      ui-framework: ${{ matrix.ui-framework }}
+      python-version: ${{ matrix.python-version }}
+    secrets:
+      GENERATED_SOLUTION_TOKEN: ${{ secrets.GENERATED_SOLUTION_TOKEN }}
+      PYANSYS_PYPI_PRIVATE_PAT: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}
+      PYANSYS_PYPI_PRIVATE_URL: ${{ secrets.PYANSYS_PYPI_PRIVATE_URL }}
+
+  build-wheel:
+    name: "Wheel ${{ matrix.python-version }}"
+    needs: pre-certification
+    runs-on: ubuntu-latest
+    permissions:
+      attestations: write # Write attestation for uploaded distribution artifacts
+      contents: read # Read the source code of the project
+      id-token: write # Write access to a temporary token for signing attestations
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version:
+          - "3.11"
+          - "3.12"
+          - "3.13"
+          - "3.14"
+    steps:
+      - uses: ansys/actions/build-library@3ad3b285bd9b67045477dafc7f9865a3aa39f692 # v11.0.6
+        with:
+          library-name: ${{ needs.pre-certification.outputs.library-name }}-${{ matrix.python-version
+            }}
+          working-directory: packages/${{ needs.pre-certification.outputs.library-name
+            }}
+          python-version: ${{ matrix.python-version }}
+          attest-provenance: true
+          validate-build: true
+
+  check-wheel-can-be-pip-installed:
+    name: "Check wheel can be pip installed"
+    permissions:
+      contents: read
+    needs:
+      - build-wheel
+      - pre-certification
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version:
+          - "3.11"
+          - "3.12"
+          - "3.13"
+          - "3.14"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if wheel can be pip installed
+        uses: ansys/saf-devops/pip-install-production-wheel@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
+        with:
+          python-version: ${{ matrix.python-version }}
+          wheel-artifact: '${{ needs.pre-certification.outputs.library-name }}-${{
+            matrix.python-version }}-artifacts' # check the wheel created for the release can be pip-installed
+
+  certification-report:
+    name: Certification report
+    needs:
+      - pre-certification
+      - check-package-changes
+      - vulnerabilities
+      - dependabot-alerts
+      - run-tests
+      - run-tests-extended
+      - run-tests-flagships
+      - run-github-workflows-of-generated-solution
+      - build-wheel
+      - check-wheel-can-be-pip-installed
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Summarize certification results
+        shell: bash
+        env:
+          LIBRARY_NAME: ${{ needs.pre-certification.outputs.library-name }}
+          PRE_CERTIFICATION_RESULT: ${{ needs.pre-certification.result }}
+          CHECK_PACKAGE_CHANGES_RESULT: ${{ needs.check-package-changes.result }}
+          VULNERABILITIES_RESULT: ${{ needs.vulnerabilities.result }}
+          DEPENDABOT_RESULT: ${{ needs.dependabot-alerts.result }}
+          RUN_TESTS_RESULT: ${{ needs.run-tests.result }}
+          RUN_TESTS_EXTENDED_RESULT: ${{ needs.run-tests-extended.result }}
+          RUN_TESTS_FLAGSHIPS_RESULT: ${{ needs.run-tests-flagships.result }}
+          RUN_TESTS_GENERATED_SOLUTION_RESULT: ${{ needs.run-github-workflows-of-generated-solution.result
+            }}
+          BUILD_WHEEL_RESULT: ${{ needs.build-wheel.result }}
+          CHECK_WHEEL_RESULT: ${{ needs.check-wheel-can-be-pip-installed.result }}
+          OVERALL_CERTIFICATION_RESULT: ${{ (contains(needs.*.result, 'failure') ||
+            contains(needs.*.result, 'cancelled')) && 'failure' || 'success' }}
+        run: |
+          set -euo pipefail
+
+          {
+            echo "## Certification summary for ${LIBRARY_NAME}"
+            echo
+            echo "| Check | Status |"
+            echo "|---|---|"
+            echo "| Pre-certification | ${PRE_CERTIFICATION_RESULT} |"
+            echo "| Package changes detection | ${CHECK_PACKAGE_CHANGES_RESULT} |"
+            echo "| Vulnerabilities | ${VULNERABILITIES_RESULT} |"
+            echo "| Dependabot alerts | ${DEPENDABOT_RESULT} |"
+            echo "| Tests (standard) | ${RUN_TESTS_RESULT} |"
+            echo "| Tests (extended) | ${RUN_TESTS_EXTENDED_RESULT} |"
+            echo "| Tests (flagships) | ${RUN_TESTS_FLAGSHIPS_RESULT} |"
+            echo "| Tests (generated solution) | ${RUN_TESTS_GENERATED_SOLUTION_RESULT} |"
+            echo "| Wheel build | ${BUILD_WHEEL_RESULT} |"
+            echo "| Wheel pip installability | ${CHECK_WHEEL_RESULT} |"
+            echo
+            echo "Overall certification status: **${OVERALL_CERTIFICATION_RESULT}**"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [[ "$OVERALL_CERTIFICATION_RESULT" == "failure" ]]; then
+            echo "Certification checks reported one or more failures." >&2
+            exit 1
+          fi
+
+  post-certification:
+    name: "Tagging commit"
+    permissions:
+      contents: write # Required for creating/pushing tags and commits
+    needs:
+      - pre-certification
+      - certification-report
+      - dependabot-alerts
+      - run-tests
+      - build-wheel
+      - check-wheel-can-be-pip-installed
+    if: ${{ always() && (github.ref_name == 'main' || startsWith(github.ref_name,
+      'release/')) && needs.certification-report.result == 'success' }}
+    runs-on:
+      - ubuntu-latest
+    steps:
+      - name: tagging commit
+        uses: ansys/saf-devops/apply-tag-on-commit@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
+        with:
+          tag: certified-${{ needs.pre-certification.outputs.library-name }}

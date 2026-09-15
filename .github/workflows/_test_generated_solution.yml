@@ -1,0 +1,292 @@
+name: Test Generated Solution
+
+on:
+  workflow_call:
+    inputs:
+      use-encryption:
+        description: Use encryption
+        required: false
+        type: boolean
+        default: false
+      ui-framework:
+        description: "Type of solution UI"
+        required: false
+        type: string
+        default: "dash"
+      python-version:
+        description: "Python version to create the solution"
+        required: true
+        type: string
+    secrets:
+      GENERATED_SOLUTION_TOKEN:
+        description: 'Token for the generated solution'
+        required: true
+      PYANSYS_PYPI_PRIVATE_PAT:
+        description: 'Token for the PyAnsys private PyPI'
+        required: true
+      PYANSYS_PYPI_PRIVATE_URL:
+        description: 'URL for the PyAnsys private PyPI'
+        required: true
+
+  workflow_dispatch:
+    inputs:
+      use-encryption:
+        description: Use encryption
+        required: false
+        type: boolean
+        default: false
+      ui-framework:
+        description: "Type of solution UI"
+        required: false
+        type: choice
+        default: "dash"
+        options:
+          - dash
+          - none
+      python-version:
+        description: "Python version to create the solution"
+        required: true
+        type: string
+
+permissions: {}
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ inputs.ui-framework }}-${{ inputs.use-encryption
+    }}-${{ inputs.python-version }}
+  cancel-in-progress: true
+
+env:
+  EMAIL: "actions@github.com"
+  USERNAME: "GitHub-Actions"
+  BUILD_WORKFLOW: build-release.yml
+
+jobs:
+  create-solution:
+    permissions:
+      contents: read # Required to read the repository contents
+    name: create-solution - ${{ inputs.ui-framework }} ${{ inputs.use-encryption &&
+      '- encryption' || '' }} - ${{ inputs.python-version }}
+    outputs:
+      id: ${{ steps.information.outputs.id }}
+      solution-name: ${{ steps.information.outputs.solution-name }}
+      solution-display-name: ${{ steps.information.outputs.solution-display-name }}
+      solution-artifact: ${{ steps.information.outputs.solution-artifact }}
+      ui-framework: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.ui-framework
+        || inputs.ui-framework }}
+      use-encryption: ${{ steps.information.outputs.use-encryption }}
+      test-branch-name: ${{ steps.test-branch.outputs.test-branch-name }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Define arguments to create new solution
+        id: information
+        shell: bash
+        env:
+          UI_FRAMEWORK: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.ui-framework
+            || inputs.ui-framework }}
+          USE_ENCRYPTION: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.use-encryption
+            == 'true' || inputs.use-encryption == true }}
+        run: |
+          echo "UI_FRAMEWORK=${UI_FRAMEWORK}" >> $GITHUB_ENV
+
+          echo "USE_ENCRYPTION"=$USE_ENCRYPTION >> $GITHUB_ENV
+          echo "use-encryption"=$USE_ENCRYPTION >> $GITHUB_OUTPUT
+
+          id=$(uuidgen | tr -dc 'a-z0-9' | cut -c1-7)
+          echo "ID=$id" >> $GITHUB_ENV
+          echo "id=$id" >> $GITHUB_OUTPUT
+
+          solution_name=solution$id
+          echo "SOLUTION_NAME=$solution_name" >> $GITHUB_ENV
+          echo "solution-name=$solution_name" >> $GITHUB_OUTPUT
+
+          solution_display_name="Solution $id"
+          echo "SOLUTION_DISPLAY_NAME=$solution_display_name" >> $GITHUB_ENV
+          echo "solution-display-name=$solution_display_name" >> $GITHUB_OUTPUT
+
+          echo "SOLUTION_ARTIFACT=$solution_name" >> $GITHUB_ENV
+          echo "solution-artifact=$solution_name" >> $GITHUB_OUTPUT
+
+      - name: Get unique branch name
+        id: test-branch
+        shell: bash
+        run: |
+          actor="$(echo "${GITHUB_ACTOR}" | tr -d '[]')"
+
+          short_sha=$(echo "${GITHUB_SHA}" | cut -c1-7)
+          branch_name="$actor/saf-cli/${GITHUB_EVENT_NAME}/$short_sha/${SOLUTION_NAME}/ui-${UI_FRAMEWORK}-encryption-${USE_ENCRYPTION}"
+          echo "TEST_BRANCH_NAME"=$branch_name >> $GITHUB_ENV
+          echo "test-branch-name"=$branch_name >> $GITHUB_OUTPUT
+
+      - name: Prepare python environment
+        uses: ansys/saf-devops/prepare-python-environment@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
+        with:
+          python-version: ${{ inputs.python-version }}
+          poetry-version: ${{ vars.POETRY_VERSION }}
+          poetry-install-args: ""
+          python-project-path: "packages/saf-cli"
+
+      - name: Generate solution ${{ env.SOLUTION_NAME }} - encryption ${{ env.USE_ENCRYPTION
+          }} - UI ${{ env.UI_FRAMEWORK }}
+        working-directory: packages/saf-cli
+        shell: bash
+        run: printf "${SOLUTION_NAME}\n${SOLUTION_DISPLAY_NAME}\n${UI_FRAMEWORK}\n\n"
+          | .venv/bin/saf new
+
+      - name: Add saf-cli-reference
+        working-directory: packages/saf-cli
+        shell: bash
+        env:
+          BRANCH_NAME: ${{ github.head_ref != '' && github.head_ref || 'main' }}
+        run: | # zizmor: ignore[template-injection]
+          tmpfile=$(mktemp)
+
+          echo '          saf-cli-reference: git+https://${{'${{ secrets.GENERATED_SOLUTION_TOKEN }}'}}@github.com/ansys/saf.git@${{ env.BRANCH_NAME }}' > "$tmpfile"
+          echo '          saf-cli-package-path: packages/saf-cli' >> "$tmpfile"
+          sed -i '/build-result: executable/r '"$tmpfile" "${SOLUTION_NAME}/.github/workflows/${BUILD_WORKFLOW}"
+          rm "$tmpfile"
+
+      - name: Add files for encryption
+        if: ${{ env.USE_ENCRYPTION == 'true' }}
+        working-directory: packages/saf-cli
+        shell: bash
+        run: |
+          mkdir -p ${SOLUTION_NAME}/src/saf/solutions/${SOLUTION_NAME}/method_assets
+          touch ${SOLUTION_NAME}/src/saf/solutions/${SOLUTION_NAME}/method_assets/factor.txt
+          echo "./src/saf/solutions/${SOLUTION_NAME}/method_assets/factor.txt" >> ${SOLUTION_NAME}/obfuscate.txt
+
+      - name: Enable encryption
+        if: ${{ env.USE_ENCRYPTION == 'true' }}
+        working-directory: packages/saf-cli
+        shell: bash
+        # zizmor: ignore[template-injection]
+        run: |
+          tmpfile=$(mktemp)
+
+          cat > "$tmpfile" << 'CONTENT'
+                    encrypt-wheel: 'true'
+          CONTENT
+          sed -i '/build-result: executable/r '"$tmpfile" "${SOLUTION_NAME}/.github/workflows/${BUILD_WORKFLOW}"
+          rm "$tmpfile"
+
+          sed -i 's|dependencies-source: "build-system"|dependencies-source: build-system,requirements-file|g' "${SOLUTION_NAME}/.github/workflows/${BUILD_WORKFLOW}"
+
+          tmpfile=$(mktemp)
+          cat > "$tmpfile" << 'CONTENT'
+                  env:
+                    PIP_EXTRA_INDEX_URL: https://PAT:${{'${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}'}}@${{'${{ secrets.PYANSYS_PYPI_PRIVATE_URL }}'}}
+                    PIP_QUIET: 1
+          CONTENT
+          sed -i '/uses: ansys\/saf-devops\/saf-build@v1/r '"$tmpfile" "${SOLUTION_NAME}/.github/workflows/${BUILD_WORKFLOW}"
+          rm "$tmpfile"
+
+          mkdir -p ${SOLUTION_NAME}/requirements
+          echo "ansys-translation-utilities==0.4.dev0" >> ${SOLUTION_NAME}/requirements/requirements_build.txt
+          echo "cffi==2.0.0" >> ${SOLUTION_NAME}/requirements/requirements_build.txt
+          echo "cryptography==46.0.7" >> ${SOLUTION_NAME}/requirements/requirements_build.txt
+          echo "pycparser==3.0" >> ${SOLUTION_NAME}/requirements/requirements_build.txt
+
+      - name: Add license exception for the solution
+        working-directory: packages/saf-cli
+        shell: bash
+        run: | # zizmor: ignore[template-injection]
+          tmpfile=$(mktemp)
+          echo '          whitelist-license-check: ansys-minerva-python-client ansys-translation-utilities saf-solutions-${{ env.SOLUTION_NAME }}' > "$tmpfile"
+          sed -i '/use-uv: false/r '"$tmpfile" "${SOLUTION_NAME}/.github/workflows/${BUILD_WORKFLOW}"
+          rm "$tmpfile"
+
+      - name: Publish solution
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: ${{ env.SOLUTION_ARTIFACT }}
+          path: packages/saf-cli/${{ env.SOLUTION_NAME }}
+          include-hidden-files: true
+
+  testing:
+    permissions:
+      contents: write # Required to create branches and commit results in the generated solution branch
+      actions: write # Required to trigger the workflow
+    name: "Test generated solution"
+    needs: create-solution
+    outputs:
+      test-branch-name: ${{ steps.test-branch.outputs.test-branch-name }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: 'generated-solution-place-holder'
+          token: ${{ secrets.GENERATED_SOLUTION_TOKEN }}
+          persist-credentials: true
+
+      - name: Config user
+        run: |
+          git config --global user.email ${EMAIL}
+          git config --global user.name ${USERNAME}
+
+      - name: Get unique branch name
+        id: test-branch
+        shell: bash
+        env:
+          SOLUTION_NAME: ${{ needs.create-solution.outputs.solution-name }}
+          UI_FRAMEWORK: ${{ needs.create-solution.outputs.ui-framework }}
+          USE_ENCRYPTION: ${{ needs.create-solution.outputs.use-encryption }}
+        run: |
+          actor="$(echo "${GITHUB_ACTOR}" | tr -d '[]')"
+
+          short_sha=$(echo "${GITHUB_SHA}" | cut -c1-7)
+          branch_name="$actor/saf-cli/${GITHUB_EVENT_NAME}/$short_sha/${SOLUTION_NAME}/ui-${UI_FRAMEWORK}-encryption${USE_ENCRYPTION}"
+          echo "TEST_BRANCH_NAME"=$branch_name >> $GITHUB_ENV
+          echo "test-branch-name"=$branch_name >> $GITHUB_OUTPUT
+
+      - name: Create a branch
+        run: |
+          git switch --create ${TEST_BRANCH_NAME}
+          git push origin HEAD:${TEST_BRANCH_NAME}
+
+      - name: Download Solution
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: ${{ needs.create-solution.outputs.solution-artifact }}
+          path: '.'
+
+      - name: Push solution
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add .
+          git commit -m "Generated solution"
+          git push origin HEAD:${TEST_BRANCH_NAME}
+
+      - name: Trigger build workflow
+        uses: ansys/saf-devops/trigger-workflow@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
+        with:
+          workflow-name: ${{ env.BUILD_WORKFLOW }}
+          repository: ${{ github.repository }}
+          ref: ${{steps.test-branch.outputs.test-branch-name }}
+          time-interval-seconds: ${{ vars.GENERATED_SOLUTION_GITHUB_WORKFLOW_TEST_INTERVAL_SECONDS
+            }}
+          gh-token: ${{ github.token }}
+
+  delete-testing-environment:
+    permissions:
+      contents: write # Required to delete branches
+    name: "Delete testing environment"
+    needs: testing
+    if: |
+      always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: true
+
+      - name: Delete remote branch
+        env:
+          BRANCH: ${{ needs.testing.outputs.test-branch-name }}
+        run: git push origin --delete ${BRANCH}
+        continue-on-error: true

@@ -1,0 +1,3 @@
+# this is the linkcheck configuration
+[filtering]
+checkextern=1
