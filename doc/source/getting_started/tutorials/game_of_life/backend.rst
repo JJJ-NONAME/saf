@@ -5,7 +5,7 @@ Phase 3 — Backend
 
 .. topic:: Objective
 
-  **In this module, you'll cover the following topics:**
+ In this module, you'll cover the following topics:
 
   - :material-outlined:`add_box;1.25em;saf-objective-icon` Add a new step to the solution with
     ``saf add-step``.
@@ -271,8 +271,8 @@ business logic on the other:
     ``GameOfLifeStep`` with the two snippets above. Delete the ``calculate`` method and the
     ``first_arg``, ``second_arg`` and ``result`` fields — you don't need them.
 
-    Remember to point the ``SimulationController`` import at **your** business logic module:
-    ``from saf.solutions.game_of_life.solution.game_of_life import SimulationController``.
+    | Remember to point the ``SimulationController`` import at **your** business logic module:
+    | ``from saf.solutions.game_of_life.solution.game_of_life import SimulationController``.
 
 Transaction methods
 ===================
@@ -285,9 +285,9 @@ Transaction methods
 
     Every transaction comes in one of two flavors:
 
-    - **Blocking** (the default): the caller waits until the method returns. Use it for fast,
+    - **Blocking** (the default): The caller waits until the method returns. Use it for fast,
       deterministic work.
-    - **Long-running** (``@long_running``): the call returns immediately and the method keeps
+    - **Long-running** (``@long_running``): The call returns immediately and the method keeps
       going in the background. Use it for anything slow or iterative.
 
 Blocking or long-running?
@@ -298,7 +298,8 @@ and by **what the user should be able to do while it runs**.
 
 .. list-table::
    :header-rows: 1
-   :widths: 25 37 38
+   :stub-columns: 1
+   :widths: 20 35 45
 
    * -
      - Blocking transaction
@@ -329,14 +330,14 @@ and by **what the user should be able to do while it runs**.
 
 .. tip::
 
-    **Rule of thumb**: if the user would notice a spinner, make it long-running. A blocking
-    transaction that takes more than a second or two makes the whole application feel broken —
-    and one that takes minutes will hit client-side timeouts. Conversely, do not make
-    everything long-running: the background machinery adds latency and forces the frontend to
-    handle events and completion, which is needless complexity for a computation that takes
+    **Rule of thumb**: If the user would notice a spinner, make it long-running. A blocking
+    transaction that takes more than a second or two makes the whole application feel broken,
+    and one that takes minutes will hit client-side timeouts.
+
+    Conversely, do not make everything long-running. The background machinery adds latency and forces the frontend to handle events and completion, which is needless complexity for a computation that takes
     10 ms.
 
-In this step you will write one of each: ``display_initial_state`` is blocking, and
+In this step, you will write one of each: ``display_initial_state`` is blocking, and
 ``simulate`` — covered in the :ref:`next section <game_of_life_backend_long_running>` — is
 long-running.
 
@@ -377,7 +378,7 @@ Field dependencies with ``StepSpec``
 .. key-concept:: ``StepSpec``
 
     ``StepSpec`` declares the field dependencies of a transaction: ``download`` lists the
-    fields loaded from storage **before** the method runs, ``upload`` lists the fields
+    fields loaded from storage **before** the method runs, and ``upload`` lists the fields
     persisted **after** it finishes. A field that is not declared either holds no meaningful
     value on entry, or is silently dropped on exit.
 
@@ -536,7 +537,8 @@ events:
 
 .. list-table::
    :header-rows: 1
-   :widths: 30 25 45
+   :stub-columns: 1
+   :widths: 20 25 55
 
    * - Stream
      - Emitted by
