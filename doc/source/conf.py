@@ -342,6 +342,68 @@ class ExampleAdmonition(Directive):
         return [node]
 
 
+class KeyConceptAdmonition(Directive):
+    """Highlight a fundamental SAF concept.
+
+    Takes an optional argument used as the concept name, for example::
+
+        .. key-concept:: Transaction
+
+            A transaction method is the only place where step fields are read or written.
+    """
+
+    has_content = True
+    required_arguments = 0
+    optional_arguments = 1
+    final_argument_whitespace = True
+
+    def run(self):
+        self.assert_has_content()
+        text = "\n".join(self.content)
+        node = nodes.admonition(text, classes=["custom-admonition", "key-concept"])
+        title = "Key concept"
+        if self.arguments:
+            title = f"{title} — {self.arguments[0]}"
+        # Parse the title as inline reStructuredText so literals such as
+        # ``@transaction`` render as code rather than raw backticks.
+        title_nodes, messages = self.state.inline_text(title, self.lineno)
+        node += nodes.title(title, "", *title_nodes)
+        node += messages
+        self.state.nested_parse(self.content, self.content_offset, node)
+        return [node]
+
+
+class BestPracticeAdmonition(Directive):
+    """Highlight a recommended practice rather than a framework concept.
+
+    Takes an optional argument used as the practice name, for example::
+
+        .. best-practice:: Test on a clean machine
+
+            An installer tested only on your workstation proves nothing.
+    """
+
+    has_content = True
+    required_arguments = 0
+    optional_arguments = 1
+    final_argument_whitespace = True
+
+    def run(self):
+        self.assert_has_content()
+        text = "\n".join(self.content)
+        node = nodes.admonition(text, classes=["custom-admonition", "best-practice"])
+        title = "Best practice"
+        if self.arguments:
+            title = f"{title} — {self.arguments[0]}"
+        # Parse the title as inline reStructuredText so literals such as
+        # ``saf build`` render as code rather than raw backticks.
+        title_nodes, messages = self.state.inline_text(title, self.lineno)
+        node += nodes.title(title, "", *title_nodes)
+        node += messages
+        self.state.nested_parse(self.content, self.content_offset, node)
+        return [node]
+
+
 def add_target_blank_to_external_links(app, doctree, docname):
     for node in doctree.traverse(nodes.reference):
         uri = node.get("refuri", "")
@@ -411,6 +473,8 @@ def setup(app):
     app.add_directive("theory", TheoryAdmonition)
     app.add_directive("practice", PracticeAdmonition)
     app.add_directive("example", ExampleAdmonition)
+    app.add_directive("key-concept", KeyConceptAdmonition)
+    app.add_directive("best-practice", BestPracticeAdmonition)
     app.add_css_file("custom.css")
     app.connect("doctree-resolved", add_target_blank_to_external_links)
     app.connect("source-read", process_substitutions_in_directives)
