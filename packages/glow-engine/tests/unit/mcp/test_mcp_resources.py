@@ -67,6 +67,15 @@ async def test_mcp_solution_workflow_resource(mcp_unit_client: Client[FastMCPTra
     assert result[0].text == "Step-by-step workflow for using the solution End-to-end solution."
 
 
+async def test_mcp_saf_concepts_resource(mcp_unit_client: Client[FastMCPTransport]):
+    result = await mcp_unit_client.read_resource("saf://concepts")
+    assert len(result) == 1
+    assert isinstance(result[0], TextResourceContents)
+    text = result[0].text
+    for keyword in ["Project", "Step", "Field", "Entity handle", "Transaction", "Long-running transaction"]:
+        assert keyword in text
+
+
 async def test_mcp_solution_workflow_resource_can_be_customized(tmp_path: Path, mocker: MockerFixture):
     solution_md = tmp_path / "SOLUTION.md"
     solution_md.write_text("## Workflow\nmy-custom-workflow", encoding="utf-8")
