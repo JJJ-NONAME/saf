@@ -133,9 +133,12 @@ def _make_transaction_description(
 ) -> str:
     transaction = getattr(step_type, transaction_name)
     base_description = inspect.getdoc(transaction) or f"Run transaction '{transaction_name}' on step '{step_name}'."
-    if transaction_name in step_type.get_long_running_method_names():
-        return f"{base_description} It continues after the tool call starts it."
-    return f"{base_description} It completes during the tool call."
+    suffix = (
+        " It continues after the tool call starts it."
+        if transaction_name in step_type.get_long_running_method_names()
+        else " It completes during the tool call."
+    )
+    return f"{base_description} {' '.join(details)}{suffix}"
 
 
 def _register_transaction_tools(app: FastMCP, solution_class: type[Solution]) -> None:
