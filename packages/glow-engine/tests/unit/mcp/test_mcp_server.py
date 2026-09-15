@@ -25,6 +25,8 @@ from fastmcp.exceptions import ToolError
 import pytest
 from pytest_mock import MockerFixture
 
+from ansys.saf.glow._mcp._resolution import get_step
+from ansys.saf.glow._mcp._transaction_metadata import TransactionMetadata
 from ansys.saf.glow._mcp.server import build_app
 from ansys.saf.glow.client import NotFoundException
 from tests.mcp_expectations import (
@@ -42,6 +44,35 @@ from tests.mcp_expectations import (
 from tests.mocks.solution_end_to_end.solution import definition
 from tests.mocks.solution_end_to_end.solution.definition import EndToEndSolution
 from tests.mocks.solution_end_to_end.solution.transaction_verification_step import CustomTypeXYZ
+
+
+def test_get_step_resolves_named_step():
+    project = MagicMock()
+    expected_step = project.steps.mesh
+
+    assert get_step(project, "mesh") is expected_step
+
+
+def test_get_step_rejects_missing_step():
+    project = MagicMock()
+    project.steps.mesh = None
+
+    with pytest.raises(ValueError, match="Step 'mesh' not found."):
+        get_step(project, "mesh")
+
+
+def test_transaction_metadata_exposes_schema_and_description_data():
+    step_type = EndToEndSolution.get_steps_fields()["transaction_verification_step"]
+    metadata = TransactionMetadata(
+        step_name="transaction_verification_step",
+        transaction_name="sum_two_floats_with_inputs_and_output",
+        step_type=step_type,
+    )
+
+    assert metadata.transaction_parameter_names == ["field_1", "field_2"]
+    assert metadata.return_type is float
+    assert not metadata.is_long_running
+    assert "Transaction args: field_1, field_2." in metadata.description
 
 
 async def test_mcp_server_is_responsive(mcp_unit_client: Client[FastMCPTransport]):
