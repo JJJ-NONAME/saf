@@ -80,7 +80,7 @@ steps — ``FirstStep`` and ``SecondStep``. You will replace them with a single 
 
     .. code-block:: bash
 
-        saf add-step game-of-life --step-name game_of_life_step --ui-framework dash
+        saf add-step --step-name game_of_life_step --ui-framework dash
 
     The command prompts for a step template. Press :kbd:`Enter` to accept the default
     ``calculator-step``, which generates the sample "add two numbers" step you are about to
