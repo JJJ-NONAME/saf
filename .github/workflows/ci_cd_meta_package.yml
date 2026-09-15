@@ -439,12 +439,11 @@ jobs:
       - name: Create release
         id: create-release
         run: |
-          gh release create ${RELEASE_NAME} \
+          gh release create ${RELEASE_NAME} "${LIBRARY_NAME}-artifacts"/*.whl \
             --title ${RELEASE_NAME} \
             --notes-file release-notes/release_notes.md \
             --latest \
             --target ${RELEASE_BRANCH_NAME} \
-            --attach "${LIBRARY_NAME}-artifacts"/*.whl
         env:
           GH_TOKEN: ${{ github.token }}
           RELEASE_NAME: v${{ needs.build-meta-package.outputs.version }}-${{ env.LIBRARY_NAME
