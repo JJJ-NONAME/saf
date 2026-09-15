@@ -5,7 +5,7 @@ Phase 2 — Business logic
 
 .. topic:: Objective
 
-  **In this module, you'll cover the following topics:**
+  In this module, you'll cover the following topics:
 
   - :material-outlined:`grid_on;1.25em;saf-objective-icon` Understand the engineering problem the
     solution solves: Conway's Game of Life and its rules.
@@ -33,8 +33,7 @@ Conway's Game of Life in a nutshell
 ===================================
 
 The `Game of Life <https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life>`_ is a *cellular
-automaton* invented by mathematician John Conway in 1970. It is not a game you play, but rather a
-simulation you watch.
+automaton* invented by mathematician John Conway in 1970. It is not a game you play, but rather a simulation you watch.
 
 The universe is a 2D grid. Each cell is either **alive** or **dead**. Time advances in discrete
 **generations**, and the state of every cell at generation *n+1* depends only on its eight
@@ -42,7 +41,7 @@ surrounding neighbors at generation *n*:
 
 .. list-table::
    :header-rows: 1
-   :widths: 30 30 40
+   :widths: 30 30 30
 
    * - Current cell state
      - Live neighbors
@@ -81,7 +80,7 @@ tutorial:
    :alt: The blinker oscillator and the glider spaceship evolving generation after generation
    :width: 100%
 
-   One pattern of each family, followed over a full period.
+   One pattern of each family, followed over a full period
 
 
 Where business logic belongs
@@ -113,8 +112,7 @@ solution, and safe to import from anywhere in the backend.
 Get the engine
 ==============
 
-You are not going to write the engine. It already exists, and it is not the interesting part of
-this tutorial. Download it instead.
+You are not going to write the engine. It already exists, and it is not the most interesting part of this tutorial. Download it instead.
 
 .. practice::
 
@@ -135,7 +133,8 @@ last one is ever touched by the SAF backend.
 
 .. list-table::
    :header-rows: 1
-   :widths: 30 70
+   :stub-columns: 1
+   :widths: 25 75
 
    * - Object
      - Responsibility
@@ -220,8 +219,7 @@ check, write a short throwaway script that imports the function and calls it.
 
 .. tip::
 
-    ``check_engine.py`` is a scratch file, not part of the solution. Delete it once the check
-    passes, or keep it next to you while you develop — either way it never ships.
+    The ``check_engine.py`` file is a scratch file, not part of the solution. Delete it once the check passes, or keep it next to you while you develop — either way it never ships.
 
 Key takeaways
 =============

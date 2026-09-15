@@ -5,7 +5,7 @@ Phase 4 — Frontend
 
 .. topic:: Objective
 
-  **In this module, you'll cover the following topics:**
+  In this module, you'll cover the following topics:
 
   - :material-outlined:`folder_open;1.25em;saf-objective-icon` Discover where frontend code lives
     in a SAF solution, and the anatomy of a SAF Dash page.
@@ -55,7 +55,7 @@ replace its body with a fully functional page.
 The full frontend
 =================
 
-Here is the file you are aiming at. Skim it now; the rest of the phase dissects it one block
+Here is the file you are aiming at. Expand the dropdown to skim it now; the rest of the phase dissects it one block
 at a time.
 
 .. dropdown:: Complete ``game_of_life_page.py``
@@ -87,7 +87,7 @@ Anatomy of a SAF Dash page
        …) or backend events (streams).
 
     Recognizing those three blocks is enough to find your way around any SAF page, including
-    the ones you did not write.
+    ones you did not write.
 
 The rest of this phase walks through the three blocks in order.
 
@@ -159,13 +159,13 @@ The signature of the layout is fixed: SAF calls it with the project matching the
         step = project.steps.game_of_life_step
         return html.Div([...])
 
-From there you dereference the step you care about and use its fields as **initial values**
+From there, you dereference the step you care about and use its fields as **initial values**
 for the controls.
 
 The layout of this page is a two-column grid:
 
 - **Left column (3/12)** — the controls: a pattern picker, a max-iterations input, a grid-size
-  slider, a "Start simulation" button, and a small status area (iteration counter + progress
+  slider, a :guilabel:`Start simulation` button, and a small status area (iteration counter + progress
   bar).
 - **Right column (9/12)** — a Plotly ``Heatmap`` figure driven by the grid data.
 
@@ -283,7 +283,7 @@ Callback #1 — Preview the initial pattern
     - **reading** a field (``step.initial_grid_state``) fetches its current value;
     - **calling** a transaction (``step.display_initial_state()``) executes it.
 
-    There is no ``requests.post`` anywhere in a SAF page: the client turns each of those
+    There is no ``requests.post`` anywhere in a SAF page; the client turns each of those
     Pythonic operations into the corresponding REST API call under the hood.
 
 Whenever the user picks a new pattern or moves the grid-size slider, you want the heatmap to
@@ -303,7 +303,7 @@ Notice the flow:
 4. **Read** the output field (``initial_grid_state``) and use it to patch the figure.
 
 The interaction with the backend is entirely Pythonic. There is no ``requests.post`` call
-anywhere: SAF turns the field assignments and the ``display_initial_state()`` call into REST
+anywhere; SAF turns the field assignments and the ``display_initial_state()`` call into REST
 API calls under the hood.
 
 .. tip::
@@ -367,9 +367,9 @@ listener component you created in the layout.
 
 .. tip::
 
-    This callback fires **once per event**. On a grid of 20 × 20 cells running for 10
+    This callback fires **once per event**. On a grid of 20 x 20 cells running for 10
     iterations, that means 11 callbacks: one for generation 0 (emitted before the loop) and
-    one for each of the 10 iterations. Keep the callback body cheap.
+    one for each of the 10 iterations. Keep the callback body inexpensive.
 
 Callback #4 — React to the termination event
 =============================================
@@ -477,7 +477,7 @@ Key takeaways
 
 .. important::
 
-    - The frontend interacts with the backend **through the ``DashClient``**. Assign to a field and it is persisted.
+    - The frontend interacts with the backend **through the** ``DashClient``. Assign to a field and it is persisted.
       Call a transaction method and it runs.
     - Callbacks and transactions mirror each other: ``Input``/``State`` matches ``download``,
       ``Output`` matches ``upload``.
@@ -490,4 +490,4 @@ Key takeaways
     - Use ``dash.Patch()`` to send only the diff of a figure or component tree back to the
       browser; it keeps the update payload small.
     - Type hints on layout arguments (``project: GameOfLifeSolution``) unlock IDE completion
-      on step fields. A small effort with a big payoff.
+      on step fields — a small effort with a big payoff.

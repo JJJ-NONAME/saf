@@ -5,7 +5,7 @@ Phase 1 — Initialization
 
 .. topic:: Objective
 
-  **In this module, you'll cover the following topics:**
+  In this module, you'll cover the following topics:
 
   - :material-outlined:`terminal;1.25em;saf-objective-icon` Check that the ``ansys-saf-cli`` toolchain is
     available.
@@ -18,7 +18,7 @@ Phase 1 — Initialization
   - :material-outlined:`play_circle;1.25em;saf-objective-icon` Run the empty application with
     ``saf run --debug`` to confirm everything is wired correctly.
 
-  At the end of this phase you have a working empty SAF application.
+  At the end of this phase, you have a working empty SAF application.
 
 Check your toolbox
 ==================
@@ -69,14 +69,12 @@ virtual environment. How you check that it is available depends on which of the 
 
 .. seealso::
 
-    :ref:`prerequisites_saf_cli` in the :ref:`prerequisites` section if SAF CLI is not installed
-    yet.
+    If SAF CLI is not installed yet, see :ref:`prerequisites_saf_cli` in the :ref:`prerequisites` section.
 
 Create the solution from the template
 =====================================
 
-You never start a SAF solution from a blank folder. ``saf new`` instantiates a project template
-that already contains the structure and boilerplate code you need to get started.
+You never start a SAF solution from a blank folder. The ``saf new`` command instantiates a project template that already contains the structure and boilerplate code you need to get started.
 
 .. practice::
 
@@ -91,7 +89,8 @@ that already contains the structure and boilerplate code you need to get started
 
        .. list-table::
           :header-rows: 1
-          :widths: 35 30 35
+          :stub-columns: 1
+          :widths: 25 25 50
 
           * - Prompt
             - Value to enter
@@ -152,7 +151,8 @@ Three ideas are baked into this layout, and they hold for every SAF solution:
 
 .. list-table::
    :header-rows: 1
-   :widths: 25 75
+   :stub-columns: 1
+   :widths: 15 85
 
    * - Folder
      - Role
@@ -182,14 +182,15 @@ your environment, and in which version. Given the list of packages your project 
 resolves the whole graph, including the dependencies of your dependencies, into a single set
 of versions that are mutually compatible, installs them into a dedicated virtual environment,
 and records the result so the exact same set can be reproduced later. It also handles the
-packaging side: building the wheel that is shipped in the final installer. ``saf install``,
-``saf execute`` and ``saf build`` all delegate to Poetry under the hood.
+packaging side: building the wheel that is shipped in the final installer. The ``saf install``,
+``saf execute`` and ``saf build`` commands all delegate to Poetry under the hood.
 
 That contract is split across two files:
 
 .. list-table::
    :header-rows: 1
-   :widths: 25 75
+   :stub-columns: 1
+   :widths: 20 80
 
    * - File
      - Role
@@ -204,9 +205,7 @@ That contract is split across two files:
        ``pyproject.toml``. It guarantees that your machine, your colleague's machine, the CI
        pipeline, and the final installer all get a byte-identical environment.
 
-The two files must stay consistent. ``saf install`` installs from ``poetry.lock``, and Poetry
-refuses to do so if the lock file no longer matches the manifest. This is why every dependency
-change goes through ``poetry lock``, as shown in
+The two files must stay consistent. The ``saf install`` command installs from ``poetry.lock``, and Poetry refuses to do so if the lock file no longer matches the manifest. This is why every dependency change goes through ``poetry lock``, as shown in
 :ref:`Declare the dependencies <game_of_life_declare_dependencies>`.
 
 .. important::
@@ -242,8 +241,7 @@ every dependency declared in ``pyproject.toml``.
 
 .. note::
 
-    You never activate that environment by hand. ``saf run`` and ``saf execute`` do it for you,
-    which is why every command in this tutorial is prefixed with ``saf``.
+    Never activate that environment by hand. The ``saf run`` and ``saf execute`` commands do it for you, which is why every command in this tutorial is prefixed with ``saf``.
 
 .. _game_of_life_declare_dependencies:
 
@@ -306,9 +304,7 @@ matches the manifest.
 
 .. tip::
 
-    ``saf execute`` runs any command inside the solution virtual environment without you having
-    to activate it. Use it for Poetry, ``pytest``, ``sphinx-build``, or any other tool that must
-    see the solution dependencies.
+    The ``saf execute`` command runs any command inside the solution virtual environment without you having to activate it. Use it for Poetry, ``pytest``, ``sphinx-build``, or any other tool that must see the solution dependencies.
 
 Run the empty application
 =========================
@@ -342,7 +338,7 @@ If you saw the two sample steps, your toolchain is healthy and you are ready to 
 
 .. tip::
 
-    ``saf run`` has a few other variants worth knowing:
+    The ``saf run`` command has a few other variants worth knowing:
 
     - ``saf run --browser`` opens the app in your default web browser instead of a desktop
       window.
@@ -356,7 +352,7 @@ Key takeaways
 
 .. important::
 
-    - ``saf new`` instantiates a solution from the official template. Never start from an empty
+    - The ``saf new`` command instantiates a solution from the official template. Never start from an empty
       folder.
     - A solution is split into ``solution/`` (backend: definition and step models) and ``ui/``
       (frontend: one page per step). The split is what makes the solution deployable anywhere.
@@ -364,7 +360,7 @@ Key takeaways
       environment with ``saf install``. After editing ``pyproject.toml``, always refresh
       ``poetry.lock`` with ``saf execute "poetry lock"`` before reinstalling, otherwise
       ``saf install`` fails on an outdated lock file.
-    - ``saf run --debug`` starts the application with the Dash dev tools enabled — the default
+    - The ``saf run --debug`` command starts the application with the Dash dev tools enabled — the default
       way to run a solution while developing. ``--browser`` and ``--no-ui`` change how it is
       served.
     - Run the freshly scaffolded app **before** writing code. It takes thirty seconds and rules

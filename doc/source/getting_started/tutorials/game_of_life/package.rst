@@ -5,7 +5,7 @@ Phase 5 — Package
 
 .. topic:: Objective
 
-  **In this module, you'll cover the following topics:**
+  In this module, you'll cover the following topics:
 
   - :material-outlined:`inventory_2;1.25em;saf-objective-icon` Understand why a solution that runs
     from source is not yet something you can hand over to an end user.
@@ -25,7 +25,7 @@ Why package the solution?
 =========================
 
 Up to this point you have been running the solution from source with ``saf run --debug``. That
-is perfect for development but it assumes the target machine has:
+is perfect for development, but it assumes the target machine has:
 
 - a compatible Python interpreter,
 - the SAF CLI installed,
@@ -36,7 +36,7 @@ Real end users have none of that.
 
 .. key-concept:: ``saf build``
 
-    ``saf build`` is a one-shot command that packages a solution into a single
+    The ``saf build`` command is a one-shot command that packages a solution into a single
     executable installer. The installer includes code, Python interpreter and
     every dependency. The end user runs the installer, clicks through a
     Next / Next / Finish wizard, and lands on a working desktop app.
@@ -46,15 +46,14 @@ Real end users have none of that.
 
 .. important::
 
-    ``saf build`` is **platform-specific**: it produces an installer for the operating system
+    The ``saf build`` command is **platform-specific**: it produces an installer for the operating system
     of the machine it runs on, and there is no cross-compilation.
 
-    - Run on Windows, it produces a Windows ``.exe`` installer.
-    - Run on Linux, it produces a Linux executable.
+    - When run on Windows, it produces a Windows ``.exe`` installer.
+    - When run on Linux, it produces a Linux executable.
 
     To ship the solution on both platforms, run the build twice — once on a Windows machine,
-    once on a Linux machine. The commands below are identical on either side.
-
+    once on a Linux machine. The following commands are identical in either case.
 
 Prerequisites
 =============
@@ -76,7 +75,7 @@ The build command needs an installed solution to package.
 Build the installer
 ===================
 
-You have two knobs to think about before you build: **online vs offline installer**, and
+Before building, choose the installer's network model and build mode: **online vs offline installer** and
 **development vs release build**.
 
 Online vs offline installer
@@ -184,15 +183,15 @@ Never ship an installer you have not smoke-tested yourself.
                  ~/.local/share/ansys_inc/saf_solutions/Game of Life Solution/1/
                  /opt/ansys_inc/saf_solutions/Game of Life Solution/1/
 
-    #. Launch the newly-installed solution: from the Start menu or the desktop shortcut on
-       Windows, from the desktop entry or the executable in the installation directory on
+    #. Launch the newly-installed solution — from the Start menu or the desktop shortcut on
+       Windows, and from the desktop entry or the executable in the installation directory on
        Linux.
 
     #. Reproduce the full end-to-end flow from :ref:`phase 4 <game_of_life_frontend>`:
 
        - Pick a couple of patterns and verify the heatmap redraws.
        - Move the grid-size slider and verify the heatmap redraws.
-       - Click **Start simulation**, wait for the run to complete, and verify the completion
+       - Click :guilabel:`Start simulation`, wait for the run to complete, and verify the completion
          notification.
 
     If any of that fails, the ``--display-console-window`` build you produced first will show
@@ -201,8 +200,7 @@ Never ship an installer you have not smoke-tested yourself.
 Where to go from here
 =====================
 
-Congratulations — you now have a fully functional, distributable SAF solution. Here are three
-natural next steps to keep expanding your SAF fluency:
+Congratulations — you now have a fully functional, distributable SAF solution. To continue expanding your SAF fluency, explorethese three next steps:
 
 - :ref:`installer` — the full reference for ``saf build``, including options for encrypting or
   obfuscating your source code, excluding the Python interpreter, or bundling as a directory

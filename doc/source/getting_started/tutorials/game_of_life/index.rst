@@ -40,51 +40,60 @@ By the end of the tutorial you will have written and understood:
   .. grid-item-card:: :material-outlined:`account_tree;1.4em;saf-concept-icon` Solution definition - The shape of your app
     :class-card: concept-card
 
-    Which steps make up your application
-    (:ref:`Solution definition <solution_definition>`).
+    The steps that make up your application.
+
+    See :ref:`solution_definition`.
 
   .. grid-item-card:: :material-outlined:`dataset;1.4em;saf-concept-icon` Step model - Where each step stores its data and triggers computations
     :class-card: concept-card
 
-    A step holds the inputs, outputs, and methods that make up a computation. It is the main building block of a SAF solution
-    (:ref:`Step model <step_models>`).
+    A step holds the inputs, outputs, and methods that make up a computation. It is the main building block of a SAF solution.
+
+    See :ref:`step_models`.
 
   .. grid-item-card:: :material-outlined:`swap_vert;1.4em;saf-concept-icon` Fields - Inputs, Outputs and intermediate data
     :class-card: concept-card
 
-    Data containers that hold the inputs, outputs, and intermediate data of a step. Fields can be typed, validated, and have dependencies on other fields
-    (:ref:`Field dependencies <field_states>`).
+    Data containers that hold the inputs, outputs, and intermediate data of a step. Fields can be typed, validated, and have dependencies on other fields.
+
+    See :ref:`field_states`.
 
   .. grid-item-card:: :material-outlined:`bolt;1.4em;saf-concept-icon` Blocking transaction methods - Quick actions
     :class-card: concept-card
 
-    Short computations that finish right away. For example, updating a field or very short calculations that return a result immediately
-    (:ref:`Blocking transaction <transaction_method_definition>`).
+    Short computations that finish right away. For example, updating a field or very short calculations that return a result immediately.
+
+    See :ref:`transaction_method_definition`.
 
   .. grid-item-card:: :material-outlined:`hourglass_top;1.4em;saf-concept-icon` Non-blocking transaction methods - Background jobs
     :class-card: concept-card
 
-    Longer computations that keep going while the user carries on using the app. Typically, these methods are
-    intended for job executions, long-running simulations, or any process that may take a significant amount of time to complete
-    (:ref:`Long-running transaction <asynchronous_execution>`).
+    Longer computations that keep going while the user carries on using the app. Typically, these methods are intended for job executions, long-running simulations, or any process that may take a significant amount of time to complete.
+
+    See :ref:`asynchronous_execution`.
 
   .. grid-item-card:: :material-outlined:`sensors;1.4em;saf-concept-icon` Events - Live progress
     :class-card: concept-card
 
     Messages sent from the running computation to the UI so the user sees generations,
-    percentages or logs appear in real time (:ref:`Real-time events <events>`).
+    percentages or logs appear in real time.
+
+    See :ref:`events`.
 
   .. grid-item-card:: :material-outlined:`sync_alt;1.4em;saf-concept-icon` Frontend - The user interface
     :class-card: concept-card
 
-    User-facing Dash pages that let the user interact with the backend and visualize results
-    (:ref:`Dash frontend <dash_frontend>`).
+    User-facing Dash pages that let the user interact with the backend and visualize results.
+
+    See :ref:`dash_frontend`.
 
   .. grid-item-card:: :material-outlined:`inventory_2;1.4em;saf-concept-icon` Desktop installation - Shipping the app
     :class-card: concept-card
 
     Packaging the finished solution as a single file you can hand to any user, with
-    no Python or setup on their side (:ref:`Desktop installer <installer>`).
+    no Python or setup on their side.
+
+    See :ref:`installer`.
 
 Prerequisites
 =============
@@ -98,7 +107,7 @@ You will also get more out of the tutorial if you are comfortable with:
 - The idea of a web application with a backend and a frontend.
 - Reading small snippets of `Plotly Dash <https://dash.plotly.com/>`_ code.
 
-Everything else, SAF concepts, ``ansys-saf-cli`` commands, Dash Mantine components, is introduced
+Everything else — SAF concepts, ``ansys-saf-cli`` commands, Dash Mantine components—is introduced
 progressively as you need it.
 
 Learning path
