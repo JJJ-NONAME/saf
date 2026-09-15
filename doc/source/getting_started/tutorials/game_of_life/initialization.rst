@@ -117,9 +117,9 @@ that already contains the structure and boilerplate code you need to get started
 
 .. note::
 
-    The solution name must be lowercase and hyphen-separated. ``ansys-saf-cli`` converts it to a valid
-    Python identifier (``game_of_life``) for the package name, so do not use spaces or capital
-    letters.
+Use a lowercase, hyphen-separated name such as ``game-of-life``. SAF converts it to a valid
+Python identifier (``game_of_life``) for the package name, so this form is recommended for the
+tutorial.
 
 What the template generates
 ===========================
