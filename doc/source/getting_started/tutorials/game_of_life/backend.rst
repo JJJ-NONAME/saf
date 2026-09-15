@@ -42,7 +42,7 @@ Phase 3 — Backend
 
     .. code-block:: text
 
-        saf.solutions.examples.solution.scripts.game_of_life
+        saf.solutions.examples.solution.game_of_life
 
     with
 
@@ -82,15 +82,24 @@ steps — ``FirstStep`` and ``SecondStep``. You will replace them with a single 
 
         saf add-step game-of-life --step-name game_of_life_step --ui-framework dash
 
+    The command prompts for a step template. Press :kbd:`Enter` to accept the default
+    ``calculator-step``, which generates the sample "add two numbers" step you are about to
+    replace.
+
     ``saf add-step`` creates **both** the backend and the frontend file for the new step at
     once:
 
     - ``src/saf/solutions/game_of_life/solution/game_of_life_step.py`` (backend).
     - ``src/saf/solutions/game_of_life/ui/pages/game_of_life_page.py`` (frontend).
 
-    It also registers the step in ``definition.py`` and in ``ui/pages/page.py``. You will keep
-    the frontend file for :ref:`phase 4 <game_of_life_frontend>`; for now, focus on the
-    backend one.
+    It also registers the step in ``definition.py``. You will keep the frontend file for
+    :ref:`phase 4 <game_of_life_frontend>`; for now, focus on the backend one.
+
+.. note::
+
+    The page router in ``ui/pages/page.py`` needs no edit, ever. Pages advertise themselves
+    through ``dash.register_page``, and the router builds the navigation tree from Dash's page
+    registry. Adding or deleting a page file is enough.
 
 The solution definition
 =======================
@@ -172,11 +181,8 @@ Three things are worth pointing out:
                version: int = 1
                steps: Steps
 
-    #. Edit ``ui/pages/page.py`` and delete every reference to ``first_page`` and
-       ``second_page`` (import statement plus the branches inside the ``display_page``
-       callback). Only the branch that returns ``game_of_life_page`` should remain.
-
-    Save all the files.
+    Save all the files. There is nothing to change in ``ui/pages/page.py``: deleting the two
+    page files is enough for them to disappear from the navigation tree.
 
 The step model
 ==============
@@ -242,7 +248,7 @@ The first three fields are **inputs**: the user drives them from the UI. The las
 
 .. warning::
 
-    Field values must be **JSON-serialisable**, because they travel over the REST API between
+    Field values must be **JSON-serializable**, because they travel over the REST API between
     the backend and the frontend. That is why ``initial_grid_state`` and ``grid_states`` are
     plain nested ``list`` of ``int`` rather than NumPy arrays — and why the transactions call
     ``.tolist()`` before assigning a grid to a field.
@@ -404,7 +410,7 @@ Read it like this:
 
 Why declare this explicitly instead of letting SAF figure it out? Because ``download`` /
 ``upload`` is precisely what lets a solution be split across process, container and machine
-boundaries without you writing a single line of serialisation code. The step model becomes a
+boundaries without you writing a single line of serialization code. The step model becomes a
 contract that the runtime can honor anywhere.
 
 .. note::
@@ -486,7 +492,7 @@ A long-running job that says nothing until it is done is barely better than a bl
 
     **Events** are how a SAF backend talks to the outside world *while it is still running*.
     Inside a transaction, ``self.transaction.raise_event(message=..., stream_name=...)``
-    publishes a JSON-serialisable message on a named stream that any listener — typically the
+    publishes a JSON-serializable message on a named stream that any listener — typically the
     frontend — can subscribe to in real time.
 
 Every call to ``raise_event`` looks like this:
@@ -498,7 +504,7 @@ Every call to ``raise_event`` looks like this:
         stream_name="my-stream",
     )
 
-- ``message`` is any **JSON-serialisable** dict. Here, one full grid plus the generation
+- ``message`` is any **JSON-serializable** dict. Here, one full grid plus the generation
   number.
 - ``stream_name`` is a free-form identifier that you choose. The frontend subscribes to it by
   name in :ref:`phase 4 <game_of_life_frontend>`.
@@ -590,7 +596,7 @@ Key takeaways
       together with the ``Solution`` class.
     - A **step model** is a ``StepModel`` subclass whose typed class attributes are its
       **fields**. Every field needs a type annotation — no exceptions.
-    - **Field values must be JSON-serialisable**. Convert NumPy arrays with ``.tolist()``
+    - **Field values must be JSON-serializable**. Convert NumPy arrays with ``.tolist()``
       before storing them in a field.
     - Any method that touches fields is decorated with ``@transaction`` and declares its
       **field dependencies** in a ``StepSpec`` (``download`` for reads, ``upload`` for writes).

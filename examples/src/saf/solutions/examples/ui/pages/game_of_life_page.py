@@ -263,6 +263,8 @@ def start_simulation(
             False,
             False,
             False,
+            "0/{}".format(max_iterations),
+            0,
         )
 
     return (

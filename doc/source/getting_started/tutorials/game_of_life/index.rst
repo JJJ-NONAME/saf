@@ -26,7 +26,7 @@ That's it. Yet these rules are enough to reveal blinking oscillators, spaceships
 the grid and self-replicating structures.
 
 For a SAF tutorial the Game of Life has one big advantage: it stays product-agnostic while
-exercising **most** the building blocks that a real engineering solution needs.
+exercising **most of** the building blocks that a real engineering solution needs.
 
 SAF concepts you will meet
 ==========================
@@ -104,7 +104,7 @@ progressively as you need it.
 Learning path
 =============
 
-The tutorial is organised in five phases. Follow them in order — each phase builds on the
+The tutorial is organized in five phases. Follow them in order — each phase builds on the
 previous one.
 
 .. grid:: 2
@@ -149,7 +149,7 @@ previous one.
     :link: package
     :shadow: lg
 
-    Ship the finished solution as a standalone Windows desktop installer.
+    Ship the finished solution as a standalone desktop installer, for Windows or Linux.
 
 .. tip::
 

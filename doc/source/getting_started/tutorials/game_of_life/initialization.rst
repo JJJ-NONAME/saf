@@ -137,7 +137,8 @@ Take a minute to look around. Almost everything you will touch in this tutorial 
         ├── solution/
         │   ├── definition.py          # The solution definition — the workflow contract
         │   ├── first_step.py          # Sample step (backend)
-        │   └── second_step.py         # Sample step (backend)
+        │   ├── second_step.py         # Sample step (backend)
+        │   └── scripts/               # Source code shipped to job submission execution nodes
         └── ui/
             ├── app.py                 # Dash app instance (auto-generated, leave it alone)
             ├── assets/                # CSS, icons, images
@@ -265,7 +266,6 @@ matches the manifest.
        .. code-block:: toml
 
            [tool.poetry.dependencies]
-           python = ">=3.10,<3.14"
            # ... existing entries ...
            numpy = "^2.0"
 

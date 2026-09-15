@@ -47,7 +47,7 @@ All frontend code lives under ``src/saf/solutions/game_of_life/ui/``:
     └── pages/
         ├── about_page.py     # Landing page (auto-generated)
         ├── game_of_life_page.py   # ← the file you will edit
-        └── page.py           # Page router (already updated in phase 3)
+        └── page.py           # Page router (auto-generated, don't touch)
 
 You already have a ``game_of_life_page.py`` skeleton from ``saf add-step``. You are going to
 replace its body with a fully functional page.
@@ -86,7 +86,7 @@ Anatomy of a SAF Dash page
     #. **Callbacks**: decorated functions that fire in response to UI events (click, change,
        …) or backend events (streams).
 
-    Recognising those three blocks is enough to find your way around any SAF page, including
+    Recognizing those three blocks is enough to find your way around any SAF page, including
     the ones you did not write.
 
 The rest of this phase walks through the three blocks in order.
@@ -143,8 +143,8 @@ The layout function
 
     Annotating the parameter with your own ``Solution`` class turns ``project`` into a
     **typed handle** on the whole workflow: ``project.steps.game_of_life_step`` and its fields
-    come with full IDE completion. Reading a field inside the layout is how you give a control
-    its initial value.
+    come with full IDE completion. Reading a field inside the layout is how you seed a control
+    with a value already stored in the backend.
 
     See `Dash layout <https://dash.plotly.com/layout>`__ for the general principles, and
     `layout in Dash pages <https://dash.plotly.com/urls#layout>`__ for the function form used
@@ -207,8 +207,16 @@ The two SAF-specific lines are right at the end:
 
 .. practice::
 
-    Replace the body of ``game_of_life_page.py`` with the ``layout`` function above. Save the
-    file and continue — the page is not usable until the callbacks are in place.
+    #. Replace the whole content of ``game_of_life_page.py`` with the complete listing above
+       — imports, ``dash.register_page`` and ``layout``. Remember to substitute the
+       ``saf.solutions.examples`` namespace and ``ExamplesSolution`` with your own.
+
+    #. The "Start Simulation" button uses an icon that the template does not ship. Download
+       `mdi--play.svg <https://github.com/ansys/saf/blob/main/examples/src/saf/solutions/examples/ui/assets/icons/mdi--play.svg>`__
+       and drop it into ``src/saf/solutions/game_of_life/ui/assets/icons/``. Without it the
+       button renders with a broken image.
+
+    Save the file and continue — the page is not usable until the callbacks are in place.
 
 Callbacks 101
 =============
@@ -222,8 +230,8 @@ Callbacks 101
     - ``State``: a value SAF **reads but does not watch**.
     - ``Output``: a value SAF **writes back** to the browser once the callback returns.
 
-    Callbacks are the only place where the frontend talks to the backend — which makes them
-    the exact frontend mirror of the backend's transaction methods.
+    Callbacks are where the frontend drives the backend — which makes them the frontend
+    mirror of the backend's transaction methods.
 
     See `Basic callbacks <https://dash.plotly.com/basic-callbacks>`__ for ``Input`` and
     ``Output``, `Dash app with state <https://dash.plotly.com/basic-callbacks#dash-app-with-state>`__
@@ -243,7 +251,7 @@ A callback in Dash is a decorated function that reacts to changes in the UI:
         ...
         return new_value_for_the_output
 
-Two rules to internalise:
+Two rules to internalize:
 
 1. The number of ``Input`` + ``State`` arguments in the decorator must match the number of
    function parameters. SAF passes you an extra ``project`` parameter automatically when the

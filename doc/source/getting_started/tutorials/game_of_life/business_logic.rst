@@ -66,7 +66,7 @@ surrounding neighbors at generation *n*:
 
    The same four rules, applied to the cell highlighted in gold.
 
-That is the entire rule set. Yet from those three lines emerge surprisingly rich behaviors,
+That is the entire rule set. Yet from those few lines emerge surprisingly rich behaviors,
 which is exactly why the Game of Life is famous. The initial configuration you seed the grid
 with determines everything that follows. Two families of starting patterns matter for this
 tutorial:
@@ -118,7 +118,7 @@ this tutorial. Download it instead.
 
 .. practice::
 
-    #. Open `game_of_life.py <https://github.com/ansys/saf/blob/main/examples/src/saf/solutions/examples/solution/scripts/game_of_life.py>`__
+    #. Open `game_of_life.py <https://github.com/ansys/saf/blob/main/examples/src/saf/solutions/examples/solution/game_of_life.py>`__
        on GitHub.
 
     #. Click the :bdg-primary:`Download raw file` button in the top-right corner of the code
@@ -143,7 +143,7 @@ last one is ever touched by the SAF backend.
      - A dataclass and an enum describing one predefined starting configuration (its name,
        its category, and the 2D NumPy array of live cells).
    * - ``PatternLibrary``
-     - The catalogue of available patterns (``blinker``, ``toad``, ``beacon``, ``pulsar``,
+     - The catalog of available patterns (``blinker``, ``toad``, ``beacon``, ``pulsar``,
        ``glider``, ``lwss``, ``gosper_glider_gun``). Also knows how to center a small pattern
        on a larger grid.
    * - ``GameOfLifeEngine``
