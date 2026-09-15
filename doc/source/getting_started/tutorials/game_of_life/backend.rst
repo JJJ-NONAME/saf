@@ -159,6 +159,9 @@ Three things are worth pointing out:
 
     #. Delete the files ``solution/first_step.py`` and ``solution/second_step.py``.
     #. Delete the files ``ui/pages/first_page.py`` and ``ui/pages/second_page.py``.
+    #. Remove or rewrite the generated ``tests/unit/test_solution_api.py`` and
+       ``tests/unit/test_solution_ui.py`` because they still exercise the deleted
+       calculator step and page.
     #. Edit ``solution/definition.py`` to look exactly like this:
 
        .. code-block:: python
