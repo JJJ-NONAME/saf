@@ -86,6 +86,38 @@ async def test_mcp_server_transaction_tools_have_descriptions(mcp_unit_client: C
     assert {name: descriptions[name] for name in TRANSACTION_TOOL_DESCRIPTIONS} == TRANSACTION_TOOL_DESCRIPTIONS
 
 
+async def test_mcp_server_transaction_tool_custom_docstring_keeps_appended_details(
+    mcp_unit_client: Client[FastMCPTransport],
+):
+    """A custom docstring replaces only the default summary sentence, not the appended field/arg/return details."""
+    tools = await mcp_unit_client.list_tools()
+    descriptions: dict[str, str] = {tool.name: tool.description or "" for tool in tools}
+
+    cases = [
+        (
+            "transaction_verification_step__get_field_1_and_2_and_set_the_sum_in_result",
+            "Run the documented sync transaction.",
+            SYNC_DESCRIPTION_SUFFIX,
+        ),
+        (
+            "transaction_verification_step__lr_get_field_1_and_2_and_set_the_sum_in_result",
+            "Run the documented long-running transaction.",
+            LONG_RUNNING_DESCRIPTION_SUFFIX,
+        ),
+    ]
+
+    for tool_name, docstring, suffix in cases:
+        description = descriptions[tool_name]
+        assert description != f"{docstring}{suffix}"
+        assert description.startswith(f"{docstring} ")
+        assert description.endswith(suffix)
+        details = description.removeprefix(f"{docstring} ").removesuffix(suffix)
+        assert details.startswith("Download step fields: ")
+        assert "Upload step fields: " in details
+        assert "Transaction args: " in details
+        assert "Return type: " in details
+
+
 async def test_mcp_server_transaction_tool_parameters_have_descriptions(mcp_unit_client: Client[FastMCPTransport]):
     tools = {tool.name: tool for tool in await mcp_unit_client.list_tools()}
 
@@ -208,6 +240,10 @@ async def test_mcp_server_has_expected_resources(mcp_unit_client: Client[FastMCP
     expected_resources = {
         "list_tool_sets": ("toolsets://definition", "Available tools for using the Solution."),
         "solution_workflow": ("solution://workflow", "Step by step workflow guideline for using the Solution."),
+        "saf_concepts": (
+            "saf://concepts",
+            "Generic explanation of SAF solution concepts: projects, steps, fields, entity handles, transactions.",
+        ),
     }
     assert resource_names == set(expected_resources.keys())
     for resource in resources:

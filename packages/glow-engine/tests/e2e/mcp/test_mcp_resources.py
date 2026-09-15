@@ -66,6 +66,14 @@ class TestMCPResources:
         assert isinstance(result[0], TextResourceContents)
         assert result[0].text == "Step-by-step workflow for using the solution End-to-end solution."
 
+    async def test_mcp_saf_concepts_resource(self, mcp_client: MCPClient[StreamableHttpTransport]):
+        result = await mcp_client.read_resource("saf://concepts")
+        assert len(result) == 1
+        assert isinstance(result[0], TextResourceContents)
+        text = result[0].text
+        for keyword in ["Project", "Step", "Field", "Entity handle", "Transaction", "Long-running transaction"]:
+            assert keyword in text
+
     @pytest.mark.usefixtures("add_solution_md_file")
     @pytest.mark.parametrize("add_solution_md_file", ["## Workflow\nmy-custom-workflow"], indirect=True)
     async def test_mcp_solution_workflow_resource_can_be_customized(
