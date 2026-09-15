@@ -162,7 +162,11 @@ def _make_transaction_description(
     ]
 
     base_description = inspect.getdoc(transaction) or f"Run transaction '{transaction_name}' on step '{step_name}'."
-    suffix = " It continues after the tool call starts it." if transaction_name in step_type.get_long_running_method_names() else " It completes during the tool call."
+    suffix = (
+        " It continues after the tool call starts it."
+        if transaction_name in step_type.get_long_running_method_names()
+        else " It completes during the tool call."
+    )
     return f"{base_description} {' '.join(details)}{suffix}"
 
 
