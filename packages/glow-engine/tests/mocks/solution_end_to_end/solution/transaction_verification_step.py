@@ -161,6 +161,12 @@ class TransactionVerificationStep(StepModel):
         time.sleep(self.sleepy_seconds)
         return field_1 + field_2
 
+    @transaction(self=StepSpec(download=["field_1", "field_2"], upload=["custom_object2_x", "child_process_pid"]))
+    def offset_fields_into_multiple_outputs(self, offset_1: float, offset_2: float) -> None:
+        # Do not add a docstring here, as this is a test for the default description generation in MCP server.
+        self.custom_object2_x = int(self.field_1 + offset_1)
+        self.child_process_pid = int(self.field_2 + offset_2)
+
     @transaction(self=StepSpec())
     @long_running
     def lr_use_solution_configuration(self, solution_configuration: SolutionConfiguration) -> None:

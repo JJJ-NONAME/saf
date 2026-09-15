@@ -121,6 +121,10 @@ class TestMCPServer:
         expected_resources = {
             "list_tool_sets": ("toolsets://definition", "Available tools for using the Solution."),
             "solution_workflow": ("solution://workflow", "Step by step workflow guideline for using the Solution."),
+            "saf_concepts": (
+                "saf://concepts",
+                "Generic explanation of SAF solution concepts: projects, steps, fields, entity handles, transactions.",
+            ),
         }
         assert resource_names == set(expected_resources.keys())
         for resource in resources:

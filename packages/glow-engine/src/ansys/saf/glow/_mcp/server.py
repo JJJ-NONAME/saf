@@ -126,16 +126,48 @@ def _make_tool_func(
     return _run
 
 
+def _format_field_names(field_names: list[str]) -> str:
+    return ", ".join(field_names) if field_names else "none"
+
+
+def _describe_transaction_args(transaction: Callable[..., Any]) -> str:
+    method_type_hints = get_type_hints(transaction)
+    transaction_signature = inspect.signature(transaction)
+    transaction_body_params, _ = categorize_transaction_parameters(method_type_hints, transaction_signature)
+    return _format_field_names(list(transaction_body_params))
+
+
+def _describe_transaction_return_type(transaction: Callable[..., Any]) -> str:
+    return_type = get_type_hints(transaction).get("return", type(None))
+    if return_type is type(None):
+        return "None"
+    return inspect.formatannotation(return_type)
+
+
 def _make_transaction_description(
     step_name: str,
     step_type: type[Any],
     transaction_name: str,
 ) -> str:
     transaction = getattr(step_type, transaction_name)
+    step_transaction_spec = getattr(transaction, "_transaction", {}).get("self")
+    download_fields = getattr(step_transaction_spec, "download", []) if step_transaction_spec else []
+    upload_fields = getattr(step_transaction_spec, "upload", []) if step_transaction_spec else []
+
+    details = [
+        f"Download step fields: {_format_field_names(download_fields)}.",
+        f"Upload step fields: {_format_field_names(upload_fields)}.",
+        f"Transaction args: {_describe_transaction_args(transaction)}.",
+        f"Return type: {_describe_transaction_return_type(transaction)}.",
+    ]
+
     base_description = inspect.getdoc(transaction) or f"Run transaction '{transaction_name}' on step '{step_name}'."
-    if transaction_name in step_type.get_long_running_method_names():
-        return f"{base_description} It continues after the tool call starts it."
-    return f"{base_description} It completes during the tool call."
+    suffix = (
+        " It continues after the tool call starts it."
+        if transaction_name in step_type.get_long_running_method_names()
+        else " It completes during the tool call."
+    )
+    return f"{base_description} {' '.join(details)}{suffix}"
 
 
 def _register_transaction_tools(app: FastMCP, solution_class: type[Solution]) -> None:
@@ -173,6 +205,34 @@ def build_app(definition_module: ModuleType, solution_class: type[Solution], sol
         if workflow is None:
             raise RuntimeError("Solution workflow documentation not configured.")
         return workflow
+
+    @app.resource("saf://concepts")
+    def saf_concepts() -> str:  # pyright: ignore[reportUnusedFunction]
+        """Generic explanation of SAF solution concepts: projects, steps, fields, entity handles, transactions."""
+        return """\
+        A SAF solution is a guided simulation workflow made of the following building blocks:
+
+        - Project: a persisted instance of the solution. All data, files, and transaction state belong to
+        exactly one project. Use the "project" toolset (create_project, list_projects, delete_projects,
+        import_project, export_project) to manage projects.
+        - Step: a named stage of the workflow (e.g. "geometry", "mesh", "solve"). Each step owns a set of
+        fields and the transactions that operate on them. Discover a solution's steps and transactions via
+        the "toolsets://definition" and "solution://workflow" resources.
+        - Field: a typed piece of data owned by a step (numbers, strings, booleans, custom pydantic models,
+        or entity handles). Read and write fields with the get_fields and set_fields tools.
+        - Entity handle: a field type that references file content (inputs, results, meshes, images, etc.)
+        stored outside the field itself. Read and write their bytes with download_file and upload_file.
+        - Transaction: a step method that downloads some fields, does work, and uploads other fields.
+        Transactions are the only supported way to mutate step data; run them with the generated
+        "<step_name>__<transaction_name>" tools. Each transaction tool's description states which fields it
+        downloads, which it uploads, its arguments, and its return type.
+        - Long-running transaction: a transaction that keeps running after its tool call returns. Start it
+        with its tool as usual, then block on completion with wait_for_longrunning_transaction.
+
+        Typical usage: create or open a project, inspect the workflow, set input fields and upload input
+        files, run transactions in the order the workflow describes, then read output fields and download
+        output files.
+        """
 
     @app.resource("toolsets://definition")
     def list_tool_sets() -> list[dict[str, str | list[str]]]:  # pyright: ignore[reportUnusedFunction]

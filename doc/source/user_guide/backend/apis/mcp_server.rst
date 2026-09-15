@@ -119,6 +119,14 @@ The file uses standard Markdown with two recognised level-2 headings:
 
 Both sections are optional and any other section will be ignored. If a section is missing, a default is generated.
 
+.. tip::
+  Generic SAF concepts (what a project, step, field, or entity handle is, that transactions download and
+  upload step fields, or that long-running transactions must be awaited with
+  ``wait_for_longrunning_transaction``) are already explained to the agent via the ``saf://concepts``
+  resource. Keep ``SOLUTION.md`` focused on what is specific to your solution: the meaning of its steps
+  and fields, the order transactions must run in, and any domain constraints, rather than restating how
+  SAF or its generic tools work.
+
 Example
 -------
 
@@ -129,20 +137,16 @@ Example
    ## Instructions
 
    This solution runs structural analyses using Ansys Mechanical.
-   Always create a project before setting fields or running transactions.
    Do not run `solve` until `setup_geometry` has completed successfully.
 
    ## Workflow
 
-   1. Call `create_project` to obtain a project name.
-   2. Set the geometry file using `upload_file` on the `pre_processing` step,
-      field `geometry_file`.
-   3. Run `setup_geometry` to prepare the model.
-   4. Set mesh parameters with `set_fields` on the `meshing` step.
-   5. Run `generate_mesh`.
-   6. Run `solve`. Use `wait_for_longrunning_transaction` to wait for completion.
-   7. Download the results with `download_file` on the `post_processing` step,
-      field `result_file`.
+   1. In a fresh project, upload the geometry file on the `pre_processing` step, field `geometry_file`.
+   2. Run `setup_geometry` to prepare the model.
+   3. Set mesh parameters on the `meshing` step.
+   4. Run `generate_mesh`.
+   5. Run `solve`.
+   6. Download the results on the `post_processing` step, field `result_file`.
 
 
 Available resources
@@ -158,6 +162,10 @@ Available resources
    * - ``solution://workflow``
      - Returns the step-by-step workflow guide for the solution, sourced from the ``## Workflow`` section
        of ``SOLUTION.md``. If the section is missing, a default generated from the available solution's information is returned.
+
+   * - ``saf://concepts``
+     - Explains the generic SAF solution concepts (projects, steps, fields, entity handles, transactions,
+       long-running transactions) that apply to every solution, regardless of its specific steps or fields.
 
    * - ``toolsets://definition``
      - Lists all available tools grouped into named tool sets (``project``, ``data``, ``transactions``).
@@ -231,6 +239,9 @@ Available tools
      - Runs a transaction method. One tool is registered per transaction method defined in the solution.
        If a regular synchronous transaction is called, it's a blocking call and the result (if there is) is returned at the end.
        If a long-running transaction is called, the call ends immediately and returns nothing. Use the tool ``wait_for_longrunning_transaction`` to wait for the transaction to complete and retrieve its result (if any).
+       The tool's description starts with the transaction method's docstring, if it has one (otherwise a default
+       sentence naming the transaction and step is used), followed by the step fields it downloads and uploads,
+       its arguments, and its return type.
 
    * - ``wait_for_longrunning_transaction``
      - Waits for a previously started long-running transaction to complete and returns its result.

@@ -116,19 +116,71 @@ TRANSACTION_TOOL_PARAMETER_DESCRIPTIONS = {
 }
 
 TRANSACTION_TOOL_DESCRIPTIONS = {
-    "transaction_verification_step__get_field_1_and_2_and_set_the_sum_in_result": (
-        "Run the documented sync transaction. It completes during the tool call."
+    # no download fields, no upload fields, no args, no docstring, `None` return type.
+    "transaction_verification_step__log_an_error": (
+        "Run transaction 'log_an_error' on step 'transaction_verification_step'. "
+        "Download step fields: none. Upload step fields: none. Transaction args: none. "
+        "Return type: None. It completes during the tool call."
     ),
+    # download fields only, no upload fields.
+    "transaction_verification_step__kill_process": (
+        "Run transaction 'kill_process' on step 'transaction_verification_step'. "
+        "Download step fields: child_process_pid. Upload step fields: none. Transaction args: none. "
+        "Return type: None. It completes during the tool call."
+    ),
+    # upload fields only, no download fields.
+    "transaction_verification_step__set_field_1_to_1": (
+        "Run transaction 'set_field_1_to_1' on step 'transaction_verification_step'. "
+        "Download step fields: none. Upload step fields: field_1. Transaction args: none. "
+        "Return type: None. It completes during the tool call."
+    ),
+    # both download and upload fields, docstring present, sync.
+    "transaction_verification_step__get_field_1_and_2_and_set_the_sum_in_result": (
+        "Run the documented sync transaction. "
+        "Download step fields: field_1, field_2. Upload step fields: result. Transaction args: none. "
+        "Return type: None. It completes during the tool call."
+    ),
+    # transaction args present, non-None return type, no download/upload fields.
     "transaction_verification_step__sum_two_floats_with_inputs_and_output": (
         "Run transaction 'sum_two_floats_with_inputs_and_output' on step 'transaction_verification_step'. "
-        "It completes during the tool call."
+        "Download step fields: none. Upload step fields: none. Transaction args: field_1, field_2. "
+        "Return type: float. It completes during the tool call."
     ),
+    # multiple download fields, multiple upload fields, and multiple transaction args at once.
+    "transaction_verification_step__offset_fields_into_multiple_outputs": (
+        "Run transaction 'offset_fields_into_multiple_outputs' on step 'transaction_verification_step'. "
+        "Download step fields: field_1, field_2. Upload step fields: custom_object2_x, child_process_pid. "
+        "Transaction args: offset_1, offset_2. Return type: None. It completes during the tool call."
+    ),
+    # str return type.
+    "transaction_verification_step__read_text_file": (
+        "Run transaction 'read_text_file' on step 'transaction_verification_step'. "
+        "Download step fields: text_file. Upload step fields: text_content. Transaction args: none. "
+        "Return type: str. It completes during the tool call."
+    ),
+    # a solution_configuration parameter is excluded from the described transaction args.
+    "transaction_verification_step__use_solution_configuration": (
+        "Run transaction 'use_solution_configuration' on step 'transaction_verification_step'. "
+        "Download step fields: none. Upload step fields: none. Transaction args: none. "
+        "Return type: None. It completes during the tool call."
+    ),
+    # both download and upload fields, docstring present, long-running.
     "transaction_verification_step__lr_get_field_1_and_2_and_set_the_sum_in_result": (
-        "Run the documented long-running transaction. It continues after the tool call starts it."
+        "Run the documented long-running transaction. "
+        "Download step fields: field_1, field_2, sleepy_seconds. Upload step fields: result. "
+        "Transaction args: none. Return type: None. It continues after the tool call starts it."
     ),
+    # download fields only, transaction args present, non-None return type, long-running.
     "transaction_verification_step__lr_sum_two_floats_with_inputs_and_output": (
         "Run transaction 'lr_sum_two_floats_with_inputs_and_output' on step 'transaction_verification_step'. "
-        "It continues after the tool call starts it."
+        "Download step fields: sleepy_seconds. Upload step fields: none. Transaction args: field_1, field_2. "
+        "Return type: float. It continues after the tool call starts it."
+    ),
+    # solution_configuration parameter excluded from args, long-running.
+    "transaction_verification_step__lr_use_solution_configuration": (
+        "Run transaction 'lr_use_solution_configuration' on step 'transaction_verification_step'. "
+        "Download step fields: none. Upload step fields: none. Transaction args: none. "
+        "Return type: None. It continues after the tool call starts it."
     ),
 }
 
