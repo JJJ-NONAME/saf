@@ -1,0 +1,52 @@
+[
+    {
+        "test-report-artifact-name-suffix": "test_mapdl_workflow_pim_linux",
+        "pytest-additional-arguments": "tests/e2e/test_mapdl.py::TestMapdl --docker",
+        "pytest-markers": "use_mapdl and use_pim",
+        "runner-name": "testing-runner-lin",
+        "prepare-runner": "true",
+        "upgrade-docker": "true",
+        "install-pim-light-server": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_mapdl_workflow_hps_linux",
+        "pytest-additional-arguments": "tests/e2e/test_mapdl.py::TestMapdl --docker -n 0",
+        "pytest-markers": "use_mapdl and use_hps",
+        "runner-name": "testing-runner-lin",
+        "prepare-runner": "true",
+        "install-hps": "true",
+        "upgrade-docker": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_mapdl_workflow_pim_windows",
+        "pytest-additional-arguments": "tests/e2e/test_mapdl.py::TestMapdl",
+        "pytest-markers": "use_mapdl and use_pim",
+        "runner-name": "testing-runner-win",
+        "install-pim-light-server": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_mapdl_secure_pim_linux",
+        "pytest-additional-arguments": "tests/e2e/test_mapdl.py::test_secure_mapdl_on_pim --docker",
+        "pytest-markers": "use_mapdl and use_pim",
+        "runner-name": "testing-runner-lin",
+        "prepare-runner": "true",
+        "upgrade-docker": "true",
+        "install-pim-light-server": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_mapdl_secure_hps_linux",
+        "pytest-additional-arguments": "tests/e2e/test_mapdl.py::test_secure_mapdl_on_hps --docker -n 0",
+        "pytest-markers": "use_mapdl and use_hps",
+        "runner-name": "testing-runner-lin",
+        "prepare-runner": "true",
+        "install-hps": "true",
+        "upgrade-docker": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_mapdl_secure_pim_windows",
+        "pytest-additional-arguments": "tests/e2e/test_mapdl.py::test_secure_mapdl_on_pim",
+        "pytest-markers": "use_mapdl and use_pim",
+        "runner-name": "testing-runner-win",
+        "install-pim-light-server": "true"
+    }
+]

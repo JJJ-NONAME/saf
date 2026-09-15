@@ -1,0 +1,12 @@
+# this is the link configuration for internal documentation (not for customers)
+[filtering]
+checkextern=1
+ignore=
+  # the following will be broken if the referenced ports are not open and served properly
+  # but because they reference servers that the solution developer might usefully be able to link to
+  # we don't raise errors for them
+  https?\:\/\/localhost\:.*
+  https?\:\/\/127\.0\.0\.1\:.*
+  # the following files is auto-generated and includes macros which can be handled by linkchecker
+  .*\/_static\/webpack-macros.html
+  .*/_static/css/breadcrumbs.css

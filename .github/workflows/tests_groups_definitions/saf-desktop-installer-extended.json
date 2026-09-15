@@ -1,0 +1,443 @@
+[
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_default",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_default",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_default",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_default",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_run_solution_without_log_to_files",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_run_solution_without_log_to_files",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_run_solution_without_log_to_files",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_run_solution_without_log_to_files",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_with_no_executable",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_no_executable",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_with_no_executable",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_no_executable",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_with_display_console_window",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_display_console_window",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_with_display_console_window",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_display_console_window",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_with_python_version",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_python_version",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_with_python_version",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_python_version",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_with_force_python_from_source[3.11.15]",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_force_python_from_source[3.11.15]",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_with_force_python_from_source[3.12.9]",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_force_python_from_source[3.12.9]",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_with_excluded_python",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_excluded_python",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_with_excluded_python",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_excluded_python",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_with_obfuscation",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_obfuscation",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_with_obfuscation",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_obfuscation",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_with_offline_package_with_different_python_versions[None]",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_offline_package_with_different_python_versions[None]",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_with_offline_package_with_different_python_versions[None]",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_offline_package_with_different_python_versions[None]",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_with_offline_package_with_different_python_versions[3.11.8]",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_offline_package_with_different_python_versions[3.11.8]",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_with_offline_package_with_different_python_versions[3.11.8]",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_offline_package_with_different_python_versions[3.11.8]",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_with_offline_package_with_different_python_versions[3.12.4]",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_offline_package_with_different_python_versions[3.12.4]",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_with_offline_package_with_different_python_versions[3.12.4]",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_offline_package_with_different_python_versions[3.12.4]",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_with_offline_package_with_different_python_versions[3.12.12]",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_offline_package_with_different_python_versions[3.12.12]",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_with_offline_package_with_different_python_versions[3.12.12]",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_offline_package_with_different_python_versions[3.12.12]",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_with_offline_package_with_different_python_versions[3.13.0]",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_offline_package_with_different_python_versions[3.13.0]",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_with_offline_package_with_different_python_versions[3.13.0]",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_offline_package_with_different_python_versions[3.13.0]",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_with_offline_package_with_different_python_versions[3.14.0]",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_offline_package_with_different_python_versions[3.14.0]",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_with_offline_package_with_different_python_versions[3.14.0]",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_offline_package_with_different_python_versions[3.14.0]",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_with_offline_package_and_excluded_python",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_offline_package_and_excluded_python",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_with_offline_package_and_excluded_python",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_offline_package_and_excluded_python",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_with_custom_assets",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_custom_assets",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_with_custom_assets",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_custom_assets",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_with_encrypt[True]",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_encrypt[True]",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_with_encrypt[True]",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_encrypt[True]",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_with_encrypt[False]",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_encrypt[False]",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_with_encrypt[False]",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_encrypt[False]",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_without_documentation",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_without_documentation",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_without_documentation",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_without_documentation",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_with_modified_solution_module_name",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_modified_solution_module_name",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_with_modified_solution_module_name",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_modified_solution_module_name",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_keeps_downloaded_python_for_same_python_version",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_keeps_downloaded_python_for_same_python_version",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_keeps_downloaded_python_for_same_python_version",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_keeps_downloaded_python_for_same_python_version",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_with_custom_ui_dependencies",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_custom_ui_dependencies",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_with_custom_ui_dependencies",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_custom_ui_dependencies",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_with_executable_as_dir",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_executable_as_dir",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_with_executable_as_dir",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_executable_as_dir",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_with_solution_with_installer_duplicated_in_desktop_group",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_solution_with_installer_duplicated_in_desktop_group",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_with_solution_with_installer_duplicated_in_desktop_group",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_solution_with_installer_duplicated_in_desktop_group",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_with_fallback_pip_based_installation",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_fallback_pip_based_installation",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_with_fallback_pip_based_installation",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_fallback_pip_based_installation",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_with_offline_package_and_no_export_plugin",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_offline_package_and_no_export_plugin",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_with_offline_package_and_no_export_plugin",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_offline_package_and_no_export_plugin",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_gui_default",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_with_ui.py::TestInstallerWithUI::test_installer_gui_default",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_gui_default",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_with_ui.py::TestInstallerWithUI::test_installer_gui_default",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_gui_installation_directory_without_write_permissions",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_with_ui.py::TestInstallerWithUI::test_installer_gui_installation_directory_without_write_permissions",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_gui_installation_directory_without_write_permissions",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_with_ui.py::TestInstallerWithUI::test_installer_gui_installation_directory_without_write_permissions",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_long_paths_disabled",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_long_paths_disabled.py",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_long_paths_disabled",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_long_paths_disabled.py",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_webview2_not_available",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_webview2_not_available.py",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_webview2_not_available",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_webview2_not_available.py",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_without_portal",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_without_portal",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_without_portal",
+        "pytest-additional-arguments": "-n0 --reruns 2 --reruns-delay 30 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_without_portal",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_places_shortcut_in_applications_dir_when_run_as_root",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_places_shortcut_in_applications_dir_when_run_as_root",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_places_shortcut_in_applications_dir_when_run_as_root",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_places_shortcut_in_applications_dir_when_run_as_root",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_install_and_launch_with_synopsys_namespace[without_env_var-synopsys-custom-ns-solution]",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstallerCustomNamespace::test_install_and_launch_with_synopsys_namespace[without_env_var-synopsys-custom-ns-solution]",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_install_and_launch_with_synopsys_namespace[without_env_var-synopsys-custom-ns-solution]",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstallerCustomNamespace::test_install_and_launch_with_synopsys_namespace[without_env_var-synopsys-custom-ns-solution]",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_install_and_launch_with_synopsys_namespace[with_env_var-synopsys-custom-ns-solution]",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstallerCustomNamespace::test_install_and_launch_with_synopsys_namespace[with_env_var-synopsys-custom-ns-solution]",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_install_and_launch_with_synopsys_namespace[with_env_var-synopsys-custom-ns-solution]",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstallerCustomNamespace::test_install_and_launch_with_synopsys_namespace[with_env_var-synopsys-custom-ns-solution]",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    }
+]

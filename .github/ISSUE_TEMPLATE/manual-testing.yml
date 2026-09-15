@@ -1,0 +1,96 @@
+name: 🔧 Manual test plan
+description: Manual test plan for a release candidate.
+title: "Test plan report for build version ..."
+labels: ["testing", "test-plan"]
+assignees: [""]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ⚠️ Warning
+        **Please do not share:**
+        - Sensitive customer information or data
+        - Links to Ansys/Synopsys or any internal websites
+        - Confidential or proprietary information
+
+        This is a public repository and all information submitted will be visible to everyone.
+
+  - type: input
+    id: build-version
+    attributes:
+      label: 'regression-certified build version'
+      description: Give the version number used for manual testing. Version must be
+        already certified by automatic testing.
+    validations:
+      required: true
+
+  - type: textarea
+    id: commit-sha
+    attributes:
+      label: 'Commit sha'
+      description: Give the commit sha used for the manual tests.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: 'Test cases currently covered by manual testing'
+      description: 'Test cases currently covered by manual testing'
+      value: |
+        - [ ] #1546
+        - [ ] #1545
+        - [ ] #1483
+        - [ ] #1172
+
+  - type: markdown
+    attributes:
+      value: |
+        ## _The following sections should be filled out after the issue has been created from the template and/or used to provide relevant information to the author of the issue._
+
+  - type: checkboxes
+    id: outcome
+    attributes:
+      label: Manual tests successful?
+      description: 'Outcome of test execution.'
+      options:
+        - label: Manual tests passed.
+        - label: At least one manual test failed.
+
+  - type: textarea
+    id: failed-tests
+    attributes:
+      label: Failed tests
+      description: In case at least one manual test failed.
+      placeholder: 'Failed tests: < ID1 >, < ID2 >...'
+    validations:
+      required: false
+
+  - type: textarea
+    id: show-stopper
+    attributes:
+      label: Show-stopper defects
+      description: In case at least one of the failed tests was caused by a show-stopper
+        defect.
+      placeholder: 'Showstopper failed tests: < ID1 >, < ID2 >...'
+    validations:
+      required: false
+
+  - type: textarea
+    id: platform
+    attributes:
+      label: "Platform"
+      description: "OS and version, Browser and version, Job scheduler and versions
+        as relevant"
+      placeholder: "Example : Windows Server 22/Red Hat 8.6...Chrome v117"
+    validations:
+      required: true
+
+  - type: textarea
+    id: associated-bug-reports
+    attributes:
+      label: Bugs related to failed tests.
+      value: |
+        Please link the bug issues associated with the failed manual tests as sub-issues, if any. Bug reports can predate test execution.
+    validations:
+      required: true

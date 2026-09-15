@@ -1,0 +1,234 @@
+# =============================================================================
+# Python core
+# =============================================================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.py[codz]
+*$py.class
+*.so
+
+# Cython debug symbols
+cython_debug/
+
+# PEP 582 (pyflow)
+__pypackages__/
+
+# =============================================================================
+# Build & distribution
+# =============================================================================
+
+.Python
+build/
+_build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+*.whl
+target/
+
+# PyInstaller
+*.manifest
+*.spec
+
+# pip
+pip-log.txt
+pip-delete-this-directory.txt
+
+# PyPI configuration
+.pypirc
+
+# =============================================================================
+# Testing & coverage
+# =============================================================================
+
+htmlcov/
+.tox/
+{toxworkdir}/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+coverage.json
+coverage.lcov
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+reports/
+pytest_logs/
+
+# Coverage configuration
+.coveragerc
+
+# =============================================================================
+# Documentation
+# =============================================================================
+
+# Sphinx
+doc/_build/
+doc/build/
+doc/source/api/_autosummary
+doc/source/sg_execution_times.rst
+# sphinx-gallery output generated from packages/dash-super-components/examples/gallery_apps
+doc/source/examples/dash_super_components_examples/index.rst
+doc/source/examples/dash_super_components_examples/general/
+doc/source/examples/dash_super_components_examples/saf_based/
+doc/source/examples/dash_super_components_examples/images/
+doc/source/examples/dash_super_components_examples/sg_execution_times.rst
+packages/bdm-python-api/doc/source/api/
+packages/bdm-python-api/doc/source/ansys/
+packages/saf-iam-oidc/doc/source/ansys/
+packages/glow-engine/doc/source/ansys/
+packages/saf-product-manager/doc/source/ansys/
+packages/saf-product-configuration/doc/source/ansys/
+
+# mkdocs
+/site
+
+# =============================================================================
+# Virtual environments & package managers
+# =============================================================================
+
+# Environments
+.env
+.envrc
+.venv
+.poetry
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Poetry
+poetry.toml
+
+# pyenv
+.python-version
+
+# pdm
+.pdm.toml
+.pdm-python
+.pdm-build/
+
+# pixi
+.pixi
+
+# =============================================================================
+# Type checkers & linters
+# =============================================================================
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre
+.pyre/
+
+# pytype
+.pytype/
+
+# Ruff
+.ruff_cache/
+
+# =============================================================================
+# IDEs & editors
+# =============================================================================
+
+# VS Code (kept for solution templates)
+.vscode/
+!packages/saf-cli/src/ansys/saf/cli/_solutions/templates/solution/{{cookiecutter.__solution_name}}/.vscode
+
+# PyCharm / JetBrains
+#.idea/
+
+# Cursor
+.cursorignore
+.cursorindexingignore
+
+# Spyder
+.spyderproject
+.spyproject
+
+# Rope
+.ropeproject
+
+# Emacs
+.dir-locals.el
+
+# =============================================================================
+# Notebooks & interactive tools
+# =============================================================================
+
+# Jupyter
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# Marimo
+marimo/_static/
+marimo/_lsp/
+__marimo__/
+
+# =============================================================================
+# Miscellaneous tools
+# =============================================================================
+
+# Logs
+*.log
+
+# SonarQube
+.scannerwork
+**/setup-sonarqube.sh
+
+# Structurizr
+**/.structurizr/
+
+# Abstra
+.abstra/
+
+# =============================================================================
+# SAF / project-specific
+# =============================================================================
+
+# HPS deployment
+hps_deployment/
+hps_deployment_logs.txt
+
+# REP deployment
+docker-compose-customer/
+rep-evaluator/
+rep-scalar/
+rep_deployment_logs.txt
+*.tgz
+*.tar.gz
+
+# Diskcache
+cache/
+
+# Local cloned repos used for action development
+tmp_saf_devops/
+
+# Release notes of ansys-saf-sdk
+release_notes.md

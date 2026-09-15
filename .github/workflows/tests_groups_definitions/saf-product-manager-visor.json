@@ -1,0 +1,32 @@
+[
+    {
+        "test-report-artifact-name-suffix": "test_visor_pim_linux",
+        "pytest-additional-arguments": "tests/e2e/test_visor.py --docker",
+        "pytest-markers": "use_visor and use_pim",
+        "runner-name": "ubuntu-latest-16-cores",
+        "prepare-runner": "true",
+        "upgrade-docker": "true",
+        "docker-version": "5:28.0.4-1~ubuntu.24.04~noble",
+        "install-pim-light-server": "true",
+        "install-visor": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_visor_hps_linux",
+        "pytest-additional-arguments": "tests/e2e/test_visor.py --docker -n 0",
+        "pytest-markers": "use_visor and use_hps",
+        "runner-name": "ubuntu-latest-16-cores",
+        "prepare-runner": "true",
+        "install-hps": "true",
+        "upgrade-docker": "true",
+        "docker-version": "5:28.0.4-1~ubuntu.24.04~noble",
+        "install-visor": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_visor_pim_windows",
+        "pytest-additional-arguments": "tests/e2e/test_visor.py",
+        "pytest-markers": "use_visor and use_pim",
+        "runner-name": "testing-runner-win",
+        "install-pim-light-server": "true",
+        "install-visor": "true"
+    }
+]

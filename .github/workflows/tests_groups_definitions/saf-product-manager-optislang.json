@@ -1,0 +1,27 @@
+[
+    {
+        "test-report-artifact-name-suffix": "test_optislang_wrapper_pim_linux",
+        "pytest-additional-arguments": "tests/e2e/test_optislang_wrapper.py --docker",
+        "pytest-markers": "use_optislang and use_pim",
+        "runner-name": "testing-runner-lin",
+        "prepare-runner": "true",
+        "upgrade-docker": "true",
+        "install-pim-light-server": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_optislang_wrapper_hps_linux",
+        "pytest-additional-arguments": "tests/e2e/test_optislang_wrapper.py --docker -n 0",
+        "pytest-markers": "use_optislang and use_hps",
+        "runner-name": "testing-runner-lin",
+        "prepare-runner": "true",
+        "install-hps": "true",
+        "upgrade-docker": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_optislang_wrapper_pim_windows",
+        "pytest-additional-arguments": "tests/e2e/test_optislang_wrapper.py",
+        "pytest-markers": "use_optislang and use_pim",
+        "runner-name": "testing-runner-win",
+        "install-pim-light-server": "true"
+    }
+]

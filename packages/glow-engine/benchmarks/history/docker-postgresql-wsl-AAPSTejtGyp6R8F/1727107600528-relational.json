@@ -1,0 +1,64 @@
+{
+    "time": "2024-09-23T17:06:40.528087",
+    "data": [
+        {
+            "name": "client_connection",
+            "median_duration": 0.03562808036804199,
+            "mean_duration": 0.03562808036804199,
+            "maximum_duration": 0.03562808036804199,
+            "minimum_duration": 0.03562808036804199,
+            "parameters": {}
+        },
+        {
+            "name": "create project",
+            "median_duration": 0.14280128479003906,
+            "mean_duration": 0.14280128479003906,
+            "maximum_duration": 0.14280128479003906,
+            "minimum_duration": 0.14280128479003906,
+            "parameters": {}
+        },
+        {
+            "name": "store into empty project",
+            "median_duration": 0.3493208885192871,
+            "mean_duration": 0.3493208885192871,
+            "maximum_duration": 0.3493208885192871,
+            "minimum_duration": 0.3493208885192871,
+            "parameters": {
+                "project_size": 4194304.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.30759358406066895,
+            "mean_duration": 0.30759358406066895,
+            "maximum_duration": 0.30759358406066895,
+            "minimum_duration": 0.30759358406066895,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 4194304.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.10962343215942383,
+            "mean_duration": 0.10962343215942383,
+            "maximum_duration": 0.10962343215942383,
+            "minimum_duration": 0.10962343215942383,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 4194304.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.1739654541015625,
+            "mean_duration": 0.1739654541015625,
+            "maximum_duration": 0.1739654541015625,
+            "minimum_duration": 0.1739654541015625,
+            "parameters": {
+                "previous_size": 4194304.0,
+                "project_size": 4194304.0
+            }
+        }
+    ]
+}

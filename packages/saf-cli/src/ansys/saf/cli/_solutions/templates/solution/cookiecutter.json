@@ -1,0 +1,18 @@
+{
+  "__solution_name": "my_solution",
+  "__solution_display_name": "My Solution",
+  "__ui_framework": "dash",
+  "__solution_module_name": "my_solution",
+  "__solution_package_name": "my-solution",
+  "__solution_definition_class_name": "MySolution",
+  "__solution_namespace": "saf.solutions",
+  "__solution_namespace_path": "saf/solutions",
+  "__version": "0.0.0",
+  "__docker_name": "my-solution_0-0-0",
+  "__pkg_name": "saf-solutions-my-solution",
+  "__pkg_namespace": "saf.solutions.my_solution",
+  "__repository_url": "",
+  "__appdata_directory": "",
+  "__python_version": "3.11",
+  "__saf_cli_version": ""
+}

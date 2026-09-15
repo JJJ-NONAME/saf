@@ -1,0 +1,44 @@
+[
+    {
+        "test-report-artifact-name-suffix": "glow_linux",
+        "pytest-additional-arguments": "--docker --reruns 3",
+        "pytest-markers": "not (use_pim or use_hps or use_minerva or use_ansys_python or use_ui or use_containerized)",
+        "runner-name": "ubuntu-latest-16-cores",
+        "prepare-runner": "true",
+        "upgrade-docker": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "glow_windows",
+        "pytest-additional-arguments": "--reruns 3",
+        "pytest-markers": "not (use_pim or use_hps or use_minerva or use_ansys_python or use_ui or use_containerized)",
+        "runner-name": "windows-latest-8-cores"
+    },
+    {
+        "test-report-artifact-name-suffix": "glow_testing_framework_linux",
+        "pytest-additional-arguments": "tests/testing_framework -n0 --reruns 3",
+        "pytest-markers": "not (use_pim or use_hps or use_minerva or use_ansys_python or use_ui or use_containerized)",
+        "runner-name": "ubuntu-latest-16-cores"
+    },
+    {
+        "test-report-artifact-name-suffix": "glow_testing_framework_windows",
+        "pytest-additional-arguments": "tests/testing_framework -n0 --reruns 3",
+        "pytest-markers": "not (use_pim or use_hps or use_minerva or use_ansys_python or use_ui or use_containerized)",
+        "runner-name": "windows-latest-8-cores"
+    },
+    {
+        "test-report-artifact-name-suffix": "glow_e2e_linux",
+        "pytest-additional-arguments": "tests/e2e --docker --reruns 3",
+        "pytest-markers": "not (use_pim or use_hps or use_minerva or use_ansys_python or use_ui or use_containerized)",
+        "runner-name": "ubuntu-latest-16-cores",
+        "prepare-runner": "true",
+        "upgrade-docker": "true",
+        "install-minerva-python-client": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "glow_e2e_windows",
+        "pytest-additional-arguments": "tests/e2e --reruns 3",
+        "pytest-markers": "not (use_pim or use_hps or use_minerva or use_ansys_python or use_ui or use_containerized)",
+        "runner-name": "windows-latest-8-cores",
+        "install-minerva-python-client": "true"
+    }
+]

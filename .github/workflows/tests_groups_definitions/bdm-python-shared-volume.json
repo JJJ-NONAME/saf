@@ -1,0 +1,12 @@
+[
+    {
+        "test-report-artifact-name-suffix": "bdm_python_shared_volume_linux",
+        "pytest-additional-arguments": "",
+        "runner-name": "ubuntu-latest"
+    },
+    {
+        "test-report-artifact-name-suffix": "bdm_python_shared_volume_windows",
+        "pytest-additional-arguments": "",
+        "runner-name": "windows-latest"
+    }
+]

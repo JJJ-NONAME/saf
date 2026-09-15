@@ -1,0 +1,6 @@
+rules:
+  secrets-outside-env:
+    disable: true
+  obfuscation:
+    ignore:
+      - _test_generated_solution.yml

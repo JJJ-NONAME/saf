@@ -1,0 +1,13 @@
+name: "HTTP_Service"
+command_line_template: "python -m tests.integration.orchestration.simple_server --host
+  127.0.0.1 --port $PORT"
+health_check:
+  type: "HTTP"
+  route: "/health"
+
+name: "GRPC_Service"
+command_line_template: "python -m tests.integration.additional_services.grpc_server
+  --port $PORT"
+health_check:
+  type: "GRPC"
+  route: ""

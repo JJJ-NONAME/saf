@@ -1,0 +1,93 @@
+services:
+
+  my-solution-database:
+    image: postgres:16.0
+    networks:
+      - my-solution-internal
+    environment:
+      - POSTGRES_USER=glow
+      - POSTGRES_PASSWORD=glow
+    # don't expose ports, consumed internally by another container
+    volumes:
+      - my-solution-database:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "glow"]
+      interval: 1s
+      retries: 100
+
+  my-solution-api:
+    image: my-solution-e2e
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    init: true # to ensure reaping of killed child processes left by long-running transactions
+    depends_on:
+      my-solution-database:
+        condition: service_healthy
+    networks:
+      - my-solution-external
+      - my-solution-internal
+    environment:
+      - GLOW_DEPLOYMENT=DockerCompose
+      - GLOW_PROJECT_FILES_DIRECTORY=/projects
+      - GLOW_METHOD_EXECUTION_DIRECTORY=/transactions
+      - GLOW_API_HOST=0.0.0.0
+      - GLOW_API_PORT=50000
+      - GLOW_DATABASE_TYPE=postgresql
+      - GLOW_DATABASE_LOCATION=postgresql://glow:glow@my-solution-database:5432/postgres
+      - GLOW_API_NUMBER_OF_WORKERS=${GLOW_API_NUMBER_OF_WORKERS}
+    ports:
+      - ${GLOW_DOCKER_API_PORT:-50000}:50000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:50000/health"]
+      interval: 1s
+      retries: 100
+    volumes:
+      - my-solution-projects-data:/projects # Should match GLOW_PROJECT_FILES_DIRECTORY
+      - my-solution-api-transactions-data:/transactions # Should match GLOW_METHOD_EXECUTION_DIRECTORY
+      - ${LOCAL_PY_LIBS}:/site-packages/
+      - ${LIBRARY_SRC_DIR}:/library/src/
+      - ${SOLUTION_SRC_DIR}:/app/src/
+    # uvicorn does not consume GLOW_API_HOST and GLOW_API_PORT.
+    # TODO - configure workers via an environment variable
+    command: "--host 0.0.0.0 --port 50000 --workers ${GLOW_API_NUMBER_OF_WORKERS}"
+
+  my-solution-ui:
+    image: my-solution-e2e
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    depends_on:
+      my-solution-api:
+        condition: service_healthy
+    networks:
+      - my-solution-external
+    environment:
+      - GLOW_DEPLOYMENT=DockerCompose
+      - GLOW_UI_PROJECT_FILES_DIRECTORY=/projects
+      - GLOW_UI_HOST=0.0.0.0
+      - GLOW_UI_PORT=50001
+      - GLOW_API_URL=http://my-solution-api:50000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:50001/health"]
+      interval: 1s
+      retries: 100
+    volumes:
+      - my-solution-projects-data:/projects # Should match GLOW_UI_PROJECT_FILES_DIRECTORY. Should be same volume used in api container.
+      - ${LOCAL_PY_LIBS}:/site-packages/
+      - ${LIBRARY_SRC_DIR}:/library/src/
+      - ${SOLUTION_SRC_DIR}:/app/src/
+    ports:
+      - ${GLOW_DOCKER_UI_PORT:-50001}:50001
+    # gunicorn does not consume GLOW_UI_HOST and GLOW_UI_PORT
+    entrypoint: ["python", "-m", "gunicorn", "-b", "0.0.0.0:50001", "ansys.saf.glow.ui:app"]
+
+volumes:
+  my-solution-database:
+  my-solution-projects-data:
+  my-solution-api-transactions-data:
+networks:
+  my-solution-internal:
+    internal: true
+  my-solution-external:
+    driver: bridge

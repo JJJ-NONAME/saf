@@ -1,0 +1,494 @@
+name: CI-CD for PRs
+
+on:
+  pull_request:
+    branches:
+      - main
+      - 'release/**'
+    types: [opened, reopened, synchronize, ready_for_review]
+  push:
+    branches:
+      - main
+      - 'release/**'
+  workflow_dispatch:
+
+# Apply the principle of least privilege to state at job level the right
+# permissions. More information about workflow permissions in the page
+# https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#permissions
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-pr
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }} # No cancellation for main branch, to ensure that the workflow runs to completion and deploys the documentation if needed.
+
+jobs:
+  lint-pr-title:
+    name: "Lint pull request title"
+    if: github.event_name == 'pull_request' && github.event.pull_request.draft ==
+      false
+    permissions:
+      pull-requests: read # Read PR title and metadata for validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: amannn/action-semantic-pull-request@48f256284bd46cdaab1048c3721360e808335d50 # v6.1.1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+  check-linked-issues-in-pull-request-description:
+    name: "Check linked issues in pull-request description"
+    if: github.event_name == 'pull_request' && github.event.pull_request.draft ==
+      false
+    permissions:
+      pull-requests: read # Read PR description to find linked issues
+      issues: write # Update issue descriptions with PR links
+    runs-on: ubuntu-latest
+    steps:
+      - name: check-linked-issues-in-pr-description
+        uses: ansys/saf-devops/link-issue-to-pull-request@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
+        env:
+          ISSUE_GITHUB_TOKEN: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+
+  labels:
+    if: github.event_name == 'pull_request' && github.event.pull_request.draft ==
+      false
+    name: "Labels"
+    permissions:
+      contents: read # Read access to modified files in pull-request
+      pull-requests: write # Write access to add or remove new tags
+      issues: write # Write access required by action-label-syncer to manage labels
+    runs-on: ubuntu-latest
+    outputs:
+      labels-json: ${{ steps.collect-labels.outputs.labels-json }}
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: micnncim/action-label-syncer@3abd5ab72fda571e69fffd97bd4e0033dd5f495c # v1.3.0
+        with:
+          prune: false
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: "Label pull-request"
+        uses: actions/labeler@bf12e9b00b37c5c0ca2b87b79b2daf7891dbda13 # v7.0.0
+        with:
+          repo-token: ${{ github.token }}
+
+      - name: Collect pull-request labels
+        id: collect-labels
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        shell: bash
+        run: |
+          labels_json="$(gh api "repos/${REPO}/issues/${PR_NUMBER}/labels" --jq '[.[].name]')"
+          echo "labels-json=${labels_json}" >> "$GITHUB_OUTPUT"
+
+  ci-cd-config:
+    name: Get CI/CD configuration
+    if: github.event_name == 'pull_request' && github.event.pull_request.draft ==
+      false
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read # Required to read the pull-request to check changes
+    outputs:
+      pr-changes: ${{ steps.info.outputs.pr-changes }}
+      packages-matrix: ${{ steps.info.outputs.packages-matrix }}
+      code-style-matrix: ${{ steps.info.outputs.code-style-matrix }}
+      compatibility-matrix: ${{ steps.info.outputs.compatibility-matrix }}
+      tests-matrix: ${{ steps.info.outputs.tests-matrix }}
+      tests-generated-solution-flag: ${{ steps.info.outputs.tests-generated-solution-flag
+        }}
+    steps:
+      - name: Get CI/CD configuration
+        uses: $/.github/actions/ci-cd-job-matrices
+        id: info
+
+  validate-issue-template-labels:
+    name: Validate issue template labels
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.pull_request.draft ==
+      false
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install PyYAML
+        shell: bash
+        run: pip install --quiet pyyaml==6.0.3
+
+      - name: Validate labels referenced by issue templates
+        shell: python
+        run: |
+          import pathlib
+          import sys
+
+          import yaml
+
+          known_labels = {
+              entry["name"]
+              for entry in yaml.safe_load(pathlib.Path(".github/labels.yml").read_text(encoding="utf-8"))
+          }
+
+          missing = [
+              f"{template}: '{label}'"
+              for template in sorted(pathlib.Path(".github/ISSUE_TEMPLATE").glob("*.y*ml"))
+              for label in (yaml.safe_load(template.read_text(encoding="utf-8")) or {}).get("labels", [])
+              if label and label not in known_labels
+          ]
+
+          if missing:
+              print("Labels referenced by issue templates but absent from .github/labels.yml:")
+              print("\n".join(missing))
+              sys.exit(1)
+
+          print("Issue template label validation passed.")
+
+  github-workflows-lint:
+    name: GitHub workflow lint
+    permissions:
+      contents: read
+    needs: labels
+    if: ${{ contains(fromJson(needs.labels.outputs.labels-json), 'devops') }}
+    uses: ansys/saf-devops/.github/workflows/_action-lint.yml@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
+
+  vulnerabilities:
+    name: "Vulnerabilities"
+    needs: ci-cd-config
+    if: ${{ needs.ci-cd-config.outputs.packages-matrix != '{}' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # Read the dependencies and source code of the library
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.ci-cd-config.outputs.packages-matrix) }}
+    steps:
+      - uses: ansys/saf-devops/check-deps-vulnerabilities@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
+        with:
+          python-version: ${{ vars.PYTHON_VERSION }}
+          poetry-version: ${{ vars.POETRY_VERSION }}
+          poetry-install-args: '--all-extras'
+          upgrade-pip: true
+          poetry-parent-directory: packages/${{ matrix.library-name }}
+          max-allowed-severity: medium
+
+  check-dependencies-licenses:
+    name: "Check dependencies licenses"
+    needs: ci-cd-config
+    if: ${{ needs.ci-cd-config.outputs.packages-matrix != '{}' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.ci-cd-config.outputs.packages-matrix) }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          sparse-checkout: packages/${{ matrix.library-name }}
+
+      - name: Prepare python environment of the solution
+        id: python-setup
+        uses: ansys/saf-devops/prepare-python-environment@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
+        with:
+          python-version: ${{ vars.PYTHON_VERSION }}
+          poetry-version: ${{ vars.POETRY_VERSION }}
+          python-project-path: "packages/${{ matrix.library-name }}"
+          poetry-install-args: "--all-extras"
+
+      - name: Check licenses
+        uses: ansys/actions/check-licenses@3ad3b285bd9b67045477dafc7f9865a3aa39f692 # v11.0.6
+        with:
+          python-version: ${{ vars.PYTHON_VERSION }}
+          target: "all"
+          whitelist-license-check: ${{ vars.WHITELIST_LICENSE_CHECK }}
+          skip-install: true
+          use-uv: false
+          activate-venv: "source packages/${{ matrix.library-name }}/${{ steps.python-setup.outputs.venv-exe-location
+            }}/activate"
+          checkout: false
+
+  code-style:
+    name: "Check code style"
+    needs: ci-cd-config
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.ci-cd-config.outputs.code-style-matrix) }}
+      fail-fast: false
+    env:
+      LIBRARY_NAME: ${{ matrix.target-directory }}
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          sparse-checkout-cone-mode: ${{ !contains(matrix.target-directory, '!') &&
+            matrix.target-directory != 'examples' }}
+          sparse-checkout: |
+            ${{ matrix.target-directory }}
+            ${{ matrix.target-directory == 'examples' && 'doc/styles/Vocab/ANSYS/accept.txt' || '' }}
+            ${{ matrix.target-directory == 'examples' && 'packages/saf-cli' || '' }}
+            ${{ matrix.target-directory == 'packages/glow-engine' && '.github/scripts' || '' }}
+
+      - uses: ansys/saf-devops/prepare-python-environment@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
+        if: ${{ matrix.dependency-manager == 'poetry' }}
+        id: prepare-python
+        with:
+          python-version: ${{ vars.PYTHON_VERSION }}
+          poetry-version: ${{ vars.POETRY_VERSION }}
+          poetry-install-args: ${{ matrix.poetry-install-args }}
+          python-project-path: ${{ matrix.target-directory }}
+
+      - name: Install pre-commit
+        working-directory: ${{ matrix.target-directory }}
+        if: ${{ matrix.dependency-manager == 'poetry' }}
+        env:
+          PYTHON_CMD: ${{ steps.prepare-python.outputs.python-cmd }}
+        shell: bash
+        run: |
+          ${PYTHON_CMD} -m pip install --upgrade pip
+          ${PYTHON_CMD} -m pip install pre-commit
+
+      - name: Install uv
+        if: ${{ matrix.dependency-manager == 'uv' }}
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        with:
+          python-version: ${{ vars.PYTHON_VERSION }}
+          enable-cache: false
+
+      - name: Install dependencies
+        if: ${{ matrix.dependency-manager == 'uv' }}
+        env:
+          PYTHON_VERSION: ${{ vars.PYTHON_VERSION }}
+        shell: bash
+        run: |
+          uv venv .venv --python ${PYTHON_VERSION}
+          uv pip install pre-commit
+
+      - name: Run pre-commit
+        working-directory: ${{ matrix.dependency-manager == 'poetry' && matrix.target-directory
+          || '.' }}
+        env:
+          ACTIVATE_CMD: '.venv/bin/activate'
+        shell: bash
+        run: |
+          source ${ACTIVATE_CMD}
+          pre-commit run --all-files
+
+  doc:
+    name: "Documentation"
+    permissions:
+      contents: write # Required to push to gh-pages branch
+      pull-requests: read # Required to read the pull-request to check if it has documentation changes
+    if: ${{ github.event_name == 'push' || (github.event_name == 'pull_request' &&
+      github.event.pull_request.draft == false) }}
+    uses: ./.github/workflows/_doc.yml
+    secrets:
+      PYANSYS_CI_BOT_TOKEN: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+      PYANSYS_PYPI_PRIVATE_PAT: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}
+
+  build-wheel:
+    name: "Wheel"
+    needs: ci-cd-config
+    if: ${{ needs.ci-cd-config.outputs.packages-matrix != '{}' }}
+    runs-on: ubuntu-latest
+    permissions:
+      attestations: write # Write attestation for uploaded distribution artifacts
+      contents: read # Read the source code of the project
+      id-token: write # Write access to a temporary token for signing attestations
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.ci-cd-config.outputs.packages-matrix) }}
+    steps:
+      - name: "Build wheel"
+        uses: ansys/actions/build-library@3ad3b285bd9b67045477dafc7f9865a3aa39f692 # v11.0.6
+        with:
+          library-name: ${{ matrix.library-name }}
+          working-directory: packages/${{ matrix.library-name }}
+          python-version: ${{ vars.PYTHON_VERSION }}
+          attest-provenance: true
+          validate-build: true
+
+  check-wheel-can-be-pip-installed:
+    name: "Check wheel can be pip installed"
+    permissions:
+      contents: read
+    needs:
+      - ci-cd-config
+      - build-wheel
+    if: ${{ needs.ci-cd-config.outputs.packages-matrix != '{}' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.ci-cd-config.outputs.packages-matrix) }}
+    steps:
+      - name: Check if wheel can be pip installed
+        uses: ansys/saf-devops/pip-install-production-wheel@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
+        with:
+          python-version: ${{ vars.PYTHON_VERSION }}
+          wheel-artifact: '${{ matrix.library-name }}-artifacts'
+
+  compatibility-tests:
+    name: Run compatibility tests
+    needs:
+      - ci-cd-config
+      - build-wheel
+    if: ${{ needs.ci-cd-config.outputs.compatibility-matrix != '{}' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.ci-cd-config.outputs.compatibility-matrix) }}
+    steps:
+      - name: Checks compatibility with pyansys
+        uses: ansys/saf-devops/compatibility-scan@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
+        with:
+          python-version: ${{ vars.PYTHON_VERSION }}
+          compatibility-packages: 'git+https://github.com/ansys/pyansys.git'
+          wheel-artifact-name: '${{ matrix.library-name }}-artifacts'
+        timeout-minutes: 15
+
+  sbom:
+    name: "Generate SBOM"
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    needs: ci-cd-config
+    if: ${{ needs.ci-cd-config.outputs.packages-matrix != '{}' }}
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.ci-cd-config.outputs.packages-matrix) }}
+    steps:
+      - name: generate sbom
+        uses: ansys/saf-devops/generate-sbom@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
+        with:
+          poetry-version: ${{ vars.POETRY_VERSION }}
+          poetry-parent-directory: packages/${{ matrix.library-name }}
+
+  run-tests:
+    needs: ci-cd-config
+    name: "Run tests"
+    if: ${{ needs.ci-cd-config.outputs.tests-matrix != '{}' }}
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.ci-cd-config.outputs.tests-matrix) }}
+    permissions:
+      contents: read
+      packages: write # Allows this job to publish packages
+    uses: ./.github/workflows/_test.yml
+    with:
+      python-version: ${{ vars.PYTHON_VERSION }}
+      tests-groups-file-path: ${{ matrix.tests-groups-file-path }}
+      working-directory: ${{ matrix.working-directory }}
+    secrets:
+      ANS_MINERVA_URL: ${{ secrets.ANS_MINERVA_URL }}
+      TEST_REP_CLIENT_SECRET: ${{ secrets.TEST_REP_CLIENT_SECRET }}
+      PYANSYS_PYPI_PRIVATE_PAT: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}
+      PYANSYS_PYPI_PRIVATE_URL: ${{ secrets.PYANSYS_PYPI_PRIVATE_URL }}
+      LICENSE_SERVER: ${{ secrets.LICENSE_SERVER }}
+
+  run-github-workflows-of-generated-solution:
+    permissions:
+      contents: write # Required to create branches and commit results in the generated solution branch
+      actions: write # Required to trigger the workflow
+    needs:
+      - ci-cd-config
+    if: ${{ needs.ci-cd-config.outputs.tests-generated-solution-flag == 'true' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        use-encryption:
+          - true
+          - false
+        ui-framework:
+          - "dash"
+          - "none"
+    uses: ./.github/workflows/_test_generated_solution.yml
+    with:
+      use-encryption: ${{ matrix.use-encryption }}
+      ui-framework: ${{ matrix.ui-framework }}
+      python-version: ${{ vars.PYTHON_VERSION }}
+    secrets:
+      GENERATED_SOLUTION_TOKEN: ${{ secrets.GENERATED_SOLUTION_TOKEN }}
+      PYANSYS_PYPI_PRIVATE_PAT: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}
+      PYANSYS_PYPI_PRIVATE_URL: ${{ secrets.PYANSYS_PYPI_PRIVATE_URL }}
+
+  run-tests-actions:
+    name: "Run tests of GitHub actions"
+    needs: ci-cd-config
+    if: ${{ needs.ci-cd-config.outputs.pr-changes != '[]' && contains(needs.ci-cd-config.outputs.pr-changes,
+      'ci-cd-job-matrices') }}
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        with:
+          python-version: 3.12
+          enable-cache: false
+
+      - name: Run test_ci_cd_job_matrices.py
+        shell: bash
+        run: uv run ".github/actions/ci-cd-job-matrices/test_ci_cd_job_matrices.py"
+
+  meta-package:
+    name: "SAF SDK Meta Package"
+    needs: ci-cd-config
+    if: ${{ contains(needs.ci-cd-config.outputs.pr-changes, 'saf-sdk') }}
+    uses: ./.github/workflows/ci_cd_meta_package.yml
+    permissions:
+      attestations: write # Write attestation for uploaded distribution artifacts
+      contents: write # Write access to the repository contents
+      id-token: write # Write access to a temporary token for signing attestations
+      pull-requests: write # Write access to pull requests
+    secrets:
+      PYANSYS_CI_BOT_TOKEN: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+      PYANSYS_PYPI_PRIVATE_PAT: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}
+      PYANSYS_PYPI_PRIVATE_URL: ${{ secrets.PYANSYS_PYPI_PRIVATE_URL }}
+
+  ci-result:
+    name: "CI result"
+    needs:
+      - lint-pr-title
+      - check-linked-issues-in-pull-request-description
+      - labels
+      - ci-cd-config
+      - validate-issue-template-labels
+      - github-workflows-lint
+      - vulnerabilities
+      - code-style
+      - check-dependencies-licenses
+      - build-wheel
+      - check-wheel-can-be-pip-installed
+      - run-tests
+      - run-github-workflows-of-generated-solution
+      - run-tests-actions
+      # - compatibility-tests
+      - doc
+      - sbom
+      - meta-package
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: check-ci-unit-tests
+        if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')
+        run: |
+          echo "CI failed."
+          exit 1

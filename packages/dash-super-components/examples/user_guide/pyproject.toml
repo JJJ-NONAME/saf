@@ -1,0 +1,73 @@
+# Copyright (C) 2026 ANSYS, Inc. and/or its affiliates.
+# SPDX-License-Identifier: Apache-2.0
+#
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = [ "poetry-core>=2.0.0" ]
+
+[tool.poetry]
+requires-poetry = ">=2.3.2"
+# This is not a distributable package — no source is included.
+packages = []
+package-mode=false
+
+[tool.poetry.dependencies]
+# Install Super Components for Dash from the local repository so examples
+# always use the current source code.
+python = ">=3.11, <4"
+ansys-solutions-dash-super-components = {path = "../../", develop = true}
+# dash dependencies for the example apps. Versions should be compatible with those in the main package.
+dash = ">=2.18.2, <3.4.0"  # >= 3.4.0 incompatible with dash-extensions <2.0.5
+dash-extensions = ">=1.0.20"
+dash-mantine-components = ">=2.3.0, <3.0.0"
+
+[tool.ruff]
+line-length = 100
+fix = true
+target-version = "py311"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.ruff.lint]
+select = [
+  "E",       # pycodestyle
+  "F",       # pyflakes
+  "N",       # pep8-naming
+  "PTH",     # flake8-use-pathlib
+  "TD",      # flake8-todos
+  "W",       # pycodestyle - warning
+  "C90",     # mccabe
+  "UP",      # pyupgrade
+  "ASYNC",   # flake8-async
+  "B",       # flake8-bugbear
+  "A",       # flake8-builtins
+  "COM",     # flake8-commas
+  "C4",      # flake8-comprehensions
+  "LOG",     # flake8-logging
+  "PIE",     # flake8-pie
+  "PYI",     # flake8-pyi
+  "PT",      # flake8-pytest-style
+  "Q",       # flake8-quotes
+  "SIM",     # flake8-simplify
+  "RUF100",  # ruff-specific rules: unused noqa
+]
+ignore = [
+  "COM812",   # This rule conflicts with ruff format settings
+  "PYI041",   # Allow redundant type specification to be consistent with subsequent type checks
+  "E402",    # Allow imports not at the top of the file for example apps
+]

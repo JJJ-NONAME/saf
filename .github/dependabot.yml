@@ -1,0 +1,19 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "ci(dependabot):"
+    groups:
+      all-actions:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+    cooldown:
+      include:
+        - '*'
+      default-days: 7

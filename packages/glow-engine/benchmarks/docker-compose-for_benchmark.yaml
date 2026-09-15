@@ -1,0 +1,68 @@
+services:
+  postgresql:
+    image: postgres:16.0
+    networks:
+      - internal
+    environment:
+      - POSTGRES_USER=glow
+      - POSTGRES_PASSWORD=glow
+    volumes:
+      - database:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "glow"]
+      interval: 5s
+      retries: 20
+
+  api:
+    image: api
+    build:
+      context: .
+      dockerfile: ./Dockerfile-for-benchmark
+      target: solution_api
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    networks:
+      - external
+      - internal
+    environment:
+      - GLOW_DEPLOYMENT=Desktop # was DockerCompose
+      - GLOW_API_HOST=0.0.0.0
+      - GLOW_API_PORT=50000
+      - GLOW_DATABASE_TYPE=postgresql
+      - GLOW_DATABASE_LOCATION=postgresql://glow:glow@postgresql:5432
+      - GLOW_PROJECT_FILES_DIRECTORY=/projects
+      - GLOW_METHOD_EXECUTION_DIRECTORY=/transactions
+      - GLOW_DEBUG=1
+      - GLOW_LOGGING_LEVEL=DEBUG
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://dashboard:18889
+      - OTEL_EXPORTER_OTLP_METRICS_INSECURE=true
+      - OTEL_EXPORTER_OTLP_TRACES_INSECURE=true
+    ports:
+      - 56565:50000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:50000/health"]
+      interval: 5s
+      retries: 20
+    volumes:
+      - .projects:/projects
+      - .transactions:/transactions
+
+  dashboard:
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:8.1
+    networks:
+      - external
+      - internal
+    ports:
+      - 18888:18888 # UI
+      - 18889:18889 # OTLP
+
+volumes:
+  database:
+
+networks:
+  main: {}
+  internal:
+    internal: true
+  external:
+    driver: bridge
