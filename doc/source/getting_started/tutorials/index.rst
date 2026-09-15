@@ -9,7 +9,7 @@ Tutorials
   :gutter: 4
   :class-container: onboarding-cards
 
-  .. grid-item-card:: :material-outlined:`checklist;1.75em` :ref:`game_of_life_tutorial`
+  .. grid-item-card:: :material-outlined:`grid_on;1.75em` :ref:`game_of_life_tutorial`
     :class-card: highlight-card
     :link-type: doc
     :link: game_of_life/index

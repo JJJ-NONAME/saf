@@ -16,7 +16,7 @@ Phase 1 — Initialization
   - :material-outlined:`inventory_2;1.25em;saf-objective-icon` Declare the dependencies the tutorial
     needs and install them with ``saf install``.
   - :material-outlined:`play_circle;1.25em;saf-objective-icon` Run the empty application with
-    ``saf run`` to confirm everything is wired correctly.
+    ``saf run --debug`` to confirm everything is wired correctly.
 
   At the end of this phase you have a working empty SAF application.
 
@@ -137,8 +137,7 @@ Take a minute to look around. Almost everything you will touch in this tutorial 
         ├── solution/
         │   ├── definition.py          # The solution definition — the workflow contract
         │   ├── first_step.py          # Sample step (backend)
-        │   ├── second_step.py         # Sample step (backend)
-        │   └── scripts/               # Business logic modules
+        │   └── second_step.py         # Sample step (backend)
         └── ui/
             ├── app.py                 # Dash app instance (auto-generated, leave it alone)
             ├── assets/                # CSS, icons, images
@@ -322,7 +321,7 @@ Before writing any code, confirm the scaffolding works end to end.
 
     .. code-block:: bash
 
-        saf run
+        saf run --debug
 
     A desktop window opens with the solution display name in the title bar. Create a new
     project, then click through **First step** and **Second step** in the navigation tree on
@@ -333,17 +332,24 @@ Before writing any code, confirm the scaffolding works end to end.
 
 If you saw the two sample steps, your toolchain is healthy and you are ready to start building.
 
+.. important::
+
+    **Always develop with** ``--debug``. It enables the Dash dev tools, which surface frontend
+    and callback errors directly in the UI instead of letting them fail silently. Without it a
+    broken callback simply does nothing and you are left guessing. Every ``saf run`` in this
+    tutorial therefore uses ``--debug``; drop the flag only when you serve the solution for
+    real users.
+
 .. tip::
 
-    ``saf run`` has a few variants worth knowing:
+    ``saf run`` has a few other variants worth knowing:
 
     - ``saf run --browser`` opens the app in your default web browser instead of a desktop
       window.
     - ``saf run --no-ui`` starts the backend only and exposes the auto-generated REST API.
       Handy to test transactions without a frontend.
-    - ``saf run --debug`` starts the solution in debug mode. The frontend runs with the Dash
-      dev tools enabled, so callback errors surface directly in the browser instead of failing
-      silently.
+
+    The flags combine, so ``saf run --debug --browser`` is a common development setup.
 
 Key takeaways
 =============
@@ -358,7 +364,8 @@ Key takeaways
       environment with ``saf install``. After editing ``pyproject.toml``, always refresh
       ``poetry.lock`` with ``saf execute "poetry lock"`` before reinstalling, otherwise
       ``saf install`` fails on an outdated lock file.
-    - ``saf run`` starts the application; ``--browser`` and ``--no-ui`` change how it is served,
-      and ``--debug`` turns on the Dash dev tools in the frontend.
+    - ``saf run --debug`` starts the application with the Dash dev tools enabled — the default
+      way to run a solution while developing. ``--browser`` and ``--no-ui`` change how it is
+      served.
     - Run the freshly scaffolded app **before** writing code. It takes thirty seconds and rules
       out an entire class of environment problems.

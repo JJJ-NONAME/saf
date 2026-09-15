@@ -48,7 +48,7 @@ Phase 3 — Backend
 
     .. code-block:: text
 
-        saf.solutions.game_of_life.solution.scripts.game_of_life
+        saf.solutions.game_of_life.solution.game_of_life
 
 Where you are heading
 =====================
@@ -263,7 +263,7 @@ business logic on the other:
     ``first_arg``, ``second_arg`` and ``result`` fields — you don't need them.
 
     Remember to point the ``SimulationController`` import at **your** business logic module:
-    ``from saf.solutions.game_of_life.solution.scripts.game_of_life import SimulationController``.
+    ``from saf.solutions.game_of_life.solution.game_of_life import SimulationController``.
 
 Transaction methods
 ===================

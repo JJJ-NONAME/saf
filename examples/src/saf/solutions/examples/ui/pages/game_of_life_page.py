@@ -33,7 +33,7 @@ import numpy as np
 import plotly.graph_objects as go
 
 from saf.solutions.examples.solution.definition import ExamplesSolution
-from saf.solutions.examples.solution.scripts.game_of_life import PatternLibrary
+from saf.solutions.examples.solution.game_of_life import PatternLibrary
 
 logger = logging.getLogger(__name__)
 

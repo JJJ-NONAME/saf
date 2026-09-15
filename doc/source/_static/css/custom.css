@@ -550,26 +550,6 @@ body.page-index .sd-card.sd-mb-3.centered-card:not(.sd-w-100) > .sd-card-body {
     color: #5A2D83 !important;
 }
 
-/* Best practice admonition — Fluent green */
-.admonition.best-practice {
-    --ast-admonition-warning-icon: #107C10;
-    --ast-admonition-warning-border: #107C10;
- border-color: #107C10 !important;
-}
-
-.admonition.best-practice > .admonition-title::after {
-    color: #107C10 !important;
-}
-
-/* Dark mode: lighter purple for readability */
-[data-theme="dark"] .admonition.best-practice > .admonition-title {
-    color: #8a58b6 !important;
-}
-
-[data-theme="dark"] .admonition.best-practice > .admonition-title::before {
-    color: #8a58b6 !important;
-}
-
 .custom-admonition {
     border-left: 4px solid;
     padding: 10px;
@@ -665,16 +645,93 @@ svg.saf-concept-icon {
     color: #a97ccd !important;
 }
 
-/* Custom practice admonition — Synopsys blue */
-.admonition.practice {
-    --ast-admonition-warning-icon: #0081FE;
- --ast-admonition-warning-border: #0081FE;
-    border-color: #0081FE !important;
+/* ---- Custom admonitions built from a generic `nodes.admonition` (see conf.py) ----
+   These carry no theme-known type, so the theme falls back to its default "note" styling.
+   Every visual token has to be restated explicitly: border, title background, title text
+   and the ::after icon glyph. */
+
+/* Key concept admonition — SAF purple, with a lightbulb icon instead of the default bell */
+.admonition.key-concept {
+    border-color: #5A2D83 !important;
 }
 
+.admonition.key-concept > .admonition-title {
+    background-color: transparent !important;
+    color: #5A2D83 !important;
+}
+
+.admonition.key-concept > .admonition-title::after {
+    color: #5A2D83 !important;
+    content: "\f0eb" !important;
+}
+
+[data-theme="dark"] .admonition.key-concept {
+    border-color: #a97ccd !important;
+}
+
+[data-theme="dark"] .admonition.key-concept > .admonition-title {
+    background-color: transparent !important;
+    color: #a97ccd !important;
+}
+
+[data-theme="dark"] .admonition.key-concept > .admonition-title::after {
+    color: #a97ccd !important;
+}
+
+/* Best practice admonition — cyan, with a check-circle icon instead of the default bell */
+.admonition.best-practice {
+    border-color: #00838F !important;
+}
+
+.admonition.best-practice > .admonition-title {
+    background-color: transparent !important;
+    color: #00838F !important;
+}
+
+.admonition.best-practice > .admonition-title::after {
+    color: #00838F !important;
+    content: "\f058" !important;
+}
+
+[data-theme="dark"] .admonition.best-practice {
+    border-color: #4DD0E1 !important;
+}
+
+[data-theme="dark"] .admonition.best-practice > .admonition-title {
+    background-color: transparent !important;
+    color: #4DD0E1 !important;
+}
+
+[data-theme="dark"] .admonition.best-practice > .admonition-title::after {
+    color: #4DD0E1 !important;
+}
+
+/* Practice admonition — pink, with a keyboard icon instead of the default bell */
+.admonition.practice {
+    border-color: #D81B60 !important;
+}
+
+.admonition.practice > .admonition-title {
+    background-color: transparent !important;
+    color: #D81B60 !important;
+}
 
 .admonition.practice > .admonition-title::after {
-    color: #0081FE !important;
+    color: #D81B60 !important;
+    content: "\f11c" !important;
+}
+
+[data-theme="dark"] .admonition.practice {
+    border-color: #F06292 !important;
+}
+
+[data-theme="dark"] .admonition.practice > .admonition-title {
+    background-color: transparent !important;
+    color: #F06292 !important;
+}
+
+[data-theme="dark"] .admonition.practice > .admonition-title::after {
+    color: #F06292 !important;
 }
 
 
@@ -1491,4 +1548,54 @@ a.saf-cta--secondary {
 .pim-secure-na {
   color: #898A8D;
   font-style: italic;
+}
+
+/* =========================================== MERMAID =========================================== */
+
+/* Mermaid bakes its palette into the SVG at render time, so the `%%{init: ...}%%` block in the
+   directive can only cover one theme. Those values target light mode; restate the lighter
+   purples here for dark mode, where the dark strokes and labels would otherwise disappear. */
+
+[data-theme="dark"] .mermaid .actor {
+  fill: #3A2450 !important;
+  stroke: #a97ccd !important;
+}
+
+[data-theme="dark"] .mermaid text.actor > tspan,
+[data-theme="dark"] .mermaid .messageText,
+[data-theme="dark"] .mermaid .loopText,
+[data-theme="dark"] .mermaid .loopText > tspan,
+[data-theme="dark"] .mermaid .noteText > tspan {
+  fill: #d6bdf0 !important;
+}
+
+[data-theme="dark"] .mermaid .actor-line {
+  stroke: #7E4FB0 !important;
+}
+
+[data-theme="dark"] .mermaid .messageLine0,
+[data-theme="dark"] .mermaid .messageLine1,
+[data-theme="dark"] .mermaid .loopLine {
+  stroke: #a97ccd !important;
+}
+
+[data-theme="dark"] .mermaid #arrowhead path,
+[data-theme="dark"] .mermaid marker path {
+  fill: #a97ccd !important;
+  stroke: #a97ccd !important;
+}
+
+[data-theme="dark"] .mermaid .labelBox {
+  fill: #a97ccd !important;
+  stroke: #a97ccd !important;
+}
+
+[data-theme="dark"] .mermaid .labelText,
+[data-theme="dark"] .mermaid .labelText > tspan {
+  fill: #1D1B20 !important;
+}
+
+[data-theme="dark"] .mermaid .note {
+  fill: #3A2450 !important;
+  stroke: #a97ccd !important;
 }

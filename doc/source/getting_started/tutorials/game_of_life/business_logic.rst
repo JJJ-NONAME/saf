@@ -10,7 +10,7 @@ Phase 2 — Business logic
   - :material-outlined:`grid_on;1.25em;saf-objective-icon` Understand the engineering problem the
     solution solves: Conway's Game of Life and its rules.
   - :material-outlined:`folder_open;1.25em;saf-objective-icon` Learn where business logic belongs
-    in a SAF solution: the ``solution/scripts/`` package.
+    in a SAF solution: anywhere under the ``solution/`` package.
   - :material-outlined:`download;1.25em;saf-objective-icon` Get the ready-made Game of Life engine
     and drop it into the solution you scaffolded in
     :ref:`phase 1 <game_of_life_initialization>`.
@@ -87,15 +87,28 @@ tutorial:
 Where business logic belongs
 ============================
 
-By convention, business logic in a SAF solution goes under ``solution/scripts/``. The template
-already created that package for you in :ref:`phase 1 <game_of_life_initialization>`. This clean
-separation between **what the solution computes** (``scripts/``) and **how it orchestrates the
-computation** (the ``StepModel`` classes next to it) is one of the golden rules of the
-framework.
+What matters is that business logic is grouped under the ``solution/`` package, next to the
+backend that orchestrates it. Beyond that, the layout is a **convention, not a constraint**:
 
-A module in ``solution/scripts/`` is ordinary Python: functions and classes, no imports from
-SAF, no top-level side effects. That is what makes it testable on its own, reusable outside the
+- Drop the modules at the root of ``solution/``, on the same level as ``definition.py`` and the
+  ``*_step.py`` modules. This is what you do in this tutorial.
+- Or, if the solution grows enough to justify it, group them in a sub-package of your choosing —
+  ``solution/logic/``, ``solution/solvers/``, whatever reads best for your domain.
+
+What is *not* negotiable is the separation between **what the solution computes** (the business
+logic modules) and **how it orchestrates the computation** (the ``StepModel`` classes). That
+split is one of the golden rules of the framework.
+
+A business logic module is ordinary Python: functions and classes, no imports from SAF, no
+top-level side effects. That is what makes it testable on its own, reusable outside the
 solution, and safe to import from anywhere in the backend.
+
+.. note::
+
+    There is one exception. When a solution uses the **job submission API**, the script or
+    module that runs on the execution node must live in ``solution/scripts/``: that folder is
+    the source code transfer point between the solution and the job submission space. This is
+    outside the scope of this tutorial.
 
 Get the engine
 ==============
@@ -112,7 +125,7 @@ this tutorial. Download it instead.
        view.
 
     #. Move the downloaded ``game_of_life.py`` into
-       ``src/saf/solutions/game_of_life/solution/scripts/``.
+       ``src/saf/solutions/game_of_life/solution/``, next to ``definition.py``.
 
 What's inside the module
 ========================
@@ -161,7 +174,7 @@ buried under framework layers is far harder to debug than one caught by a two-li
 The module ships a ``main()`` function for exactly that purpose: it seeds a 5x5 grid with the
 blinker and prints the first two generations.
 
-.. literalinclude:: ../../../../../examples/src/saf/solutions/examples/solution/scripts/game_of_life.py
+.. literalinclude:: ../../../../../examples/src/saf/solutions/examples/solution/game_of_life.py
     :language: python
     :start-at: def main() -> None:
 
@@ -175,7 +188,7 @@ check, write a short throwaway script that imports the function and calls it.
 
        .. code-block:: python
 
-           from saf.solutions.game_of_life.solution.scripts.game_of_life import main
+           from saf.solutions.game_of_life.solution.game_of_life import main
 
            main()
 
@@ -215,7 +228,10 @@ Key takeaways
 
 .. important::
 
-    - Business logic lives in ``solution/scripts/`` — **outside** any SAF class.
+    - Business logic lives under ``solution/`` — **outside** any SAF class. Whether it sits at
+      the root of the package or in a sub-package of your own is up to you.
+    - The only exception is the job submission API, which requires the module executed on the
+      execution node to be placed in ``solution/scripts/``.
     - A business logic module never imports SAF, Dash or ``StepModel``. That way the same code
       runs unchanged in a notebook, a script, a SAF backend or a batch job.
     - Keep those modules free of top-level side effects so they are safe to import: expose a
