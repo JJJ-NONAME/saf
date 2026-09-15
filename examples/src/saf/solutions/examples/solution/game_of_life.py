@@ -585,3 +585,20 @@ class SimulationController:
     def grid(self) -> Optional[np.ndarray]:
         """Get current grid state."""
         return self._current_grid.copy() if self._current_grid is not None else None
+
+
+def main() -> None:
+    """Run a standalone check of the engine.
+
+    Seeds a small grid with the blinker oscillator and prints the first two generations. The
+    blinker must flip from horizontal to vertical.
+    """
+    controller = SimulationController(grid_size=(5, 5))
+    controller.initialize("blinker")
+
+    for _ in range(2):
+        state = controller.get_current_state()
+        print(f"Generation {state.generation} ({state.live_cells} live cells)")
+        print(state.grid)
+        print()
+        controller.step_forward()
