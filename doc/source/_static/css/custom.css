@@ -578,6 +578,92 @@ body.page-index .sd-card.sd-mb-3.centered-card:not(.sd-w-100) > .sd-card-body {
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+/* ---- Objective topic blocks (tutorial "In this module" lists) ---- */
+
+/* Title of a `.. topic::` block, e.g. "Objective" */
+.bd-article .topic > .topic-title,
+.bd-article div.topic > p.topic-title {
+    color: #5A2D83 !important;
+    font-weight: 700;
+}
+
+[data-theme="dark"] .bd-article .topic > .topic-title,
+[data-theme="dark"] .bd-article div.topic > p.topic-title {
+    color: #a97ccd !important;
+}
+
+/* Material icons used as bullet markers in objective lists.
+   sphinx-design renders them as inline <svg fill="currentColor">, so `color` works. */
+.saf-objective-icon,
+svg.saf-objective-icon {
+    color: #5A2D83 !important;
+    fill: currentColor !important;
+    vertical-align: -0.2em;
+    margin-right: 0.35em;
+}
+
+[data-theme="dark"] .saf-objective-icon,
+[data-theme="dark"] svg.saf-objective-icon {
+    color: #a97ccd !important;
+}
+
+
+/* ---- Concept cards (non-clickable overview cards, e.g. "SAF concepts you will meet") ---- */
+
+.concept-cards .concept-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: 0 !important;
+    border-left: 3px solid #5A2D83 !important;
+    box-shadow: 0 1px 2px 0 rgba(60, 50, 70, 0.18),
+        0 3px 8px 0 rgba(60, 50, 70, 0.14) !important;
+}
+
+[data-theme="dark"] .concept-cards .concept-card {
+    border-left-color: #a97ccd !important;
+}
+
+.concept-cards .concept-card .sd-card-body {
+    flex-grow: 1;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+    padding: 0.9rem 1rem !important;
+}
+
+.concept-cards .concept-card .sd-card-title {
+    color: #5A2D83 !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    line-height: 1.2 !important;
+    margin-bottom: 0.5rem !important;
+}
+
+[data-theme="dark"] .concept-cards .concept-card .sd-card-title {
+    color: #a97ccd !important;
+}
+
+.concept-cards .concept-card .sd-card-body > p:last-child {
+    margin-bottom: 0 !important;
+    font-size: 0.875rem;
+    line-height: 1.45;
+}
+
+.saf-concept-icon,
+svg.saf-concept-icon {
+    color: #5A2D83 !important;
+    fill: currentColor !important;
+    vertical-align: -0.25em;
+    margin-right: 0.4em;
+}
+
+[data-theme="dark"] .saf-concept-icon,
+[data-theme="dark"] svg.saf-concept-icon {
+    color: #a97ccd !important;
+}
 
 /* Custom practice admonition — Synopsys blue */
 .admonition.practice {
