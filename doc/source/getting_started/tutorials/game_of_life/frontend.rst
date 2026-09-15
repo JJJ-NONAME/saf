@@ -378,8 +378,8 @@ Callback #4 — React to the termination event
 
     A termination event tells you that a long-running transaction is **over**, but not how it
     ended. ``step.get_method_state("simulate").status`` gives you the terminal status:
-    ``Completed`` on success, ``Failed`` if the transaction raised, ``Terminated`` if it was
-    cancelled. Use it to restore the UI and show the right notification.
+    ``Completed`` on success or ``Failed`` if the transaction raises. Use it to restore the
+    UI and show the corresponding notification.
 
 The last callback listens to the ``simulate`` stream — the one automatically emitted because
 you set ``enable_termination_event=True`` on the transaction. When it fires, the simulation
