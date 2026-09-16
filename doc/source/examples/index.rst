@@ -25,7 +25,7 @@ The example solution provided in the ``saf/examples`` directory demonstrates sel
 
    .. code-block:: bash
 
-       saf run
+       saf install -f
 
 #. Run the solution:
 
