@@ -234,4 +234,5 @@ tmp_saf_devops/
 release_notes.md
 
 # Mock wheels
-!packages/saf-cli/tests/e2e/mocks/wheels/*.whl
+!packages/saf-cli/tests/mocks/wheels
+!packages/saf-cli/tests/mocks/wheels/*.whl
