@@ -11,7 +11,7 @@ Each example demonstrates how to implement a specific feature in a solution appl
 Set up the example solution
 ============================
 
-The example solution provided in the ``saf/examples`` directory demonstrates select SAF examples. Follow these instructions to install and run the solution.
+The example solution provided in the ``saf/examples`` directory demonstrates selected SAF examples. Follow these instructions to install and run the solution.
 
 #. Ensure you've fulfilled all requirements noted in the :ref:`prerequisites` section.
 
