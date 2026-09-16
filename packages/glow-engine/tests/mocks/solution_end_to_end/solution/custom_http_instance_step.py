@@ -80,11 +80,11 @@ class CustomHttpSharedInstanceStep(StepModel):
         custom_http_product_instance.initialize(version="1")
         live_file_path = str(self.live_file.path)
         observed_contents: list[str] = []
-        for content in (TEXT_FILE_DUMMY_STRING, TEXT_FILE_DUMMY_STRING * 2):
+        for content in (TEXT_FILE_DUMMY_STRING, TEXT_FILE_DUMMY_STRING.upper()):
             custom_http_product_instance.instance.the_property = content
             custom_http_product_instance.instance.store_given_absolute_path(live_file_path)
             observed_contents.append(self.live_file.read_text())
-        self.value = "|".join(observed_contents)
+        self.value = ",".join(observed_contents)
 
     @transaction(self=StepSpec())
     @create_instance("custom_http_product_instance", MockHttpProductInstanceManager)

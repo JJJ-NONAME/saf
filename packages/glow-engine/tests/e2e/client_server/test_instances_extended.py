@@ -33,6 +33,7 @@ from tenacity import TryAgain, retry, stop_after_attempt, wait_fixed
 
 from ansys.saf.glow.client import Client, InternalSolutionException
 from ansys.saf.glow.solution import MethodStatus
+from tests.e2e.client_server.conftest import wait_for_method
 from tests.e2e.conftest import PACKAGE_ROOT
 from tests.mocks.solution_end_to_end.solution.definition import EndToEndSolution
 
@@ -73,17 +74,15 @@ class TestCustomProductInstances:
         assert not step.live_file.exists()
 
         method = step.write_to_live_file_progressively_from_custom_http_product_instance()
-        startup_deadline = time.time() + 10
         observed_contents: set[str] = set()
 
-        while step.get_method_state("write_to_live_file_progressively_from_custom_http_product_instance").status == (
-            MethodStatus.RunRequired
-        ):
-            time.sleep(0.05)
-            if time.time() >= startup_deadline:
-                pytest.fail("Timed out waiting for custom product LiveFile writer to start.")
+        wait_for_method(
+            "write_to_live_file_progressively_from_custom_http_product_instance",
+            step.get_method_state,
+            MethodStatus.RunRequired,
+        )
 
-        observation_deadline = time.time() + 20
+        deadline = time.time() + 20
 
         while step.get_method_state("write_to_live_file_progressively_from_custom_http_product_instance").status == (
             MethodStatus.Running
@@ -91,7 +90,7 @@ class TestCustomProductInstances:
             with contextlib.suppress(FileNotFoundError):
                 observed_contents.add(step.live_file.read_text())
             time.sleep(0.02)
-            if time.time() >= observation_deadline:
+            if time.time() >= deadline:
                 pytest.fail("Timed out while waiting to observe LiveFile updates from the custom product.")
 
         method.wait()
@@ -111,8 +110,8 @@ class TestCustomProductInstances:
         step.read_live_file_written_by_custom_http_product_instance()
 
         assert step.live_file.exists()
-        assert step.live_file.read_text() == "Hello WorldHello World"
-        assert step.value == "Hello World|Hello WorldHello World"
+        assert step.live_file.read_text() == "HELLO WORLD"
+        assert step.value == "Hello World,HELLO WORLD"
 
     def test_client_cannot_write_to_live_file_written_by_custom_http_product(
         self,
@@ -125,12 +124,12 @@ class TestCustomProductInstances:
         step.read_live_file_written_by_custom_http_product_instance()
 
         assert step.live_file.exists()
-        assert step.live_file.read_text() == "Hello WorldHello World"
+        assert step.live_file.read_text() == "Hello WorldHELLO WORLD"
 
         with pytest.raises(PermissionError, match="cannot be mutated from the Client scope"):
             step.live_file.write_text("forbidden")
 
-        assert step.live_file.read_text() == "Hello WorldHello World"
+        assert step.live_file.read_text() == "Hello World,HELLO WORLD"
 
     @pytest.mark.parametrize(
         "instance_name",

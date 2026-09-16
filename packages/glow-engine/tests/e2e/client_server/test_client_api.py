@@ -27,7 +27,8 @@ import httpx2
 import pytest
 
 from ansys.saf.glow.client import BadRequestException, Client, NotFoundException
-from ansys.saf.glow.solution import MethodState, MethodStatus
+from ansys.saf.glow.solution import MethodStatus
+from tests.e2e.client_server.conftest import wait_for_method
 from tests.mocks.solution_end_to_end.solution.definition import EndToEndSolution
 from tests.mocks.solution_end_to_end.solution.transaction_verification_step import (
     TEXT_FILE_DUMMY_STRING,
@@ -36,19 +37,6 @@ from tests.mocks.solution_end_to_end.solution.transaction_verification_step impo
 )
 
 pytestmark = pytest.mark.parametrize("solution_type", [EndToEndSolution], indirect=True)
-
-
-def wait_for_method(method_name: str, state_retrieval_func: Callable[[str], MethodState], status_to_exit: str):
-    tries = 0
-    max_tries = 250
-    while state_retrieval_func(method_name).status == status_to_exit:
-        time.sleep(0.2)
-        tries += 1
-        if tries > max_tries:
-            pytest.fail(
-                f"Max number of tries reached while waiting for {method_name} "
-                f"to exit status {status_to_exit} using function {state_retrieval_func}.",
-            )
 
 
 @pytest.mark.parametrize(
@@ -139,18 +127,10 @@ class TestClientAPI:
 
         assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING
 
-    def test_live_file_write_from_client_forbidden(self, function_project: ProjectFixture[EndToEndSolution]):
-        """Test that the client cannot mutate a LiveFile."""
-        step = function_project.project.steps.transaction_verification_step
-
-        step.write_to_live_file()
-
-        with pytest.raises(PermissionError, match="cannot be mutated from the Client scope"):
-            step.live_file.write_text("forbidden")
-
     @pytest.mark.parametrize(
         ("operation", "source_content"),
         [
+            (lambda live_file, source_path: live_file.write_text("forbidden"), ""),
             (lambda live_file, source_path: live_file.write(BytesIO(b"forbidden")), ""),
             (lambda live_file, source_path: live_file.write_bytes(b"forbidden"), ""),
             (lambda live_file, source_path: live_file.write_from_file(source_path), "forbidden"),
@@ -187,7 +167,6 @@ class TestClientAPI:
     ):
         """Test that the client can observe intermediate LiveFile contents during a long-running transaction."""
         step = function_project.project.steps.transaction_verification_step
-        step.write_to_live_file()
 
         method = step.write_to_live_file_progressively()
         wait_for_method("write_to_live_file_progressively", step.get_method_state, MethodStatus.RunRequired)
@@ -202,7 +181,6 @@ class TestClientAPI:
                 pytest.fail("Timed out while waiting to observe LiveFile updates during transaction execution.")
 
         method.wait()
-        observed_contents.add(step.live_file.read_text())
 
         assert step.live_file.read_text() == "012345"
         assert any(content in {"0", "01", "012", "0123", "01234"} for content in observed_contents)
