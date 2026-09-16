@@ -11,7 +11,7 @@ Each example demonstrates how to implement a specific feature in a solution appl
 Set up the example solution
 ============================
 
-The **Solution Examples** solution provided in the ``saf/examples`` directory demonstrates select SAF examples. Follow these instructions to install and run the solution.
+The example solution provided in the ``saf/examples`` directory demonstrates select SAF examples. Follow these instructions to install and run the solution.
 
 #. Ensure you've fulfilled all requirements noted in the :ref:`prerequisites` section.
 
@@ -33,7 +33,7 @@ The **Solution Examples** solution provided in the ``saf/examples`` directory de
 
      saf run
 
-The Solution Examples solution opens to the first example. You're ready to start exploring the available examples, which are shown in the navigation sidebar of the solution.
+The exanoke solution opens to the first example. You're ready to start exploring the available examples, which are shown in the navigation sidebar of the solution.
 
 .. image:: /_static/images/example_solution_open_to_dash_components.png
   :width: 100%
@@ -45,9 +45,7 @@ The Solution Examples solution opens to the first example. You're ready to start
 Get example instructions
 ==========================
 
-
 To get detailed instructions for examples, either click a category in the left navigation sidebar or click the corresponding card below:
-
 
 .. card:: :large-bold:`UI Components and visualization`
 
@@ -102,7 +100,6 @@ To get detailed instructions for examples, either click a category in the left n
       :shadow: lg
 
       Generate an interactive Dash data table to display a simple dataset in a solution user interface.
-
 
 .. card:: :large-bold:`Data and file management`
 
@@ -244,7 +241,7 @@ To get detailed instructions for examples, either click a category in the left n
       Explore examples that demonstrate the usage of Dash Super Components that integrate directly with SAF GLOW API.
 
 
-  .. note:: The Dash Super Components examples are not integrated into the Solution Examples solution.
+  .. note:: The Dash Super Components examples are not integrated into the example solution.
 
 
 .. toctree::
