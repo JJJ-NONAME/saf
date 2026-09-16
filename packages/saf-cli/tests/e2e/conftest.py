@@ -39,6 +39,7 @@ import pytest
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from tenacity import TryAgain, retry, stop_after_attempt, wait_fixed
+import tomlkit
 
 from ansys.saf.cli._config.const import DEFAULT_SOLUTION_DISPLAY_NAME, DEFAULT_SOLUTION_NAME, DEFAULT_SOLUTION_NAMESPACE
 from ansys.saf.cli._database.models import SolutionRegistry
@@ -939,10 +940,31 @@ def restore_glow_env_vars(session_solution: SolutionRegistry) -> Generator[None,
 ################################################### UPDATE SOLUTIONS ##################################################
 
 
+def _add_saf_sdk_extra_to_main_group(solution_dir: Path, extra: str) -> None:
+    """Add an extra to the ansys-saf-sdk dependency of the main poetry group, whether it's a string or a table."""
+    pyproject_file = solution_dir / "pyproject.toml"
+    pyproject = tomlkit.parse(pyproject_file.read_text())
+    saf_sdk_dependency = pyproject["tool"]["poetry"]["dependencies"]["ansys-saf-sdk"]  # type: ignore[index]
+    if isinstance(saf_sdk_dependency, str):
+        pyproject["tool"]["poetry"]["dependencies"]["ansys-saf-sdk"] = {  # type: ignore[index]
+            "version": saf_sdk_dependency,
+            "extras": [extra],
+        }
+    else:
+        extras = saf_sdk_dependency.setdefault("extras", [])  # type: ignore
+        if extra not in extras:
+            extras.append(extra)  # type: ignore[reportUnknownMemberType]
+    pyproject_file.write_text(tomlkit.dumps(pyproject))  # type: ignore[reportUnknownMemberType]
+
+
 def configure_hps_solution(solution_dir: Path, solution_name: str, solution_namespace: str) -> None:
     """
     Configures the solution to use HPS by updating steps/pages.
     """
+    # add core-hps extra to the main saf-sdk dependency
+    _add_saf_sdk_extra_to_main_group(solution_dir, "core-hps")
+    _execute_command([solution_name, "poetry lock"])
+
     # update first step and first page to use HPS
     first_step_path = (
         solution_dir / "src" / namespace_to_path(solution_namespace) / solution_name / "solution" / "first_step.py"
@@ -954,6 +976,7 @@ def configure_hps_solution(solution_dir: Path, solution_name: str, solution_name
     )
     first_page_with_hps_path = Path(__file__).parent.parent / "mocks" / "pages" / "first_page_with_hps.py"
     first_page_path.write_text(first_page_with_hps_path.read_text())
+
     # Add script used by hps job
     scripts_dir = solution_dir / "src" / namespace_to_path(solution_namespace) / solution_name / "solution" / "scripts"
     scripts_dir.mkdir(exist_ok=True)

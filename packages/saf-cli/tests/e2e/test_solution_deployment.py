@@ -31,6 +31,7 @@ from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 
 from tests.e2e.conftest import (
+    InstallSolution,
     NewSolution,
     check_solution_launched_correctly,
     check_ui_is_functional,
@@ -72,6 +73,7 @@ def deployment_ui_path_prefix(request: pytest.FixtureRequest) -> str:
 def setup_deployment(
     request: pytest.FixtureRequest,
     new_solution: NewSolution,
+    install_solution: InstallSolution,
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
     session_solution_namespace: str,
@@ -112,6 +114,8 @@ def setup_deployment(
     elif deployment_type == "standalone-with-hps":
         # ensure that HPS hostname is reachable from the solution container
         monkeypatch.setenv("MACHINE_IP", "host.docker.internal")
+        # to have poetry installed for adding HPS extra. overkill, but there is no option to only install venv + poetry.
+        install_solution([solution_name, "-d", "desktop"])
         configure_hps_solution(solution_dir, solution_name, session_solution_namespace)
 
     # Start containers using Docker Compose
