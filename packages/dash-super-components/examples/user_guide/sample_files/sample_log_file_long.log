@@ -1,0 +1,50 @@
+
+INFO - main - Application started
+INFO - main - Loading configuration file
+DEBUG - main - Configuration loaded: 42 parameters found
+INFO - network - Connecting to remote server
+DEBUG - network - DNS resolution completed in 12ms
+INFO - network - Connection established
+DEBUG - database - Opening database connection
+INFO - database - Database connection pool initialized with 10 connections
+DEBUG - scheduler - Scheduler started with 5 worker threads
+INFO - scheduler - Job queue ready
+WARNING - main - Low disk space
+DEBUG - filesystem - Available disk space: 1.2 GB
+WARNING - network - High network latency detected: 320ms
+INFO - auth - User 'admin' logged in successfully
+DEBUG - auth - Session token generated
+INFO - main - Processing batch job #1042
+DEBUG - main - Batch job #1042 contains 256 records
+INFO - database - Transaction started
+WARNING - database - Query execution time exceeded threshold: 2.3s
+INFO - database - Transaction committed successfully
+DEBUG - scheduler - Job #1042 completed in 4.7s
+INFO - network - Heartbeat sent to server
+DEBUG - network - Heartbeat acknowledged
+WARNING - filesystem - Temporary files directory exceeds 80% capacity
+INFO - main - Processing batch job #1043
+DEBUG - main - Batch job #1043 contains 512 records
+ERROR - main - Unhandled exception occurred
+DEBUG - main - Stack trace: NullPointerException at line 84 in processor.py
+WARNING - main - Retrying batch job #1043
+INFO - database - Transaction rolled back
+ERROR - network - Connection to secondary server failed
+WARNING - network - Falling back to primary server
+INFO - network - Reconnected to primary server
+CRITICAL - database - Database connection pool exhausted
+ERROR - database - Failed to acquire connection after 30s timeout
+CRITICAL - main - Critical system resource limit reached
+WARNING - scheduler - Worker thread #3 unresponsive, restarting
+INFO - scheduler - Worker thread #3 restarted successfully
+ERROR - filesystem - Failed to write log archive: permission denied
+CRITICAL - network - All retry attempts failed; service unavailable
+WARNING - auth - Multiple failed login attempts for user 'guest'
+ERROR - auth - Account 'guest' temporarily locked after 5 failed attempts
+INFO - main - System health check initiated
+WARNING - main - Memory usage at 87%
+CRITICAL - main - Out of memory: killing process 4821
+ERROR - main - Application entering degraded mode
+INFO - main - Graceful shutdown initiated
+DEBUG - main - Flushing pending write operations
+INFO - main - Application stopped
