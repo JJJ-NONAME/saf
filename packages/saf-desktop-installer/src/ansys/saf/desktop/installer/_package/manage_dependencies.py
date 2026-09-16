@@ -607,6 +607,12 @@ def merge_group_dependencies(
             package = package.replace("_", "-")
             if package not in dependencies:
                 dependencies[package] = info
+            elif isinstance(info, dict) and info.get("extras"):  # type: ignore[reportUnknownMemberType]
+                if isinstance(dependencies[package], str):
+                    dependencies[package] = {"version": dependencies[package]}
+                if isinstance(dependencies[package], dict):
+                    extras = dependencies[package].setdefault("extras", [])
+                    extras.extend(extra for extra in info["extras"] if extra not in extras)  # type: ignore[reportUnknownVariableType]
 
 
 def add_poetry_project(

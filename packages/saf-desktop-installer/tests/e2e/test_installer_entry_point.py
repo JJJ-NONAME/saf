@@ -33,6 +33,7 @@ from packaging.version import parse
 from PIL import Image
 import pytest
 from selenium.webdriver.chrome.webdriver import WebDriver
+import toml
 
 from ansys.saf.desktop.installer._package.config import (
     DESKTOP_ORCHESTRATOR_MODULE_NAME,
@@ -927,6 +928,71 @@ class TestInstaller:
 
         build_solution([], solution_venv_python_exec, solution_root_dir)
         check_built_solution_files(solution_root_dir)
+
+        installation_output = install_solution(solution_root_dir, tmp_path)
+        assert find_msg_in_output("Preload application", installation_output)
+        assert find_msg_in_output("Execution time:", installation_output)
+        assert_webview2_is_checked(installation_output)
+        assert_long_paths_are_checked(installation_output)
+        shortcut_path = check_installed_solution_files(tmp_path, solution_root_dir)
+        cleanup_shortcut.append(shortcut_path)
+        check_solution_module_preload_is_executed(tmp_path, solution_root_dir)
+        check_dependencies(
+            tmp_path,
+            solution_root_dir,
+            required_dependencies=["tqdm", "pooch", "custom-package-for-test-2", "scooby"],
+            excluded_dependencies=["ansys-saf-desktop-installer", "pyinstaller"],
+        )
+
+        solution_proc = execute_solution(shortcut_path, solution_root_dir)
+        check_solution_launched_correctly(
+            solution_proc,
+            glow_api_port,
+            glow_ui_port,
+            portal_ui_port,
+            session_selenium_webdriver,
+        )
+
+    def test_installer_with_sdk_dependency_in_multiple_groups(
+        self,
+        tmp_path: Path,
+        solution_root_dir: Path,
+        setup_solution: SetupSolution,
+        build_solution: BuildSolution,
+        install_solution: InstallSolution,
+        execute_solution: ExecuteSolution,
+        session_selenium_webdriver: WebDriver,
+        cleanup_shortcut: list[Path],
+    ):
+        """Build a solution with SAF SDK extras distributed across dependency groups."""
+        pyproject_path = solution_root_dir / "pyproject.toml"
+        pyproject = toml.load(pyproject_path)
+        poetry = pyproject["tool"]["poetry"]
+        dependencies = poetry["dependencies"]
+        dependencies.pop("ansys-saf-glow-engine")
+        dependencies["ansys-saf-sdk"] = "^0.1.0"
+
+        desktop_dependencies = poetry["group"]["desktop"]["dependencies"]
+        desktop_dependencies.pop("ansys-saf-desktop-orchestrator")
+        desktop_dependencies["ansys-saf-sdk"] = {"version": "^0.1.0", "extras": ["desktop"]}
+
+        with pyproject_path.open("w") as pyproject_file:
+            toml.dump(pyproject, pyproject_file)
+
+        solution_venv_python_exec, glow_api_port, glow_ui_port, portal_ui_port = setup_solution(solution_root_dir)
+        poetry_executable = solution_venv_python_exec.with_name(
+            "poetry.exe" if platform.system() == "Windows" else "poetry",
+        )
+        subprocess.run([poetry_executable, "lock"], cwd=solution_root_dir, check=True)
+
+        build_solution([], solution_venv_python_exec, solution_root_dir)
+        check_built_solution_files(solution_root_dir)
+
+        definitions_pyproject = toml.load(
+            solution_root_dir / "dist" / "solution" / "definitions" / "my_solution_dash" / "pyproject.toml",
+        )
+        sdk_dependency = definitions_pyproject["tool"]["poetry"]["dependencies"]["ansys-saf-sdk"]
+        assert sdk_dependency == {"version": "^0.1.0", "extras": ["desktop"]}
 
         installation_output = install_solution(solution_root_dir, tmp_path)
         assert find_msg_in_output("Preload application", installation_output)
