@@ -36,17 +36,17 @@ def _remove_ui_tests() -> None:
         SOLUTION_UI_TESTS_PATH.unlink()
 
 
-def _copy_poetry_lock():
+def _copy_uv_lock():
     if "{{ cookiecutter.__ui_framework }}" == "dash":  # pyright: ignore[reportUnnecessaryComparison]
-        shutil.copy(os.path.join("lock_files", "dash", "poetry.lock"), ".")
+        shutil.copy(os.path.join("lock_files", "dash", "uv.lock"), ".")
     else:
-        shutil.copy(os.path.join("lock_files", "no_ui", "poetry.lock"), ".")
+        shutil.copy(os.path.join("lock_files", "no_ui", "uv.lock"), ".")
     shutil.rmtree("lock_files")
 
 
 def main():
     _remove_ui_files()
-    _copy_poetry_lock()
+    _copy_uv_lock()
     _remove_ui_tests()
 
 
