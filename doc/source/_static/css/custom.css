@@ -1416,7 +1416,7 @@ html:not([data-theme="dark"]) .saf-section-secondary h3 {
 }
 /* Dark mode: invert dark SVG icons to white.
    Scoped to _static/icons/ on purpose -- the illustrations in
-   _static/illustrations/ are already theme-neutral and this filter would
+   _static/images/ are already theme-neutral and this filter would
    flatten them to a white silhouette. */
 [data-theme="dark"] .saf-section-primary .sd-card .sd-card-img-top[src*="/icons/"],
 [data-theme="dark"] .saf-section-secondary .sd-card .sd-card-img-top[src*="/icons/"] {
@@ -1430,8 +1430,8 @@ html:not([data-theme="dark"]) .saf-section-secondary .sd-card .sd-card-img-top {
   filter: none !important;
 }
 /* Illustrations span the full card width, edge to edge, like a thumbnail */
-.saf-section-primary .sd-card .sd-card-img-top[src*="/illustrations/"],
-.saf-section-secondary .sd-card .sd-card-img-top[src*="/illustrations/"] {
+.saf-section-primary .sd-card .sd-card-img-top[src*="/images/"],
+.saf-section-secondary .sd-card .sd-card-img-top[src*="/images/"] {
   max-height: none !important;
   width: 100% !important;
   height: auto !important;
