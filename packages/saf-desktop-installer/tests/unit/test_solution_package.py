@@ -47,6 +47,40 @@ from ansys.saf.desktop.installer._package.solution_package import (
 from tests.conftest import CUSTOM_PACKAGE_FOR_TEST_2_WHEEL_NAMES
 
 
+def test_merge_group_dependencies_adds_extras_to_main_dependency():
+    dependencies: dict[str, Any] = {
+        "example-package": {"version": "^1.0", "extras": ["main-extra"], "python": ">=3.11"},
+    }
+    poetry: dict[str, Any] = {
+        "group": {
+            "desktop": {"dependencies": {"example_package": {"version": "^2.0", "extras": ["desktop-extra"]}}},
+            "ui": {"dependencies": {"example-package": {"extras": ["ui-extra", "main-extra"]}}},
+            "doc": {"dependencies": {"example-package": {"extras": ["doc-extra"]}}},
+        },
+    }
+
+    manage_dependencies.merge_group_dependencies(["desktop", "ui", "doc"], poetry, dependencies)
+
+    assert dependencies == {
+        "example-package": {
+            "version": "^1.0",
+            "extras": ["main-extra", "desktop-extra", "ui-extra", "doc-extra"],
+            "python": ">=3.11",
+        },
+    }
+
+
+def test_merge_group_dependencies_adds_extras_to_string_main_dependency():
+    dependencies: dict[str, Any] = {"example-package": "^1.0"}
+    poetry: dict[str, Any] = {
+        "group": {"desktop": {"dependencies": {"example_package": {"extras": ["desktop-extra"]}}}},
+    }
+
+    manage_dependencies.merge_group_dependencies(["desktop"], poetry, dependencies)
+
+    assert dependencies == {"example-package": {"version": "^1.0", "extras": ["desktop-extra"]}}
+
+
 @pytest.fixture
 def mock_installer_config(solution_root_dir: Path) -> InstallerConfig:
     return InstallerConfig(
