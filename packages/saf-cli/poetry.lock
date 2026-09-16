@@ -282,14 +282,14 @@ optislang = ["ansys-optislang-core (>=1.4,<2.0)", "click (>=8.1.7,<9.0.0)", "fas
 
 [[package]]
 name = "ansys-saf-templates"
-version = "0.2.0"
+version = "0.3.0"
 description = "Collection of templates to develop in SAF solutions."
 optional = false
 python-versions = "<4,>=3.11"
 groups = ["main"]
 files = [
-    {file = "ansys_saf_templates-0.2.0-py3-none-any.whl", hash = "sha256:b76484fa697fef13f77dc56d0e8650659813c05a449f9f989085d83972b97053"},
-    {file = "ansys_saf_templates-0.2.0.tar.gz", hash = "sha256:fac243256cfb885d889cab1b26cca66e41335cc66a2a85c5eafc1f9b6cb34e31"},
+    {file = "ansys_saf_templates-0.3.0-py3-none-any.whl", hash = "sha256:cde8e5387239b46750ddc6a5241ba8cb6707f01cd7cf89849bf7769b2d44e8f9"},
+    {file = "ansys_saf_templates-0.3.0.tar.gz", hash = "sha256:ab355f49468e6a452539b18b90d1f47c32b265ca9bfcb265d75f566b5acbbd1c"},
 ]
 
 [[package]]
