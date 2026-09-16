@@ -232,3 +232,6 @@ tmp_saf_devops/
 
 # Release notes of ansys-saf-sdk
 release_notes.md
+
+# Mock wheels
+!packages/saf-cli/tests/e2e/mocks/wheels/*.whl
