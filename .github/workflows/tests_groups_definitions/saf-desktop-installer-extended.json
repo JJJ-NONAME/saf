@@ -285,6 +285,19 @@
         "download-extra-packages": "true"
     },
     {
+        "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_with_sdk_dependency_in_multiple_groups",
+        "install-gtk-xvfb": "true",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_sdk_dependency_in_multiple_groups",
+        "runner-name": "ubuntu-latest-16-cores",
+        "download-extra-packages": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "sdi_windows_extended_test_installer_with_sdk_dependency_in_multiple_groups",
+        "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_sdk_dependency_in_multiple_groups",
+        "runner-name": "windows-latest-8-cores",
+        "download-extra-packages": "true"
+    },
+    {
         "test-report-artifact-name-suffix": "sdi_linux_extended_test_installer_with_executable_as_dir",
         "install-gtk-xvfb": "true",
         "pytest-additional-arguments": "-n0 tests/e2e/test_installer_entry_point.py::TestInstaller::test_installer_with_executable_as_dir",
