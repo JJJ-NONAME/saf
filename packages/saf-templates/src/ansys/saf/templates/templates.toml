@@ -1,14 +1,14 @@
 [templates.calculator-step]
 location = "steps/calculator"
 type = "step"
-saf_cli_compatibility_range = ">=4.3.0, <5.0"
+saf_cli_compatibility_range = ">=4.3.dev0, <5.0"
 description = "a step that performs calculator operations"
 
 
 [templates.hps-simple-job-step]
 location = "steps/hps_job_submission/hps_simple_job"
 type = "step"
-saf_cli_compatibility_range = ">=4.3.0, <5.0"
+saf_cli_compatibility_range = ">=4.3.dev0, <5.0"
 description = "a step that performs a simple HPS job."
 
 [templates.hps-simple-job-step.dependencies.main]
@@ -21,7 +21,7 @@ dash-iconify = ">=0.1.0,<0.2.0"
 [templates.hps-parametric-study-step]
 location = "steps/hps_job_submission/hps_parametric_study"
 type = "step"
-saf_cli_compatibility_range = ">=4.3.0, <5.0"
+saf_cli_compatibility_range = ">=4.3.dev0, <5.0"
 description = "a step that performs a parametric study on HPS."
 
 [templates.hps-parametric-study-step.dependencies.main]
@@ -34,7 +34,7 @@ dash-iconify = ">=0.1.0,<0.2.0"
 [templates.instance-mgmt-geometry-step]
 location = "steps/instance_management/geometry"
 type = "step"
-saf_cli_compatibility_range = ">=4.3.0, <5.0"
+saf_cli_compatibility_range = ">=4.3.dev0, <5.0"
 description = "a step that performs basic Geometry instance management"
 
 [templates.instance-mgmt-geometry-step.dependencies.main]
