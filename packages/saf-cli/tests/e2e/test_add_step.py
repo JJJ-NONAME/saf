@@ -338,7 +338,7 @@ def test_add_step_with_custom_step_with_several_dependencies_one_conflicting_one
         f"pyproject.toml and manually update it if necessary, to ensure that it is compatible with the step "
         f"template's dependencies.\n\n"
         f"Step specification of the common dependencies:\n"
-        "  - ansys-saf-glow-engine (main): {'version': '^1.41.dev2', 'allow-prereleases': True, 'extras': ['hps']}\n\n"
+        "  - ansys-saf-sdk (main): {'version': '^0.1.0', 'allow-prereleases': True, 'extras': ['core-hps']}\n\n"
         f"After reviewing the dependencies, please run:\n"
         f'  - saf execute {session_solution.name} "poetry lock"\n'
         f'  - saf execute {session_solution.name} "poetry install --with ui"'
@@ -467,8 +467,8 @@ def test_add_step_with_custom_step_with_several_dependencies_one_conflicting_in_
         f"pyproject.toml and manually update it if necessary, to ensure that it is compatible with the step "
         f"template's dependencies.\n\n"
         f"Step specification of the common dependencies:\n"
-        "  - ansys-saf-glow-engine (another_group group): {'version': '^1.41.dev2', 'allow-prereleases': True, "
-        "'extras': ['hps']}\n\n"
+        "  - ansys-saf-sdk (another_group group): {'version': '^0.1.0', 'allow-prereleases': True, "
+        "'extras': ['core-hps']}\n\n"
         f"After reviewing the dependencies, please run:\n"
         f'  - saf execute {session_solution.name} "poetry lock"\n'
         f'  - saf execute {session_solution.name} "poetry install --with another_group,ui"'

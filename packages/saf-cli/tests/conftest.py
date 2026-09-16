@@ -245,8 +245,8 @@ def install_custom_template_plugin_with_glow_and_ui_deps() -> Generator[Path, No
     templates_toml = plugin_destination_dir / "templates.toml"
     templates_content = templates_toml.read_text()
     templates_content += "\n\n[templates.second-step.dependencies.main]"
-    glow_dep_line = '\nansys-saf-glow-engine = {version = "^1.41.dev2", allow-prereleases=true, extras = ["hps"]}\n\n'
-    templates_content += glow_dep_line
+    sdk_dep_line = '\nansys-saf-sdk = {version = "^0.1.0", allow-prereleases=true, extras = ["core-hps"]}\n\n'
+    templates_content += sdk_dep_line
     templates_content += '[templates.second-step.dependencies.ui]\nstreamlit = "^1.58.0"\n'
     templates_toml.write_text(templates_content)
     yield plugin_destination_dir
@@ -261,8 +261,8 @@ def install_custom_template_plugin_with_glow_in_different_group() -> Generator[P
     templates_toml = plugin_destination_dir / "templates.toml"
     templates_content = templates_toml.read_text()
     templates_content += "\n\n[templates.second-step.dependencies.another_group]"
-    glow_dep_line = '\nansys-saf-glow-engine = {version = "^1.41.dev2", allow-prereleases=true, extras = ["hps"]}\n\n'
-    templates_content += glow_dep_line
+    sdk_dep_line = '\nansys-saf-sdk = {version = "^0.1.0", allow-prereleases=true, extras = ["core-hps"]}\n\n'
+    templates_content += sdk_dep_line
     templates_content += '[templates.second-step.dependencies.ui]\nstreamlit = "^1.58.0"\n'
     templates_toml.write_text(templates_content)
     yield plugin_destination_dir
