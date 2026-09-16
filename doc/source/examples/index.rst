@@ -4,11 +4,49 @@
 Examples
 ########
 
+Each example demonstrates how to implement a specific feature in a solution application. Unless otherwise indicated, examples are both integrated into the :ref:`Solution Examples <examples_solution>` solution and addressed in :ref:`this documentation <examples_instructions>`.
+
+.. _examples_solution:
+
+Set up the example solution
+============================
+
+The **Solution Examples** solution provided in the ``saf/examples`` directory demonstrates select SAF examples. Follow these instructions to install and run the solution.
+
+#. Ensure you've fulfilled all requirements noted in the :ref:`prerequisites` section.
+
+#. In a local clone of the ``saf`` repository, move to the ``examples`` folder:
+
+   .. code-block:: bash
+
+     cd saf/examples
+
+#. Install the solution:
+
+   .. code-block:: bash
+
+       saf run
+
+#. Run the solution:
+
+   .. code-block:: bash
+
+     saf run
+
+The Solution Examples solution opens to the first example. You're ready to start exploring the available examples, which are shown in the navigation sidebar of the solution.
+
+.. image:: /_static/images/example_solution_open_to_dash_components.png
+  :width: 100%
 
 
-Each example demonstrates how to implement a specific feature in a solution application. These examples are integrated into the **Solution Examples** solution.
 
-You can view their source code in the corresponding `solution-examples <https://github.com/ansys/solution-examples/tree/main/src/ansys/solutions/examples/solution>`_ repository.
+.. _examples_instructions:
+
+Get example instructions
+==========================
+
+
+To get detailed instructions for examples, either click a category in the left navigation sidebar or click the corresponding card below:
 
 
 .. card:: :large-bold:`UI Components and visualization`
@@ -184,7 +222,7 @@ You can view their source code in the corresponding `solution-examples <https://
 
   Get started with a collection of simple, single-file Dash applications that highlight the features of the Dash Super Components library.
 
-  .. grid:: 3
+  .. grid:: 2
     :gutter: 4
     :class-container: onboarding-cards
 
@@ -204,6 +242,10 @@ You can view their source code in the corresponding `solution-examples <https://
       :shadow: lg
 
       Explore examples that demonstrate the usage of Dash Super Components that integrate directly with SAF GLOW API.
+
+
+  .. note:: The Dash Super Components examples are not integrated into the Solution Examples solution.
+
 
 .. toctree::
   :hidden:

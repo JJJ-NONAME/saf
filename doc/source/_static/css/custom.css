@@ -247,6 +247,12 @@ body.page-index .highlight-card {
     font-weight: bold;
 }
 
+.card-asterisk {
+    color: #FDB71A;
+    font-size: medium;
+    font-weight: bold;
+}
+
 /* =========================================== CARDS =========================================== */
 
 /* --------------- grid-item-card rounded corners --------------- */
