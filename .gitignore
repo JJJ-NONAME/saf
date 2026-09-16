@@ -233,6 +233,15 @@ tmp_saf_devops/
 # Release notes of ansys-saf-sdk
 release_notes.md
 
-# Mock wheels
+# Assets to include in the repository
+!packages/saf-desktop-installer/tests/mocks/my-solution-dash-old/build_assets
+!packages/saf-desktop-installer/tests/mocks/my-solution-dash-old/build_assets/*.whl
+
+!packages/saf-desktop-installer/tests/mocks/my-solution-dash/build_assets
+!packages/saf-desktop-installer/tests/mocks/my-solution-dash/build_assets/*.whl
+
+!packages/dash-super-components/examples/user_guide/sample_files
+!packages/dash-super-components/examples/user_guide/sample_files/*.log
+
 !packages/saf-cli/tests/mocks/wheels
 !packages/saf-cli/tests/mocks/wheels/*.whl
