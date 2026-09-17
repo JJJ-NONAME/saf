@@ -52,7 +52,7 @@ Where do you want to start?
       :link: getting_started/index
       :link-type: doc
       :class-card: sd-border-primary
-      :img-top: _static/illustrations/getting-started.svg
+      :img-top: _static/images/getting-started.svg
 
       Start here. Install prerequisites, scaffold your first solution, and run it locally
       in under 30 minutes.
@@ -63,7 +63,7 @@ Where do you want to start?
       :link: user_guide/index
       :link-type: doc
       :class-card: sd-border-primary
-      :img-top: _static/illustrations/user-guide.svg
+      :img-top: _static/images/user-guide.svg
 
       Follow the method developer workflow: scaffold, build backend and frontend,
       run, test, and package your solution.
@@ -74,7 +74,7 @@ Where do you want to start?
       :link: user_guide/deploy/index
       :link-type: doc
       :class-card: sd-border-primary
-      :img-top: _static/illustrations/deployment.svg
+      :img-top: _static/images/deployment.svg
 
       Choose your deployment target: desktop installer, single-node Windows service,
       or distributed Docker Compose / K3s.
