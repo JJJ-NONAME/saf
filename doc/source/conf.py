@@ -29,7 +29,7 @@ from docutils import nodes
 BRANCH = "main"
 ORGANIZATION_NAME = "ansys"
 DOC_PATH = "doc/source"
-CNAME = "upgraded-carnival-wn6lkym.pages.github.io"
+CNAME = "saf.ansys.com"
 REPOSITORY_URL = "github.com/ansys/saf"
 
 configuration_file = None
@@ -640,27 +640,27 @@ SUBSTITUTION_MAPPING = {
     },
     # Product instance management examples (used by migrated glow-engine narrative content)
     "aedt-example": {
-        "url": "https://upgraded-carnival-wn6lkym.pages.github.io/version/stable/examples/product_instance_managers/saf_ex_aedt_product_instance.html",
+        "url": "https://saf.ansys.com/version/stable/examples/product_instance_managers_examples/saf_ex_aedt_product_instance.html",
         "text": "AEDT solution example",
     },
     "fluent-example": {
-        "url": "https://upgraded-carnival-wn6lkym.pages.github.io/version/stable/examples/product_instance_managers/saf_ex_fluent_product_instance.html",
+        "url": "https://saf.ansys.com/version/stable/examples/product_instance_managers_examples/saf_ex_fluent_product_instance.html",
         "text": "Fluent solution example",
     },
     "geometry-example": {
-        "url": "https://upgraded-carnival-wn6lkym.pages.github.io/version/stable/examples/product_instance_managers/saf_ex_geometry_product_instance.html",
+        "url": "https://saf.ansys.com/version/stable/examples/product_instance_managers_examples/saf_ex_geometry_product_instance.html",
         "text": "Geometry solution example",
     },
     "mapdl-example": {
-        "url": "https://upgraded-carnival-wn6lkym.pages.github.io/version/stable/examples/product_instance_managers/saf_ex_mapdl_product_instance.html",
+        "url": "https://saf.ansys.com/version/stable/examples/product_instance_managers_examples/saf_ex_mapdl_product_instance.html",
         "text": "MAPDL solution example",
     },
     "mechanical-example": {
-        "url": "https://upgraded-carnival-wn6lkym.pages.github.io/version/stable/examples/product_instance_managers/saf_ex_mechanical_product_instance.html",
+        "url": "https://saf.ansys.com/version/stable/examples/product_instance_managers_examples/saf_ex_mechanical_product_instance.html",
         "text": "Mechanical solution example",
     },
     "optislang-example": {
-        "url": "https://upgraded-carnival-wn6lkym.pages.github.io/version/stable/examples/product_instance_managers/saf_ex_optislang_product_instance.html",
+        "url": "https://saf.ansys.com/version/stable/examples/product_instance_managers_examples/saf_ex_optislang_product_instance.html",
         "text": "optiSLang solution example",
     },
     "configure SSH": {

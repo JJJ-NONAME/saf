@@ -9,7 +9,7 @@ File-based images
 
   Display images dynamically generated from files in the user interface of a solution.
 
-  Source code for this example is in the `solution-examples <https://github.com/ansys/solution-examples>`_ repository.
+  Source code for this example is in the `example solution <https://github.com/ansys/saf/tree/main/examples>`_.
 
 .. _saf-ex-display-images-objective:
 
