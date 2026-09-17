@@ -100,6 +100,7 @@ html_theme = "ansys_sphinx_theme"
 html_short_title = html_title = "Blob Management API for Python"
 html_favicon = ansys_favicon
 html_static_path = ["_static"]
+html_css_files = ["css/custom.css"]
 
 html_context = {
     "github_user": "ansys",

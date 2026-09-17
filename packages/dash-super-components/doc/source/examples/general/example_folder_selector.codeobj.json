@@ -1,0 +1,264 @@
+{
+ "DashProxy": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_extensions.enrich",
+   "module_short": "dash_extensions.enrich",
+   "name": "DashProxy"
+  }
+ ],
+ "FolderSelector": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "ansys.solutions.dash_super_components",
+   "module_short": "ansys.solutions.dash_super_components",
+   "name": "FolderSelector"
+  }
+ ],
+ "FolderSelector.ids.selected_folder": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "ansys.solutions.dash_super_components.FolderSelector.ids",
+   "module_short": "ansys.solutions.dash_super_components.FolderSelector.ids",
+   "name": "selected_folder"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "FolderSelector.ids",
+   "module_short": "FolderSelector.ids",
+   "name": "selected_folder"
+  }
+ ],
+ "FolderSelectorMode.BOOTSTRAP": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "ansys.solutions.dash_super_components.folder_selector.FolderSelectorMode",
+   "module_short": "ansys.solutions.dash_super_components.folder_selector.FolderSelectorMode",
+   "name": "BOOTSTRAP"
+  }
+ ],
+ "Input": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_extensions.enrich",
+   "module_short": "dash_extensions.enrich",
+   "name": "Input"
+  }
+ ],
+ "Output": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_extensions.enrich",
+   "module_short": "dash_extensions.enrich",
+   "name": "Output"
+  }
+ ],
+ "Path": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "pathlib",
+   "module_short": "pathlib",
+   "name": "Path"
+  }
+ ],
+ "__name__": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "str"
+  }
+ ],
+ "_dash_renderer._set_react_version": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash._dash_renderer",
+   "module_short": "dash._dash_renderer",
+   "name": "_set_react_version"
+  }
+ ],
+ "ansys.solutions.dash_super_components.FolderSelector": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ansys.solutions.dash_super_components",
+   "module_short": "ansys.solutions.dash_super_components",
+   "name": "FolderSelector"
+  }
+ ],
+ "ansys.solutions.dash_super_components.configure": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ansys.solutions.dash_super_components",
+   "module_short": "ansys.solutions.dash_super_components",
+   "name": "configure"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ansys.solutions.dash_super_components",
+   "module_short": "ansys.solutions.dash_super_components",
+   "name": "configure"
+  }
+ ],
+ "callback": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_extensions.enrich",
+   "module_short": "dash_extensions.enrich",
+   "name": "callback"
+  }
+ ],
+ "dash_extensions.enrich.dcc.Store": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "dash_extensions.enrich.dcc",
+   "module_short": "dash_extensions.enrich.dcc",
+   "name": "Store"
+  }
+ ],
+ "dash_mantine_components.MantineProvider": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "MantineProvider"
+  }
+ ],
+ "dash_mantine_components.NotificationContainer": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "NotificationContainer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "NotificationContainer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "NotificationContainer"
+  }
+ ],
+ "dmc.Card": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "Card"
+  }
+ ],
+ "dmc.Divider": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "Divider"
+  }
+ ],
+ "dmc.Group": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "Group"
+  }
+ ],
+ "dmc.MantineProvider": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "MantineProvider"
+  }
+ ],
+ "dmc.NotificationContainer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "NotificationContainer"
+  }
+ ],
+ "dmc.Space": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "Space"
+  }
+ ],
+ "dmc.Stack": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "Stack"
+  }
+ ],
+ "dmc.Text": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "Text"
+  }
+ ],
+ "dmc.Title": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "Title"
+  }
+ ],
+ "dsc.configure": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "ansys.solutions.dash_super_components",
+   "module_short": "ansys.solutions.dash_super_components",
+   "name": "configure"
+  }
+ ],
+ "html.Div": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_extensions.enrich.html",
+   "module_short": "dash_extensions.enrich.html",
+   "name": "Div"
+  }
+ ]
+}

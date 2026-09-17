@@ -1,0 +1,349 @@
+{
+ "DashProxy": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_extensions.enrich",
+   "module_short": "dash_extensions.enrich",
+   "name": "DashProxy"
+  }
+ ],
+ "Input": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_extensions.enrich",
+   "module_short": "dash_extensions.enrich",
+   "name": "Input"
+  }
+ ],
+ "LogsSupervisor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "ansys.solutions.dash_super_components",
+   "module_short": "ansys.solutions.dash_super_components",
+   "name": "LogsSupervisor"
+  }
+ ],
+ "LogsSupervisor.ids.activate_monitoring": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "ansys.solutions.dash_super_components.LogsSupervisor.ids",
+   "module_short": "ansys.solutions.dash_super_components.LogsSupervisor.ids",
+   "name": "activate_monitoring"
+  }
+ ],
+ "NoUpdate": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash._callback",
+   "module_short": "dash",
+   "name": "NoUpdate"
+  }
+ ],
+ "Output": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_extensions.enrich",
+   "module_short": "dash_extensions.enrich",
+   "name": "Output"
+  }
+ ],
+ "Path": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "pathlib",
+   "module_short": "pathlib",
+   "name": "Path"
+  }
+ ],
+ "__name__": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "str"
+  }
+ ],
+ "_dash_renderer._set_react_version": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash._dash_renderer",
+   "module_short": "dash._dash_renderer",
+   "name": "_set_react_version"
+  }
+ ],
+ "add_super_components_assets": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "ansys.solutions.dash_super_components",
+   "module_short": "ansys.solutions.dash_super_components",
+   "name": "add_super_components_assets"
+  }
+ ],
+ "ansys.saf.glow.solution.FileReference": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ansys.saf.glow.solution",
+   "module_short": "ansys.saf.glow.solution",
+   "name": "FileReference"
+  }
+ ],
+ "ansys.solutions.dash_super_components.LogsSupervisor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ansys.solutions.dash_super_components",
+   "module_short": "ansys.solutions.dash_super_components",
+   "name": "LogsSupervisor"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ansys.solutions.dash_super_components",
+   "module_short": "ansys.solutions.dash_super_components",
+   "name": "LogsSupervisor"
+  }
+ ],
+ "ansys.solutions.dash_super_components.configure": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ansys.solutions.dash_super_components",
+   "module_short": "ansys.solutions.dash_super_components",
+   "name": "configure"
+  }
+ ],
+ "callback": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_extensions.enrich",
+   "module_short": "dash_extensions.enrich",
+   "name": "callback"
+  }
+ ],
+ "choice": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "random",
+   "module_short": "random",
+   "name": "choice"
+  }
+ ],
+ "dash_mantine_components.MantineProvider": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "MantineProvider"
+  }
+ ],
+ "dash_mantine_components.NotificationContainer": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "NotificationContainer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "NotificationContainer"
+  }
+ ],
+ "dmc.Button": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "Button"
+  }
+ ],
+ "dmc.MantineProvider": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "MantineProvider"
+  }
+ ],
+ "dmc.NotificationContainer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "NotificationContainer"
+  }
+ ],
+ "dmc.Text": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "Text"
+  }
+ ],
+ "dmc.Title": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "Title"
+  }
+ ],
+ "html.Div": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_extensions.enrich.html",
+   "module_short": "dash_extensions.enrich.html",
+   "name": "Div"
+  }
+ ],
+ "logging.CRITICAL": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "logging",
+   "module_short": "logging",
+   "name": "CRITICAL"
+  }
+ ],
+ "logging.DEBUG": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "logging",
+   "module_short": "logging",
+   "name": "DEBUG"
+  }
+ ],
+ "logging.ERROR": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "logging",
+   "module_short": "logging",
+   "name": "ERROR"
+  }
+ ],
+ "logging.FileHandler": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "logging",
+   "module_short": "logging",
+   "name": "FileHandler"
+  }
+ ],
+ "logging.Formatter": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "logging",
+   "module_short": "logging",
+   "name": "Formatter"
+  }
+ ],
+ "logging.INFO": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "logging",
+   "module_short": "logging",
+   "name": "INFO"
+  }
+ ],
+ "logging.WARNING": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "logging",
+   "module_short": "logging",
+   "name": "WARNING"
+  }
+ ],
+ "logging.getLogger": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "logging",
+   "module_short": "logging",
+   "name": "getLogger"
+  }
+ ],
+ "no_update": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_extensions.enrich",
+   "module_short": "dash_extensions.enrich",
+   "name": "no_update"
+  }
+ ],
+ "os.getenv": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "os",
+   "module_short": "os",
+   "name": "getenv"
+  }
+ ],
+ "tempfile.gettempdir": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "tempfile",
+   "module_short": "tempfile",
+   "name": "gettempdir"
+  }
+ ],
+ "threading.Thread": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "threading",
+   "module_short": "threading",
+   "name": "Thread"
+  }
+ ],
+ "time.monotonic": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "time",
+   "module_short": "time",
+   "name": "monotonic"
+  }
+ ],
+ "time.sleep": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "time",
+   "module_short": "time",
+   "name": "sleep"
+  }
+ ]
+}

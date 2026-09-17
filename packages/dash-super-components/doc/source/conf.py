@@ -172,6 +172,7 @@ html_static_path = ["_static"]
 # css files
 html_css_files = [
     "svg_icons.css",
+    "css/custom.css",
 ]
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]

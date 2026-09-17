@@ -1,0 +1,171 @@
+{
+ "DashProxy": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_extensions.enrich",
+   "module_short": "dash_extensions.enrich",
+   "name": "DashProxy"
+  }
+ ],
+ "DualInputRangeSlider": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "ansys.solutions.dash_super_components",
+   "module_short": "ansys.solutions.dash_super_components",
+   "name": "DualInputRangeSlider"
+  }
+ ],
+ "DualInputRangeSlider.ids.slider": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "ansys.solutions.dash_super_components.DualInputRangeSlider.ids",
+   "module_short": "ansys.solutions.dash_super_components.DualInputRangeSlider.ids",
+   "name": "slider"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "DualInputRangeSlider.ids",
+   "module_short": "DualInputRangeSlider.ids",
+   "name": "slider"
+  }
+ ],
+ "Input": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_extensions.enrich",
+   "module_short": "dash_extensions.enrich",
+   "name": "Input"
+  }
+ ],
+ "Output": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_extensions.enrich",
+   "module_short": "dash_extensions.enrich",
+   "name": "Output"
+  }
+ ],
+ "PreventUpdate": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash.exceptions",
+   "module_short": "dash.exceptions",
+   "name": "PreventUpdate"
+  }
+ ],
+ "__name__": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "str"
+  }
+ ],
+ "_dash_renderer._set_react_version": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash._dash_renderer",
+   "module_short": "dash._dash_renderer",
+   "name": "_set_react_version"
+  }
+ ],
+ "ansys.solutions.dash_super_components.DualInputRangeSlider": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ansys.solutions.dash_super_components",
+   "module_short": "ansys.solutions.dash_super_components",
+   "name": "DualInputRangeSlider"
+  }
+ ],
+ "callback": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_extensions.enrich",
+   "module_short": "dash_extensions.enrich",
+   "name": "callback"
+  }
+ ],
+ "dash.callback": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "dash",
+   "module_short": "dash",
+   "name": "callback"
+  }
+ ],
+ "dash_mantine_components.MantineProvider": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "MantineProvider"
+  }
+ ],
+ "dash_mantine_components.RangeSlider": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "RangeSlider"
+  }
+ ],
+ "dmc.MantineProvider": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "MantineProvider"
+  }
+ ],
+ "dmc.Space": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "Space"
+  }
+ ],
+ "dmc.Text": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "Text"
+  }
+ ],
+ "dmc.Title": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_mantine_components",
+   "module_short": "dash_mantine_components",
+   "name": "Title"
+  }
+ ],
+ "html.Div": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "dash_extensions.enrich.html",
+   "module_short": "dash_extensions.enrich.html",
+   "name": "Div"
+  }
+ ]
+}

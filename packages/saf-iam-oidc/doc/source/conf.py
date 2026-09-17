@@ -17,6 +17,7 @@
 from datetime import datetime
 import os
 from pathlib import Path
+import shutil
 import subprocess
 
 from ansys_sphinx_theme import ansys_favicon, ansys_logo_dark_mode, ansys_logo_light_mode, get_version_match
@@ -82,6 +83,14 @@ intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
     "sphinx": ("https://www.sphinx-doc.org/en/master", None),
 }
+
+# Allow local / offline / CI builds to skip intersphinx fetching entirely.
+if os.getenv("DISABLE_INTERSPHINX", "false").lower() == "true":
+    intersphinx_mapping = {}
+    # numpydoc renders parameter types as intersphinx references (for example ``bool`` becomes
+    # ``python:bltin-boolean-values``). Those cannot resolve without the inventories, so they
+    # must not fail the strict build.
+    suppress_warnings = [*suppress_warnings, "ref.ref"]
 
 # ============================================================================
 # Autodoc / Pydantic configuration
@@ -158,6 +167,7 @@ html_theme = "ansys_sphinx_theme"
 html_short_title = html_title = "IAM OIDC"
 html_favicon = ansys_favicon
 html_static_path = ["_static"]
+html_css_files = ["css/custom.css"]
 templates_path = ["_templates"]
 html_show_sourcelink = False
 html_compact_lists = False
@@ -220,11 +230,16 @@ html_theme_options["switcher"] = {
 
 jinja_globals = {"version": version}
 
+tox_command = shutil.which("tox")
+tox_envs = []
+if tox_command:
+    tox_envs = subprocess.run(
+        [tox_command, "list", "-d", "-q"], capture_output=True, text=True
+    ).stdout.splitlines()[1:]
+
 jinja_contexts = {
     "toxenvs": {
-        "envs": subprocess.run(
-            ["tox", "list", "-d", "-q"], capture_output=True, text=True
-        ).stdout.splitlines()[1:],
+        "envs": tox_envs,
     },
 }
 

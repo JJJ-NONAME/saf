@@ -74,6 +74,10 @@ intersphinx_mapping = {
     "sphinx": ("https://www.sphinx-doc.org/en/master", None),
 }
 
+# Allow local / offline / CI builds to skip intersphinx fetching entirely.
+if os.getenv("DISABLE_INTERSPHINX", "false").lower() == "true":
+    intersphinx_mapping = {}
+
 # ============================================================================
 # LaTeX configuration
 # ============================================================================
@@ -98,6 +102,7 @@ html_favicon = ansys_favicon
 html_theme = "ansys_sphinx_theme"
 html_short_title = html_title = "SAF Product Configuration for Python"
 html_static_path = ["_static"] if (THIS_PATH / "_static").is_dir() else []
+html_css_files = ["css/custom.css"]
 templates_path = ["_templates"]
 html_show_sourcelink = False
 html_compact_lists = False

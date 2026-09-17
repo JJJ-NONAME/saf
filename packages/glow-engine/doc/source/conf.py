@@ -42,7 +42,7 @@ switcher_version = get_version_match(__version__)
 source_suffix = {".rst": "restructuredtext"}
 master_doc = "index"
 language = "en"
-suppress_warnings = ["label.*", "toc.not_readable", "autoapi.python_import_resolution"]
+suppress_warnings = ["label.*", "toc.not_readable", "toc.excluded", "autoapi.python_import_resolution"]
 todo_include_todos = False
 numfig = True
 numfig_secnum_depth = 1
@@ -59,7 +59,10 @@ exclude_patterns = [
     "links.rst",
     "substitutions.rst",
     "ansys/saf/glow/_*",  # private modules - not part of the public API
-    "ansys/saf/glow/solution/products",  # internal PIM implementation detail
+    # Excluded to avoid shipping an empty page: the module builds ``__all__`` inside an
+    # ``if _pytest_available:`` block (invisible to AutoAPI's static parsing), and none of its
+    # 11 exported pytest fixtures carry a docstring, so there is nothing to document.
+    "ansys/saf/glow/testing",
 ]
 
 # ============================================================================
@@ -84,9 +87,22 @@ extensions = [
 # Intersphinx
 # ============================================================================
 
+# GLOW docstrings cross-reference the central SAF user guide through the ``saf-docs``
+# inventory. In CI the CNAME variable points at the central SAF docs site; fall back to
+# the public production domain for local builds so the references still resolve.
+saf_docs_cname = cname or "saf.docs.solutions.ansys.com"
+
 intersphinx_mapping = {
     "python": ("https://docs.python.org/dev", None),
+    "saf-docs": (f"https://{saf_docs_cname}/version/stable", None),
 }
+
+# Allow local / offline / CI builds to skip intersphinx fetching entirely. When it is
+# disabled the ``saf-docs`` cross-references cannot resolve, so silence those reference
+# warnings to keep the strict (-W) documentation build green.
+if os.getenv("DISABLE_INTERSPHINX", "false").lower() == "true":
+    intersphinx_mapping = {}
+    suppress_warnings = [*suppress_warnings, "ref.ref"]
 
 # ============================================================================
 # Autodoc / Pydantic configuration
@@ -159,6 +175,7 @@ html_theme = "ansys_sphinx_theme"
 html_short_title = html_title = "SAF GLOW"
 html_favicon = ansys_favicon
 html_static_path = ["_static"]
+html_css_files = ["css/custom.css"]
 templates_path = ["_templates"]
 html_show_sourcelink = False
 html_compact_lists = False
@@ -197,6 +214,18 @@ html_theme_options = {
         "project": project,
         "output": ".",
         "add_toctree_entry": False,
+        # Public packages only re-export objects defined in private ``_*`` modules, so without
+        # ``imported-members`` their pages render empty. Documenting members inline on the module
+        # page reproduces what the standalone GLOW docs produced with ``automodule``.
+        "own_page_level": "module",
+        "options": [
+            "members",
+            "undoc-members",
+            "show-inheritance",
+            "show-module-summary",
+            "special-members",
+            "imported-members",
+        ],
     },
     "check_switcher": False,
 }
