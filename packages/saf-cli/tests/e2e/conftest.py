@@ -957,13 +957,17 @@ def _add_saf_sdk_extra_to_main_group(solution_dir: Path, extra: str) -> None:
     pyproject_file.write_text(tomlkit.dumps(pyproject))  # type: ignore[reportUnknownMemberType]
 
 
+def add_hps_extra_to_solution(solution_dir: Path, solution_name: str) -> None:
+    _add_saf_sdk_extra_to_main_group(solution_dir, "core-hps")
+    _execute_command([solution_name, "poetry lock"])
+
+
 def configure_hps_solution(solution_dir: Path, solution_name: str, solution_namespace: str) -> None:
     """
     Configures the solution to use HPS by updating steps/pages.
     """
     # add core-hps extra to the main saf-sdk dependency
-    _add_saf_sdk_extra_to_main_group(solution_dir, "core-hps")
-    _execute_command([solution_name, "poetry lock"])
+    add_hps_extra_to_solution(solution_dir, solution_name)
 
     # update first step and first page to use HPS
     first_step_path = (

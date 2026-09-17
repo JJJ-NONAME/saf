@@ -33,6 +33,7 @@ from selenium.webdriver.common.by import By
 from tests.e2e.conftest import (
     InstallSolution,
     NewSolution,
+    add_hps_extra_to_solution,
     check_solution_launched_correctly,
     check_ui_is_functional,
     configure_docker_extra_packages,
@@ -111,6 +112,10 @@ def setup_deployment(
     if result_via_file:
         monkeypatch.setenv("MACHINE_IP", "host.docker.internal")
         configure_solution_to_store_result_in_file(solution_dir, solution_name, session_solution_namespace)
+        if deployment_type == "standalone-with-hps":
+            # to have poetry installed for adding HPS extra. overkill, but there is no option to only install venv + poetry.
+            install_solution([solution_name, "-d", "desktop"])
+            add_hps_extra_to_solution(solution_dir, solution_name)
     elif deployment_type == "standalone-with-hps":
         # ensure that HPS hostname is reachable from the solution container
         monkeypatch.setenv("MACHINE_IP", "host.docker.internal")
