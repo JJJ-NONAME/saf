@@ -65,15 +65,14 @@ This example demonstrates how to create a product instance manager for optiSLang
 
 .. note::
     This example requires the optiSLang 2024 R2 (24R2) product to be installed on your machine.
-    To work with an optiSLang product instance, be sure to install the ``optislang`` extra from the ``ansys-saf-product-manager`` package. You can do this by manually editing your ``pyproject.toml``.
+    To work with an optiSLang product instance, be sure to install the ``core-pim`` and ``instance-management-optislang`` extras from the ``ansys-saf-sdk`` package. You can do this by manually editing your ``pyproject.toml``.
 
     .. code-block:: toml
 
-        ansys-saf-glow-engine = {version = "^2.30", extras = ["pim"]}
-        ansys-saf-product-manager = {version = "^0.5", extras = ["optislang"]}
+        ansys-saf-sdk = {version = "^0.2.0", extras = ["core-pim", "instance-management-optislang"]}
 
     This will install the supported version of ``ansys-optislang-core`` to control the optiSLang product instances.
-    This example uses PIM as the product instance management system. If you want to use HPS instead, replace the ``pim`` extra with ``hps``.
+    This example uses PIM as the product instance management system. If you want to use HPS instead, replace the ``core-pim`` extra with ``core-hps``.
     For more information, see :ref:`instance_management_configuration`.
 
 

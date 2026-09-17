@@ -466,7 +466,7 @@ This example illustrates how to run a solution's test using the ``saf execute`` 
 
 .. code-block:: bash
 
-   saf execute my-solution "pytest -n 0"
+   saf execute my-solution "pytest -v"
 
 .. tip::
    To pass a command that itself contains spaces or quoted strings, wrap the inner string in single quotes:

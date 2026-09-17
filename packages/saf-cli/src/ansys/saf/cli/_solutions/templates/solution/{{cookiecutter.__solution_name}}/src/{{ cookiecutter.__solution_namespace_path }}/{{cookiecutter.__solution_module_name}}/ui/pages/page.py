@@ -278,7 +278,7 @@ def resolve_active_page_and_project_information(pathname: str) -> tuple[str | No
 def render_nav_tree(active_index: str | None, switch_on: bool):
     """Sync the active tree item based on the active page index."""
     theme = "dark" if switch_on else "light"
-    return Tree(aio_id="navigation_tree", items=get_page_list(theme), active_item_id=active_index)
+    return Tree(aio_id="navigation_tree", items=get_page_list(theme), selected_item=active_index)
 
 
 def _display_404_page() -> Any:

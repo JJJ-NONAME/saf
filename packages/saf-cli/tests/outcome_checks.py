@@ -287,7 +287,7 @@ def _get_expected_packages(solution_path: Path, dependency_groups: list[str]) ->
     dependencies = [
         dep
         for dep, value in dict(pyproject_data["tool"]["poetry"]["dependencies"]).items()
-        if dep != "python" and not value.get("optional", False)
+        if dep != "python" and (not isinstance(value, dict) or not value.get("optional", False))  # type: ignore[reportUnknownMemberType]
     ]
 
     for dependency_group in dependency_groups:

@@ -51,13 +51,12 @@ priority = "primary"
 
 [tool.poetry.dependencies]
 python = ">=3.11,<3.15"
-ansys-saf-glow-engine = {version = "^2.1", allow-prereleases=true, extras = ["hps"]}  # extras are for using HPS; can be deleted if not used
-ansys-saf-product-manager = {version = ">=0.5.0, <1.0.0", allow-prereleases=true}
+ansys-saf-sdk = "^0.2.0"
 
 [tool.poetry.group.desktop]
 optional = true
 [tool.poetry.group.desktop.dependencies]
-ansys-saf-desktop-orchestrator = { version = "^1.14.dev1", allow-prereleases=true }
+ansys-saf-sdk = { version = "^0.2.0", extras = ["desktop"] }
 
 {% if cookiecutter.__ui_framework == "dash" %}
 [tool.poetry.group.ui]
@@ -65,7 +64,7 @@ optional = true
 [tool.poetry.group.ui.dependencies]
 dash = "^3.0.0"
 dash_bootstrap_components = "^1.2"
-ansys-solutions-dash-super-components = {version = ">=0.2.dev8, <1.0.0", allow-prereleases=true}
+ansys-solutions-dash-super-components = "^1.0.0"
 dash-extensions = "^2.0.5"
 dash-mantine-components = "^2.6.0"
 {% endif %}
@@ -102,11 +101,6 @@ httpx2 = "^2.5.0"
 mock = "^4.0.3"
 pytest = "^9.0.3"
 pytest-cov = "^7.0.0"
-pytest-dependency = "^0.5.1"
-pytest-flakes = "^4.0.5"
-pytest-pep8 = "^1.0"
-pytest-pythonpath = "^0.7"
-pytest-xdist = "^3.0.2"
 pytest-mock = "^3.12"
 tox = "^4.4.0"
 
@@ -119,7 +113,7 @@ pkginfo = "^1.12.1.2"
 pyinstaller = { version = "^6.16", python = "<3.15" }
 toml = "^0.10.2"
 pyc-wheel = "^1.2.7"
-ansys-saf-desktop-installer = { version = "^1.16.0", allow-prereleases=true }
+ansys-saf-sdk = { version = "^0.2.0", extras = ["build"] }
 
 [tool.poetry.group.style]
 optional = true

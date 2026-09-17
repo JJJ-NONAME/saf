@@ -27,11 +27,11 @@ Enable the MCP server
 
 The following steps assume you are using SAF CLI to manage your solution. For different environments, adjust accordingly.
 
-1. Add the ``mcp`` extras group to the SAF GLOW Engine dependency in your solution's ``pyproject.toml``. Afterwards, update your lock file and install the new dependencies:
+1. Add the ``core-mcp`` extra to the ``ansys-saf-sdk`` dependency in your solution's ``pyproject.toml``. Afterwards, update your lock file and install the new dependencies:
 
   .. code-block:: toml
 
-      ansys-saf-glow-engine = {version = "^2.1", allow-prereleases=true, extras = ["mcp"]}
+      ansys-saf-sdk = {version = "^0.2.0", extras = ["core-mcp"]}
 
   .. code-block:: console
 

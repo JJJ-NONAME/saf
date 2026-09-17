@@ -61,8 +61,8 @@ class TestListTemplates:
                 "    second-step (step): a step that is second to another step\n"
                 f"        location: {get_template_path('test_custom_templates_with_glow_and_ui_deps', 'second_step')}\n"
                 "        main dependencies:\n"
-                "          - ansys-saf-glow-engine: {'version': '^1.41.dev2', 'allow-prereleases': True, "
-                "'extras': ['hps']}\n"
+                "          - ansys-saf-sdk: {'version': '^0.2.0', 'allow-prereleases': True, "
+                "'extras': ['core-hps']}\n"
                 "        ui dependencies:\n"
                 "          - streamlit: ^1.58.0\n",
             ]
@@ -133,8 +133,8 @@ class TestListTemplates:
                 "    second-step (step): a step that is second to another step\n"
                 f"        location: {get_template_path('test_custom_templates_with_glow_and_ui_deps', 'second_step')}\n"
                 "        main dependencies:\n"
-                "          - ansys-saf-glow-engine: {'version': '^1.41.dev2', 'allow-prereleases': True, "
-                "'extras': ['hps']}\n"
+                "          - ansys-saf-sdk: {'version': '^0.2.0', 'allow-prereleases': True, "
+                "'extras': ['core-hps']}\n"
                 "        ui dependencies:\n"
                 "          - streamlit: ^1.58.0\n",
             ]
