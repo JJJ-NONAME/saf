@@ -17,7 +17,7 @@ Installation
 
 To download and install the Solutions Manager extension:
 
-#. Download the ``solutions-manager-extension-v*.*.*.vsix`` file for the desired release from the `Releases <https://github.com/ansys/solutions-manager/releases>`_ page.
+#. Download the ``solutions-manager-extension-v*.*.*.vsix`` file for the desired release from the `Releases <https://github.com/ansys/saf/releases?q=solutions-manager&expanded=true>`_ page.
 
 #. Open VS Code.
 
