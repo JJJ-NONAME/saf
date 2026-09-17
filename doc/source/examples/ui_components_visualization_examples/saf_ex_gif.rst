@@ -9,7 +9,7 @@ GIF display
 
   Insert a GIF image in a solution UI.
 
-  Source code for this example is in the `example solution <https://github.com/ansys/saf/examples>`_.
+  Source code for this example is in the `example solution <https://github.com/ansys/saf/tree/main/examples>`_.
 
 
 

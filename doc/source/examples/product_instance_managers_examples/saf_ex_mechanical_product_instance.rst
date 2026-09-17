@@ -10,7 +10,7 @@ Mechanical Product Instance Manager
 
     Create a product instance manager for Ansys Mechanical products to support applications such as structural analysis, vibration, fatigue, and thermal simulations.
 
-    Source code for this example is in the `example solution <https://github.com/ansys/saf/examples>`_.
+    Source code for this example is in the `example solution <https://github.com/ansys/saf/tree/main/examples>`_.
 
 .. _saf-ex-mechanical-product-instance-objective:
 

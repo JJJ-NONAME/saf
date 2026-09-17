@@ -9,7 +9,7 @@ BDM
 
   Use the ``BDM`` feature to manage files and directories—referred to as BLOBs (Binary Large Objects)—in a solution.
 
-  Source code for this example is in the `example solution <https://github.com/ansys/saf/examples>`_ repository.
+  Source code for this example is in the `example solution <https://github.com/ansys/saf/tree/main/examples>`_ repository.
 
 
 .. _saf-ex-bdm-objective:

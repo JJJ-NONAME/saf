@@ -10,7 +10,7 @@ optiSLang Product Instance Manager
 
     Create a product instance manager for Ansys optiSLang to support applications involving design optimization, sensitivity analysis, and robust parameter studies across simulations involving multiple physical domains.
 
-    Source code for this example is in the `example solution <https://github.com/ansys/saf/examples>`_.
+    Source code for this example is in the `example solution <https://github.com/ansys/saf/tree/main/examples>`_.
 
 
 .. _saf-ex-optislang-product-instance-objective:

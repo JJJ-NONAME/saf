@@ -10,7 +10,7 @@ Fluent Product Instance Manager
 
     Create a product instance manager for Ansys Fluent products to support applications such as fluid dynamics, heat transfer, and multiphase flow simulations.
 
-    Source code for this example is in the `example solution <https://github.com/ansys/saf/examples>`_.
+    Source code for this example is in the `example solution <https://github.com/ansys/saf/tree/main/examples>`_.
 
 .. _saf-ex-fluent-product-instance-objective:
 
