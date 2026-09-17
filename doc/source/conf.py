@@ -204,8 +204,8 @@ html_short_title = html_title = "SAF Doc"
 html_theme = "ansys_sphinx_theme"
 html_theme_options = {
     "logo": {
-        "image_light": "_static/logos/endorsed-ansys-logos-full-color-rgb_light.png",
-        "image_dark": "_static/logos/endorsed-ansys-logos-full-color-rgb_dark.png",
+        "image_light": "_static/logos/endorsed-ansys-logos-black-rgb.png",
+        "image_dark": "_static/logos/endorsed-ansys-logos-white-rgb.png",
     },
     "show_prev_next": False,
     "show_breadcrumbs": True,
