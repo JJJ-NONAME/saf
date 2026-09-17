@@ -234,13 +234,12 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-          sparse-checkout-cone-mode: ${{ !contains(matrix.target-directory, '!') &&
-            matrix.target-directory != 'examples' }}
+          sparse-checkout-cone-mode: false
           sparse-checkout: |
-            ${{ matrix.target-directory }}
+            ${{ matrix.target-directory }}/
             ${{ matrix.target-directory == 'examples' && 'doc/styles/Vocab/ANSYS/accept.txt' || '' }}
-            ${{ matrix.target-directory == 'examples' && 'packages/saf-cli' || '' }}
-            ${{ matrix.target-directory == 'packages/glow-engine' && '.github/scripts' || '' }}
+            ${{ matrix.target-directory == 'examples' && 'packages/saf-cli/' || '' }}
+            ${{ matrix.target-directory == 'packages/glow-engine' && '.github/scripts/' || '' }}
 
       - uses: ansys/saf-devops/prepare-python-environment@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
         if: ${{ matrix.dependency-manager == 'poetry' }}
@@ -297,7 +296,6 @@ jobs:
     uses: ./.github/workflows/_doc.yml
     secrets:
       PYANSYS_CI_BOT_TOKEN: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
-      PYANSYS_PYPI_PRIVATE_PAT: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}
 
   build-wheel:
     name: "Wheel"

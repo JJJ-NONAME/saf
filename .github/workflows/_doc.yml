@@ -11,8 +11,6 @@ on:
     secrets:
       PYANSYS_CI_BOT_TOKEN:
         required: true
-      PYANSYS_PYPI_PRIVATE_PAT:
-        required: true
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-doc
