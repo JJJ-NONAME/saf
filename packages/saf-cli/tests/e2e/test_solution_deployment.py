@@ -113,13 +113,13 @@ def setup_deployment(
         monkeypatch.setenv("MACHINE_IP", "host.docker.internal")
         configure_solution_to_store_result_in_file(solution_dir, solution_name, session_solution_namespace)
         if deployment_type == "standalone-with-hps":
-            # to have poetry installed for adding HPS extra. overkill, but there is no option to only install venv + poetry.
+            # to have poetry installed for adding HPS extra. overkill, but no option to only install venv + poetry.
             install_solution([solution_name, "-d", "desktop"])
             add_hps_extra_to_solution(solution_dir, solution_name)
     elif deployment_type == "standalone-with-hps":
         # ensure that HPS hostname is reachable from the solution container
         monkeypatch.setenv("MACHINE_IP", "host.docker.internal")
-        # to have poetry installed for adding HPS extra. overkill, but there is no option to only install venv + poetry.
+        # to have poetry installed for adding HPS extra. overkill, but no option to only install venv + poetry.
         install_solution([solution_name, "-d", "desktop"])
         configure_hps_solution(solution_dir, solution_name, session_solution_namespace)
 
