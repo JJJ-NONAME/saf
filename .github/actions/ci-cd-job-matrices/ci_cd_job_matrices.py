@@ -124,7 +124,7 @@ def get_code_style_matrix_entries(
     changed_packages: list[str], pr_changes: list[str] | None = None
 ) -> None:
     root_entry = {
-        "target-directory": "/*\n!/packages/\n!/examples/",
+        "target-directory": ".github",
         "dependency-manager": "uv",
         "poetry-install-args": "",
     }
