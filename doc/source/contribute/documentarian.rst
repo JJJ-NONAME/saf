@@ -31,7 +31,7 @@ and CSS files.
 The layout of the ``doc/source`` directory is reflected in the slug of the
 online documentation. For example, the
 ``doc/source/contribute/documentarian.rst`` renders as
-``https://saf.ansys.com/version/dev/contribute/documentarian``.
+``https://saf.ansys.com/version/stable/contribute/documentarian``.
 
 Thus, if you create a new file, it is important to follow these rules:
 
