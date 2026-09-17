@@ -4,7 +4,7 @@ requires = [ "poetry-core>=2.0.0", "setuptools>=67.0" ]
 
 [tool.poetry]
 name = "ansys-saf-cli"
-version = "4.3.dev0"
+version = "4.3.0"
 description = "Command line interface for developing SAF solutions from scaffolding to packaging."
 license = "Apache-2.0"
 authors = [ "ANSYS, Inc. <pyansys-core@synopsys.com>" ]
