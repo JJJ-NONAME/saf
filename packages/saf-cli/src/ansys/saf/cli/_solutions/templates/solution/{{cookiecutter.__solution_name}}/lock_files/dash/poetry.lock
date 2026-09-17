@@ -195,14 +195,14 @@ tests = ["ansys-api-platform-instancemanagement (==1.0.0)", "grpcio-health-check
 
 [[package]]
 name = "ansys-saf-desktop-installer"
-version = "1.16.0"
+version = "1.17.0"
 description = "SAF desktop installer"
 optional = false
 python-versions = "<4,>=3.11"
 groups = ["build"]
 files = [
-    {file = "ansys_saf_desktop_installer-1.16.0-py3-none-any.whl", hash = "sha256:bf2fc33b90d18576f1be9a768e5d7a65658ce9dd62e23e2b908922f87b2aa7d7"},
-    {file = "ansys_saf_desktop_installer-1.16.0.tar.gz", hash = "sha256:bc3820d2c2ae99b047f487cbe4e2aa4a6159ee4c823e6724016b8a8374476527"},
+    {file = "ansys_saf_desktop_installer-1.17.0-py3-none-any.whl", hash = "sha256:50598fd98b0863706925ab82218f467cf7e807a1dbdc7cce600d330a8b106ddc"},
+    {file = "ansys_saf_desktop_installer-1.17.0.tar.gz", hash = "sha256:0aaea41e277bb82563e88fb525907c2394dec1b9058750073e044ea5cc29cea4"},
 ]
 
 [package.dependencies]
@@ -215,14 +215,14 @@ toml = ">=0.10.2,<0.11.0"
 
 [[package]]
 name = "ansys-saf-desktop-orchestrator"
-version = "1.13.0"
+version = "1.14.0"
 description = "Solution Application Framework (SAF) Desktop Orchestrator"
 optional = false
 python-versions = "<4,>=3.11"
 groups = ["desktop"]
 files = [
-    {file = "ansys_saf_desktop_orchestrator-1.13.0-py3-none-any.whl", hash = "sha256:6fb542afda76c4f9e80f2d5d7f7cce1381795b024330a7fb0839e4e92588dab8"},
-    {file = "ansys_saf_desktop_orchestrator-1.13.0.tar.gz", hash = "sha256:622d4dc803a30b42556115da888bf303067f9d6530cf82c1b1af5a7be63786fc"},
+    {file = "ansys_saf_desktop_orchestrator-1.14.0-py3-none-any.whl", hash = "sha256:c4517fe12d3efed8cea5f74384e25a83c7dbecebc357dce8d9d767c68cdb5780"},
+    {file = "ansys_saf_desktop_orchestrator-1.14.0.tar.gz", hash = "sha256:7881d9d20913c59e42a8d2d691a525df44443f67a5bac0ce6ff84325688a8b5c"},
 ]
 
 [package.dependencies]
@@ -301,14 +301,14 @@ test = ["httpx2 (>=2.5.0,<3.0.0)", "pytest (>=9.0.3,<9.1.0)", "pytest-mock (>=3.
 
 [[package]]
 name = "ansys-saf-product-configuration"
-version = "0.25.0"
+version = "0.26.0"
 description = "A Python package for providing configuration information about Ansys products to SAF solutions."
 optional = false
 python-versions = "<4,>=3.11"
 groups = ["main", "build", "desktop"]
 files = [
-    {file = "ansys_saf_product_configuration-0.25.0-py3-none-any.whl", hash = "sha256:2e1ba55346817c6e0d354c3bb70019c15105bd1be3cd935671b9d38cfc477b45"},
-    {file = "ansys_saf_product_configuration-0.25.0.tar.gz", hash = "sha256:ac2c3339de09a1fd966f72b7c7dd9c57025715fd3efb53c0854646a645ac6b43"},
+    {file = "ansys_saf_product_configuration-0.26.0-py3-none-any.whl", hash = "sha256:5083e575bcbfd475da1f55a83a906a962f0aaf27753ee84c508840dcf7f7cfec"},
+    {file = "ansys_saf_product_configuration-0.26.0.tar.gz", hash = "sha256:4714d05456a4c1dd8222c8cbf7c00866efe931e9e8b347debecb6ad8a6343cf9"},
 ]
 
 [package.dependencies]
@@ -350,44 +350,44 @@ visor = ["httpx2 (>=2.5.0,<3.0.0)"]
 
 [[package]]
 name = "ansys-saf-sdk"
-version = "0.1.0"
+version = "0.2.0"
 description = "SAF SDK Bundle"
 optional = false
 python-versions = "<3.15,>=3.11"
 groups = ["main", "build", "desktop"]
 files = [
-    {file = "ansys_saf_sdk-0.1.0-py3-none-any.whl", hash = "sha256:9ec2248ff41caf39f203d026b2fa61a6e70fca28d53b19e7828efe8ae543f19d"},
-    {file = "ansys_saf_sdk-0.1.0.tar.gz", hash = "sha256:81d549793c1fa89feac6d2e37a0fe533cfec5c724912806ccf08ee63bea95f1f"},
+    {file = "ansys_saf_sdk-0.2.0-py3-none-any.whl", hash = "sha256:2e210d1ffbe570448784f37698f9a7f4643167576b8dd0b688cd7d5beb22bd09"},
+    {file = "ansys_saf_sdk-0.2.0.tar.gz", hash = "sha256:de9146eb74e67ec74f2264870ceb6bab852246158faef21100d421a36b6b6233"},
 ]
 
 [package.dependencies]
 ansys-bdm-api = "0.5.0"
 ansys-bdm-shared-volume = "0.4.0"
 ansys-iam-oidc = "0.9.0"
-ansys-saf-desktop-installer = {version = "1.16.0", optional = true, markers = "extra == \"build\""}
-ansys-saf-desktop-orchestrator = {version = "1.13.0", optional = true, markers = "extra == \"desktop\""}
+ansys-saf-desktop-installer = {version = "1.17.0", optional = true, markers = "extra == \"build\""}
+ansys-saf-desktop-orchestrator = {version = "1.14.0", optional = true, markers = "extra == \"desktop\""}
 ansys-saf-glow-engine = "2.3.0"
-ansys-saf-product-configuration = "0.25.0"
+ansys-saf-product-configuration = "0.26.0"
 ansys-saf-product-manager = "0.5.0"
 
 [package.extras]
-all = ["ansys-saf-desktop-installer (==1.16.0)", "ansys-saf-desktop-orchestrator (==1.13.0)", "ansys-saf-glow-engine[all] (==2.3.0)", "ansys-saf-product-configuration[all] (==0.25.0)", "ansys-saf-product-manager[all] (==0.5.0)"]
-build = ["ansys-saf-desktop-installer (==1.16.0)"]
-core-all = ["ansys-saf-glow-engine[all] (==2.3.0)", "ansys-saf-product-configuration[all] (==0.25.0)", "ansys-saf-product-manager[all] (==0.5.0)"]
+all = ["ansys-saf-desktop-installer (==1.17.0)", "ansys-saf-desktop-orchestrator (==1.14.0)", "ansys-saf-glow-engine[all] (==2.3.0)", "ansys-saf-product-configuration[all] (==0.26.0)", "ansys-saf-product-manager[all] (==0.5.0)"]
+build = ["ansys-saf-desktop-installer (==1.17.0)"]
+core-all = ["ansys-saf-glow-engine[all] (==2.3.0)", "ansys-saf-product-configuration[all] (==0.26.0)", "ansys-saf-product-manager[all] (==0.5.0)"]
 core-dash = ["ansys-saf-glow-engine[dash] (==2.3.0)"]
 core-hps = ["ansys-saf-glow-engine[hps] (==2.3.0)"]
 core-mcp = ["ansys-saf-glow-engine[mcp] (==2.3.0)"]
 core-pim = ["ansys-saf-glow-engine[pim] (==2.3.0)"]
 core-test = ["ansys-saf-glow-engine[test] (==2.3.0)"]
-desktop = ["ansys-saf-desktop-orchestrator (==1.13.0)"]
-instance-management = ["ansys-saf-product-configuration (==0.25.0)", "ansys-saf-product-manager (==0.5.0)"]
-instance-management-aedt = ["ansys-saf-product-configuration[aedt] (==0.25.0)", "ansys-saf-product-manager[aedt] (==0.5.0)"]
-instance-management-all = ["ansys-saf-product-configuration[all] (==0.25.0)", "ansys-saf-product-manager[all] (==0.5.0)"]
-instance-management-fluent = ["ansys-saf-product-configuration[fluent] (==0.25.0)", "ansys-saf-product-manager[fluent] (==0.5.0)"]
+desktop = ["ansys-saf-desktop-orchestrator (==1.14.0)"]
+instance-management = ["ansys-saf-product-configuration (==0.26.0)", "ansys-saf-product-manager (==0.5.0)"]
+instance-management-aedt = ["ansys-saf-product-configuration[aedt] (==0.26.0)", "ansys-saf-product-manager[aedt] (==0.5.0)"]
+instance-management-all = ["ansys-saf-product-configuration[all] (==0.26.0)", "ansys-saf-product-manager[all] (==0.5.0)"]
+instance-management-fluent = ["ansys-saf-product-configuration[fluent] (==0.26.0)", "ansys-saf-product-manager[fluent] (==0.5.0)"]
 instance-management-geometry = ["ansys-saf-product-manager[geometry] (==0.5.0)"]
 instance-management-mapdl = ["ansys-saf-product-manager[mapdl] (==0.5.0)"]
 instance-management-mechanical = ["ansys-saf-product-manager[mechanical] (==0.5.0)"]
-instance-management-optislang = ["ansys-saf-product-configuration[optislang] (==0.25.0)", "ansys-saf-product-manager[optislang-wrapper] (==0.5.0)"]
+instance-management-optislang = ["ansys-saf-product-configuration[optislang] (==0.26.0)", "ansys-saf-product-manager[optislang-wrapper] (==0.5.0)"]
 instance-management-visor = ["ansys-saf-product-manager[visor] (==0.5.0)"]
 
 [[package]]
@@ -6827,4 +6827,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<3.15"
-content-hash = "8dfc28f9f840fa5701e7c8244ac47c41895391cdd0c01469bba5eb7c0f246b89"
+content-hash = "3876107815d021ebc91756334228040e5c3fae29c074e73789ce19363a376650"

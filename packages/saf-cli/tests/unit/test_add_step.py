@@ -979,7 +979,7 @@ def test_update_solution_dependencies_with_conflicting_dependencies(
         f"pyproject.toml at {pyproject_path}. Review the solution's pyproject.toml and manually update it if "
         f"necessary, to ensure that it is compatible with the step template's dependencies.\n\n"
         f"Step specification of the common dependencies:\n"
-        f"  - ansys-saf-sdk (main): {{'version': '^0.1.0', 'allow-prereleases': True, "
+        f"  - ansys-saf-sdk (main): {{'version': '^0.2.0', 'allow-prereleases': True, "
         f"'extras': ['core-hps']}}\n\n"
         f"After reviewing the dependencies, please run:\n"
         f'  - saf execute solution_with_dash_ui "poetry lock"\n'
@@ -1026,7 +1026,7 @@ def test_update_solution_dependencies_with_conflicting_dependency_in_different_g
         f"pyproject.toml at {pyproject_path}. Review the solution's pyproject.toml and manually update it if "
         f"necessary, to ensure that it is compatible with the step template's dependencies.\n\n"
         f"Step specification of the common dependencies:\n"
-        f"  - ansys-saf-sdk (another_group group): {{'version': '^0.1.0', 'allow-prereleases': True, "
+        f"  - ansys-saf-sdk (another_group group): {{'version': '^0.2.0', 'allow-prereleases': True, "
         f"'extras': ['core-hps']}}\n\n"
         f"After reviewing the dependencies, please run:\n"
         f'  - saf execute solution_with_dash_ui "poetry lock"\n'

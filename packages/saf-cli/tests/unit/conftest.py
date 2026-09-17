@@ -79,7 +79,7 @@ def root_solution_dir_with_pyproject_and_lock(root_solution_dir: Path, request: 
     if "main_dependencies" in config or "ui_dependencies" in config:
         data["tool"]["poetry"]["dependencies"] = {
             "python": ">=3.11,<3.15",
-            "ansys-saf-sdk": "0.1.0",
+            "ansys-saf-sdk": "0.2.0",
         }
     if "ui_dependencies" in config:
         data["tool"]["poetry"]["group"] = {
