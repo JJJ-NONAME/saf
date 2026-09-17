@@ -10,7 +10,7 @@ Long-running transaction streaming uploads
 
   Use a long-running transaction to upload data as the transaction executes, coupled with page monitoring and progress display.
 
-  Source code for this example is in the `solution-examples <https://github.com/ansys/solution-examples>`_ repository.
+  Source code for this example is in the `example solution <https://github.com/ansys/saf/examples>`_.
 
   .. _saf-ex-long-running-trans-objective:
 

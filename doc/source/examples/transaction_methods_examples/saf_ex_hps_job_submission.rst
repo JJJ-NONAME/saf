@@ -20,8 +20,8 @@ This example demonstrates how to use the SAF HPS job submission API to submit an
 
 .. tip::
 
-  - Checkout the full backend code of the example in the `solution-examples <https://github.com/ansys/solution-examples/blob/main/src/ansys/solutions/examples/solution/hps_job_submission_step.py>`__.
-  - Checkout the full frontend code of the example in the `solution-examples <https://github.com/ansys/solution-examples/blob/main/src/ansys/solutions/examples/ui/pages/hps_job_submission_page.py>`__.
+  - Checkout the full backend code of the example in the `example solution <https://github.com/ansys/saf/examples/blob/main/src/ansys/solutions/examples/solution/hps_job_submission_step.py>`__.
+  - Checkout the full frontend code of the example in the `example solution <https://github.com/ansys/saf/examples/blob/main/src/ansys/solutions/examples/ui/pages/hps_job_submission_page.py>`__.
 
 Feature: Run HPS Job
 ----------------------

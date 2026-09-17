@@ -7,7 +7,7 @@ Dash components
 
    Use common Dash components to build page layouts for solution app steps.
 
-   Source code for this example is in the `solution-examples <https://github.com/ansys/solution-examples>`_ repository.
+   Source code for this example is in the `example solution <https://github.com/ansys/saf/examples>`_ repository.
 
 
 :material-outlined:`ads_click;1.25em;sd-text-primary` Objective

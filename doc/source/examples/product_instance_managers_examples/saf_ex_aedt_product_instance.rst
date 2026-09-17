@@ -10,7 +10,7 @@ AEDT Product Instance Manager
 
   Creation of a product instance manager for Ansys Electronics Desktop (AEDT) products, such as Maxwell 2D.
 
-  Source code for this example is in the `solution-examples <https://github.com/ansys/solution-examples>`_ repository.
+  Source code for this example is in the `example solution <https://github.com/ansys/saf/examples>`_.
 
   .. _saf-ex-aedt-product-instance-objective:
 

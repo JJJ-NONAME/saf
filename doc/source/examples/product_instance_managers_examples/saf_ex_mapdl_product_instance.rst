@@ -10,7 +10,7 @@ MAPDL Product Instance Manager
 
     Create a product instance manager for PyMAPDL to support applications involving finite element analysis, automation of simulation workflows, and integration with Python-based data processing for structural, thermal, and coupled physics problems.
 
-    Source code for this example is in the `solution-examples <https://github.com/ansys/solution-examples>`_ repository.
+    Source code for this example is in the `example solution <https://github.com/ansys/saf/examples>`_.
 
 
 .. _saf-ex-mapdl-product-instance-objective:

@@ -45,7 +45,7 @@ building blocks, so you can focus on application logic instead of UI plumbing.
 
   .. grid-item-card:: :material-outlined:`play_circle;1.75em` Examples
      :class-card: highlight-card
-     :link: https://upgraded-carnival-wn6lkym.pages.github.io/version/stable/examples/dash_super_components_examples/index.html
+     :link: https://saf.ansys.com/version/stable/examples/dash_super_components_examples/index.html
      :link-type: url
      :shadow: lg
 

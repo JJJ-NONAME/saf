@@ -9,7 +9,7 @@ Spinners
 
   Use a Dash spinner to display loading states in your solution.
 
-  Source code for this example is in the `solution-examples <https://github.com/ansys/solution-examples>`_ repository.
+  Source code for this example is in the `example solution <https://github.com/ansys/saf/examples>`_.
 
 
 .. _saf-ex-spinner-objective:
