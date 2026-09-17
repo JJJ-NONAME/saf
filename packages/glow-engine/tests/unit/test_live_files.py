@@ -16,6 +16,7 @@
 
 from io import BytesIO
 from pathlib import Path
+import sys
 from unittest import mock
 
 import httpx2
@@ -26,7 +27,6 @@ from ansys.saf.glow._client.project_proxy import ProjectProxy
 from ansys.saf.glow._client.step_proxy import StepProxy
 from ansys.saf.glow._config.settings import Settings
 from ansys.saf.glow._core.gql import GqlClientConnectionPool
-import ansys.saf.glow._core.live_files as live_files_module
 from ansys.saf.glow._core.live_files import LiveFile, LiveFileProxy, TransactionLiveFile
 from tests.mocks.solution_end_to_end.solution.transaction_verification_step import TransactionVerificationStep
 from tests.mocks.solutions.minimal_solution import MinimalSolution
@@ -36,16 +36,35 @@ from tests.mocks.solutions.minimal_solution import MinimalSolution
     ("value", "message"),
     [
         ("../logs/runtime.log", r"\.\. is not allowed inside a LiveFile field"),
-        (str(Path("C:/absolute/runtime.log")), r"Absolute path: '.*' is not allowed in a LiveFile field"),
         ("", r"A LiveFile must refer to a file path"),
         (".", r"A LiveFile must refer to a file path"),
         ("logs/", r"A LiveFile must refer to a file and cannot end with a path separator"),
+        ("logs\\", r"A LiveFile must refer to a file and cannot end with a path separator"),
+        ("logs\\runtime.log", r"A LiveFile can't contain any of the following characters"),
         ("logs/*.txt", r"A LiveFile can't contain any of the following characters"),
     ],
 )
 def test_live_file_validation_rejects_invalid_paths(value: str, message: str):
     with pytest.raises(ValueError, match=message):
         TypeAdapter(LiveFile).validate_python(value)
+
+
+def test_live_file_validation_rejects_absolute_paths():
+    absolute_path = "C:/absolute/runtime.log" if sys.platform == "win32" else "/absolute/runtime.log"
+
+    with pytest.raises(ValueError, match=r"Absolute path: '.*' is not allowed in a LiveFile field"):
+        TypeAdapter(LiveFile).validate_python(absolute_path)
+
+
+def test_base_live_file_read_and_path_are_not_implemented():
+    live_file = LiveFile("logs/runtime.log")
+
+    with pytest.raises(NotImplementedError):
+        live_file.read_text()
+    with pytest.raises(NotImplementedError):
+        live_file.read_bytes()
+    with pytest.raises(NotImplementedError):
+        _ = live_file.path
 
 
 def test_live_file_validation_accepts_nested_relative_file_path():
@@ -57,11 +76,9 @@ def test_live_file_validation_accepts_nested_relative_file_path():
     assert repr(validated) == "LiveFile('logs/runtime.log')"
 
 
-def test_live_file_validation_rejects_wildcards_with_dedicated_error(monkeypatch: pytest.MonkeyPatch):
-    monkeypatch.setattr(live_files_module, "is_filepath_invalid", lambda _: False)
-
+def test_live_file_validation_rejects_wildcards_with_dedicated_error():
     with pytest.raises(ValueError, match=r"cannot contain wildcard characters"):
-        TypeAdapter(LiveFile).validate_python("logs/*.txt")
+        TypeAdapter(LiveFile).validate_python("logs/data[0].txt")
 
 
 def test_transaction_live_file_write_lifecycle(tmp_path: Path):
@@ -80,6 +97,18 @@ def test_transaction_live_file_write_lifecycle(tmp_path: Path):
     live_file.delete()
 
     assert not live_file.exists()
+
+
+def test_transaction_live_file_write_text_and_read_text_honor_encoding(tmp_path: Path):
+    live_file = TransactionLiveFile("logs/runtime.log", tmp_path / "project-id")
+    text = "café"
+
+    live_file.write_text(text, encoding="latin-1")
+
+    assert live_file.read_bytes() == text.encode("latin-1")
+    assert live_file.read_text(encoding="latin-1") == text
+    with pytest.raises(UnicodeDecodeError):
+        live_file.read_text()
 
 
 def test_transaction_live_file_delete_is_idempotent(tmp_path: Path):

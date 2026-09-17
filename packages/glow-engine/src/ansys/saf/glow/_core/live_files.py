@@ -50,9 +50,8 @@ class LiveFile(str):
             raise ValueError(
                 f"A {cls.__name__} can't contain any of the following characters: {' '.join(INVALID_CHARACTERS)}",
             )
-        # LiveFile targets a single file only, so wildcard/group patterns are not allowed.
-        if any(char in value for char in "*?[]"):
-            raise ValueError(f"A {cls.__name__} cannot contain wildcard characters like '*', '?', '[' or ']'.")
+        if any(char in value for char in "[]"):
+            raise ValueError(f"A {cls.__name__} cannot contain wildcard characters like '[' or ']'.")
         return cls(value)
 
     @classmethod
