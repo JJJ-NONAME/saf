@@ -64,15 +64,14 @@ This example demonstrates how to create a product instance manager for Mechanica
 
 .. note::
     This example requires the Mechanical 2025 R2 Service Pack 4 (25R2 SP4) product to be installed on your machine.
-    To work with a Mechanical product instance, be sure to install the ``mechanical`` extra from the ``ansys-saf-product-manager`` package. You can do this by manually editing your ``pyproject.toml``.
+    To work with a Mechanical product instance, be sure to install the ``core-pim`` and ``instance-management-mechanical`` extras from the ``ansys-saf-sdk`` package. You can do this by manually editing your ``pyproject.toml``.
 
     .. code-block:: toml
 
-        ansys-saf-glow-engine = {version = "^2.30", extras = ["pim"]}
-        ansys-saf-product-manager = {version = "^0.5", extras = ["mechanical"]}
+        ansys-saf-sdk = {version = "^0.2.0", extras = ["core-pim", "instance-management-mechanical"]}
 
     This will install the supported version of ``ansys-mechanical-core`` to control the Mechanical product instances.
-    This example uses PIM as the product instance management system. If you want to use HPS instead, replace the ``pim`` extra with ``hps``.
+    This example uses PIM as the product instance management system. If you want to use HPS instead, replace the ``core-pim`` extra with ``core-hps``.
     For more information, see :ref:`instance_management_configuration`.
 
 Additionally, ensure that the geometry file required for the example script is available. Without this file, the script execution will fail. Place the geometry file in the appropriate directory or provide its path in the ``run_script`` callback.

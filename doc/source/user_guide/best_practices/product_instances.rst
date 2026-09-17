@@ -164,16 +164,16 @@ Install PyAnsys SDKs via extras
 
 Product managers depend on specific PyAnsys SDK versions that are tested and
 validated with the current SAF release. Always install them through the
-``ansys-saf-product-manager`` extras — never pin a random SDK version manually.
+``ansys-saf-sdk`` extras — never pin an arbitrary PyAnsys SDK version manually.
 
 .. code-block:: bash
    :caption: Install a specific product manager extra
 
-    # In your solution's pyproject.toml, add the product extra:
-    # ansys-saf-product-manager = { version = "^X.Y", extras = ["mechanical"] }
+   # In your solution's pyproject.toml, add the product extras:
+   # ansys-saf-sdk = { version = "^0.2.0", extras = ["core-pim", "instance-management-mechanical"] }
 
-    # Or install interactively:
-    poetry add "ansys-saf-product-manager[mechanical]"
+   # Or install interactively:
+   poetry add "ansys-saf-sdk[core-pim,instance-management-mechanical]"
 
 Available extras match the supported product managers:
 
