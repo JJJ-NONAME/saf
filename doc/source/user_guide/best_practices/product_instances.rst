@@ -169,11 +169,11 @@ validated with the current SAF release. Always install them through the
 .. code-block:: bash
    :caption: Install a specific product manager extra
 
-   # In your solution's pyproject.toml, add the product extra:
-   # ansys-saf-product-manager = { version = "^X.Y", extras = ["mechanical"] }
+    # In your solution's pyproject.toml, add the product extra:
+    # ansys-saf-product-manager = { version = "^X.Y", extras = ["mechanical"] }
 
-   # Or install interactively:
-   poetry add "ansys-saf-product-manager[mechanical]"
+    # Or install interactively:
+    poetry add "ansys-saf-product-manager[mechanical]"
 
 Available extras match the supported product managers:
 
