@@ -163,17 +163,8 @@ def test_live_file_read_missing_raises_file_not_found(tmp_path: Path):
         live_file.read_bytes()
 
 
-@pytest.mark.parametrize(
-    "operation",
-    [
-        lambda live_file, source: live_file.write(BytesIO(b"forbidden")),
-        lambda live_file, source: live_file.write_from_file(source),
-        lambda live_file, source: live_file.write_text("forbidden"),
-        lambda live_file, source: live_file.write_bytes(b"forbidden"),
-        lambda live_file, source: live_file.delete(),
-    ],
-)
-def test_live_file_proxy_is_read_only(operation, tmp_path: Path):
+@pytest.mark.parametrize("operation", ["write_text", "write", "write_bytes", "write_from_file", "delete"])
+def test_live_file_proxy_is_read_only(operation: str, tmp_path: Path):
     project_dir = tmp_path / "project-id"
     project_dir.mkdir(parents=True)
     source_path = tmp_path / "source.txt"
@@ -183,8 +174,21 @@ def test_live_file_proxy_is_read_only(operation, tmp_path: Path):
     live_file_path.write_text("content")
     live_file = LiveFileProxy("logs/runtime.log", project_dir)
 
-    with pytest.raises(PermissionError, match="cannot be mutated from the Client scope"):
-        operation(live_file, source_path)
+    if operation == "write_text":
+        with pytest.raises(PermissionError, match="cannot be mutated from the Client scope"):
+            live_file.write_text("forbidden")
+    elif operation == "write":
+        with pytest.raises(PermissionError, match="cannot be mutated from the Client scope"):
+            live_file.write(BytesIO(b"forbidden"))
+    elif operation == "write_bytes":
+        with pytest.raises(PermissionError, match="cannot be mutated from the Client scope"):
+            live_file.write_bytes(b"forbidden")
+    elif operation == "write_from_file":
+        with pytest.raises(PermissionError, match="cannot be mutated from the Client scope"):
+            live_file.write_from_file(source_path)
+    elif operation == "delete":
+        with pytest.raises(PermissionError, match="cannot be mutated from the Client scope"):
+            live_file.delete()
 
     assert live_file.read_text() == "content"
     assert live_file.exists()

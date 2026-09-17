@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import shutil
-from typing import TYPE_CHECKING, Any, BinaryIO, Literal
+from typing import TYPE_CHECKING, Any, BinaryIO
 
 from pydantic_core import core_schema
 
@@ -14,20 +14,13 @@ if TYPE_CHECKING:
     from pydantic.json_schema import JsonSchemaValue
 
 
-BinaryWriteMode = Literal["wb", "ab"]
-TextWriteMode = Literal["w", "a"]
-
-
 class LiveFile(str):
     """Relative path to a mutable file in a GLOW project.
 
     This class represents a file that can be read while being written.
     """
 
-    def __new__(
-        cls,
-        value: str,
-    ):
+    def __new__(cls, value: str):
         return super().__new__(cls, value)
 
     @classmethod
@@ -88,6 +81,24 @@ class LiveFile(str):
     def read_bytes(self) -> bytes:
         return self._absolute_path.read_bytes()
 
+    def exists(self) -> bool:
+        raise NotImplementedError()
+
+    def write(self, binary_fileobj: BinaryIO, mode: str = "wb") -> None:
+        raise NotImplementedError()
+
+    def write_from_file(self, data_file: str | Path | LiveFile, mode: str = "wb") -> None:
+        raise NotImplementedError()
+
+    def write_text(self, text: str, encoding: str = "utf-8", mode: str = "w") -> None:
+        raise NotImplementedError()
+
+    def write_bytes(self, data: bytes, mode: str = "wb") -> None:
+        raise NotImplementedError()
+
+    def delete(self) -> None:
+        raise NotImplementedError()
+
     @property
     def path(self) -> Path:
         raise NotImplementedError()
@@ -101,9 +112,10 @@ class TransactionLiveFile(LiveFile):
     """
 
     def __new__(cls, value: str, project_files_dir: Path):
-        self = super().__new__(cls, value)
+        return super().__new__(cls, value)
+
+    def __init__(self, value: str, project_files_dir: Path):
         self._project_files_dir = project_files_dir
-        return self
 
     @property
     def _absolute_path(self) -> Path:
@@ -116,23 +128,23 @@ class TransactionLiveFile(LiveFile):
     def _ensure_parent_directory(self) -> None:
         self._absolute_path.parent.mkdir(parents=True, exist_ok=True)
 
-    def write(self, binary_fileobj: BinaryIO, mode: BinaryWriteMode = "wb") -> None:
+    def write(self, binary_fileobj: BinaryIO, mode: str = "wb") -> None:
         self._ensure_parent_directory()
         with self._absolute_path.open(mode) as destination_buffer:
             shutil.copyfileobj(binary_fileobj, destination_buffer)
 
-    def write_from_file(self, data_file: str | Path | LiveFile, mode: BinaryWriteMode = "wb") -> None:
+    def write_from_file(self, data_file: str | Path | LiveFile, mode: str = "wb") -> None:
         source_bytes = data_file.read_bytes() if isinstance(data_file, LiveFile) else Path(data_file).read_bytes()
         self._ensure_parent_directory()
         with self._absolute_path.open(mode) as destination_buffer:
             destination_buffer.write(source_bytes)
 
-    def write_text(self, text: str, encoding: str = "utf-8", mode: TextWriteMode = "w") -> None:
+    def write_text(self, text: str, encoding: str = "utf-8", mode: str = "w") -> None:
         self._ensure_parent_directory()
         with self._absolute_path.open(mode, encoding=encoding) as destination_buffer:
             destination_buffer.write(text)
 
-    def write_bytes(self, data: bytes, mode: BinaryWriteMode = "wb") -> None:
+    def write_bytes(self, data: bytes, mode: str = "wb") -> None:
         self._ensure_parent_directory()
         with self._absolute_path.open(mode) as destination_buffer:
             destination_buffer.write(data)
@@ -153,9 +165,10 @@ class LiveFileProxy(LiveFile):
     """
 
     def __new__(cls, value: str, project_files_dir: Path):
-        self = super().__new__(cls, value)
+        return super().__new__(cls, value)
+
+    def __init__(self, value: str, project_files_dir: Path):
         self._project_files_dir = project_files_dir
-        return self
 
     @property
     def _absolute_path(self) -> Path:
@@ -164,16 +177,16 @@ class LiveFileProxy(LiveFile):
     def _raise_read_only(self) -> None:
         raise PermissionError("The content of a LiveFile cannot be mutated from the Client scope.")
 
-    def write(self, binary_fileobj: BinaryIO, mode: BinaryWriteMode = "wb") -> None:
+    def write(self, binary_fileobj: BinaryIO, mode: str = "wb") -> None:
         self._raise_read_only()
 
-    def write_from_file(self, data_file: str | Path | LiveFile, mode: BinaryWriteMode = "wb") -> None:
+    def write_from_file(self, data_file: str | Path | LiveFile, mode: str = "wb") -> None:
         self._raise_read_only()
 
-    def write_text(self, text: str, encoding: str = "utf-8", mode: TextWriteMode = "w") -> None:
+    def write_text(self, text: str, encoding: str = "utf-8", mode: str = "w") -> None:
         self._raise_read_only()
 
-    def write_bytes(self, data: bytes, mode: BinaryWriteMode = "wb") -> None:
+    def write_bytes(self, data: bytes, mode: str = "wb") -> None:
         self._raise_read_only()
 
     def delete(self) -> None:

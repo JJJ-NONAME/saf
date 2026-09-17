@@ -18,6 +18,7 @@ from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
 import contextlib
 from io import BytesIO
+from pathlib import Path
 import re
 from threading import Thread
 import time
@@ -127,30 +128,33 @@ class TestClientAPI:
 
         assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING
 
-    @pytest.mark.parametrize(
-        ("operation", "source_content"),
-        [
-            (lambda live_file, source_path: live_file.write_text("forbidden"), ""),
-            (lambda live_file, source_path: live_file.write(BytesIO(b"forbidden")), ""),
-            (lambda live_file, source_path: live_file.write_bytes(b"forbidden"), ""),
-            (lambda live_file, source_path: live_file.write_from_file(source_path), "forbidden"),
-            (lambda live_file, source_path: live_file.delete(), ""),
-        ],
-    )
+    @pytest.mark.parametrize("operation", ["write_text", "write", "write_bytes", "write_from_file", "delete"])
     def test_live_file_mutation_methods_from_client_forbidden(
         self,
         function_project: ProjectFixture[EndToEndSolution],
-        tmp_path,
-        operation: Callable,
-        source_content: str,
+        tmp_path: Path,
+        operation: str,
     ):
         step = function_project.project.steps.transaction_verification_step
         step.write_to_live_file()
         source_path = tmp_path / "source.txt"
-        source_path.write_text(source_content)
+        source_path.write_text("forbidden")
 
-        with pytest.raises(PermissionError, match="cannot be mutated from the Client scope"):
-            operation(step.live_file, source_path)
+        if operation == "write_text":
+            with pytest.raises(PermissionError, match="cannot be mutated from the Client scope"):
+                step.live_file.write_text("forbidden")
+        elif operation == "write":
+            with pytest.raises(PermissionError, match="cannot be mutated from the Client scope"):
+                step.live_file.write(BytesIO(b"forbidden"))
+        elif operation == "write_bytes":
+            with pytest.raises(PermissionError, match="cannot be mutated from the Client scope"):
+                step.live_file.write_bytes(b"forbidden")
+        elif operation == "write_from_file":
+            with pytest.raises(PermissionError, match="cannot be mutated from the Client scope"):
+                step.live_file.write_from_file(source_path)
+        elif operation == "delete":
+            with pytest.raises(PermissionError, match="cannot be mutated from the Client scope"):
+                step.live_file.delete()
 
         assert step.live_file.read_text() == TEXT_FILE_DUMMY_STRING
 
