@@ -466,6 +466,7 @@ jobs:
     permissions:
       contents: write # Create and push the merge branch
       pull-requests: write # Create the pull request
+    environment: saf-release
     env:
       RELEASE_BRANCH_NAME: release/v${{ needs.build-meta-package.outputs.version }}/saf-sdk
       MERGE_BRANCH_NAME: chore/bump-v${{ needs.build-meta-package.outputs.version
