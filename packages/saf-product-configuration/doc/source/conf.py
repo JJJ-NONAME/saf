@@ -113,7 +113,10 @@ html_theme_options = {
     "github_url": "https://github.com/ansys/saf-product-configuration",
     "contact_mail": "solution-applications.maintainers@ansys.com",
     "use_edit_page_button": False,
-    "logo": "ansys",
+    "logo": {
+        "image_light": "_static/logos/endorsed-ansys-logos-black-rgb.png",
+        "image_dark": "_static/logos/endorsed-ansys-logos-white-rgb.png",
+    },
     "search_filters": {
         "User guide": [
             "user-guide/",

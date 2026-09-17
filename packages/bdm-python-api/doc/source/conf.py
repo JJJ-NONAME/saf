@@ -113,8 +113,8 @@ html_theme_options = {
     "contact_mail": "pyansys-core@synopsys.com",
     "use_edit_page_button": False,
     "logo": {
-        "image_dark": ansys_logo_dark_mode,
-        "image_light": ansys_logo_light_mode,
+        "image_light": "_static/logos/endorsed-ansys-logos-black-rgb.png",
+        "image_dark": "_static/logos/endorsed-ansys-logos-white-rgb.png",
     },
     "search_filters": {
         "User guide": [
