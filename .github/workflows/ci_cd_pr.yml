@@ -238,7 +238,7 @@ jobs:
             }}
           sparse-checkout: |
             ${{ matrix.target-directory }}
-            ${{ matrix.target-directory == 'examples' && 'doc/styles/Vocab/ANSYS/accept.txt' || '' }}
+            doc/styles/Vocab/ANSYS/accept.txt
             ${{ matrix.target-directory == 'examples' && 'packages/saf-cli/' || '' }}
             ${{ matrix.target-directory == 'packages/glow-engine' && '.github/scripts/' || '' }}
 
@@ -285,7 +285,7 @@ jobs:
         shell: bash
         run: |
           source ${ACTIVATE_CMD}
-          pre-commit run --all-files
+          pre-commit run --all-files --show-diff-on-failure
 
   doc:
     name: "Documentation"
