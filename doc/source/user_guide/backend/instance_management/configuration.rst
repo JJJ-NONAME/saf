@@ -236,8 +236,8 @@ Environment variables in the Solution API container:
 Install extra dependencies
 ==============================
 
-To use the Product Instance Management functionality, you need to install the extra dependencies for GLOW.
-This can be done by editing the ``glow-engine`` dependency declaration in the ``pyproject.toml`` file of your solution as follows:
+To use the Product Instance Management functionality, you need to install the appropriate extras from ``ansys-saf-sdk``.
+This can be done by editing the ``ansys-saf-sdk`` dependency declaration in the ``pyproject.toml`` file of your solution as follows:
 
 .. tab-set::
 
@@ -246,7 +246,7 @@ This can be done by editing the ``glow-engine`` dependency declaration in the ``
     .. code-block:: toml
 
       [tool.poetry.dependencies]
-      ansys-saf-glow-engine = {version = "^2.30", extras = ["pim"]}
+      ansys-saf-sdk = {version = "^0.2.0", extras = ["core-pim"]}
 
     The ``extras`` field specifies that you want to include the PIM-related dependencies.
 
@@ -255,7 +255,7 @@ This can be done by editing the ``glow-engine`` dependency declaration in the ``
     .. code-block:: toml
 
       [tool.poetry.dependencies]
-      ansys-saf-glow-engine = {version = "^2.30", extras = ["hps"]}
+      ansys-saf-sdk = {version = "^0.2.0", extras = ["core-hps"]}
 
     The ``extras`` field specifies that you want to include the HPS-related dependencies.
 
@@ -287,11 +287,10 @@ Click on the tab corresponding to the product you want to use to see the require
     .. code-block:: toml
 
       [tool.poetry.dependencies]
-      ansys-saf-glow-engine = {version = "^2.30", extras = ["pim"]}
-      ansys-saf-product-manager = {version = "^0.5", extras = ["aedt"]}
+      ansys-saf-sdk = {version = "^0.2.0", extras = ["core-pim", "instance-management-aedt"]}
 
     This will install the supported version of ``pyaedt`` to control the AEDT product instances. Note that in the above example,
-    the ``pim`` extra is specified, but if you are using HPS, you must use the ``hps`` extra instead.
+    the ``core-pim`` extra is specified, but if you are using HPS, you must use the ``core-hps`` extra instead.
 
   .. tab-item:: Fluent
 
@@ -300,11 +299,10 @@ Click on the tab corresponding to the product you want to use to see the require
     .. code-block:: toml
 
       [tool.poetry.dependencies]
-      ansys-saf-glow-engine = {version = "^2.30", extras = ["pim"]}
-      ansys-saf-product-manager = {version = "^0.5", extras = ["fluent"]}
+      ansys-saf-sdk = {version = "^0.2.0", extras = ["core-pim", "instance-management-fluent"]}
 
     This will install the supported version of ``ansys-fluent-core`` to control the Fluent product instances. Note that in the above example,
-    the ``pim`` extra is specified, but if you are using HPS, you must use the ``hps`` extra instead.
+    the ``core-pim`` extra is specified, but if you are using HPS, you must use the ``core-hps`` extra instead.
 
   .. tab-item:: Geometry
 
@@ -313,11 +311,10 @@ Click on the tab corresponding to the product you want to use to see the require
     .. code-block:: toml
 
       [tool.poetry.dependencies]
-      ansys-saf-glow-engine = {version = "^2.30", extras = ["pim"]}
-      ansys-saf-product-manager = {version = "^0.5", extras = ["geometry"]}
+      ansys-saf-sdk = {version = "^0.2.0", extras = ["core-pim", "instance-management-geometry"]}
 
     This will install the supported version of ``ansys-geometry-core`` to control the Geometry product instances. Note that in the above example,
-    the ``pim`` extra is specified, but if you are using HPS, you must use the ``hps`` extra instead.
+    the ``core-pim`` extra is specified, but if you are using HPS, you must use the ``core-hps`` extra instead.
 
   .. tab-item:: MAPDL
 
@@ -326,11 +323,10 @@ Click on the tab corresponding to the product you want to use to see the require
     .. code-block:: toml
 
       [tool.poetry.dependencies]
-      ansys-saf-glow-engine = {version = "^2.30", extras = ["pim"]}
-      ansys-saf-product-manager = {version = "^0.5", extras = ["mapdl"]}
+      ansys-saf-sdk = {version = "^0.2.0", extras = ["core-pim", "instance-management-mapdl"]}
 
     This will install the supported version of ``ansys-mapdl-core`` to control the MAPDL product instances. Note that in the above example,
-    the ``pim`` extra is specified, but if you are using HPS, you must use the ``hps`` extra instead.
+    the ``core-pim`` extra is specified, but if you are using HPS, you must use the ``core-hps`` extra instead.
 
   .. tab-item:: Mechanical
 
@@ -339,11 +335,10 @@ Click on the tab corresponding to the product you want to use to see the require
     .. code-block:: toml
 
       [tool.poetry.dependencies]
-      ansys-saf-glow-engine = {version = "^2.30", extras = ["pim"]}
-      ansys-saf-product-manager = {version = "^0.5", extras = ["mechanical"]}
+      ansys-saf-sdk = {version = "^0.2.0", extras = ["core-pim", "instance-management-mechanical"]}
 
     This will install the supported version of ``ansys-mechanical-core`` to control the Mechanical product instances. Note that in the above example,
-    the ``pim`` extra is specified, but if you are using HPS, you must use the ``hps`` extra instead.
+    the ``core-pim`` extra is specified, but if you are using HPS, you must use the ``core-hps`` extra instead.
 
   .. tab-item:: optiSLang
 
@@ -352,8 +347,7 @@ Click on the tab corresponding to the product you want to use to see the require
     .. code-block:: toml
 
       [tool.poetry.dependencies]
-      ansys-saf-glow-engine = {version = "^2.30", extras = ["pim"]}
-      ansys-saf-product-manager = {version = "^0.5", extras = ["optislang"]}
+      ansys-saf-sdk = {version = "^0.2.0", extras = ["core-pim", "instance-management-optislang"]}
 
     This will install the supported version of ``ansys-optislang-core`` to control the optiSLang product instances. Note that in the above example,
-    the ``pim`` extra is specified, but if you are using HPS, you must use the ``hps`` extra instead.
+    the ``core-pim`` extra is specified, but if you are using HPS, you must use the ``core-hps`` extra instead.

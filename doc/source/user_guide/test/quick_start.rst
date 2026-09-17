@@ -19,7 +19,7 @@ SAF GLOW Engine's testing fixtures only require ``pytest`` and ``pytest-mock`` a
 Install extra fixtures
 =========================
 
-Alternatively, you can use the ``"test"`` extra in the ``ansys-saf-glow-engine`` dependency. This extra installs
+Alternatively, you can use the ``"core-test"`` extra in the ``ansys-saf-sdk`` dependency. This extra installs
 ``pytest`` and ``pytest-mock``, with the appropriate versions, and any future required dependency.
 
 .. code-block:: toml
@@ -27,7 +27,7 @@ Alternatively, you can use the ``"test"`` extra in the ``ansys-saf-glow-engine``
    [tool.poetry.group.tests]
    optional = true
    [tool.poetry.group.tests.dependencies]
-   ansys-saf-glow-engine = {  version = "^<version>" , extras = ["test"] }
+   ansys-saf-sdk = { version = "^0.2.0", extras = ["core-test"] }
 
 Pytest automatically discovers the GLOW fixture plugin, ``ansys.saf.glow.testing``. Do not import fixture modules or
 declare ``pytest_plugins`` in your test suite.
