@@ -144,4 +144,5 @@
 .. role:: fix-icon
    :class: fix-icon
 
-
+.. role:: card-asterisk
+   :class: card-asterisk

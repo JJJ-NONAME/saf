@@ -5,60 +5,48 @@
     <img src="https://img.shields.io/badge/Python-3.11–3.14-blue.svg" alt="Supported Python versions" />
 </p>
 
-# Prerequisites
+The **Solution Examples** solution provided in the `saf/examples` directory demonstrates select SAF examples. Follow these instructions to install and run the solution.
 
-Visit the SAF documentation and ensure the [prerequisites](https://upgraded-carnival-wn6lkym.pages.github.io/version/stable/getting_started/prerequisites/index.html) are fulfilled.
 
-## Beam Bending Requirements (Optional)
+## Prerequisites
 
-The beam bending example can optionally run a MAPDL simulation and generate a report using Ansys Dynamic Reporting (ADR). To enable these capabilities, install the following components.
+- Visit the SAF documentation and ensure that you've fulfilled all [prerequisites](https://saf.ansys.com/version/stable/getting_started/prerequisites/index.html).
 
-### Ansys Mechanical APDL 2025 R2
+- You've created a local clone of the [`saf`](https://github.com/ansys/saf) repository.
 
-To install MAPDL:
 
-1. Download the Ansys 2025 R2 automated installer from: https://download.ansys.com/currentReleases
+## Install the example solution
 
-2. Run the installer and select Mechanical APDL as one of the installed products.
 
-3. Ensure the MAPDL executable is accessible to the application via the `AWP_ROOT252` environment variable, which typically points to: `C:\Program Files\ANSYS Inc\v252`
+1. In your local clone of the `saf` repository, move to the ``examples`` folder:
 
-### Ansys Dynamic Reporting 2026 R1
+    ```bash
+    cd examples
+    ```
 
-1. Download the Ansys 2026 R1 automated installer from: https://download.ansys.com/currentReleases
+2. Install the example solution:
 
-2. Run the installer and select Dynamic Reporting under Platform and install the package.
+    ```bash
+    saf install -f
+    ```
 
-3. Set the ``ADR_INSTALLATION_DIRECTORY`` environment variable in your ``.env`` file to the absolute path of the Dynamic Reporting ``CEI`` directory installed.
+## Run the example solution
 
-Example:
-```bash
-ADR_INSTALLATION_DIRECTORY=C:\Program Files\ANSYS Inc\v261\CEI
-```
-
-# Install the example solution
-
-It is assumed that SAF CLI is installed.
-
-1. Move to the examples folder
-
-```bash
-cd examples
-```
-
-2. Install
-
-```bash
-saf install -f
-```
-
-# Run the example solution
-
-From within the examples folder:
+In the `examples` folder, run the following command:
 
 ```bash
 saf run
 ```
+
+The Solution Examples solution opens to the first example. Available examples are shown in the left sidebar.
+
+<img src="src/saf/solutions/examples/ui/assets/images/example_solution_open_to_dash_components.png"
+     alt="First page of the Solution Examples solution"
+     width="800"
+     style="max-width: 100%; height: auto;" />
+
+<!-- ![First page of the Solution Examples solution](src\saf\solutions\examples\ui\assets\images\example_solution_open_to_dash_components.png "First page of the Solution Examples solution") -->
+
 
 # License
 
