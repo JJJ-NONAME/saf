@@ -366,7 +366,7 @@ class TestGetCodeStyleMatrixEntries:
         matrix = json.loads(outputs["code_style_matrix"])
         assert len(matrix["include"]) == 1
         assert (
-            matrix["include"][0]["target-directory"] == "/*\n!/packages/\n!/examples/"
+            matrix["include"][0]["target-directory"] == ".github"
         )
         assert matrix["include"][0]["dependency-manager"] == "uv"
 
@@ -379,7 +379,7 @@ class TestGetCodeStyleMatrixEntries:
         matrix = json.loads(outputs["code_style_matrix"])
         assert len(matrix["include"]) == 2
         assert (
-            matrix["include"][0]["target-directory"] == "/*\n!/packages/\n!/examples/"
+            matrix["include"][0]["target-directory"] == ".github"
         )
         assert matrix["include"][1]["target-directory"] == "packages/saf-testing"
         assert matrix["include"][1]["dependency-manager"] == "poetry"
@@ -395,7 +395,7 @@ class TestGetCodeStyleMatrixEntries:
         matrix = json.loads(outputs["code_style_matrix"])
         assert len(matrix["include"]) == 2
         assert (
-            matrix["include"][0]["target-directory"] == "/*\n!/packages/\n!/examples/"
+            matrix["include"][0]["target-directory"] == ".github"
         )
         assert matrix["include"][1] == {
             "target-directory": "examples",
