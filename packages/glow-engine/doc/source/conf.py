@@ -20,7 +20,7 @@ import os
 import shutil
 import subprocess
 
-from ansys_sphinx_theme import ansys_favicon, ansys_logo_dark_mode, ansys_logo_light_mode, get_version_match
+from ansys_sphinx_theme import ansys_favicon, get_version_match
 
 from ansys.saf.glow import __version__
 

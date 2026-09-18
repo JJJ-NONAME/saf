@@ -24,7 +24,7 @@ from sphinx.builders.latex import LaTeXBuilder
 import subprocess
 import sys
 
-from ansys_sphinx_theme import ansys_favicon, get_version_match, ansys_logo_dark_mode, ansys_logo_light_mode
+from ansys_sphinx_theme import ansys_favicon, get_version_match
 
 # Add source to path to import package version
 sys.path.insert(0, str(Path(__file__).parent.parent.parent.absolute() / "src"))
