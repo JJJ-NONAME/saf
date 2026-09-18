@@ -94,8 +94,7 @@ class HpsExecutionSpecification:
         Use the ``python_version`` parameter to specify the version of Python for the virtual environment.
         The ``dependencies`` argument does not determine what products and applications
         are available for design point evaluation, use the ``products`` argument for that purpose.
-        See the user guide section on
-        :ref:`specifying python package dependencies for jobs <saf-docs:hps_job_dependencies>`
+        See |saf-docs-hps-job-dependencies-ref|_ for details on specifying python package dependencies for jobs
         (the parametric study API is identical to the job API in this aspect:
         'job' is equivalent to 'design point evaluation')
 
@@ -120,8 +119,7 @@ class HpsExecutionSpecification:
         The list items must be of type :py:class:`~ansys.saf.product_configuration.interfaces.Software`.
         The default value is an empty list.
         The list should not contain entries for python or the SAF Product Environment.
-        See the user guide section on
-        :ref:`specifying product requirements for jobs <saf-docs:hps_job_specifiying_required_products>`
+        See |saf-docs-hps-job-specifiying-required-products-ref|_ for details on specifying product requirements for jobs
         (the parametric study API is identical to the job API in this aspect:
         'job' is equivalent to 'design point evaluation').
 

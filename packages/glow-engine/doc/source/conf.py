@@ -250,4 +250,14 @@ rst_epilog = f"""
 .. _saf-docs-create-product-instance-ref: {saf_docs_base_url}/user_guide/backend/instance_management/usage.html#create-a-product-instance
 .. |saf-docs-access-use-product-instance-ref| replace:: the corresponding section
 .. _saf-docs-access-use-product-instance-ref: {saf_docs_base_url}/user_guide/backend/instance_management/usage.html#use-a-running-product-instance
+.. |saf-docs-hps-job-dependencies-ref| replace:: the corresponding section
+.. _saf-docs-hps-job-dependencies-ref: {saf_docs_base_url}/user_guide/backend/job_submission/hps_job_submission.html#package-dependencies
+.. |saf-docs-hps-job-specifiying-required-products-ref| replace:: the corresponding section
+.. _saf-docs-hps-job-specifiying-required-products-ref: {saf_docs_base_url}/user_guide/backend/job_submission/hps_job_submission.html#specify-required-products
+.. |saf-docs-hps-parametric-study-ref| replace:: the corresponding section
+.. _saf-docs-hps-parametric-study-ref: {saf_docs_base_url}/user_guide/backend/job_submission/hps_job_submission.html#the-hps-parametric-study-api
+.. |saf-docs-hps-function-ref| replace:: the corresponding section
+.. _saf-docs-hps-function-ref: {saf_docs_base_url}/user_guide/backend/job_submission/hps_job_submission.html#functions-executed-in-hps
+.. |saf-docs-hps-job-submit-single-ref| replace:: the corresponding section
+.. _saf-docs-hps-job-submit-single-ref: {saf_docs_base_url}/user_guide/backend/job_submission/hps_job_submission.html#submit-a-single-job-to-hps
 """

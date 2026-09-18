@@ -79,12 +79,10 @@ class HpsSimpleProject(HpsSimpleProjectBase):
         """This method creates a new HPS project containing a job and returns a
         :py:class:`~ansys.saf.glow.solution.hps.HpsSimpleProject` object referring to that project.
 
-        See the user guide section on :ref:`submitting a single job to HPS <saf-docs:hps_job_submit_single>`
-        examples and further documentation of this method.
+        See |saf-docs-hps-job-submit-single-ref|_ for examples and further documentation of this method.
 
         To understand how the method supports the use of PyAnsys packages
-        see the user guide section on
-        :ref:`the SAF product environment <saf-docs:hps_job_dependencies>`.
+        see |saf-docs-hps-job-dependencies-ref|_ on the SAF product environment.
 
         Parameters
         ----------
@@ -108,8 +106,7 @@ class HpsSimpleProject(HpsSimpleProjectBase):
 
             This dictionary must contain an entry with key ``script`` which specifies an input file which is a
             python module that is run to evaluate a design point.
-            See the user guide section on :ref:`GLOW HPS Scripts <saf-docs:hps_function>` to understand
-            the form of those scripts.
+            See |saf-docs-hps-function-ref|_ (GLOW HPS Scripts) to understand the form of those scripts.
 
         output_parameters : dict[str, type | HpsOutputFileSpecification | HpsOutputDirectorySpecification]
 
@@ -140,8 +137,7 @@ class HpsSimpleProject(HpsSimpleProjectBase):
             Use the ``python_version`` parameter to specify the version of Python for the virtual environment.
             The ``dependencies`` argument does not determine what products and applications are available for
             design point evaluation, use the ``products`` argument for that purpose.
-            See the user guide section on
-            :ref:`specifying python package dependencies for jobs <saf-docs:hps_job_dependencies>`.
+            See |saf-docs-hps-job-dependencies-ref|_ for details on specifying python package dependencies for jobs.
 
         use_product_environment: bool, optional
             Whether to use the SAF Product Environment virtual environment for the job.
@@ -164,8 +160,7 @@ class HpsSimpleProject(HpsSimpleProjectBase):
             The list items must be of type :py:class:`~ansys.saf.product_configuration.interfaces.Software`.
             The default value is an empty list.
             The list should not contain entries for python or the SAF Product Environment.
-            See the user guide section on
-            :ref:`specifying product requirements for jobs <saf-docs:hps_job_specifiying_required_products>`
+            See |saf-docs-hps-job-specifiying-required-products-ref|_ for details on specifying product requirements for jobs.
 
         use_ansys_python: bool, optional
             Whether to use Ansys Python instead of Python for the job when the SAF Product environment is not used.
@@ -306,12 +301,10 @@ class HpsParametricStudyProject(HpsParametricStudyProjectBase):
         """This method creates a new HPS project containing a parametric study and returns
         a :py:class:`~ansys.saf.glow.solution.hps.HpsParametricStudyProject` object referring to the project.
 
-        See the user guide section on :ref:`submitting a parametric study <saf-docs:hps_parametric_study>`
-        for examples of calling this method.
+        See |saf-docs-hps-parametric-study-ref|_ for examples of calling this method.
 
         To understand how the method supports the use of PyAnsys packages
-        see the user guide section on
-        :ref:`the SAF product environment <saf-docs:hps_job_dependencies>`.
+        see |saf-docs-hps-job-dependencies-ref|_ on the SAF product environment.
         The parametric study API is identical to the job API in this aspect: 'job'
         is equivalent to 'design point evaluation'
         and :py:meth:`~ansys.saf.glow.solution.hps.HpsSimpleProject.start_hps_job` is equivalent to
@@ -335,8 +328,7 @@ class HpsParametricStudyProject(HpsParametricStudyProjectBase):
 
             This dictionary must contain an entry with key ``script`` which specifies an input file which is a
             python module that is run to evaluate a design point.
-            See the user guide section on :ref:`GLOW HPS Scripts <saf-docs:hps_function>` to understand
-            the form of those scripts.
+            See |saf-docs-hps-function-ref|_ (GLOW HPS Scripts) to understand the form of those scripts.
             The parametric study API is identical to the job API in this aspect:
             'job' is equivalent to 'design point evaluation'
             and :py:meth:`~ansys.saf.glow.solution.hps.HpsSimpleProject.start_hps_job` is equivalent to
@@ -383,8 +375,7 @@ class HpsParametricStudyProject(HpsParametricStudyProjectBase):
             Use the ``python_version`` parameter to specify the version of Python for the virtual environment.
             The ``dependencies`` argument does not determine what products and applications
             are available for design point evaluation, use the ``products`` argument for that purpose.
-            See the user guide section on
-            :ref:`specifying python package dependencies for jobs <saf-docs:hps_job_dependencies>`
+            See |saf-docs-hps-job-dependencies-ref|_ for details on specifying python package dependencies for jobs
             (the parametric study API is identical to the job API in this aspect:
             'job' is equivalent to 'design point evaluation')
 
@@ -409,8 +400,7 @@ class HpsParametricStudyProject(HpsParametricStudyProjectBase):
             The list items must be of type :py:class:`~ansys.saf.product_configuration.interfaces.Software`.
             The default value is an empty list.
             The list should not contain entries for python or the SAF Product Environment.
-            See the user guide section on
-            :ref:`specifying product requirements for jobs <saf-docs:hps_job_specifiying_required_products>`
+            See |saf-docs-hps-job-specifiying-required-products-ref|_ for details on specifying product requirements for jobs
             (the parametric study API is identical to the job API in this aspect:
             'job' is equivalent to 'design point evaluation').
 
