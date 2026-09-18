@@ -8,9 +8,11 @@ Module: ``ansys.solutions.dash_super_components``
 This section provides the API reference for all components in the
 ``ansys.solutions.dash_super_components`` package. For usage
 examples, screenshots, and configuration options, see the
-:external+saf:ref:`Dash Super Components user guide
-<user_guide_frontend_dash_super_components_index>`. For runnable code examples,
-see the :external+saf:ref:`example gallery <ref_example_gallery>`.
+`Dash Super Components user guide
+<https://saf.ansys.com/version/stable/user_guide/frontend/dash/dash_super_components/index.html>`_.
+For runnable code examples, see the
+`example gallery
+<https://saf.ansys.com/version/stable/examples/dash_super_components_examples/index.html>`_.
 
 .. currentmodule:: ansys.solutions.dash_super_components
 

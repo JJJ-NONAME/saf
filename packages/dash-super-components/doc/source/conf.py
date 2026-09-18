@@ -106,15 +106,10 @@ extensions = [
 autosummary_generate = True
 
 # Intersphinx mapping
-# The ``saf`` entry resolves ``:external+saf:ref:`` targets against the central
-# SAF documentation, which hosts the user guide and example gallery for this
-# package. Set ``SAF_DOC_INVENTORY`` to a local ``objects.inv`` to build offline.
+# The package docs build independently from the central SAF docs. Only configure
+# a SAF inventory when one is explicitly provided by the environment.
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
-    "saf": (
-        f"https://{os.getenv('SAF_DOC_CNAME', 'saf.ansys.com')}/version/stable",
-        os.getenv("SAF_DOC_INVENTORY") or None,
-    ),
     # kept here as an example
     # "scipy": ("https://docs.scipy.org/doc/scipy/reference", None),
     # "numpy": ("https://numpy.org/devdocs", None),
@@ -122,6 +117,13 @@ intersphinx_mapping = {
     # "pandas": ("https://pandas.pydata.org/pandas-docs/stable", None),
     # "pyvista": ("https://docs.pyvista.org/", None),
 }
+
+saf_doc_inventory = os.getenv("SAF_DOC_INVENTORY")
+if saf_doc_inventory:
+    intersphinx_mapping["saf"] = (
+        f"https://{os.getenv('SAF_DOC_CNAME', 'saf.ansys.com')}/version/stable",
+        saf_doc_inventory,
+    )
 
 # numpydoc configuration
 numpydoc_show_class_members = False
