@@ -21,10 +21,10 @@ on PyPI:
     python-version: ${{ vars.PYTHON_VERSION }}
     is-for-pypi-release: ${{ inputs.release }}
     meta-package-version-update-type: auto
-        minimum-pip-version: "26.0"
-        azure-devops-org: ${{ secrets.AZURE_DEVOPS_ORG }}
-        azure-devops-feed: ${{ secrets.AZURE_DEVOPS_FEED }}
-        azure-devops-pat: ${{ secrets.AZURE_DEVOPS_PAT }}
+    minimum-pip-version: "26.0"
+    azure-devops-org: ${{ secrets.AZURE_DEVOPS_ORG }}
+    azure-devops-feed: ${{ secrets.AZURE_DEVOPS_FEED }}
+    azure-devops-pat: ${{ secrets.AZURE_DEVOPS_PAT }}
     ansys-bdm-api-version-override: ""
 ```
 
