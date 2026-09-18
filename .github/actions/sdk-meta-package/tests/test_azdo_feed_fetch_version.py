@@ -41,17 +41,17 @@ def test_main_writes_latest_stable_version_to_github_output(
     output_path = tmp_path / "github-output"
     response = _Response(
         {
-        "value": [
-            {
-                "name": "example-package",
-                "versions": [
-                    {"version": "1.1.0rc1"},
-                    {"version": "1.0.0"},
-                    {"version": "1.1.0"},
-                    {"version": "2.0.0", "isDeleted": True},
-                ],
-            }
-        ]
+            "value": [
+                {
+                    "name": "example-package",
+                    "versions": [
+                        {"version": "1.1.0rc1"},
+                        {"version": "1.0.0"},
+                        {"version": "1.1.0"},
+                        {"version": "2.0.0", "isDeleted": True},
+                    ],
+                }
+            ]
         }
     )
 
@@ -60,7 +60,9 @@ def test_main_writes_latest_stable_version_to_github_output(
         "parse_args",
         lambda: argparse.Namespace(package_names=["example-package"]),
     )
-    monkeypatch.setattr(azdo_feed_fetch_version.requests, "get", lambda *args, **kwargs: response)
+    monkeypatch.setattr(
+        azdo_feed_fetch_version.requests, "get", lambda *args, **kwargs: response
+    )
     monkeypatch.setenv("AZURE_DEVOPS_ORG", "example-org")
     monkeypatch.setenv("AZURE_DEVOPS_FEED", "example-feed")
     monkeypatch.setenv("AZURE_DEVOPS_PAT", "token")
