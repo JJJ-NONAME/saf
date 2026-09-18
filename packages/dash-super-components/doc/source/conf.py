@@ -66,8 +66,8 @@ html_use_index = False
 
 html_theme_options = {
     "logo": {
-        "image_light": "../../../../doc/source/_static/logos/endorsed-ansys-logos-gold-black-rgb.svg",
-        "image_dark": "../../../../doc/source/_static/logos/endorsed-ansys-logos-gold-white-rgb.svg",
+        "image_light": "_static/logos/endorsed-ansys-logos-gold-black-rgb.svg",
+        "image_dark": "_static/logos/endorsed-ansys-logos-gold-white-rgb.svg",
     },
     # "logo_link": "https://docs.pyansys.com",
     "github_url": "https://github.com/ansys/super-components-for-dash",

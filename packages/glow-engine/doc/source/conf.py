@@ -172,8 +172,8 @@ html_theme_options = {
     "contact_mail": "pyansys-core@synopsys.com",
     "use_edit_page_button": False,
     "logo": {
-        "image_light": "../../../../doc/source/_static/logos/endorsed-ansys-logos-gold-black-rgb.svg",
-        "image_dark": "../../../../doc/source/_static/logos/endorsed-ansys-logos-gold-white-rgb.svg",
+        "image_light": "_static/logos/endorsed-ansys-logos-gold-black-rgb.svg",
+        "image_dark": "_static/logos/endorsed-ansys-logos-gold-white-rgb.svg",
     },
     "search_filters": {
         "User guide": [
