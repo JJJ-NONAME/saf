@@ -22,59 +22,26 @@ from constants import (
 )
 import os
 import re
-from datetime import datetime, timedelta
 from pathlib import Path
 
 import requests
-from packaging.version import Version
+
+from azdo_feed_fetch_version import get_latest_versions
 
 RELEASE_NOTES_FILE = REPO_ROOT / "release_notes.md"
 GITHUB_RELEASE_URL = "https://api.github.com/repos/ansys/saf/releases/tags/{tag}"
-MAINTENANCE_WINDOW_DAYS = 180
 PACKAGES = list(PACKAGE_LIBRARY_DIRS)
 
-
-def get_maintenance_window(name: str, version: str) -> str:
-    """Return the maintenance-window date for a package release.
-
-    The maintenance window starts 180 days after the ``X.Y.0`` release on
-    PyPI, where ``X.Y`` is taken from ``version``.
-
-    Parameters
-    ----------
-    name : str
-        PyPI package name.
-    version : str
-        Package version whose major and minor components identify the base
-        release.
-
-    Returns
-    -------
-    str
-        Maintenance-window date in ``YYYY-MM-DD`` format.
-
-    Raises
-    ------
-    ValueError
-        If the corresponding ``X.Y.0`` release is not listed on PyPI.
-    requests.HTTPError
-        If the PyPI request fails.
-    """
-    pypi_json_url = "https://pypi.org/pypi/{name}/json"
-    response = requests.get(pypi_json_url.format(name=name), timeout=10)
-    response.raise_for_status()
-    releases = response.json()["releases"]
-    parsed_version = Version(version)
-    release_version = f"{parsed_version.major}.{parsed_version.minor}.0"
-    if release_version not in releases or not releases[release_version]:
-        raise ValueError(
-            f"Release {release_version} (derived from {version}) not found for package: {name}"
-        )
-    upload_time = releases[release_version][0]["upload_time"]
-    maintenance_window = datetime.fromisoformat(upload_time) + timedelta(
-        days=MAINTENANCE_WINDOW_DAYS
-    )
-    return maintenance_window.strftime("%Y-%m-%d")
+PRIVATE_PACKAGES = [
+    "ansys-saf-pim-light-server",
+    "ansys-translation-utilities",
+    "ansys-saf-desktop-portal",
+    "ansys-saf-web-portal",
+    "ansys-minerva-python-client",
+    "ansys-datarepository-python-client",
+    "ansys-saf-hermes",
+    "ansys-saf-aspire",
+]
 
 
 def get_release_notes(package: str, version: str) -> str | None:
@@ -150,10 +117,7 @@ def generate_release_notes(
     """
     print(f"Generating package versions summary in {RELEASE_NOTES_FILE}...")
 
-    rows = [
-        f"| `{package}` | `{versions[package]}` | `{get_maintenance_window(package, versions[package])}` |"
-        for package in PACKAGES
-    ]
+    rows = [f"| `{package}` | `{versions[package]}` |" for package in PACKAGES]
 
     minimum_pip_version = os.environ["MINIMUM_PIP_VERSION"]
 
@@ -166,12 +130,27 @@ def generate_release_notes(
             "",
             f"The following versions were resolved when this version of the {META_PACKAGE_NAME} was generated.",
             "",
-            "| Package | Version | Maintenance Window |",
-            "| --- | --- | --- |",
+            "| Package | Version |",
+            "| --- | --- |",
             *rows,
-            "---",
+            "",
         ]
     )
+
+    private_package_versions = get_latest_versions(PRIVATE_PACKAGES)
+    if private_package_versions:
+        content += "\n\n" + "\n".join(
+            [
+                "",
+                "| Private Package | Version |",
+                "| --- | --- |",
+                *[
+                    f"| `{package}` | `{version}` |"
+                    for package, version in private_package_versions.items()
+                ],
+                "---",
+            ]
+        )
 
     for package in PACKAGES:
         if (
