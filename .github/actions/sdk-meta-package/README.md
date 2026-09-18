@@ -3,7 +3,8 @@
 This local composite action updates and packages the `ansys-saf-sdk` meta-package. It
 resolves the latest stable releases of SAF component packages from PyPI, updates the
 dependency constraints in `packages/saf-sdk/pyproject.toml`, refreshes `uv.lock`, and
-generates the repository-level `release_notes.md` summary.
+generates the repository-level `release_notes.md` summary. The summary also includes
+the latest versions of selected private packages from an Azure DevOps feed.
 
 ## Usage
 
@@ -20,6 +21,10 @@ on PyPI:
     python-version: ${{ vars.PYTHON_VERSION }}
     is-for-pypi-release: ${{ inputs.release }}
     meta-package-version-update-type: auto
+        minimum-pip-version: "26.0"
+        azure-devops-org: ${{ secrets.AZURE_DEVOPS_ORG }}
+        azure-devops-feed: ${{ secrets.AZURE_DEVOPS_FEED }}
+        azure-devops-pat: ${{ secrets.AZURE_DEVOPS_PAT }}
     ansys-bdm-api-version-override: ""
 ```
 
@@ -30,6 +35,10 @@ on PyPI:
 | `python-version` | Yes | Python version to use when running the meta-package update utility. |
 | `is-for-pypi-release` | Yes | Indicates whether the current build is intended to publish the SDK package to PyPI. |
 | `meta-package-version-update-type` | Yes | Requested version update type: `auto`, `major`, `minor`, or `patch`. |
+| `minimum-pip-version` | Yes | Minimum pip version required to install the generated SDK meta-package. |
+| `azure-devops-org` | Yes | Azure DevOps organization that hosts private-package versions. |
+| `azure-devops-feed` | Yes | Azure DevOps feed that hosts private-package versions. |
+| `azure-devops-pat` | Yes | Personal access token used to query the Azure DevOps feed. |
 | `ansys-*-version-override` | No | Optional component version override. The action defines one override input for each tracked package; empty values use PyPI resolution. |
 
 The override inputs are:
@@ -77,6 +86,7 @@ flowchart LR
     B --> D[version_utilities.py]
     B --> E[release_notes_utilities.py]
     B --> F[github_utilities.py]
+    E --> H[azdo_feed_fetch_version.py]
     C --> G[constants.py]
     D --> G
     E --> G
@@ -85,7 +95,8 @@ flowchart LR
 `action.yml` defines the composite-action interface. The SDK utility coordinates
 the update, `branch.py` validates branch context, `version_utilities.py` resolves
 versions and dependency constraints, `release_notes_utilities.py` builds the report,
-and `github_utilities.py` writes GitHub Actions outputs.
+queries private-package versions through `azdo_feed_fetch_version.py`, and
+`github_utilities.py` writes GitHub Actions outputs.
 
 ```mermaid
 flowchart TD
@@ -106,7 +117,8 @@ flowchart TD
     N --> O[Run uv lock]
     H --> P[Generate release_notes.md]
     O --> P
-    P --> Q[Write GitHub step summary]
+    P --> T[Query Azure DevOps private-package versions]
+    T --> Q[Write GitHub step summary]
     Q --> R[Upload release-notes artifact]
     O --> S[Upload pyproject and uv.lock artifacts]
     H --> R
@@ -165,6 +177,7 @@ sequenceDiagram
     participant Workflow
     participant Action
     participant PyPI
+    participant AzureDevOps
     participant GitHub
     participant Workspace
 
@@ -180,6 +193,8 @@ sequenceDiagram
     else No dependency update
         Action->>Workspace: Leave pyproject.toml and uv.lock unchanged
     end
+    Action->>AzureDevOps: Request latest private-package versions
+    AzureDevOps-->>Action: Version data
     Action->>GitHub: Generate and upload release notes
 ```
 
@@ -189,20 +204,30 @@ For each resolved component package, the utility looks for a GitHub release tagg
 `v{version}-{library-directory}`. If the release exists, content from its `What's
 changed` section is included in `release_notes.md` when the package version has changed
 since the last release of `ansys-saf-sdk`. If the resolved version is the same as the
-current SDK dependency version, the package section contains `No changes`. Missing
-release notes for an updated component do not fail the run; HTTP errors other than
-`404` are propagated.
+current SDK dependency version, the package section contains `No changes`. The generated
+dependency table lists each tracked package and its resolved version. Missing release
+notes for an updated component do not fail the run; HTTP errors other than `404` are
+propagated.
 
 The generated section starts with a warning not to edit it manually. A later workflow
 can use the `update-type` and `version` outputs to decide whether to create a release
 or publish the built SDK wheel.
 
+The dependency table contains the tracked SAF packages resolved from PyPI. A separate
+private-package table lists the latest non-deleted version from the configured Azure
+DevOps feed for `ansys-saf-pim-light-server`, `ansys-translation-utilities`,
+`ansys-saf-desktop-portal`, `ansys-saf-web-portal`,
+`ansys-minerva-python-client`, `ansys-datarepository-python-client`,
+`ansys-saf-hermes`, and `ansys-saf-aspire`. Stable versions are preferred; the latest
+pre-release is used only when no stable version is available.
+
 ## Failure Behavior
 
 - A missing PyPI package is treated as unpublished, and the initial SDK version is used.
 - A missing GitHub release produces no package release-note section.
+- A missing, inaccessible, or invalid Azure DevOps private package fails release-note generation.
 - Invalid branch, update-type, pinning, or requirement data fails the action.
-- Network errors from PyPI or GitHub fail the action unless the response is an expected `404`.
+- Network errors from PyPI, Azure DevOps, or GitHub fail the action unless the GitHub response is an expected `404`.
 
 ## Testing
 

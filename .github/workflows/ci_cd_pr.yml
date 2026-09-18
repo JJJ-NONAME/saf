@@ -461,6 +461,9 @@ jobs:
       PYANSYS_CI_BOT_TOKEN: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
       PYANSYS_PYPI_PRIVATE_PAT: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}
       PYANSYS_PYPI_PRIVATE_URL: ${{ secrets.PYANSYS_PYPI_PRIVATE_URL }}
+      AZURE_DEVOPS_ORG: ${{ secrets.AZURE_DEVOPS_ORG }}
+      AZURE_DEVOPS_FEED: ${{ secrets.AZURE_DEVOPS_FEED }}
+      AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
 
   ci-result:
     name: "CI result"
