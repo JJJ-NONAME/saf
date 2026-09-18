@@ -85,7 +85,8 @@ pytest_logs/
 # Sphinx
 doc/_build/
 doc/build/
-doc/source/api/_autosummary
+# Autosummary stubs, at any nesting depth, in the root doc and every package doc
+**/doc/source/api/**/_autosummary/
 doc/source/sg_execution_times.rst
 # sphinx-gallery output generated from packages/dash-super-components/examples/gallery_apps
 doc/source/examples/dash_super_components_examples/index.rst
@@ -93,6 +94,7 @@ doc/source/examples/dash_super_components_examples/general/
 doc/source/examples/dash_super_components_examples/saf_based/
 doc/source/examples/dash_super_components_examples/images/
 doc/source/examples/dash_super_components_examples/sg_execution_times.rst
+packages/dash-super-components/doc/source/examples/
 packages/bdm-python-api/doc/source/api/
 packages/bdm-python-api/doc/source/ansys/
 packages/saf-iam-oidc/doc/source/ansys/
