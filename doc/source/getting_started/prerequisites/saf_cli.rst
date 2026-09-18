@@ -5,6 +5,9 @@ SAF CLI
 
 There are two ways to install SAF CLI. Choose the approach that best suits your workflow.
 
+.. note::
+   If you are using Windows, you will need to enable Windows long paths.
+   For more information, see :ref:`prerequisites_windows_long_paths`.
 
 Central installation
 ====================

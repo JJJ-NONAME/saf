@@ -19,6 +19,7 @@
 #   "tomlkit==0.15.1",
 #   "requests==2.32.2",
 #   "packaging==26.3",
+#   "pydantic==2.12.5",
 # ]
 # ///
 
