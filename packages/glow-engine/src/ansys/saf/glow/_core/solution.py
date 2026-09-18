@@ -68,7 +68,7 @@ class MethodIdentifier:
 
     Notes
     -----
-    :ref:`This section of the GLOW user <saf-docs:transaction_methods>` guide explains the transaction method concept in
+    |saf-docs-transaction-methods-ref|_ explains the transaction method concept in
     more detail.
     """
 
@@ -128,7 +128,7 @@ class StepsModel(BaseModel, ABC):
 
     Notes
     -----
-    You can read more about how a Solution is defined using ``StepsModel`` :ref:`here <saf-docs:step_models>`.
+    You can read more about how a Solution is defined using ``StepsModel`` |saf-docs-step-models-ref|_.
 
     ``StepsModel`` is derived from the pydantic ``BaseModel`` class to enable parsing and validation of project data.
     You can read more about pydantic `here <https://docs.pydantic.dev/>`_.
@@ -208,9 +208,9 @@ class Solution(BaseModel, ABC):
 
     Notes
     -----
-    :ref:`The GLOW user guide <saf-docs:user_guide>` provides information on how create
+    |saf-docs-user-guide-ref|_ provides information on how create
     an application that uses a class derived from ``Solution``.
-    :ref:`This section of the GLOW user guide <saf-docs:solution_definition>` provides information on how to modify a
+    |saf-docs-solution-definition-ref|_ provides information on how to modify a
     class derived from ``Solution``.
 
     ``Solution`` is derived from the pydantic ``BaseModel`` class to enable parsing and validation of project data.
@@ -494,9 +494,9 @@ class Solution(BaseModel, ABC):
 
         Notes
         -----
-        :ref:`This section of the GLOW user <saf-docs:transaction_methods>` guide explains the transaction method
+        |saf-docs-transaction-methods-ref|_ explains the transaction method
         concept in more detail.
-        :ref:`This section of the GLOW user <saf-docs:instance_management>` guide explains the shared product
+        |saf-docs-instance-management-ref|_ explains the shared product
         instance concept in more detail.
         """
         method_instances = cls._get_normalized_references_to_method_instances(method)

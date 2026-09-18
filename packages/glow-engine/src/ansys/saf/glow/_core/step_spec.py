@@ -46,7 +46,7 @@ class StepSpec:
     instances of the :py:func:`~ansys.saf.glow.solution.transaction` decorator which
     decorate transaction methods.
     You can read about the role of ``StepSpec`` objects in transaction method
-    definitions :ref:`here <saf-docs:transaction_methods>`.
+    definitions |saf-docs-transaction-methods-ref|_.
     """
 
     def __init__(

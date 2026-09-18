@@ -61,7 +61,7 @@ class LongRunning(Generic[T]):
     Notes
     -----
     For more detailed information on the concept of long-running methods, see
-    :ref:`the corresponding section <saf-docs:asynchronous_execution>` of the User Guide.
+    |saf-docs-asynchronous-execution-ref|_ of the User Guide.
     """
 
     def __init__(
@@ -93,7 +93,7 @@ class LongRunning(Generic[T]):
         Notes
         -----
         For instructions and an example on using this method, see
-        :ref:`the corresponding section <saf-docs:checking-execution-status>` in the User Guide.
+        |saf-docs-check-method-execution-status-ref|_ in the User Guide.
         """
         r = self._http_client.get(self._method_url)
         check(r)
@@ -116,7 +116,7 @@ class LongRunning(Generic[T]):
         Notes
         -----
         For instructions and an example of using this method, see
-        :ref:`the corresponding section <saf-docs:checking-execution-status>` in the User Guide.
+        |saf-docs-check-method-execution-status-ref|_ in the User Guide.
         """
         state = self.get_state()
         if raise_for_error:
@@ -139,7 +139,7 @@ class LongRunning(Generic[T]):
         Notes
         -----
         For a description of this method with an example of its use, see
-        :ref:`the corresponding section <saf-docs:wait-for-long-running>` in the User Guide.
+        |saf-docs-wait-for-long-running-ref|_ in the User Guide.
         """
         status = None
         start = time.perf_counter()
@@ -164,8 +164,7 @@ def long_running(step_func: Callable[P, T]) -> Callable[P, LongRunning[T]]:
 
     Notes
     -----
-    For details on using this decorator, see :ref:`the corresponding section
-    <saf-docs:asynchronous_execution>` in the User Guide.
+    For details on using this decorator, see |saf-docs-asynchronous-execution-ref|_ in the User Guide.
     """
 
     @functools.wraps(step_func)

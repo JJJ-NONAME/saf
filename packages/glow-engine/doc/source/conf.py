@@ -218,3 +218,36 @@ jinja_contexts = {
         "envs": tox_envs,
     },
 }
+
+# ============================================================================
+# External documentation links (rst_epilog substitutions)
+# ============================================================================
+
+saf_docs_base_url = "https://saf.ansys.com/version/stable"
+
+rst_epilog = f"""
+.. |saf-docs-asynchronous-execution-ref| replace:: the corresponding section
+.. _saf-docs-asynchronous-execution-ref: {saf_docs_base_url}/user_guide/backend/workflow_definition/transaction_methods/asynchronous_execution.html
+.. |saf-docs-check-method-execution-status-ref| replace:: the corresponding section
+.. _saf-docs-check-method-execution-status-ref: {saf_docs_base_url}/user_guide/backend/workflow_definition/transaction_methods/asynchronous_execution.html#check-method-execution-status
+.. |saf-docs-wait-for-long-running-ref| replace:: the corresponding section
+.. _saf-docs-wait-for-long-running-ref: {saf_docs_base_url}/user_guide/backend/workflow_definition/transaction_methods/asynchronous_execution.html#wait-for-long-running-methods
+.. |saf-docs-field-states-ref| replace:: the corresponding section
+.. _saf-docs-field-states-ref: {saf_docs_base_url}/user_guide/backend/workflow_definition/transaction_methods/field_states.html#field-states-and-dependencies
+.. |saf-docs-instance-management-ref| replace:: the corresponding section
+.. _saf-docs-instance-management-ref: {saf_docs_base_url}/user_guide/backend/instance_management/index.html
+.. |saf-docs-transaction-methods-ref| replace:: the corresponding section
+.. _saf-docs-transaction-methods-ref: {saf_docs_base_url}/user_guide/backend/workflow_definition/transaction_methods/index.html
+.. |saf-docs-user-guide-ref| replace:: the corresponding section
+.. _saf-docs-user-guide-ref: {saf_docs_base_url}/user_guide/index.html
+.. |saf-docs-solution-definition-ref| replace:: the corresponding section
+.. _saf-docs-solution-definition-ref: {saf_docs_base_url}/user_guide/backend/workflow_definition/solution.html
+.. |saf-docs-step-models-ref| replace:: the corresponding section
+.. _saf-docs-step-models-ref: {saf_docs_base_url}/user_guide/backend/workflow_definition/steps.html
+.. |saf-docs-uploading-field-during-async-execution-ref| replace:: the corresponding section
+.. _saf-docs-uploading-field-during-async-execution-ref: {saf_docs_base_url}/user_guide/backend/workflow_definition/transaction_methods/asynchronous_execution.html#upload-a-field-during-asynchronous-execution
+.. |saf-docs-create-product-instance-ref| replace:: the corresponding section
+.. _saf-docs-create-product-instance-ref: {saf_docs_base_url}/user_guide/backend/instance_management/usage.html#create-a-product-instance
+.. |saf-docs-access-use-product-instance-ref| replace:: the corresponding section
+.. _saf-docs-access-use-product-instance-ref: {saf_docs_base_url}/user_guide/backend/instance_management/usage.html#use-a-running-product-instance
+"""
