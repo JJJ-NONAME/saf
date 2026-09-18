@@ -95,7 +95,7 @@ flowchart LR
 `action.yml` defines the composite-action interface. The SDK utility coordinates
 the update, `branch.py` validates branch context, `version_utilities.py` resolves
 versions and dependency constraints, `release_notes_utilities.py` builds the report,
-queries private-package versions through `azdo_feed_fetch_version.py`, and
+and calls `azdo_feed_fetch_version.py` to add private-package versions to that report.
 `github_utilities.py` writes GitHub Actions outputs.
 
 ```mermaid
@@ -104,7 +104,7 @@ flowchart TD
     B --> C[Run sdk_meta_package_utilities.py]
     C --> D[Read packages/saf-sdk/pyproject.toml]
     D --> E[Find tracked package requirements]
-    E --> F[Resolve overrides or query PyPI]
+    E --> F[Resolve SDK dependency versions from overrides or PyPI]
     F --> G{Compare current and selected versions}
     G -->|No dependency is newer| H[Set update_type to no_update]
     G -->|Patch, minor, or major change| I[Set update_type to highest-impact bump]
@@ -115,10 +115,11 @@ flowchart TD
     L --> N[Write pyproject.toml]
     M --> N
     N --> O[Run uv lock]
-    H --> P[Generate release_notes.md]
+    H --> P[Generate release notes]
     O --> P
-    P --> T[Query Azure DevOps private-package versions]
-    T --> Q[Write GitHub step summary]
+    P --> T[Fetch private-package versions from Azure DevOps]
+    T --> U[Fetch available GitHub component release notes]
+    U --> Q[Write release_notes.md and GitHub step summary]
     Q --> R[Upload release-notes artifact]
     O --> S[Upload pyproject and uv.lock artifacts]
     H --> R
@@ -183,7 +184,7 @@ sequenceDiagram
 
     Workflow->>Action: Invoke with python-version
     Action->>Workspace: Read SDK pyproject.toml
-    Action->>PyPI: Request latest stable versions when no override is set
+    Action->>PyPI: Resolve SDK dependency versions when no override is set
     PyPI-->>Action: Version data
     Action->>Workspace: Write update_type and version outputs
     alt Dependency update found
@@ -193,14 +194,22 @@ sequenceDiagram
     else No dependency update
         Action->>Workspace: Leave pyproject.toml and uv.lock unchanged
     end
+    Note over Action,AzureDevOps: Release-note generation
     Action->>AzureDevOps: Request latest private-package versions
     AzureDevOps-->>Action: Version data
-    Action->>GitHub: Generate and upload release notes
+    Action->>GitHub: Request available component release notes
+    GitHub-->>Action: Release-note content
+    Action->>Workspace: Write release_notes.md and step summary
+    Action->>GitHub: Upload release-notes artifact
 ```
 
 ## Release Notes
 
-For each resolved component package, the utility looks for a GitHub release tagged as
+After resolving SDK dependency versions, the action generates the release-note report.
+It first retrieves the latest non-deleted version of each configured private package
+from Azure DevOps; these versions are informational and do not change SDK dependency
+constraints or the selected SDK version. For each resolved SDK component package, the
+utility then looks for a GitHub release tagged as
 `v{version}-{library-directory}`. If the release exists, content from its `What's
 changed` section is included in `release_notes.md` when the package version has changed
 since the last release of `ansys-saf-sdk`. If the resolved version is the same as the
