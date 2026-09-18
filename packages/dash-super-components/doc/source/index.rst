@@ -26,7 +26,7 @@ Dash Super Components API documentation
       :link: api/index
       :link-type: doc
 
-      Explore the full API documentation for components and and utilities
+   Explore the full API documentation for components and utilities
       provided by the ``dash-super-components`` package.
 
 
