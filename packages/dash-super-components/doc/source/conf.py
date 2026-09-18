@@ -27,8 +27,6 @@ import sys
 
 from ansys_sphinx_theme import (
     ansys_favicon,
-    ansys_logo_dark_mode,
-    ansys_logo_light_mode,
     get_version_match,
 )
 import toml
@@ -68,8 +66,8 @@ html_use_index = False
 
 html_theme_options = {
     "logo": {
-        "image_dark": ansys_logo_dark_mode,
-        "image_light": ansys_logo_light_mode,
+        "image_light": "_static/logos/endorsed-ansys-logos-gold-black-rgb.svg",
+        "image_dark": "_static/logos/endorsed-ansys-logos-gold-white-rgb.svg",
     },
     # "logo_link": "https://docs.pyansys.com",
     "github_url": "https://github.com/ansys/super-components-for-dash",

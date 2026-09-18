@@ -9,7 +9,7 @@ Alerts
 
   Use Dash alerts to display important messages to users.
 
-  Source code for this example is in the `solution-examples <https://github.com/ansys/solution-examples>`_ repository.
+  Source code for this example is in the `example solution <https://github.com/ansys/saf/tree/main/examples>`_.
 
 
 

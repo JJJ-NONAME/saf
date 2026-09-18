@@ -4,7 +4,7 @@ requires = [ "poetry-core>=2.0.0", "setuptools>=67.0" ]
 
 [tool.poetry]
 name = "ansys-saf-cli"
-version = "4.3.dev0"
+version = "4.4.dev0"
 description = "Command line interface for developing SAF solutions from scaffolding to packaging."
 license = "Apache-2.0"
 authors = [ "ANSYS, Inc. <pyansys-core@synopsys.com>" ]
@@ -94,7 +94,7 @@ ansys-saf-testing = { version = ">=0.13.0, <1.0.0", allow-prereleases = true, ex
 ansys-saf-glow-engine = { version = "^2.1", allow-prereleases = true, extras = [
   "dash",
 ] }
-ansys-solutions-dash-super-components = { version = ">=0.2.dev8, <1.0.0", allow-prereleases = true }
+ansys-solutions-dash-super-components = "^1.0.0"
 dash_bootstrap_components = "^1.2"
 dash-mantine-components = "^2.6.0"
 pywinpty = { version = "^3.0.5", platform = "win32" }

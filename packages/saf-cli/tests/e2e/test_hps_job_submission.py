@@ -20,6 +20,7 @@ import pytest
 from selenium.webdriver.chrome.webdriver import WebDriver
 
 from tests.e2e.conftest import (
+    ExecuteCommand,
     InstallSolution,
     NewSolution,
     RunSolution,
@@ -35,6 +36,7 @@ def solution_with_hps(
     new_solution: NewSolution,
     install_solution: InstallSolution,
     run_solution: RunSolution,
+    execute_command: ExecuteCommand,
     tmp_path: Path,
     session_solution_namespace: str,
 ):
@@ -54,8 +56,10 @@ def solution_with_hps(
     # Install the solution.
     install_solution([solution_name, "-d", "desktop,ui"])
 
-    # update first step and first page to use HPS.
+    # update pyproject, first step and first page to use HPS.
     configure_hps_solution(solution_dir, solution_name, session_solution_namespace)
+    # install HPS dependency
+    install_solution([solution_name, "-d", "desktop,ui"])
 
     # Run the solution.
     p = run_solution([solution_name])

@@ -127,7 +127,7 @@ navbar = dmc.AppShellNavbar(  # pyright: ignore[reportUnknownMemberType, reportU
     Tree(
         aio_id="navigation_tree",
         items=get_page_list("light"),
-        active_item_id="about_page",
+        selected_item="about_page",
     ),
     id="navbar-content",
     p="md",
@@ -274,7 +274,7 @@ def update_nav_icons(switch_on: bool, selected_item: dict[str, str] | None) -> t
         Tree(
             aio_id="navigation_tree",
             items=get_page_list(theme),
-            active_item_id=current_page_id,
+            selected_item=current_page_id,
         ),
         html.Img(src=get_asset("teenyicons--doc-solid.svg", "icons", theme)),
         get_asset("placeholder_logo.png", "logos", theme),

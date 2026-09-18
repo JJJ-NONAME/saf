@@ -48,6 +48,7 @@ ui = [
     "dash-mantine-components>=2.6.0,<3.0.0",
     "waitress>=3.0.0,<4.0.0",
 ]
+
 {% endif %}
 
 doc = [
@@ -97,6 +98,7 @@ build = [
     "toml>=0.10.2,<1.0.0",
     "twine==6.0.1",
 ]
+
 
 style = [
     "black>=26.3.1,<27.0.0",

@@ -79,7 +79,7 @@ def root_solution_dir_with_pyproject_and_lock(root_solution_dir: Path, request: 
     if "main_dependencies" in config or "ui_dependencies" in config:
         data["tool"]["poetry"]["dependencies"] = {
             "python": ">=3.11,<3.15",
-            "ansys-saf-glow-engine": "1.38.0",
+            "ansys-saf-sdk": "0.2.0",
         }
     if "ui_dependencies" in config:
         data["tool"]["poetry"]["group"] = {
@@ -110,13 +110,15 @@ def solution_ui_framework(solution_name: str) -> str:
 
 @pytest.fixture
 def default_saf_step_template() -> SafTemplate:
+    templates_toml_content = tomlkit.loads(get_templates_toml_path("templates").read_bytes())
+    calculator_step = templates_toml_content["templates"]["calculator-step"]  # type: ignore
     return SafTemplate.model_validate(
         {
             "name": "calculator-step",
             "type": "step",
             "description": "a step that performs calculator operations",
             "location": get_template_path("templates", "calculator"),
-            "saf_cli_compatibility_range": ">=4.0.1, <5.0",
+            "saf_cli_compatibility_range": calculator_step["saf_cli_compatibility_range"],  # type: ignore
         },
     )
 

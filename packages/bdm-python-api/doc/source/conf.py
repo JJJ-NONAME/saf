@@ -24,7 +24,7 @@ from sphinx.builders.latex import LaTeXBuilder
 import subprocess
 import sys
 
-from ansys_sphinx_theme import ansys_favicon, get_version_match, ansys_logo_dark_mode, ansys_logo_light_mode
+from ansys_sphinx_theme import ansys_favicon, get_version_match
 
 # Add source to path to import package version
 sys.path.insert(0, str(Path(__file__).parent.parent.parent.absolute() / "src"))
@@ -113,8 +113,8 @@ html_theme_options = {
     "contact_mail": "pyansys-core@synopsys.com",
     "use_edit_page_button": False,
     "logo": {
-        "image_dark": ansys_logo_dark_mode,
-        "image_light": ansys_logo_light_mode,
+        "image_light": "_static/logos/endorsed-ansys-logos-gold-black-rgb.svg",
+        "image_dark": "_static/logos/endorsed-ansys-logos-gold-white-rgb.svg",
     },
     "search_filters": {
         "User guide": [

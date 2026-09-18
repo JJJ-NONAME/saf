@@ -207,7 +207,7 @@ def test_saf_execute_pytest(session_solution: SolutionRegistry, execute_command:
     Test ``saf execute`` with the default option values and a pytest command. This test also verifies that the
     solution template example tests pass.
     """
-    command = "pytest -n 0 -v"
+    command = "pytest -v"
     process_output = execute_command([session_solution.name, command])
     _find_executable_path_in_output(process_output, session_solution.root_dir, "python")
     assert not any("failed" in line or "error" in line for line in process_output)

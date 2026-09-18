@@ -242,3 +242,6 @@ release_notes.md
 
 !packages/dash-super-components/examples/user_guide/sample_files
 !packages/dash-super-components/examples/user_guide/sample_files/*.log
+
+!packages/saf-cli/tests/mocks/wheels
+!packages/saf-cli/tests/mocks/wheels/*.whl

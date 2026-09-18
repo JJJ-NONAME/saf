@@ -3,6 +3,7 @@ bdm-python-api:
   - '!packages/bdm-python-api/doc/**'
   - '.github/workflows/tests_groups_definitions/bdm-python-api.json'
   - '.github/workflows/_test.yml'
+  - '.github/workflows/ci_cd_pr.yml'
 bdm-python-shared-volume:
   - 'packages/bdm-python-shared-volume/**'
   - '.github/workflows/tests_groups_definitions/bdm-python-shared-volume.json'

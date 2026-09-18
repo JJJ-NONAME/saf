@@ -10,7 +10,7 @@ Fluent Product Instance Manager
 
     Create a product instance manager for Ansys Fluent products to support applications such as fluid dynamics, heat transfer, and multiphase flow simulations.
 
-    Source code for this example is in the `solution-examples <https://github.com/ansys/solution-examples>`_ repository.
+    Source code for this example is in the `example solution <https://github.com/ansys/saf/tree/main/examples>`_.
 
 .. _saf-ex-fluent-product-instance-objective:
 
@@ -64,15 +64,14 @@ This example demonstrates how to create a product instance manager for Fluent pr
 
 .. note::
     This example requires the Fluent 2025 R2 Service Pack 4 (25R2 SP4) product to be installed on your machine.
-    To work with a Fluent product instance, be sure to install the ``fluent`` extra from the ``ansys-saf-product-manager`` package. You can do this by manually editing your ``pyproject.toml``.
+    To work with a Fluent product instance, be sure to install the ``core-pim`` and ``instance-management-fluent`` extras from the ``ansys-saf-sdk`` package. You can do this by manually editing your ``pyproject.toml``.
 
     .. code-block:: toml
 
-        ansys-saf-glow-engine = {version = "^2.30", extras = ["pim"]}
-        ansys-saf-product-manager = {version = "^0.5", extras = ["fluent"]}
+        ansys-saf-sdk = {version = "^0.2.0", extras = ["core-pim", "instance-management-fluent"]}
 
     This will install the supported version of ``ansys-fluent-core`` to control the Fluent product instances.
-    This example uses PIM as the product instance management system. If you want to use HPS instead, replace the ``pim`` extra with ``hps``.
+    This example uses PIM as the product instance management system. If you want to use HPS instead, replace the ``core-pim`` extra with ``core-hps``.
     For more information, see :ref:`instance_management_configuration`.
 
 

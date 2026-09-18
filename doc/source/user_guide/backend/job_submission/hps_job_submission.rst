@@ -27,13 +27,13 @@ Refer to the :ref:`HPS installation instructions <hps_installation>` for details
 Install HPS extra dependencies
 ------------------------------
 
-To use the HPS functionality, you need to install ``glow-engine`` with the HPS extra dependencies.
-This can be done by editing the ``glow-engine`` dependency declaration in the ``pyproject.toml`` file of your solution as follows:
+To use the HPS functionality, you need to install the ``core-hps`` extra from ``ansys-saf-sdk``.
+This can be done by editing the ``ansys-saf-sdk`` dependency declaration in the ``pyproject.toml`` file of your solution as follows:
 
 .. code-block:: toml
 
   [tool.poetry.dependencies]
-  ansys-saf-glow-engine = {version = "^2.30", extras = ["hps"]}
+    ansys-saf-sdk = {version = "^0.2.0", extras = ["core-hps"]}
 
 The ``extras`` field specifies that you want to include the HPS-related dependencies.
 Once you have updated the dependency, run the following command to install the extra dependencies:

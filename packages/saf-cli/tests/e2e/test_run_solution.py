@@ -17,6 +17,7 @@
 import os
 from pathlib import Path
 import platform
+import re
 import shutil
 
 from ansys.saf.testing.selenium import (
@@ -132,20 +133,18 @@ def test_saf_run_use_media_from_assets(
         element_type=By.XPATH,
         timeout=60,
     )
-    img_elements = session_selenium_webdriver.find_elements(  # pyright: ignore[reportUnknownMemberType]
-        By.CSS_SELECTOR,
-        "img",
-    )
-    img_srcs = [img.get_attribute("src") for img in img_elements]  # pyright: ignore[reportUnknownMemberType]
-    ui_url = p.get_solution_ui_url().rsplit("/projects")[0]
-    assert f"{ui_url}/assets/logos/light/placeholder_logo.png" in img_srcs
-    assert f"{ui_url}/assets/icons/light/radix-icons--sun.svg" in img_srcs
-    assert f"{ui_url}/assets/icons/light/teenyicons--doc-solid.svg" in img_srcs
-    assert f"{ui_url}/assets/icons/light/material-symbols--home.svg" in img_srcs
-    assert f"{ui_url}/assets/icons/light/game-icons--crossed-air-flows.svg" in img_srcs
-    assert f"{ui_url}/assets/icons/light/carbon--ibm-engineering-workflow-mgmt.svg" in img_srcs
-
     page_source = session_selenium_webdriver.page_source
+    media_paths = set(re.findall(r"/assets/[^\"'&]+\.(?:svg|png)", page_source))
+    ui_url = p.get_solution_ui_url().rsplit("/projects")[0]
+    expected_media_paths = {
+        f"{ui_url}/assets/logos/light/placeholder_logo.png",
+        f"{ui_url}/assets/icons/light/radix-icons--sun.svg",
+        f"{ui_url}/assets/icons/light/teenyicons--doc-solid.svg",
+        f"{ui_url}/assets/icons/light/material-symbols--home.svg",
+        f"{ui_url}/assets/icons/light/game-icons--crossed-air-flows.svg",
+        f"{ui_url}/assets/icons/light/carbon--ibm-engineering-workflow-mgmt.svg",
+    }
+    assert expected_media_paths <= {f"{ui_url}{path}" for path in media_paths}
     assert '<link rel="stylesheet" href="/assets/css/all.css' in page_source
     assert '<link rel="stylesheet" href="/assets/css/bootstrap.min.css' in page_source
 

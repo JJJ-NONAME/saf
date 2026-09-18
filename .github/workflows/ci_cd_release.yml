@@ -248,7 +248,6 @@ jobs:
       ref: ${{ needs.release-information.outputs.release-branch-name }}
     secrets:
       PYANSYS_CI_BOT_TOKEN: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
-      PYANSYS_PYPI_PRIVATE_PAT: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}
 
   build-wheel:
     name: "Wheel"
