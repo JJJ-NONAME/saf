@@ -9,7 +9,7 @@ BDM
 
   Use the ``BDM`` feature to manage files and directories—referred to as BLOBs (Binary Large Objects)—in a solution.
 
-  Source code for this example is in the `solution-examples <https://github.com/ansys/solution-examples>`_ repository.
+  Source code for this example is in the `example solution <https://github.com/ansys/saf/tree/main/examples>`_ repository.
 
 
 .. _saf-ex-bdm-objective:
@@ -36,8 +36,8 @@ This section covers a couple of use cases that demonstrate how to use the BDM fe
 
 .. tip::
 
-  - Checkout the full backend code of the example in the `solution-examples <https://github.com/ansys/solution-examples/blob/main/src/ansys/solutions/examples/solution/file_handling_step.py>`__.
-  - Checkout the full frontend code of the example in the `solution-examples <https://github.com/ansys/solution-examples/blob/main/src/ansys/solutions/examples/ui/pages/file_handling_page.py>`__.
+  - Checkout the full backend code of the example in the `example solution <https://github.com/ansys/saf/blob/main/examples/src/saf/solutions/examples/solution/file_handling_step.py>`__.
+  - Checkout the full frontend code of the example in the `example solution <https://github.com/ansys/saf/blob/main/examples/src/saf/solutions/examples/ui/pages/file_handling_page.py>`__.
 
 
 Use case 1: Store and access a file

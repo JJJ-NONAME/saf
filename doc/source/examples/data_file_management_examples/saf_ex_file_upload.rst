@@ -7,7 +7,7 @@ File uploads
 
     Use a file uploader to add files to the project and display file details in a solution UI.
 
-    Source code for this example is in the `solution-examples <https://github.com/ansys/solution-examples>`_ repository.
+    Source code for this example is in the `example solution <https://github.com/ansys/saf/tree/main/examples>`_.
 
 
 .. _saf-ex-file-upload-objective:

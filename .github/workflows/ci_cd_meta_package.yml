@@ -96,6 +96,12 @@ on:
         required: false
       PYANSYS_CI_BOT_USERNAME:
         required: false
+      AZURE_DEVOPS_ORG:
+        required: true
+      AZURE_DEVOPS_FEED:
+        required: true
+      AZURE_DEVOPS_PAT:
+        required: true
 
 # Apply the principle of least privilege to state at job level the right
 # permissions. More information about workflow permissions in the page
@@ -155,6 +161,9 @@ jobs:
         id: update-pyproject
         uses: ./.github/actions/sdk-meta-package
         with:
+          azure-devops-org: ${{ secrets.AZURE_DEVOPS_ORG }}
+          azure-devops-feed: ${{ secrets.AZURE_DEVOPS_FEED }}
+          azure-devops-pat: ${{ secrets.AZURE_DEVOPS_PAT }}
           python-version: ${{ vars.PYTHON_VERSION }}
           is-for-pypi-release: ${{ inputs.release && 'true' || 'false' }}
           minimum-pip-version: ${{ env.MINIMUM_PIP_VERSION }}
