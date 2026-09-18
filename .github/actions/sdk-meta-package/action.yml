@@ -33,6 +33,15 @@ inputs:
   minimum-pip-version:
     description: "Minimum required pip version for installing the meta-package."
     required: true
+  azure-devops-org:
+    description: "Azure DevOps organization name."
+    required: true
+  azure-devops-feed:
+    description: "Azure DevOps feed name."
+    required: true
+  azure-devops-pat:
+    description: "Azure DevOps personal access token."
+    required: true
   ansys-bdm-api-version-override:
     description: "Override for the Ansys BDM API version. Only for release branch."
     required: false
@@ -89,11 +98,15 @@ runs:
         python-version: ${{ inputs.python-version }}
         ignore-empty-workdir: true
 
-    - name: Update pyproject.toml/poetry.lock of meta package
+    - name: Update pyproject.toml/poetry.lock of meta package and generate release
+        notes
       id: update-pyproject
       shell: bash
       run: uv run "${GITHUB_ACTION_PATH}/sdk_meta_package_utilities.py"
       env:
+        AZURE_DEVOPS_ORG: ${{ inputs.azure-devops-org }}
+        AZURE_DEVOPS_FEED: ${{ inputs.azure-devops-feed }}
+        AZURE_DEVOPS_PAT: ${{ inputs.azure-devops-pat }}
         IS_FOR_PYPI_RELEASE: ${{ inputs.is-for-pypi-release }}
         USER_SELECTED_UPDATE_TYPE: ${{ inputs.meta-package-version-update-type }}
         USER_SELECTED_BDM_API_VERSION: ${{ inputs.ansys-bdm-api-version-override }}

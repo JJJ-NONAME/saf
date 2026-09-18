@@ -21,31 +21,8 @@ from pathlib import Path
 import tempfile
 from unittest.mock import Mock, patch
 
-import pytest
 
 import release_notes_utilities as release_utils
-
-
-def test_get_maintenance_window() -> None:
-    response = Mock()
-    response.json.return_value = {
-        "releases": {"1.2.0": [{"upload_time": "2026-01-15T12:30:00+00:00"}]}
-    }
-    with patch.object(release_utils.requests, "get", return_value=response) as get:
-        assert release_utils.get_maintenance_window("example", "1.2.3") == "2026-07-14"
-    get.assert_called_once_with("https://pypi.org/pypi/example/json", timeout=10)
-    response.raise_for_status.assert_called_once_with()
-
-
-def test_get_maintenance_window_rejects_missing_version() -> None:
-    response = Mock()
-    response.json.return_value = {"releases": {}}
-    with patch.object(release_utils.requests, "get", return_value=response):
-        with pytest.raises(
-            ValueError,
-            match=r"^Release 1\.2\.0 \(derived from 1\.2\.3\) not found for package: example$",
-        ):
-            release_utils.get_maintenance_window("example", "1.2.3")
 
 
 def test_get_release_notes() -> None:
@@ -85,21 +62,24 @@ def test_generate_release_notes_writes_report_and_summary() -> None:
                 {"GITHUB_STEP_SUMMARY": str(summary), "MINIMUM_PIP_VERSION": "26.0"},
             ),
             patch.object(
-                release_utils, "get_maintenance_window", return_value="2026-07-14"
-            ) as get_maintenance_window,
-            patch.object(
                 release_utils,
                 "get_release_notes",
                 side_effect=["- Added feature", *([None] * (len(versions) - 1))],
             ) as get,
+            patch.object(
+                release_utils,
+                "get_latest_versions",
+                return_value={"ansys-saf-pim-light-server": "0.1.0"},
+            ) as get_latest_versions,
         ):
             release_utils.generate_release_notes(versions, "0.1.0", current_versions)
 
         report = (root / "release_notes.md").read_text(encoding="utf-8")
-        assert "| `ansys-bdm-api` | `1.2.3` | `2026-07-14` |" in report
+        assert "| `ansys-bdm-api` | `1.2.3` |" in report
+        assert "| `ansys-saf-pim-light-server` | `0.1.0` |" in report
         assert "---#" not in report
         assert "# ansys-bdm-api 1.2.3\n\n- Added feature" in report
         assert "# ansys-bdm-shared-volume 1.2.3\n\nNo changes" not in report
-        assert get_maintenance_window.call_count == len(versions)
         get.assert_any_call("ansys-bdm-shared-volume", "1.2.3")
+        get_latest_versions.assert_called_once_with(release_utils.PRIVATE_PACKAGES)
         assert summary.read_text(encoding="utf-8") == report
