@@ -45,7 +45,7 @@ class Transaction:
 
     Notes
     -----
-    The user guide section :ref:`here <saf-docs:uploading_field_during_async_execution>` provides an example of this
+    |saf-docs-uploading-field-during-async-execution-ref|_ provides an example of this
     class being accessed through the :py:attr:`~ansys.saf.glow.solution.StepModel.transaction` property on
     :py:class:`~ansys.saf.glow.solution.StepModel`.
     """
@@ -63,7 +63,7 @@ class Transaction:
 
         Notes
         -----
-        The user guide section :ref:`here <saf-docs:uploading_field_during_async_execution>`
+        |saf-docs-uploading-field-during-async-execution-ref|_
         describes how to use this method with an example.
         """
         raise NotImplementedError()
@@ -167,7 +167,7 @@ class StepModel(LiveHandlesModel, ABC):
 
     Notes
     -----
-    You can read more about creating a class derived from ``StepModel`` :ref:`here <saf-docs:step_models>`.
+    You can read more about creating a class derived from ``StepModel`` |saf-docs-step-models-ref|_.
 
     ``StepModel`` is derived from the pydantic ``BaseModel`` class to enable parsing and validation of step data.
     A ``StepModel`` derived class follows pydantic conventions when defining its schema.
@@ -184,7 +184,7 @@ class StepModel(LiveHandlesModel, ABC):
 
     Notes
     -----
-    This field is described in more detail :ref:`here <saf-docs:field_states>`.
+    This field is described in more detail |saf-docs-field-states-ref|_.
     """
 
     model_config = ConfigDict(
@@ -207,7 +207,7 @@ class StepModel(LiveHandlesModel, ABC):
 
         Notes
         -----
-        The user guide section :ref:`here <saf-docs:uploading_field_during_async_execution>` provides an
+        |saf-docs-uploading-field-during-async-execution-ref|_ provides an
         example of using the ``transaction`` property.
         """
         return Transaction()
@@ -232,7 +232,7 @@ class StepModel(LiveHandlesModel, ABC):
 
         Notes
         -----
-        You can read more about how transaction methods are defined here: :ref:`here <saf-docs:transaction_methods>`.
+        You can read more about how transaction methods are defined |saf-docs-transaction-methods-ref|_.
         """
         return cls._get_method_names("_wrapped_transaction_method")
 
@@ -250,7 +250,7 @@ class StepModel(LiveHandlesModel, ABC):
         Notes
         -----
         You can read more about how transaction methods create or use shared product instances
-        :ref:`here <saf-docs:instance_management>`.
+        |saf-docs-instance-management-ref|_.
         """
         return cls._get_method_names(INSTANCES_USED_BY_METHOD_ATTRIBUTE_STRING)
 
@@ -274,7 +274,7 @@ class StepModel(LiveHandlesModel, ABC):
         Notes
         -----
         You can read more about how transaction methods create or use shared product instances
-        :ref:`here <saf-docs:instance_management>`.
+        |saf-docs-instance-management-ref|_.
         """
 
         instance_references: list[str] = []
@@ -301,7 +301,7 @@ class StepModel(LiveHandlesModel, ABC):
         Notes
         -----
         You can read more about how transaction methods create or use shared product instances
-        :ref:`here <saf-docs:instance_management>`.
+        |saf-docs-instance-management-ref|_.
         """
         create_instance_by_name: dict[str, CreateInstance] = {}
         method_names = cls.get_instance_method_names()
@@ -327,7 +327,7 @@ class StepModel(LiveHandlesModel, ABC):
 
         Notes
         -----
-        :ref:`This section of the GLOW user guide <saf-docs:asynchronous_execution>` describes the concept of
+        |saf-docs-asynchronous-execution-ref|_ describes the concept of
         long running methods in detail.
         """
         return cls._get_method_names("__wrapped_long_running_method__")
@@ -363,7 +363,7 @@ class StepModel(LiveHandlesModel, ABC):
 
         Notes
         -----
-        :ref:`This section of the GLOW user guide <saf-docs:asynchronous_execution>` describes the concept of
+        |saf-docs-asynchronous-execution-ref|_ describes the concept of
         long running methods in detail.
         """
         # return the run status of a specific method on this step in a specific project

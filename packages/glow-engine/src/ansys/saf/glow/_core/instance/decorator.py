@@ -185,7 +185,7 @@ def instance(
     Notes
     -----
     For instructions and examples of how to use ``instance`` to access shared product instances, see
-    :ref:`here <saf-docs:access-use-product-instance>` in the User Guide.
+    |saf-docs-access-use-product-instance-ref|_ in the User Guide.
 
     A 'step' is a field on a
     :py:class:`~ansys.saf.glow.solution.StepsModel` derived class.
@@ -269,7 +269,7 @@ def create_instance(
     Notes
     -----
     For instructions and examples on how to use ``create_instance`` to create shared product instances, see
-    :ref:`here <saf-docs:create-product-instance>` in the User Guide.
+    |saf-docs-create-product-instance-ref|_ in the User Guide.
 
     Examples
     --------

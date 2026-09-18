@@ -42,7 +42,7 @@ switcher_version = get_version_match(__version__)
 source_suffix = {".rst": "restructuredtext"}
 master_doc = "index"
 language = "en"
-suppress_warnings = ["label.*", "toc.not_readable", "autoapi.python_import_resolution"]
+suppress_warnings = ["label.*", "toc.not_readable"]
 todo_include_todos = False
 numfig = True
 numfig_secnum_depth = 1
@@ -58,8 +58,6 @@ exclude_patterns = [
     ".DS_Store",
     "links.rst",
     "substitutions.rst",
-    "ansys/saf/glow/_*",  # private modules - not part of the public API
-    "ansys/saf/glow/solution/products",  # internal PIM implementation detail
 ]
 
 # ============================================================================
@@ -77,7 +75,6 @@ extensions = [
     "sphinxcontrib.autodoc_pydantic",
     "sphinx_design",
     "sphinx_jinja",
-    "ansys_sphinx_theme.extension.autoapi",
 ]
 
 # ============================================================================
@@ -193,11 +190,6 @@ html_theme_options = {
     "additional_breadcrumbs": [
         ("SAF", f"https://{cname}/version/stable/api/index.html"),
     ],
-    "ansys_sphinx_theme_autoapi": {
-        "project": project,
-        "output": ".",
-        "add_toctree_entry": False,
-    },
     "check_switcher": False,
 }
 
@@ -226,21 +218,46 @@ jinja_contexts = {
         "envs": tox_envs,
     },
 }
+
 # ============================================================================
-# Sphinx event hooks
+# External documentation links (rst_epilog substitutions)
 # ============================================================================
 
+saf_docs_base_url = "https://saf.ansys.com/version/stable"
 
-def _rename_api_title(app, docname, source):
-    """Replace the default autoapi module title with 'API reference'."""
-    if docname == "ansys/saf/glow/index":
-        old_title = "The ``ansys.saf.glow`` library"
-        old_underline = "=" * len(old_title)
-        new_title = "API reference"
-        new_underline = "=" * len(new_title)
-        source[0] = source[0].replace(f"{old_title}\n{old_underline}", f"{new_title}\n{new_underline}", 1)
-
-
-def setup(app):
-    """Connect Sphinx events."""
-    app.connect("source-read", _rename_api_title)
+rst_epilog = f"""
+.. |saf-docs-asynchronous-execution-ref| replace:: the corresponding section
+.. _saf-docs-asynchronous-execution-ref: {saf_docs_base_url}/user_guide/backend/workflow_definition/transaction_methods/asynchronous_execution.html
+.. |saf-docs-check-method-execution-status-ref| replace:: the corresponding section
+.. _saf-docs-check-method-execution-status-ref: {saf_docs_base_url}/user_guide/backend/workflow_definition/transaction_methods/asynchronous_execution.html#check-method-execution-status
+.. |saf-docs-wait-for-long-running-ref| replace:: the corresponding section
+.. _saf-docs-wait-for-long-running-ref: {saf_docs_base_url}/user_guide/backend/workflow_definition/transaction_methods/asynchronous_execution.html#wait-for-long-running-methods
+.. |saf-docs-field-states-ref| replace:: the corresponding section
+.. _saf-docs-field-states-ref: {saf_docs_base_url}/user_guide/backend/workflow_definition/transaction_methods/field_states.html#field-states-and-dependencies
+.. |saf-docs-instance-management-ref| replace:: the corresponding section
+.. _saf-docs-instance-management-ref: {saf_docs_base_url}/user_guide/backend/instance_management/index.html
+.. |saf-docs-transaction-methods-ref| replace:: the corresponding section
+.. _saf-docs-transaction-methods-ref: {saf_docs_base_url}/user_guide/backend/workflow_definition/transaction_methods/index.html
+.. |saf-docs-user-guide-ref| replace:: the corresponding section
+.. _saf-docs-user-guide-ref: {saf_docs_base_url}/user_guide/index.html
+.. |saf-docs-solution-definition-ref| replace:: the corresponding section
+.. _saf-docs-solution-definition-ref: {saf_docs_base_url}/user_guide/backend/workflow_definition/solution.html
+.. |saf-docs-step-models-ref| replace:: the corresponding section
+.. _saf-docs-step-models-ref: {saf_docs_base_url}/user_guide/backend/workflow_definition/steps.html
+.. |saf-docs-uploading-field-during-async-execution-ref| replace:: the corresponding section
+.. _saf-docs-uploading-field-during-async-execution-ref: {saf_docs_base_url}/user_guide/backend/workflow_definition/transaction_methods/asynchronous_execution.html#upload-a-field-during-asynchronous-execution
+.. |saf-docs-create-product-instance-ref| replace:: the corresponding section
+.. _saf-docs-create-product-instance-ref: {saf_docs_base_url}/user_guide/backend/instance_management/usage.html#create-a-product-instance
+.. |saf-docs-access-use-product-instance-ref| replace:: the corresponding section
+.. _saf-docs-access-use-product-instance-ref: {saf_docs_base_url}/user_guide/backend/instance_management/usage.html#use-a-running-product-instance
+.. |saf-docs-hps-job-dependencies-ref| replace:: the corresponding section
+.. _saf-docs-hps-job-dependencies-ref: {saf_docs_base_url}/user_guide/backend/job_submission/hps_job_submission.html#package-dependencies
+.. |saf-docs-hps-job-specifiying-required-products-ref| replace:: the corresponding section
+.. _saf-docs-hps-job-specifiying-required-products-ref: {saf_docs_base_url}/user_guide/backend/job_submission/hps_job_submission.html#specify-required-products
+.. |saf-docs-hps-parametric-study-ref| replace:: the corresponding section
+.. _saf-docs-hps-parametric-study-ref: {saf_docs_base_url}/user_guide/backend/job_submission/hps_job_submission.html#the-hps-parametric-study-api
+.. |saf-docs-hps-function-ref| replace:: the corresponding section
+.. _saf-docs-hps-function-ref: {saf_docs_base_url}/user_guide/backend/job_submission/hps_job_submission.html#functions-executed-in-hps
+.. |saf-docs-hps-job-submit-single-ref| replace:: the corresponding section
+.. _saf-docs-hps-job-submit-single-ref: {saf_docs_base_url}/user_guide/backend/job_submission/hps_job_submission.html#submit-a-single-job-to-hps
+"""

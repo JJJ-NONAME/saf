@@ -25,7 +25,7 @@ class MethodStatus(StrEnum):
     in the context of a project.
     Notes
     -----
-    :ref:`This section of the GLOW user <saf-docs:transaction_methods>` guide explains the transaction method concept in
+    |saf-docs-transaction-methods-ref|_ explains the transaction method concept in
     more detail.
     """
 
@@ -55,7 +55,7 @@ class MethodState(BaseModel):
     of a project.
     Notes
     -----
-    :ref:`This section of the GLOW user <saf-docs:transaction_methods>` guide explains the transaction method concept in
+    |saf-docs-transaction-methods-ref|_ explains the transaction method concept in
     more detail.
     """
 
