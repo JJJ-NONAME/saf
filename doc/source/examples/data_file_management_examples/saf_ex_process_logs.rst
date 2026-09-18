@@ -9,7 +9,7 @@ Process logs
 
   Display the outputs of a process in a log file in the solution UI.
 
-  Source code for this example is in the `solution-examples <https://github.com/ansys/solution-examples>`_ repository.
+  Source code for this example is in the `example solution <https://github.com/ansys/saf/tree/main/examples>`_.
 
 
 
