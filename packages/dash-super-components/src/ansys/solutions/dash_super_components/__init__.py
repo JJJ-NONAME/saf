@@ -19,7 +19,7 @@
 
 from .authenticator import Authenticator
 from .dual_input_range_slider import DualInputRangeSlider
-from .folder_selector import FolderSelector
+from .folder_selector import FolderSelector, FolderSelectorMode
 from .input_form import InputForm
 from .input_row_array import InputRowArray
 from .logs_supervisor import LogsSupervisor
@@ -35,6 +35,7 @@ __all__ = [
     "configure",
     "DualInputRangeSlider",
     "FolderSelector",
+    "FolderSelectorMode",
     "InputForm",
     "InputRowArray",
     "LogsSupervisor",

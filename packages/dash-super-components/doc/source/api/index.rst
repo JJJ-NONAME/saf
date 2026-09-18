@@ -14,7 +14,8 @@ into two sections:
   that utilize the library.
 
 For usage examples, screenshots, and configuration guides, see the
-:ref:`ref_user_guide` section.
+:external+saf:ref:`Dash Super Components user guide
+<user_guide_frontend_dash_super_components_index>` in the SAF documentation.
 
 .. toctree::
    :maxdepth: 1

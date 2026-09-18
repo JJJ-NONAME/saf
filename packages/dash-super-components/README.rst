@@ -35,13 +35,12 @@ Documentation and issues
 
 For full documentation, including the getting started guide, user guide, and API
 reference, see the `Dash Super Components documentation
-<https://super-components-for-dash.docs.solutions.ansys.com/>`_.
+<https://saf.ansys.com/version/stable/user_guide/frontend/dash/dash_super_components/index.html>`_.
 In the upper right corner of the documentation's title bar, there is an option for
 switching from viewing the documentation for the latest stable release to viewing
 the documentation for the development version or previously released versions.
 
-On the `Dash Super Components Issues
-<https://github.com/ansys/super-components-for-dash/issues>`_ page, you can create
+On the `SAF Issues <https://github.com/ansys/saf/issues>`_ page, you can create
 issues to report bugs and request new features.
 
 Installation
@@ -107,18 +106,18 @@ your browser.
 
 For detailed instructions on how to get started with Dash Super Components, see the
 `getting started guide
-<https://super-components-for-dash.docs.solutions.ansys.com/version/dev/getting-started.html>`_
+<https://saf.ansys.com/version/stable/user_guide/frontend/dash/dash_super_components/dash_super_components_getting_started.html>`_
 in the documentation.
 
 For more complex examples, see the `showcase application
-<https://github.com/ansys/super-components-for-dash/tree/main/examples/showcase_all>`_
+<https://github.com/ansys/saf/tree/main/packages/dash-super-components/examples/showcase_all>`_
 in the repository.
 
 Contributing
 ------------
 
 Contributions are welcome! See the `contributing guide
-<https://super-components-for-dash.docs.solutions.ansys.com/version/dev/contribute.html>`_ for
+<https://saf.ansys.com/version/stable/contribute/index.html>`_ for
 developer installation instructions and guidelines on how to contribute code,
 documentation, and examples to this project.
 

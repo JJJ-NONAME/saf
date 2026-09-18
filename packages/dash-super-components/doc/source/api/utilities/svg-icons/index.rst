@@ -5,8 +5,9 @@ SVG icons
 
 Module: ``ansys.solutions.dash_super_components.utils.svg_icons``
 
-For an overview of icon options and usage guidance, see the :ref:`ref_icons`
-page in the User Guide.
+For an overview of icon options and usage guidance, see
+:external+saf:ref:`Icons <user_guide_frontend_dash_super_components_usage_icons>`
+in the SAF documentation.
 
 .. currentmodule:: ansys.solutions.dash_super_components.utils.svg_icons
 

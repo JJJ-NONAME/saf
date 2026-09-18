@@ -100,33 +100,21 @@ extensions = [
     "sphinx.ext.autosummary",
     "sphinx.ext.intersphinx",
     "super_components_icons_table",
-    "sphinx_gallery.gen_gallery",
 ]
-
-# sphinx-gallery configuration
-# ``plot_gallery=False`` prevents sphinx-gallery from executing the example
-# scripts during the doc build (Dash apps cannot run headlessly).
-# The extension still parses the ``# %%`` text blocks and generates the
-# gallery pages, download buttons and cross-reference targets.
-sphinx_gallery_conf = {
-    # path to your examples scripts
-    "examples_dirs": ["../../examples/gallery_apps"],
-    # path where to save gallery generated examples
-    "gallery_dirs": ["examples"],
-    # Remove the "Download all examples" button from the top level gallery
-    "download_all_examples": False,
-    # Sort gallery example by file name instead of number of lines (default)
-    "within_subsection_order": "FileNameSortKey",
-    "image_scrapers": (),
-    "remove_config_comments": True,
-}
 
 # Autosummary configuration
 autosummary_generate = True
 
 # Intersphinx mapping
+# The ``saf`` entry resolves ``:external+saf:ref:`` targets against the central
+# SAF documentation, which hosts the user guide and example gallery for this
+# package. Set ``SAF_DOC_INVENTORY`` to a local ``objects.inv`` to build offline.
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
+    "saf": (
+        f"https://{os.getenv('SAF_DOC_CNAME', 'saf.ansys.com')}/version/stable",
+        os.getenv("SAF_DOC_INVENTORY") or None,
+    ),
     # kept here as an example
     # "scipy": ("https://docs.scipy.org/doc/scipy/reference", None),
     # "numpy": ("https://numpy.org/devdocs", None),
