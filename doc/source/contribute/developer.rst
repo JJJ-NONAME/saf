@@ -79,6 +79,7 @@ and its own release lifecycle.
     |   |-- saf-iam-oidc/
     |   |-- saf-product-configuration/
     |   |-- saf-product-manager/
+    |   |-- saf-sdk/
     |   |-- saf-templates/
     |   |-- saf-testing/
     |-- pyproject.toml   Root project, documentation dependencies only

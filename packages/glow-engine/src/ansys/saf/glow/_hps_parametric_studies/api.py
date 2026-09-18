@@ -160,7 +160,8 @@ class HpsSimpleProject(HpsSimpleProjectBase):
             The list items must be of type :py:class:`~ansys.saf.product_configuration.interfaces.Software`.
             The default value is an empty list.
             The list should not contain entries for python or the SAF Product Environment.
-            See |saf-docs-hps-job-specifiying-required-products-ref|_ for details on specifying product requirements for jobs.
+            See |saf-docs-hps-job-specifiying-required-products-ref|_ for details on specifying product
+            requirements for jobs.
 
         use_ansys_python: bool, optional
             Whether to use Ansys Python instead of Python for the job when the SAF Product environment is not used.
@@ -400,8 +401,8 @@ class HpsParametricStudyProject(HpsParametricStudyProjectBase):
             The list items must be of type :py:class:`~ansys.saf.product_configuration.interfaces.Software`.
             The default value is an empty list.
             The list should not contain entries for python or the SAF Product Environment.
-            See |saf-docs-hps-job-specifiying-required-products-ref|_ for details on specifying product requirements for jobs
-            (the parametric study API is identical to the job API in this aspect:
+            See |saf-docs-hps-job-specifiying-required-products-ref|_ for details on specifying product
+            requirements for jobs (the parametric study API is identical to the job API in this aspect:
             'job' is equivalent to 'design point evaluation').
 
         use_ansys_python: bool, optional
