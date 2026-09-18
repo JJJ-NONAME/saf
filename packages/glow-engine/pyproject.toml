@@ -112,7 +112,7 @@ all = [
 [tool.poetry.group.doc]
 optional = true
 [tool.poetry.group.doc.dependencies]
-ansys-sphinx-theme = { version = "^1.7.0", python = ">=3.12", extras = [ "autoapi" ] }
+ansys-sphinx-theme = { version = "^1.7.0", python = ">=3.12" }
 autodoc-pydantic = { version = "^2.2.0", python = ">=3.12" }
 numpydoc = { version = "^1.10.0", python = ">=3.12" }
 sphinx = { version = "^9.1.0", python = ">=3.12" }

@@ -42,7 +42,7 @@ switcher_version = get_version_match(__version__)
 source_suffix = {".rst": "restructuredtext"}
 master_doc = "index"
 language = "en"
-suppress_warnings = ["label.*", "toc.not_readable", "autoapi.python_import_resolution"]
+suppress_warnings = ["label.*", "toc.not_readable"]
 todo_include_todos = False
 numfig = True
 numfig_secnum_depth = 1
@@ -58,8 +58,6 @@ exclude_patterns = [
     ".DS_Store",
     "links.rst",
     "substitutions.rst",
-    "ansys/saf/glow/_*",  # private modules - not part of the public API
-    "ansys/saf/glow/solution/products",  # internal PIM implementation detail
 ]
 
 # ============================================================================
@@ -77,7 +75,6 @@ extensions = [
     "sphinxcontrib.autodoc_pydantic",
     "sphinx_design",
     "sphinx_jinja",
-    "ansys_sphinx_theme.extension.autoapi",
 ]
 
 # ============================================================================
@@ -193,11 +190,6 @@ html_theme_options = {
     "additional_breadcrumbs": [
         ("SAF", f"https://{cname}/version/stable/api/index.html"),
     ],
-    "ansys_sphinx_theme_autoapi": {
-        "project": project,
-        "output": ".",
-        "add_toctree_entry": False,
-    },
     "check_switcher": False,
 }
 
@@ -226,21 +218,3 @@ jinja_contexts = {
         "envs": tox_envs,
     },
 }
-# ============================================================================
-# Sphinx event hooks
-# ============================================================================
-
-
-def _rename_api_title(app, docname, source):
-    """Replace the default autoapi module title with 'API reference'."""
-    if docname == "ansys/saf/glow/index":
-        old_title = "The ``ansys.saf.glow`` library"
-        old_underline = "=" * len(old_title)
-        new_title = "API reference"
-        new_underline = "=" * len(new_title)
-        source[0] = source[0].replace(f"{old_title}\n{old_underline}", f"{new_title}\n{new_underline}", 1)
-
-
-def setup(app):
-    """Connect Sphinx events."""
-    app.connect("source-read", _rename_api_title)
