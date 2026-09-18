@@ -98,7 +98,7 @@ class InstanceManagerBase(ABC, Generic[TRecoveryStateInfo]):
 
     Should not be used for implementing an internal instance manager. Use ``InstanceManager``, instead.
 
-    :ref:`This section of the GLOW user guide <saf-docs:instance_management>` explains the concept of product
+    |saf-docs-instance-management-ref|_ explains the concept of product
     instances in more detail.
     """
 
@@ -675,7 +675,7 @@ class InstanceManager(
     By convention derived classes implement an ``initialize`` method that has arguments specific to a given product
     that allow the transaction method to determine the initial state of the product instance.
 
-    :ref:`This section of the GLOW user guide <saf-docs:instance_management>` explains the concept of product
+    |saf-docs-instance-management-ref|_ explains the concept of product
     instances in more detail.
     """
 

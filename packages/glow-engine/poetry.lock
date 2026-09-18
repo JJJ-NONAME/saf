@@ -504,9 +504,6 @@ pdf2image = ">=1.17.0"
 pydata-sphinx-theme = ">=0.15.4,<0.18"
 PyYAML = ">=6.0"
 Sphinx = ">=6.1.0"
-sphinx-autoapi = {version = ">=3.7.0", optional = true, markers = "extra == \"autoapi\""}
-sphinx-design = {version = ">=0.6.0", optional = true, markers = "extra == \"autoapi\""}
-sphinx-jinja = {version = ">=2.0.2", optional = true, markers = "extra == \"autoapi\""}
 
 [package.extras]
 all = ["PyYAML (>=6.0.3)", "sphinx-autoapi (>=3.7.0)", "sphinx-design (>=0.6.0)", "sphinx-jinja (>=2.0.2)"]
@@ -607,19 +604,6 @@ files = [
 
 [package.extras]
 tests = ["mypy (>=1.14.0)", "pytest", "pytest-asyncio"]
-
-[[package]]
-name = "astroid"
-version = "4.3.1"
-description = "An abstract syntax tree for Python with inference support."
-optional = false
-python-versions = ">=3.10.0"
-groups = ["doc"]
-markers = "python_version >= \"3.12\""
-files = [
-    {file = "astroid-4.3.1-py3-none-any.whl", hash = "sha256:de41129d6de1e86cfedb698b8064c83a881853f98d6ea34de9e711f6bb420dfe"},
-    {file = "astroid-4.3.1.tar.gz", hash = "sha256:bb359253d8ced6635a3881c17ebcbbc0e0b65ca23b555a9bd03c92a3cbf4caa7"},
-]
 
 [[package]]
 name = "asyncio-atexit"
@@ -2388,7 +2372,7 @@ description = "httpx2 transports for Emscripten/Pyodide, backed by the JavaScrip
 optional = false
 python-versions = ">=3.12"
 groups = ["main", "tests"]
-markers = "sys_platform == \"emscripten\" and python_version >= \"3.12\""
+markers = "python_version >= \"3.12\" and sys_platform == \"emscripten\""
 files = [
     {file = "httpx2_jsfetch-1.0-py3-none-any.whl", hash = "sha256:cb916b707601e69a07721aabc8f3f6659be3a6893bc1ff5c6f9e02241df2da32"},
     {file = "httpx2_jsfetch-1.0.tar.gz", hash = "sha256:70a0e3eabfef7cce5ad9c629f7d01ca05e418f586646f4ddf14782e4c1454c60"},
@@ -2465,7 +2449,7 @@ files = [
     {file = "importlib_metadata-6.11.0-py3-none-any.whl", hash = "sha256:f0afba6205ad8f8947c7d338b5342d5db2afbfd82f9cbef7879a9539cc12eb9b"},
     {file = "importlib_metadata-6.11.0.tar.gz", hash = "sha256:1231cf92d825c9e03cfc4da076a16de6422c863558229ea0b22b675657463443"},
 ]
-markers = {main = "extra == \"pim\" or extra == \"all\" or extra == \"dash\" or (extra == \"mcp\" or extra == \"all\" or extra == \"pim\" or extra == \"dash\") and python_version == \"3.11\"", doc = "python_version >= \"3.12\"", style = "python_version >= \"3.12\""}
+markers = {main = "extra == \"pim\" or extra == \"all\" or extra == \"dash\" or python_version == \"3.11\" and (extra == \"mcp\" or extra == \"all\" or extra == \"pim\" or extra == \"dash\")", doc = "python_version >= \"3.12\"", style = "python_version >= \"3.12\""}
 
 [package.dependencies]
 zipp = ">=0.5"
@@ -4834,7 +4818,7 @@ files = [
     {file = "pywin32-312-cp39-cp39-win_amd64.whl", hash = "sha256:dc90147579a905b8635e1b0ec6514967dcb07e6e0d9c42f1477feef14cac23bb"},
     {file = "pywin32-312-cp39-cp39-win_arm64.whl", hash = "sha256:02ebca0f0242b75292e218065004310d6a477407c09fa449bfe4f6022bc0c0fc"},
 ]
-markers = {main = "sys_platform == \"win32\" and (extra == \"mcp\" or extra == \"all\")", tests = "sys_platform == \"win32\""}
+markers = {main = "(extra == \"mcp\" or extra == \"all\") and sys_platform == \"win32\"", tests = "sys_platform == \"win32\""}
 
 [[package]]
 name = "pywin32-ctypes"
@@ -5387,25 +5371,6 @@ sphinxcontrib-htmlhelp = ">=2.0.6"
 sphinxcontrib-jsmath = ">=1.0.1"
 sphinxcontrib-qthelp = ">=1.0.6"
 sphinxcontrib-serializinghtml = ">=1.1.9"
-
-[[package]]
-name = "sphinx-autoapi"
-version = "3.8.0"
-description = "Sphinx API documentation generator"
-optional = false
-python-versions = ">=3.10"
-groups = ["doc"]
-markers = "python_version >= \"3.12\""
-files = [
-    {file = "sphinx_autoapi-3.8.0-py3-none-any.whl", hash = "sha256:245aefdeab85609ae4aa3576b0d99f69676aa6333dda438761bd125755b3c42d"},
-    {file = "sphinx_autoapi-3.8.0.tar.gz", hash = "sha256:9f8ac7d43baf28a0831ac0e392fab6a095b875af07e52d135a5f716cc3cf1142"},
-]
-
-[package.dependencies]
-astroid = ">=3.0"
-Jinja2 = "*"
-PyYAML = "*"
-sphinx = ">=7.4.0"
 
 [[package]]
 name = "sphinx-autobuild"
@@ -6732,7 +6697,7 @@ files = [
     {file = "zipp-3.19.1-py3-none-any.whl", hash = "sha256:2828e64edb5386ea6a52e7ba7cdb17bb30a73a858f5eb6eb93d8d36f5ea26091"},
     {file = "zipp-3.19.1.tar.gz", hash = "sha256:35427f6d5594f4acf82d25541438348c26736fa9b3afa2754bcd63cdb99d8e8f"},
 ]
-markers = {main = "extra == \"pim\" or extra == \"all\" or extra == \"dash\" or (extra == \"mcp\" or extra == \"all\" or extra == \"pim\" or extra == \"dash\") and python_version == \"3.11\"", doc = "python_version >= \"3.12\"", style = "python_version >= \"3.12\""}
+markers = {main = "extra == \"pim\" or extra == \"all\" or extra == \"dash\" or python_version == \"3.11\" and (extra == \"mcp\" or extra == \"all\" or extra == \"pim\" or extra == \"dash\")", doc = "python_version >= \"3.12\"", style = "python_version >= \"3.12\""}
 
 [package.extras]
 doc = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (>=3.5)", "sphinx-lint"]
@@ -6749,4 +6714,4 @@ test = ["pytest", "pytest-mock"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<4"
-content-hash = "dc45c6555b3b8caf1241e3ac448b6b0f92cd7c9a4544b81e59df9abc444fa05d"
+content-hash = "0c804b5829df8f4ebb470e7e641ca6d8368cf4ec3468cb373e093ecc5dc93233"

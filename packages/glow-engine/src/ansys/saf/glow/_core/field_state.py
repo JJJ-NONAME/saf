@@ -21,7 +21,7 @@ class FieldState(StrEnum):
     """Indicates the state of a given field in a given project.
     Notes
     -----
-    :ref:`This section of the user guide <saf-docs:field_states>` explains the field state concept in more
+    |saf-docs-field-states-ref|_ explains the field state concept in more
     detail.
     """
 

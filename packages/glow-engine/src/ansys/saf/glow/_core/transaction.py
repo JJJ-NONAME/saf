@@ -255,7 +255,7 @@ def transaction(enable_termination_event: bool = False, **kwargs: StepSpec):
     class is the type of the :py:class:`~ansys.saf.glow.solution.Solution.steps` field which defines the set of
     steps in a :py:class:`~ansys.saf.glow.solution.Solution` derived class.
 
-    The user guide section :ref:`here <saf-docs:transaction_methods>` describes how the ``transaction``
+    |saf-docs-transaction-methods-ref|_ describes how the ``transaction``
     decorator is used to define transaction methods.
 
     Examples
