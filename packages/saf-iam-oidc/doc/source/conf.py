@@ -19,7 +19,7 @@ import os
 from pathlib import Path
 import subprocess
 
-from ansys_sphinx_theme import ansys_favicon, ansys_logo_dark_mode, ansys_logo_light_mode, get_version_match
+from ansys_sphinx_theme import ansys_favicon, get_version_match
 from sphinx.builders.latex import LaTeXBuilder
 from ansys.iam.oidc import __version__
 
@@ -174,9 +174,9 @@ html_theme_options = {
     "contact_mail": "pyansys-core@synopsys.com",
     "use_edit_page_button": False,
     "logo": {
-        "image_light": ansys_logo_light_mode,
-        "image_dark": ansys_logo_dark_mode,
-        },
+        "image_light": "_static/logos/endorsed-ansys-logos-gold-black-rgb.svg",
+        "image_dark": "_static/logos/endorsed-ansys-logos-gold-white-rgb.svg",
+    },
     "search_filters": {
         "User guide": [
             "user-guide/",
