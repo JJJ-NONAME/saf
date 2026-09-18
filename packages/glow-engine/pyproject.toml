@@ -221,6 +221,8 @@ lint.per-file-ignores.".poetry/**" = [ "S" ]
 lint.per-file-ignores.".venv/**" = [ "S" ]
 lint.per-file-ignores."benchmarks/**" = [ "S" ]
 lint.per-file-ignores."cache/**" = [ "S" ]
+# rst_epilog contains long URL-based hyperlink targets that cannot be wrapped.
+lint.per-file-ignores."doc/source/conf.py" = [ "E501" ]
 # Ignore `S` rules everywhere except for the `src/` directory.
 lint.per-file-ignores."tests/**.py" = [ "S" ]
 lint.flake8-bugbear.extend-immutable-calls = [
