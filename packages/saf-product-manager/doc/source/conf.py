@@ -25,8 +25,6 @@ import sys
 
 from ansys_sphinx_theme import (  # pyright: ignore[reportMissingTypeStubs]
     ansys_favicon,
-    ansys_logo_dark_mode,
-    ansys_logo_light_mode,
     get_version_match,
 )
 from sphinx.builders.latex import LaTeXBuilder
