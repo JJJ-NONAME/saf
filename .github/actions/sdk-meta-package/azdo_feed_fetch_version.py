@@ -69,6 +69,7 @@ def _get_package_data(package_name: str) -> dict[str, object]:
                 "api-version": "7.1",
             },
             auth=("", token.get_secret_value()),
+            timeout=10,
         )
         response.raise_for_status()
         return response.json()
