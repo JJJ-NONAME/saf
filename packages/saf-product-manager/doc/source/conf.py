@@ -25,8 +25,6 @@ import sys
 
 from ansys_sphinx_theme import (  # pyright: ignore[reportMissingTypeStubs]
     ansys_favicon,
-    ansys_logo_dark_mode,
-    ansys_logo_light_mode,
     get_version_match,
 )
 from sphinx.builders.latex import LaTeXBuilder
@@ -121,8 +119,8 @@ html_theme_options = {
     "contact_mail": "solution-applications.maintainers@ansys.com",
     "use_edit_page_button": False,
     "logo": {
-        "image_light": ansys_logo_light_mode,
-        "image_dark": ansys_logo_dark_mode,
+        "image_light": "_static/logos/endorsed-ansys-logos-gold-black-rgb.svg",
+        "image_dark": "_static/logos/endorsed-ansys-logos-gold-white-rgb.svg",
     },
     "search_filters": {
         "User guide": [
