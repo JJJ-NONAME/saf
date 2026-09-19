@@ -40,10 +40,8 @@ ASSETS_DIR = Path(__file__).resolve().parents[1] / "assets"
 
 # Pages with a generic "step" parameter need an explicit mapping.
 STEP_BY_PAGE_MODULE: dict[str, str] = {
-    "saf.solutions.examples.ui.pages.basic.alert_page": "basic_step",
     "saf.solutions.examples.ui.pages.basic.plot_page": "basic_step",
     "saf.solutions.examples.ui.pages.basic.process_logs_page": "basic_step",
-    "saf.solutions.examples.ui.pages.basic.spinner_page": "basic_step",
     "saf.solutions.examples.ui.pages.basic.table_page": "basic_step",
     "saf.solutions.examples.ui.pages.game_of_life_page": "game_of_life_step",
 }
@@ -95,14 +93,10 @@ def get_page_list(theme: str, active_index: str | None = None) -> list[dict[str,
         return any(node.get("id") == active_index for node in nodes)
 
     basic_children = [
-        leaf("dash_components_page", "Dash components", "material-symbols:dashboard"),
-        leaf("spinner_page", "Spinner", "line-md:loading-twotone-loop"),
         leaf("process_logs_page", "Process logs", "tabler:logs"),
         leaf("file_upload_page", "File upload", "material-symbols:file-upload"),
         leaf("table_page", "Dash Table", "tabler:table-filled"),
         leaf("display_images_page", "Display Images", "material-symbols:image"),
-        leaf("gif_page", "GIF", "fluent:gif-24-regular"),
-        leaf("alert_page", "Alert", "fluent:alert-12-filled"),
         leaf("plot_page", "Plotly graph", "mdi:graph-line"),
     ]
     instance_children = [
@@ -433,7 +427,7 @@ def resolve_active_page_and_project_information(
     if len(path_parts) == 2 and path_parts[0] == "projects":
         project_id = path_parts[1]
         for i, page in enumerate(dash.page_registry.values()):
-            if page["module"].split(".")[-1] == "dash_components_page":
+            if page["module"].split(".")[-1] == "process_logs_page":
                 return str(i), project_id
 
     for i, page in enumerate(dash.page_registry.values()):

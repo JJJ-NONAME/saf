@@ -53,38 +53,6 @@ To get detailed instructions for examples, either click a category in the left n
     :gutter: 4
     :class-container: onboarding-cards
 
-    .. grid-item-card:: :material-outlined:`view_quilt;1.75em` :ref:`saf-ex-common-dash-components`
-      :class-card: highlight-card
-      :link-type: doc
-      :link: ui_components_visualization_examples/saf_ex_common_dash_components
-      :shadow: lg
-
-      Use common open-source and Ansys-developed Dash components in a solution user interface.
-
-    .. grid-item-card:: :material-outlined:`animation;1.75em` :ref:`saf-ex-gif`
-      :class-card: highlight-card
-      :link-type: doc
-      :link: ui_components_visualization_examples/saf_ex_gif
-      :shadow: lg
-
-      Use a Dash plug-in to display a GIF image in a solution user interface.
-
-    .. grid-item-card:: :material-outlined:`autorenew;1.75em` :ref:`saf-ex-spinner`
-      :class-card: highlight-card
-      :link-type: doc
-      :link: ui_components_visualization_examples/saf_ex_spinner
-      :shadow: lg
-
-      Add a Dash spinner to a user interface to indicate that a solution is processing data.
-
-    .. grid-item-card:: :material-outlined:`warning;1.75em` :ref:`saf-ex-alert`
-      :class-card: highlight-card
-      :link-type: doc
-      :link: ui_components_visualization_examples/saf_ex_alert
-      :shadow: lg
-
-      Use Dash alerts to show messages in a solution user interface.
-
     .. grid-item-card:: :material-outlined:`show_chart;1.75em` :ref:`saf-ex-plotly-graph`
       :class-card: highlight-card
       :link-type: doc
