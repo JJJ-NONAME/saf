@@ -169,7 +169,7 @@ def mount_event_listeners(project: ExamplesSolution) -> list[dict[str, Any]] | A
     State("url", "pathname"),
     prevent_initial_call=True,
 )
-def start_generate_process_logs_transaction(n_clicks: int, project: ExamplesSolution) -> tuple[bool, bool]:
+def start_generate_process_logs_transaction(n_clicks: int, project: ExamplesSolution) -> list[dict[str, Any]] | Any:
     """Launch the ``generate_process_logs`` long running transaction.
 
     Triggered when the user clicks the "Start" button. Starts the backend

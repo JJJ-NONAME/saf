@@ -424,7 +424,7 @@ def resolve_active_page_and_project_information(
     relative_pathname = dash.strip_relative_path(pathname) or ""
     path_parts = relative_pathname.split("/") if relative_pathname else []
 
-    # Keep legacy behavior: opening /projects/<project_id> lands on Dash components.
+    # Keep legacy behavior: opening /projects/<project_id> lands on process logs page
     if len(path_parts) == 2 and path_parts[0] == "projects":
         project_id = path_parts[1]
         for i, page in enumerate(dash.page_registry.values()):
