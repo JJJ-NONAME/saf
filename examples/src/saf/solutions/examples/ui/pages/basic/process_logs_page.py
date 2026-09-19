@@ -34,7 +34,7 @@ from typing import Any
 from ansys.saf.glow.client import DashClient, callback
 from ansys.saf.glow.solution import MethodState
 import dash
-from dash_extensions.enrich import Input, Output, State, ctx, no_update, html
+from dash_extensions.enrich import Input, Output, State, ctx, html, no_update
 from dash_iconify import DashIconify
 import dash_mantine_components as dmc
 
@@ -154,8 +154,12 @@ def mount_event_listeners(project: ExamplesSolution) -> list[dict[str, Any]] | A
     """
     step = project.steps.basic_step
     return [
-        DashClient.create_event_listener(step, id="generate-process-logs-update-listener", stream_name="generate-process-logs-update"),
-        DashClient.create_event_listener(step, id="generate-process-logs-termination-listener", stream_name="generate-process-logs"),
+        DashClient.create_event_listener(
+            step, id="generate-process-logs-update-listener", stream_name="generate-process-logs-update"
+        ),
+        DashClient.create_event_listener(
+            step, id="generate-process-logs-termination-listener", stream_name="generate-process-logs"
+        ),
     ]
 
 
@@ -215,7 +219,9 @@ def sync_controls(n_clicks: int, message: dict[str, Any]) -> tuple[bool, bool]:
     if ctx.triggered_id == "start_button" and n_clicks:  # pyright: ignore[reportUnknownMemberType]
         disable_start_button = True
         loading_start_button = True
-    elif ctx.triggered_id == "generate-process-logs-termination-listener" and message:  # pyright: ignore[reportUnknownMemberType]
+    elif (
+        ctx.triggered_id == "generate-process-logs-termination-listener" and message
+    ):  # pyright: ignore[reportUnknownMemberType]
         disable_start_button = False
         loading_start_button = False
     return disable_start_button, loading_start_button
@@ -234,7 +240,9 @@ def sync_notifications(message: dict[str, Any]) -> list[dict[str, Any]] | Any:
     whether ``generate_process_logs`` completed successfully.
     """
     notification = no_update
-    if ctx.triggered_id == "generate-process-logs-termination-listener" and message:  # pyright: ignore[reportUnknownMemberType]
+    if (
+        ctx.triggered_id == "generate-process-logs-termination-listener" and message
+    ):  # pyright: ignore[reportUnknownMemberType]
         method_state = MethodState.model_validate_json(message["data"])
         notification = handle_method_event(
             method_state,
@@ -259,7 +267,9 @@ def update_logs_on_backend_events(message: dict[str, Any], current_logs: str) ->
     placeholder message is shown), the new line replaces it instead of being
     appended, so the placeholder disappears as soon as logs start flowing.
     """
-    if ctx.triggered_id == "generate-process-logs-update-listener" and message:  # pyright: ignore[reportUnknownMemberType]
+    if (
+        ctx.triggered_id == "generate-process-logs-update-listener" and message
+    ):  # pyright: ignore[reportUnknownMemberType]
         new_line = json.loads(message["data"])
         if not current_logs or current_logs == NO_LOGS_MESSAGE:
             return new_line

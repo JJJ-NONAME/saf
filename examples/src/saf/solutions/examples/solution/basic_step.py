@@ -60,13 +60,7 @@ class BasicStep(StepModel):
         if force_failure:
             raise Exception("This is a forced failure.")
 
-    @transaction(
-        self=StepSpec(
-            download=["log_file"],
-            upload=["log_file"]
-        ),
-        enable_termination_event=True
-    )
+    @transaction(self=StepSpec(download=["log_file"], upload=["log_file"]), enable_termination_event=True)
     @long_running
     def generate_process_logs(self, wait_time: float) -> None:
         """Write the current time to a file every second for a certain amount of time."""
