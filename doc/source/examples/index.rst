@@ -33,12 +33,6 @@ The example solution provided in the ``saf/examples`` directory demonstrates sel
 
      saf run
 
-The exanoke solution opens to the first example. You're ready to start exploring the available examples, which are shown in the navigation sidebar of the solution.
-
-.. image:: /_static/images/example_solution_open_to_dash_components.png
-  :width: 100%
-
-
 
 .. _examples_instructions:
 
