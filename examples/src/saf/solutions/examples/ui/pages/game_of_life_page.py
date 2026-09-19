@@ -56,8 +56,6 @@ def layout(project: ExamplesSolution) -> html.Div:
                 className="display-3",
                 style={"font-size": "40px", "font-weight": "bold"},
             ),
-            html.Hr(className="my-2"),
-            dmc.Space(h=20),
             dmc.Blockquote(
                 [
                     "This is an implementation of ",
@@ -197,7 +195,8 @@ def layout(project: ExamplesSolution) -> html.Div:
             DashClient.create_event_listener(step, stream_name="my-stream", id="update-heatmap"),
             DashClient.create_event_listener(step, stream_name="simulate", id="termination"),
             html.Div(id="notifications-container"),
-        ]
+        ],
+        style={"paddingLeft": "20px"},
     )
 
 

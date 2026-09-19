@@ -51,8 +51,6 @@ def layout(project: ExamplesSolution) -> html.Div:
             html.H1(
                 "HPS Job Submission Step", className="display-3", style={"font-size": "40px", "font-weight": "bold"}
             ),
-            html.Hr(className="my-2"),
-            dmc.Space(h=20),
             dmc.Blockquote(
                 "Compute the sum of two numbers by submitting a job to HPS.  This example step demonstrates (a) how"
                 + " to use different mechanisms for transferring data to and from HPS and (b) how to display HPS job"
@@ -84,14 +82,13 @@ def layout(project: ExamplesSolution) -> html.Div:
             dmc.Button(
                 "Calculate",
                 id="hps-calculate",
-                radius="md",
+                radius="sm",
                 style={
                     "font-size": "16px",
                     "width": "40%",
                     "display": "inline-block",
                     "marginLeft": "30%",
                     "background-color": "#2790F1",
-                    "color": "var(--mantine-color-body)",
                 },
                 disabled=running,
                 leftSection=DashIconify(icon="streamline:startup-solid"),
@@ -116,7 +113,8 @@ def layout(project: ExamplesSolution) -> html.Div:
             ),
             DashClient.create_event_listener(step, stream_name="status", id="hps-status_ws"),
             DashClient.create_event_listener(step, stream_name="run-job", id="hps-termination_ws"),
-        ]
+        ],
+        style={"paddingLeft": "20px"},
     )
 
 

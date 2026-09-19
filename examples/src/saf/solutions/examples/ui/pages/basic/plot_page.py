@@ -42,8 +42,6 @@ def layout(project: ExamplesSolution) -> html.Div:
     return html.Div(
         [
             html.H1("Plotly graph", className="display-3", style={"font-size": "40px", "font-weight": "bold"}),
-            html.Hr(className="my-2"),
-            html.Br(),
             dmc.Blockquote(
                 "Use a Plotly graph to visualize parametric step-field data in a solution UI.",
                 icon=DashIconify(icon="material-symbols:info", width=30),
@@ -172,7 +170,8 @@ def layout(project: ExamplesSolution) -> html.Div:
             ),
             html.Br(),
             html.Br(),
-        ]
+        ],
+        style={"paddingLeft": "20px"},
     )
 
 

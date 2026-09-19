@@ -123,7 +123,6 @@ def layout(project: ExamplesSolution) -> html.Div:
                 style={
                     "font-size": "16px",
                     "width": "20%",
-                    "color": "var(--mantine-color-body)",
                     "background-color": "#2790F1",
                 },
                 leftSection=DashIconify(icon="streamline:startup-solid"),

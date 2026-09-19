@@ -250,7 +250,6 @@ header = dmc.AppShellHeader(
         style={"height": "100%"},
     ),
     style={
-        "backgroundColor": "var(--mantine-color-body)",
         "borderBottom": "1px solid var(--mantine-color-default-border)",
     },
 )
@@ -524,7 +523,7 @@ def display_page(project: ExamplesSolution, active_page_index: str | None) -> An
 def display_404_page(active_page_index: str | None) -> Any:
     """Return the 404 page layout when the active page index is None."""
     if active_page_index is None:
-        return _get_404_layout()
+        return _display_404_page()
     return no_update
 
 

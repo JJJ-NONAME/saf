@@ -45,8 +45,6 @@ def layout() -> html.Div:
     return html.Div(
         [
             html.H1("File upload", className="display-3", style={"font-size": "40px", "font-weight": "bold"}),
-            html.Hr(className="my-2"),
-            html.Br(),
             dmc.Blockquote(
                 "Use SAF GLOW's uploader to upload files to a solution project\
                 and display the file sizes in a file a solution UI.",
@@ -81,10 +79,9 @@ def layout() -> html.Div:
                 "Check file size",
                 id="check-size-button",
                 variant="filled",
-                radius="xl",
+                radius="sm",
                 style={
                     "font-size": "16px",
-                    "color": "var(--mantine-color-body)",
                     "background-color": "#2790F1",
                     "width": "20%",
                 },
@@ -105,6 +102,7 @@ def layout() -> html.Div:
             html.Br(),
             html.Br(),
         ],
+        style={"paddingLeft": "20px"},
     )
 
 

@@ -73,7 +73,7 @@ def layout(project: ExamplesSolution) -> html.Div:
             dmc.Button(
                 "Create file",
                 id="create-file-button-1",
-                style={"font-size": "16px", "color": "var(--mantine-color-body)", "background-color": "#2790F1"},
+                style={"font-size": "16px", "background-color": "#2790F1"},
             ),
             dmc.Space(h=10),
             dmc.Divider(label="Access the file"),
@@ -81,7 +81,7 @@ def layout(project: ExamplesSolution) -> html.Div:
             dmc.Button(
                 "Read file",
                 id="read-file-button-1",
-                style={"font-size": "16px", "color": "var(--mantine-color-body)", "background-color": "#2790F1"},
+                style={"font-size": "16px", "background-color": "#2790F1"},
             ),
             dmc.Space(h=10),
             html.Div(
@@ -128,7 +128,7 @@ def layout(project: ExamplesSolution) -> html.Div:
             dmc.Button(
                 "Modify file",
                 id="modify-file-button-2",
-                style={"font-size": "16px", "color": "var(--mantine-color-body)", "background-color": "#2790F1"},
+                style={"font-size": "16px", "background-color": "#2790F1"},
             ),
             dmc.Space(h=10),
             dmc.Divider(label="Access the file"),
@@ -164,7 +164,7 @@ def layout(project: ExamplesSolution) -> html.Div:
             dmc.Button(
                 "Read method asset file",
                 id="read-file-button-2",
-                style={"font-size": "16px", "color": "var(--mantine-color-body)", "background-color": "#2790F1"},
+                style={"font-size": "16px", "background-color": "#2790F1"},
             ),
             dmc.Space(h=10),
             html.Div(
@@ -264,7 +264,7 @@ def layout(project: ExamplesSolution) -> html.Div:
             dmc.Button(
                 "Create file",
                 id="create-file-button-5",
-                style={"font-size": "16px", "color": "var(--mantine-color-body)", "background-color": "#2790F1"},
+                style={"font-size": "16px", "background-color": "#2790F1"},
             ),
         ],
         withBorder=True,
@@ -276,8 +276,6 @@ def layout(project: ExamplesSolution) -> html.Div:
     return html.Div(
         [
             html.H1("File Handling", className="display-3", style={"font-size": "40px", "font-weight": "bold"}),
-            html.Hr(className="my-2"),
-            html.Br(),
             dmc.Blockquote(
                 "Use BDM to manipulate files/folders in the storage scope.",
                 icon=DashIconify(icon="material-symbols:info", width=30),
@@ -309,7 +307,8 @@ def layout(project: ExamplesSolution) -> html.Div:
             ),
             html.Div(id="notifications-container"),
             DashClient.create_event_listener(step, stream_name="my-stream", id="ws"),
-        ]
+        ],
+        style={"paddingLeft": "20px"},
     )
 
 

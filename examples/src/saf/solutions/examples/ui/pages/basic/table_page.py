@@ -43,8 +43,6 @@ def layout() -> html.Div:
     return html.Div(
         [
             html.H1("Data table", className="display-3", style={"font-size": "40px", "font-weight": "bold"}),
-            html.Hr(className="my-2"),
-            html.Br(),
             dmc.Blockquote(
                 "Use an interactive Dash table to display large datasets in a solution UI.",
                 icon=DashIconify(icon="material-symbols:info", width=30),
@@ -56,20 +54,20 @@ def layout() -> html.Div:
                 "Generate data",
                 id="generate-data-button",
                 leftSection=DashIconify(icon="streamline:startup-solid"),
-                radius="xl",
+                radius="sm",
                 disabled=False,
                 className="mantine-button",
                 style={
                     "font-size": "16px",
                     "width": "100%",
-                    "color": "var(--mantine-color-body)",
                     "background-color": "#2790F1",
                 },
             ),
             html.Br(),
             html.Br(),
             html.Div(id="data-table"),
-        ]
+        ],
+        style={"paddingLeft": "20px"},
     )
 
 

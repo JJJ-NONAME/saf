@@ -307,8 +307,6 @@ def layout(project: ExamplesSolution) -> html.Div:
             html.H1(
                 "Compute beam deflection", className="display-3", style={"font-size": "40px", "font-weight": "bold"}
             ),
-            html.Hr(className="my-2"),
-            dmc.Space(h=20),
             dmc.Grid(
                 [
                     dmc.GridCol(
@@ -337,7 +335,6 @@ def layout(project: ExamplesSolution) -> html.Div:
                                 leftSection=DashIconify(icon="fluent:math-formula-16-filled"),
                                 style={
                                     "font-size": "17px",
-                                    "color": "var(--mantine-color-body)",
                                     "background-color": "#2790F1",
                                 },
                             ),
@@ -378,7 +375,8 @@ def layout(project: ExamplesSolution) -> html.Div:
             DashClient.create_event_listener(
                 step, id="mapdl-postprocessing-listener", stream_name="mapdl-postprocessing"
             ),
-        ]
+        ],
+        style={"paddingLeft": "20px"},
     )
 
 

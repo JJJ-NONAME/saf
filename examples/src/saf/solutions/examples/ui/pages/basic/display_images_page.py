@@ -41,14 +41,11 @@ dash.register_page(
 
 def layout(project: ExamplesSolution) -> html.Div:
     """Layout of the display_images step UI."""
-    step = project.steps.basic_step
     return html.Div(
         [
             html.H1(
                 "File-based image display", className="display-3", style={"font-size": "40px", "font-weight": "bold"}
             ),
-            html.Hr(className="my-2"),
-            html.Br(),
             dmc.Blockquote(
                 "Use SAF GLOW to parse and store files and display them as images in a solution UI.",
                 icon=DashIconify(icon="material-symbols:info", width=30),
@@ -60,14 +57,15 @@ def layout(project: ExamplesSolution) -> html.Div:
                 "Create and display images",
                 id="create-and-display-images",
                 variant="filled",
-                radius="xl",
-                style={"font-size": "16px", "color": "var(--mantine-color-body)", "background-color": "#2790F1"},
+                radius="sm",
+                style={"font-size": "16px", "background-color": "#2790F1"},
                 leftSection=DashIconify(icon="streamline:startup-solid"),
             ),
             html.Br(),
             html.Br(),
             html.Div(id="result-images", children=create_image_div(project)),
-        ]
+        ],
+        style={"paddingLeft": "20px"},
     )
 
 
