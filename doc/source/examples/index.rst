@@ -129,6 +129,14 @@ To get detailed instructions for examples, either click a category in the left n
 
       Use SAF GLOW Engine to start an HPS job and monitor the job's progress, using event streaming with termination events to change UI state.
 
+    .. grid-item-card:: :material-outlined:`list_alt;1.75em` :ref:`saf-ex-process-logs-events`
+      :class-card: highlight-card
+      :link-type: doc
+      :link: transaction_methods_examples/saf_ex_process_logs_events
+      :shadow: lg
+
+      Use a long-running transaction combined with SAF GLOW events to stream log output produced on the backend to the UI in real time.
+
 .. card:: :large-bold:`SAF product instance managers (PIM)`
 
   .. grid:: 3

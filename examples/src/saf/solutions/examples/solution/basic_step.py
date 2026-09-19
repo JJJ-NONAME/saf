@@ -60,9 +60,15 @@ class BasicStep(StepModel):
         if force_failure:
             raise Exception("This is a forced failure.")
 
-    @transaction(self=StepSpec(download=["log_file"], upload=["log_file"]))
+    @transaction(
+        self=StepSpec(
+            download=["log_file"],
+            upload=["log_file"]
+        ),
+        enable_termination_event=True
+    )
     @long_running
-    def write_to_file(self, wait_time: float) -> None:
+    def generate_process_logs(self, wait_time: float) -> None:
         """Write the current time to a file every second for a certain amount of time."""
         try:
             log_file = self.storage_scope.get_cached(self.log_file)
@@ -74,7 +80,7 @@ class BasicStep(StepModel):
             current_time = f"{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}\n"
             existing_logs += current_time.encode()
             self.log_file = self.storage_scope.store_stream(existing_logs)
-            self.transaction.upload(["log_file"])
+            self.transaction.raise_event(message=current_time, stream_name="generate-process-logs-update")
             time.sleep(1)
 
     @transaction(self=StepSpec(upload=["log_file"]))

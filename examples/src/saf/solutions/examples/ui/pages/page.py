@@ -316,6 +316,7 @@ layout = dmc.MantineProvider(
         html.Div(id="mapdl-instance-event-listeners-container"),
         html.Div(id="mechanical-instance-event-listeners-container"),
         html.Div(id="optislang-instance-event-listeners-container"),
+        html.Div(id="process-logs-event-listeners-container"),
         dcc.Store(id="aedt-logs-store", storage_type="memory"),
         dcc.Store(id="fluent-logs-store", storage_type="memory"),
         dcc.Store(id="mapdl-logs-store", storage_type="memory"),

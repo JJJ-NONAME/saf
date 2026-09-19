@@ -23,4 +23,5 @@ Transaction methods
 
   saf_ex_long_transaction
   saf_ex_hps_job_submission
+  saf_ex_process_logs_events
 
