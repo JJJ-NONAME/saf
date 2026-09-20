@@ -31,7 +31,7 @@ used as the component identifier, to the label and the bounds of its slider.
 
 from ansys.saf.glow.client import callback
 import dash
-from dash_extensions.enrich import Input, Output, State, dcc, html, ctx
+from dash_extensions.enrich import Input, Output, State, ctx, dcc, html
 from dash_iconify import DashIconify
 import dash_mantine_components as dmc
 

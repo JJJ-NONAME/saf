@@ -72,10 +72,7 @@ def test_saf_install_verifies_locked_dependencies(
     # ``.env`` file. Locate the JSON array poetry produced instead of assuming the
     # whole stdout is JSON.
     json_start = dependency_check.stdout.find("[")
-    assert json_start != -1, (
-        "Could not find a JSON array in the Poetry output.\n"
-        f"Output:\n{dependency_check.stdout}"
-    )
+    assert json_start != -1, "Could not find a JSON array in the Poetry output.\n" f"Output:\n{dependency_check.stdout}"
 
     try:
         packages = json.loads(dependency_check.stdout[json_start:])
