@@ -5,45 +5,88 @@ HPS job submission and events
 
 .. topic:: Objective
 
-    Use the SAF HPS job submission API to submit and monitor jobs in HPS.
-    Use method termination events to update the UI when computation finishes.
+  Offload a computation to Ansys HPC Platform Services (HPS) from a solution: declare the job and
+  its inputs and outputs, submit it from a long-running transaction method, monitor its status, and
+  push the progress and the final result to the solution UI through events.
+
+  Source code for this example is in the `example solution <https://github.com/ansys/saf/tree/main/examples>`_.
+
+
+.. _saf-ex-hps-job-submission-feature-highlight:
+
+:material-outlined:`emoji_objects;1.25em;sd-text-primary` Feature highlight
+============================================================================
+
+The user starts an HPS job using values from the UI as inputs and configures the job to generate
+outputs. The example redundantly transfers these inputs and outputs to HPS in different ways to
+demonstrate the range of capabilities of the HPS job submission API.
+
+In this example, you learn how to:
+
+- :material-outlined:`functions;1.25em;saf-objective-icon` Write the **function that runs on HPS**
+  as plain Python, independently of the solution.
+- :material-outlined:`schema;1.25em;saf-objective-icon` Declare the job with an
+  **execution specification** that describes its outputs.
+- :material-outlined:`cloud_sync;1.25em;saf-objective-icon` **Submit** the job and transfer files
+  and directories to HPS with ``Path``, ``EntityHandle``, and the input specifications.
+- :material-outlined:`hourglass_top;1.25em;saf-objective-icon` **Monitor** the job from a
+  **long-running transaction method** and retrieve its outputs.
+- :material-outlined:`stream;1.25em;saf-objective-icon` Publish the job status on an **event stream**
+  and emit a **termination event** when the transaction method completes.
+- :material-outlined:`bolt;1.25em;saf-objective-icon` Wire **callbacks** and **event listeners** that
+  start the job and refresh the status and result displays.
+
+When you complete this example, you can expect the following output in the solution UI:
+
+.. _saf-ex-hps-job-submission-output-1:
+
+.. figure:: /_static/images/initial_layout.png
+  :width: 75%
+
+  Initial layout of the HPS job submission page
+
+
+.. _saf-ex-hps-job-submission-prerequisites:
 
 :material-outlined:`task;1.25em;sd-text-primary` Prerequisites
 =========================================================================
 
 The HPS job submission API is provided in the |glow-doc-ref|_ package, which is available by default in any SAF-based solution.
 
-:octicon:`code-square;1em;sd-text-primary` Solution
+
+.. _saf-ex-hps-job-submission-solution:
+
+:octicon:`code-square;1em;sd-text-primary` Coding
 ======================================================
 
-This example demonstrates how to use the SAF HPS job submission API to submit and monitor jobs in HPS.
+To submit and monitor an HPS job from a solution, work through the following sequence of sections.
 
-.. tip::
 
-  - Checkout the full backend code of the example in the `example solution <https://github.com/ansys/saf/blob/main/examples/src/saf/solutions/examples/solution/hps_job_submission_step.py>`__.
-  - Checkout the full frontend code of the example in the `example solution <https://github.com/ansys/saf/blob/main/examples/src/saf/solutions/examples/ui/pages/hps_job_submission_page.py>`__.
+.. _saf-ex-hps-job-submission-logic:
 
-Feature: Run HPS Job
-----------------------
+:material-outlined:`functions;1.25em;sd-text-primary` Logic
+------------------------------------------------------------
 
-In this example the user starts an HPS job using values from the UI as inputs and configures the job to generate outputs.
-The example redundantly transfers these inputs and outputs to HPS in different ways to demonstrate
-the range of capabilities of the HPS job submission API.
+Write the business logic.
+
+.. key-concept:: Business logic
+
+    The function executed on HPS is plain Python: it has no dependency on SAF and can be developed
+    and tested on its own. Its signature is the contract that the ``HpsExecutionSpecification`` and
+    the ``execute`` call must honor.
 
 .. _saf-ex-hps-job-submission-backend-code-run-in-hps:
 
-Backend (Function that is executed in HPS)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. dropdown:: Write the function that is executed in HPS
+  :open:
 
-The following code shows the function ``calculate_sum`` that is executed in HPS that is consistent with the
-``HpsExecutionSpecification`` and ``execute`` calls in the ``run_job`` transaction method.
+  The ``calculate_sum`` function is executed in HPS and is consistent with the
+  ``HpsExecutionSpecification`` and ``execute`` calls in the ``run_job`` transaction method.
 
-See
+  See
 
-  - :ref:`saf-ex-hps-job-submission-backend-code-construct-hps-execution-specification` for the ``HpsExecutionSpecification`` call; and
-  - :ref:`saf-ex-hps-job-submission-backend-code-execute-call` for the ``execute`` call.
-
-.. dropdown:: Backend code - Function that is executed in HPS
+  - :ref:`Declare the job <saf-ex-hps-job-submission-backend-code-construct-hps-execution-specification>` for the ``HpsExecutionSpecification`` call; and
+  - :ref:`Start the job <saf-ex-hps-job-submission-backend-code-execute-call>` for the ``execute`` call.
 
   .. code-block:: python
 
@@ -95,22 +138,34 @@ See
         # using the same key as that used in the output dictionary
         return {"result": result}
 
-This method:
+  This method:
 
   - adds its first two float arguments together
   - returns the result of the sum as a float output parameter
   - checks that various input files supplied from SAF GLOW Engine contain the same data as the float arguments (some of these files are nested within directories)
   - writes the result of the sum into various output files (some of these files are nested within directories)
 
+
+.. _saf-ex-hps-job-submission-backend:
+
+:material-outlined:`dns;1.25em;sd-text-primary` Backend
+---------------------------------------------------------
+
+Create the solution definition.
+
+.. key-concept:: Execution specification
+
+    An ``HpsExecutionSpecification`` describes the job: the ``function`` to run on HPS and the
+    ``output_parameters`` it produces. Calling ``execute`` on it transfers the inputs, starts the job,
+    and returns a handle used to monitor it.
+
 .. _saf-ex-hps-job-submission-backend-code-construct-hps-execution-specification:
 
-Backend (Solution Definition - Declare Job)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. dropdown:: Declare the job
+  :open:
 
-The following code shows the first part of the long running transaction method that declares the HPS Job
-(subsequent parts start the job, monitor the job status and retrieve the outputs).
-
-.. dropdown:: Backend code - Solution Definition - Declare Job
+  The following code shows the first part of the long running transaction method that declares the HPS Job
+  (subsequent parts start the job, monitor the job status and retrieve the outputs).
 
   .. code-block:: python
 
@@ -165,45 +220,49 @@ The following code shows the first part of the long running transaction method t
             },
         )
 
-The transaction method constructs an instance of ``HpsExecutionSpecification`` which specifies:
+  The transaction method constructs an instance of ``HpsExecutionSpecification`` which specifies:
 
-  - the module containing the code which is to be run on HPS via the ``function`` parameter, in this case ``calculate_sum`` see :ref:`saf-ex-hps-job-submission-backend-code-run-in-hps`; and
+  - the module containing the code which is to be run on HPS via the ``function`` parameter, in this case ``calculate_sum`` see :ref:`Write the function that is executed in HPS <saf-ex-hps-job-submission-backend-code-run-in-hps>`; and
   - the outputs of the job (via the ``output_parameters`` parameter).
 
-In this case we rely on the SAF default action to transfer the solution source directory ``src\ansys\solutions\examples\solution\scripts``
-to HPS for execution as the job.
+  In this case we rely on the SAF default action to transfer the solution source directory ``src\ansys\solutions\examples\solution\scripts``
+  to HPS for execution as the job.
 
-The ``output_parameters`` argument is a dictionary where the keys are the output names and the values are the types of the parameters or objects
-that specify filesystem outputs.
+  The ``output_parameters`` argument is a dictionary where the keys are the output names and the values are the types of the parameters or objects
+  that specify filesystem outputs.
 
-In this case the ``output_parameters`` declares:
+  In this case the ``output_parameters`` declares:
 
   - the ``result`` output as a float (we assume that the ``calculate_sum`` function will return a dictionary with a key ``result`` with an associated float value);
   - the ``output_directory`` output as a directory (we assume that the ``calculate_sum`` function will write an output directory called ``output_directory``);
   - the ``output_file`` output as a file (because the declaration supplies an ``evaluation_path``, we assume that the ``calculate_sum`` function will write an output file called ``output_for_redirection.json``).
 
-The solution uses 2 event streams, ``status`` and ``run_job`` to enable the UI to respond to changes in the state of the HPS job and the ``run_job`` transaction method.
-The ``transaction`` decorator has the ``enable_termination_event`` parameter set to ``True`` to enable termination events to be raised for the transaction method.
-This ensures that a termination event is raised on the stream named after the transaction method name ``run_job``.
-The UI code updates the displayed job status and result value in response to the termination event.
-The ``_push_status`` method raises events on the ``status`` stream and uploads values to the step ``status`` field.
+  The solution uses 2 event streams, ``status`` and ``run_job`` to enable the UI to respond to changes in the state of the HPS job and the ``run_job`` transaction method.
+  The ``transaction`` decorator has the ``enable_termination_event`` parameter set to ``True`` to enable termination events to be raised for the transaction method.
+  This ensures that a termination event is raised on the stream named after the transaction method name ``run_job``.
+  The UI code updates the displayed job status and result value in response to the termination event.
+  The ``_push_status`` method raises events on the ``status`` stream and uploads values to the step ``status`` field.
 
-See
+  See
 
-  - :ref:`saf-ex-hps-job-submission-backend-code-monitor-job` for the declaration of ``_push_status``;
-  - :ref:`saf-ex-hps-job-submission-frontend-code-status` for the callback that handles the status events;
-  - :ref:`saf-ex-hps-job-submission-frontend-code-termination` for the callback that handles the termination event; and
-  - :ref:`saf-ex-hps-job-submission-frontend-code-layout` for the layout that declares the status and termination event streams.
+  - :ref:`Monitor the job <saf-ex-hps-job-submission-backend-code-monitor-job>` for the declaration of ``_push_status``;
+  - :ref:`Update the status display <saf-ex-hps-job-submission-frontend-code-status>` for the callback that handles the status events;
+  - :ref:`React to the termination event <saf-ex-hps-job-submission-frontend-code-termination>` for the callback that handles the termination event; and
+  - :ref:`Build the layout <saf-ex-hps-job-submission-frontend-code-layout>` for the layout that declares the status and termination event streams.
+
+.. key-concept:: Input transfer
+
+    Files and directories referenced by ``Path``, ``EntityHandle``, ``HpsInputFileSpecification``, or
+    ``HpsInputDirectorySpecification`` are copied to HPS and passed to the remote function as named
+    arguments of the ``execute`` call.
 
 .. _saf-ex-hps-job-submission-backend-code-execute-call:
 
-Backend (Solution Definition - Start Job)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. dropdown:: Start the job
+  :open:
 
-The following code shows the second part of the long running transaction method, ``run_job``, that starts the HPS Job
-(subsequent parts monitor the job status and retrieve the outputs).
-
-.. dropdown:: Backend code - Solution Definition - Start Job
+  The following code shows the second part of the long running transaction method, ``run_job``, that starts the HPS Job
+  (subsequent parts monitor the job status and retrieve the outputs).
 
   .. code-block:: python
 
@@ -227,32 +286,36 @@ The following code shows the second part of the long running transaction method,
 
         self._push_status("HPS Job submitted")
 
-The transaction method calls the ``execute`` method on the instance of ``HpsExecutionSpecification`` which:
+  The transaction method calls the ``execute`` method on the instance of ``HpsExecutionSpecification`` which:
 
   - specifies the inputs to the job (via the parameters passed to the ``execute`` method which must be named);
   - starts the job execution in HPS; and
-  - returns a handle to the HPS project that enables the job to be monitored (see :ref:`saf-ex-hps-job-submission-backend-code-monitor-job`).
+  - returns a handle to the HPS project that enables the job to be monitored (see :ref:`Monitor the job <saf-ex-hps-job-submission-backend-code-monitor-job>`).
 
-The files and directories referenced by ``pathlib.Path``, ``EntityHandle``, ``HpsInputFileSpecification`` and ``HpsInputDirectorySpecification``
-are transferred to HPS.  The paths to these copies are passed to the ``calculate_sum`` function as arguments and the files are located in the
-current directory during the execution of the function. The names of these files and directories are derived from the argument values passed
-to the ``execute`` method.  ``HpsInputFileSpecification`` and ``HpsInputDirectorySpecification`` provide arguments that can override these names.
+  The files and directories referenced by ``pathlib.Path``, ``EntityHandle``, ``HpsInputFileSpecification`` and ``HpsInputDirectorySpecification``
+  are transferred to HPS.  The paths to these copies are passed to the ``calculate_sum`` function as arguments and the files are located in the
+  current directory during the execution of the function. The names of these files and directories are derived from the argument values passed
+  to the ``execute`` method.  ``HpsInputFileSpecification`` and ``HpsInputDirectorySpecification`` provide arguments that can override these names.
 
-In the example case the job has:
+  In the example case the job has:
 
   - two float input parameters, ``first_arg`` and ``second_arg``;
   - a file input parameter, ``persisted_input_file``;
   - a file input parameter, ``transient_input_file`` which is renamed to ``redirected_input.json`` when copied to HPS;
   - two directory input parameters, ``transient_input_directory`` and ``persisted_input_directory``;
 
+.. key-concept:: Long-running transaction method
+
+    A transaction method decorated with ``@long_running`` executes asynchronously, so the UI stays
+    responsive while the job runs. Setting ``enable_termination_event=True`` on the ``@transaction``
+    decorator raises a termination event on the stream named after the method when it ends.
+
 .. _saf-ex-hps-job-submission-backend-code-monitor-job:
 
-Backend (Solution Definition - Monitor Job)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. dropdown:: Monitor the job and retrieve its outputs
+  :open:
 
-The following code shows the third part of the long running transaction method, ``run_job``, that monitors the HPS Job and retrieves outputs from HPS
-
-.. dropdown:: Backend code - Solution Definition - Monitor Job
+  The following code shows the third part of the long running transaction method, ``run_job``, that monitors the HPS Job and retrieves outputs from HPS
 
   .. code-block:: none
 
@@ -293,45 +356,54 @@ The following code shows the third part of the long running transaction method, 
         self.transaction.raise_event(status, stream_name="status")
         self.transaction.upload(["status"])
 
-The transaction method uses the HPS project handle variable ``hps_project`` to access the job status and results.
-(``hps_project`` is assigned to the return value of the ``execute`` method.)
-The method iterates until the job has stopped running or has exceeded an expected execution duration.
-The method can detect the job has stopped by accessing the ``hps_project.finished`` attribute.
+  The transaction method uses the HPS project handle variable ``hps_project`` to access the job status and results.
+  (``hps_project`` is assigned to the return value of the ``execute`` method.)
+  The method iterates until the job has stopped running or has exceeded an expected execution duration.
+  The method can detect the job has stopped by accessing the ``hps_project.finished`` attribute.
 
-.. note::
+  .. note::
 
-    It is possible to define the maximum execution time of the job execution via the ``HpsExecutionSpecification`` parameter ``max_execution_time``.
-    That does not constrain the time taken by HPS to create the job record, transfer input files and start the job on an execution node.
-    Relying on the ``max_execution_time`` assumes that the HPS infrastructure functions correctly.
+      It is possible to define the maximum execution time of the job execution via the ``HpsExecutionSpecification`` parameter ``max_execution_time``.
+      That does not constrain the time taken by HPS to create the job record, transfer input files and start the job on an execution node.
+      Relying on the ``max_execution_time`` assumes that the HPS infrastructure functions correctly.
 
-    As a result solutions should not wait indefinitely for HPS jobs to finish but should, as shown here, stop monitoring the job after a certain period of time.
+      As a result solutions should not wait indefinitely for HPS jobs to finish but should, as shown here, stop monitoring the job after a certain period of time.
 
-At various points the transaction method updates the project and the UI to reflect the current job status via the ``_push_status`` method.
-This method streams status updates to the UI via the ``status`` event stream and uploads the status field so that it is persisted.
+  At various points the transaction method updates the project and the UI to reflect the current job status via the ``_push_status`` method.
+  This method streams status updates to the UI via the ``status`` event stream and uploads the status field so that it is persisted.
 
-The transaction method detects whether the job finished successfully via the ``hps_project.status.evaluation_status`` attribute.
+  The transaction method detects whether the job finished successfully via the ``hps_project.status.evaluation_status`` attribute.
 
-If the transaction is successful the method updates the output file, output directory, and result step fields corresponding values from the ``hps_project``.
-These values are accessed as attributes of the ``hps_project`` with the same names as the keys in the ``output_parameters`` dictionary passed to the
-``HpsExecutionSpecification``.
+  If the transaction is successful the method updates the output file, output directory, and result step fields corresponding values from the ``hps_project``.
+  These values are accessed as attributes of the ``hps_project`` with the same names as the keys in the ``output_parameters`` dictionary passed to the
+  ``HpsExecutionSpecification``.
 
-See
+  See
 
-  - :ref:`saf-ex-hps-job-submission-frontend-code-status` for the callback that handles the status events;
-  - :ref:`saf-ex-hps-job-submission-frontend-code-termination` for the callback that handles the termination event; and
-  - :ref:`saf-ex-hps-job-submission-frontend-code-layout` for the layout that declares the status and termination event streams.
+  - :ref:`Update the status display <saf-ex-hps-job-submission-frontend-code-status>` for the callback that handles the status events;
+  - :ref:`React to the termination event <saf-ex-hps-job-submission-frontend-code-termination>` for the callback that handles the termination event; and
+  - :ref:`Build the layout <saf-ex-hps-job-submission-frontend-code-layout>` for the layout that declares the status and termination event streams.
+
+
+.. _saf-ex-hps-job-submission-frontend:
+
+:material-outlined:`web;1.25em;sd-text-primary` Frontend
+----------------------------------------------------------
+
+Expose the solution definition in the UI.
+
+.. key-concept:: Event listener
+
+    An **event listener** is a frontend component created with ``DashClient.create_event_listener``.
+    It subscribes the page to a backend event stream and fires a callback every time a message is
+    raised on that stream, which removes the need to poll the backend for progress.
 
 .. _saf-ex-hps-job-submission-frontend-code-layout:
 
-Frontend (Layout)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. dropdown:: Build the layout
+  :open:
 
-The following code shows the layout code that creates the initial UI:
-
-.. figure:: /_static/images/initial_layout.png
-  :width: 75%
-
-.. dropdown:: Frontend code - Layout
+  The following code shows the layout code that creates the initial UI.
 
   .. code-block:: python
 
@@ -418,20 +490,23 @@ The following code shows the layout code that creates the initial UI:
             ]
         )
 
-This code enables or disables the UI depending on whether the transaction method ``step.run_job()`` is currently running.
+  This code enables or disables the UI depending on whether the transaction method ``step.run_job()`` is currently running.
 
-This code declares two event listeners for 2 streams: ``status`` which receives string to display in the status display component (``hps-progress``) and
-``run-job`` which receives a message when the job terminates (that changes the state of the UI).
-The callback handling the ``status`` events is documented in :ref:`saf-ex-hps-job-submission-frontend-code-status`.
-The callback handling the ``run-job`` events is documented in :ref:`saf-ex-hps-job-submission-frontend-code-termination`.
+  This code declares two event listeners for 2 streams: ``status`` which receives string to display in the status display component (``hps-progress``) and
+  ``run-job`` which receives a message when the job terminates (that changes the state of the UI).
+  The callback handling the ``status`` events is documented in :ref:`Update the status display <saf-ex-hps-job-submission-frontend-code-status>`.
+  The callback handling the ``run-job`` events is documented in :ref:`React to the termination event <saf-ex-hps-job-submission-frontend-code-termination>`.
 
-Frontend (Callback starting job)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. key-concept:: Callback
 
-The following code shows the callback that starts the HPS Job:
+    A **callback** is a Dash-decorated function that fires in response to a UI event. In a SAF
+    solution, callbacks reach the backend through ``project.steps.<step_name>``, read or write
+    fields, and invoke transaction methods — no manual HTTP calls needed.
 
-.. dropdown:: Frontend code - Callback starting job
+.. dropdown:: Start the job from the frontend
+  :open:
 
+  The following code shows the callback that starts the HPS Job.
 
   .. code-block:: python
 
@@ -453,7 +528,7 @@ The following code shows the callback that starts the HPS Job:
         step.run_job()
         return step.status, True, True, True, ""
 
-This method:
+  This method:
 
   - triggered when the calculate button is clicked
   - extracts the job inputs from the display field via the ``write_persisted_inputs`` method
@@ -464,12 +539,10 @@ This method:
 
 .. _saf-ex-hps-job-submission-frontend-code-status:
 
-Frontend (Callback updating status)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. dropdown:: Update the status display
+  :open:
 
-The following code shows the callback that updates the status display
-
-.. dropdown:: Frontend code - Callback updating status
+  The following code shows the callback that updates the status display.
 
   .. code-block:: python
 
@@ -490,18 +563,22 @@ The following code shows the callback that updates the status display
         message_str = json.loads(message["data"])
         return message_str, True, True, True, ""
 
-This method is triggered when a status event is raised by the backend.
-This method updates the status display component with the payload of the received event,
-maintains the disabled state of the input components and blanks the result display component.
+  This method is triggered when a status event is raised by the backend.
+  This method updates the status display component with the payload of the received event,
+  maintains the disabled state of the input components and blanks the result display component.
+
+.. key-concept:: Termination event
+
+    When a long-running transaction method ends, a **termination event** is raised on the stream
+    named after the method. The frontend uses it to leave the running state: re-enable the inputs
+    and display the final status and result.
 
 .. _saf-ex-hps-job-submission-frontend-code-termination:
 
-Frontend (Callback handling termination)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. dropdown:: React to the termination event
+  :open:
 
-The following code shows the callback that updates the UI in responds to the termination of the ``run_job`` transaction method
-
-.. dropdown:: Frontend code - Callback handling termination
+  The following code shows the callback that updates the UI in responds to the termination of the ``run_job`` transaction method.
 
   .. code-block:: python
 
@@ -525,5 +602,18 @@ The following code shows the callback that updates the UI in responds to the ter
             step.status = "Calculation Failed"
         return step.status, False, False, False, str(step.result) if step.result is not None else ""
 
-This method is triggered when the transaction method ``run_job`` terminates.
-This method updates the UI to reflect the final status of the job and re-enables the input fields.
+  This method is triggered when the transaction method ``run_job`` terminates.
+  This method updates the UI to reflect the final status of the job and re-enables the input fields.
+
+  Now that your implementation is complete, continue to the :ref:`saf-ex-hps-job-submission-testing` section.
+
+
+.. _saf-ex-hps-job-submission-testing:
+
+:octicon:`verified;1em;sd-text-primary`  Testing
+==================================================
+
+Finally, test your implementation to confirm it works as expected.
+
+Run the solution and compare your results with the results shown in the
+:ref:`Feature highlight <saf-ex-hps-job-submission-feature-highlight>` section.

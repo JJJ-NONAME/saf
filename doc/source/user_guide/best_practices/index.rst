@@ -75,6 +75,14 @@ This section provides examples of best practices to use when building your solut
 
     Manage solution files and avoid common file handling errors.
 
+   .. grid-item-card:: :material-outlined:`task_alt;1.75em` :ref:`best_practices_bdm`
+    :class-card: highlight-card
+    :link-type: doc
+    :link: bdm
+    :shadow: lg
+
+    Follow recommended patterns for reliable and maintainable file management with BDM.
+
    .. grid-item-card:: :material-outlined:`apps;1.75em` :ref:`best_practices_product_instance_management`
     :class-card: highlight-card
     :link-type: doc
@@ -127,6 +135,7 @@ This section provides examples of best practices to use when building your solut
    data_model
    transaction_methods
    files
+   bdm
    product_instances
    environment_variables
    frontend

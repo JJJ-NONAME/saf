@@ -83,9 +83,6 @@ def initialize_aedt_controls(project: ExamplesSolution) -> dict[str, dict[str, A
 
 def layout(project: ExamplesSolution) -> html.Div:
     """Layout of the AEDT step UI."""
-
-    step = project.steps.aedt_step
-
     controls = initialize_aedt_controls(project)
 
     controls_card = dmc.Card(
@@ -104,9 +101,7 @@ def layout(project: ExamplesSolution) -> html.Div:
                 [
                     dmc.Tooltip(
                         dmc.ActionIcon(
-                            DashIconify(
-                                icon="streamline:startup-solid", width=30, style={"color": "var(--mantine-color-body)"}
-                            ),
+                            DashIconify(icon="streamline:startup-solid", width=30),
                             id="launch-aedt-button",
                             size="xl",
                             color="#2790F1",
@@ -118,7 +113,7 @@ def layout(project: ExamplesSolution) -> html.Div:
                     ),
                     dmc.Tooltip(
                         dmc.ActionIcon(
-                            DashIconify(icon="mdi:shutdown", width=30, style={"color": "var(--mantine-color-body)"}),
+                            DashIconify(icon="mdi:shutdown", width=30),
                             id="shutdown-aedt-button",
                             size="xl",
                             color="#2790F1",
@@ -145,7 +140,7 @@ def layout(project: ExamplesSolution) -> html.Div:
                         leftSection=DashIconify(icon="material-symbols:square-outline"),
                         disabled=controls["add_rectangle"]["disabled"],
                         loading=controls["add_rectangle"]["loading"],
-                        style={"width": "70%", "font-size": "15px", "color": "var(--mantine-color-body)"},
+                        style={"width": "70%", "font-size": "15px"},
                     ),
                     dmc.Button(
                         "Analyze Design",
@@ -155,7 +150,7 @@ def layout(project: ExamplesSolution) -> html.Div:
                         leftSection=DashIconify(icon="tabler:analyze"),
                         disabled=controls["analyze_design"]["disabled"],
                         loading=controls["analyze_design"]["loading"],
-                        style={"width": "70%", "font-size": "15px", "color": "var(--mantine-color-body)"},
+                        style={"width": "70%", "font-size": "15px"},
                     ),
                 ],
                 align="center",
@@ -221,8 +216,6 @@ def layout(project: ExamplesSolution) -> html.Div:
                 className="display-3",
                 style={"font-size": "40px", "font-weight": "bold"},
             ),
-            html.Hr(className="my-2"),
-            dmc.Space(h=20),
             dmc.Blockquote(
                 "This example demonstrates how to leverage the instance management API to control AEDT.\
                 Click the Launch button to\
@@ -267,6 +260,7 @@ def layout(project: ExamplesSolution) -> html.Div:
             html.Br(),
             html.Br(),
         ],
+        style={"paddingLeft": "20px"},
     )
 
 

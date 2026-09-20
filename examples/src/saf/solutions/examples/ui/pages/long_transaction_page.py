@@ -39,7 +39,6 @@ dash.register_page(
 
 
 def layout(project: ExamplesSolution) -> html.Div:
-    step = project.steps.long_transaction_step
     """Layout of the long transaction example page."""
     return html.Div(
         [
@@ -48,8 +47,6 @@ def layout(project: ExamplesSolution) -> html.Div:
                 className="display-3",
                 style={"font-size": "40px", "font-weight": "bold"},
             ),
-            html.Hr(className="my-2"),
-            html.Br(),
             dmc.Blockquote(
                 "Use SAF GLOW to show a progress bar that displays the status of a long-running transaction.",
                 icon=DashIconify(icon="material-symbols:info", width=30),
@@ -62,14 +59,15 @@ def layout(project: ExamplesSolution) -> html.Div:
                 "Run test",
                 id="run-button",
                 n_clicks=0,
-                style={"font-size": "16px", "color": "var(--mantine-color-body)", "background-color": "#2790F1"},
+                style={"font-size": "16px", "background-color": "#2790F1"},
             ),
             html.Br(),
             html.Br(),
             html.Div([dmc.Progress(id="completion-progress", className="mb-3", value=0)]),
             html.Div(id="status-line", children=["No transaction is running yet."]),
             dcc.Interval(id="interval-refresh", interval=1 * 1000, n_intervals=0, disabled=True),  # in milliseconds
-        ]
+        ],
+        style={"paddingLeft": "20px"},
     )
 
 

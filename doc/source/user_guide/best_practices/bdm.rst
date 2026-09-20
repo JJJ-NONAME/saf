@@ -1,5 +1,7 @@
 .. _bdm_best_practice:
 
+.. _best_practices_bdm:
+
 BDM best practices
 ###################
 When working with the BDM feature in your solution, consider the following best practices to ensure optimal performance and maintainability:

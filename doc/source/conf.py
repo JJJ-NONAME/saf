@@ -705,6 +705,5 @@ rst_epilog = build_rst_epilog()
 
 # Cross-references to labels defined in components not yet migrated to this site
 nitpick_ignore = [
-    ("ref", "supported-hps-version"),
     ("ref", "run-solution-index"),
 ]

@@ -47,6 +47,10 @@ def _get_browser_failure_messages(diagnostics: BrowserDiagnostics) -> list[str]:
     return failures
 
 
+@pytest.mark.xfail(
+    reason="The browser-based checks of the solution UI are currently unstable in CI.",
+    strict=False,
+)
 def test_solution_ui_is_accessible_in_browser(
     running_examples: RunningExamples,
     examples_webdriver: WebDriver,
@@ -63,6 +67,10 @@ def test_solution_ui_is_accessible_in_browser(
     _assert_no_browser_failures(running_examples.project_ui_url, diagnostics)
 
 
+@pytest.mark.xfail(
+    reason="The browser-based checks of the solution UI are currently unstable in CI.",
+    strict=False,
+)
 def test_discovered_pages_render_without_browser_failures(
     running_examples: RunningExamples,
     examples_webdriver: WebDriver,

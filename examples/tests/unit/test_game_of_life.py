@@ -28,7 +28,7 @@ from typing import Optional
 import numpy as np
 import pytest
 
-from saf.solutions.examples.solution.game_of_life import (
+from saf.solutions.examples.solution.logic.game_of_life import (
     GameOfLifeEngine,
     Pattern,
     PatternCategory,

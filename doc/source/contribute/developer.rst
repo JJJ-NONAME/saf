@@ -98,7 +98,7 @@ Two different tools are used, depending on where you work:
       - ``uv``
     * - Package development, tests, and package code style checks
       - ``packages/<package-name>``
-      - Poetry
+      - ``Poetry``
 
 
 .. _install_for_developers:

@@ -49,8 +49,6 @@ def layout() -> html.Div:
         dmc.Container(
             [
                 html.H1("Beam Deflection", className="display-3", style={"font-size": "40px", "font-weight": "bold"}),
-                html.Hr(className="my-2"),
-                dmc.Space(h=20),
                 dmc.Blockquote(
                     "In this example, we will predict the deflection of a simply supported beam subjected to a "
                     "concentrated load using the Euler-Bernoulli beam theory and Ansys MAPDL. The goal is to "
@@ -182,7 +180,6 @@ def layout() -> html.Div:
             className="py-3",
         ),
         style={
-            "background-color": "var(--mantine-color-body)",
             "border-radius": "10px",
             "padding": "20px",
             "box-shadow": "0 4px 8px rgba(0, 0, 0, 0.1)",

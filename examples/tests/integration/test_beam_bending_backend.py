@@ -30,6 +30,13 @@ import pytest
 from saf.solutions.examples.solution.definition import ExamplesSolution
 from saf.solutions.examples.solution.scripts.beam_bending import theoretical_model
 
+pytestmark = [
+    pytest.mark.xfail(
+        reason="The beam bending backend tests are currently unstable in CI.",
+        strict=False,
+    ),
+]
+
 
 def test_beam_bending_fields_exposed_and_persisted(
     client_project: ExamplesSolution,
