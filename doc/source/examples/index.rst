@@ -4,40 +4,20 @@
 Examples
 ########
 
-Each example demonstrates how to implement a specific feature in a solution application. Unless otherwise indicated, examples are both integrated into the :ref:`Solution Examples <examples_solution>` solution and addressed in :ref:`this documentation <examples_instructions>`.
+Each example demonstrates how to implement a specific feature in a solution application. Unless otherwise indicated, examples are both integrated into the :ref:`Examples Solution <examples_solution>`.
 
-.. _examples_solution:
+.. grid:: 1
+  :gutter: 4
+  :class-container: onboarding-cards
 
-Set up the example solution
-============================
+  .. grid-item-card:: :material-outlined:`rocket_launch;1.75em` :ref:`examples_solution`
+    :class-card: highlight-card
+    :link-type: doc
+    :link: set_up_example_solution
+    :shadow: lg
 
-The example solution provided in the ``saf/examples`` directory demonstrates selected SAF examples. Follow these instructions to install and run the solution.
+    Install and run the example solution provided in the ``saf/examples`` directory to follow along with the examples in this section.
 
-#. Ensure you've fulfilled all requirements noted in the :ref:`prerequisites` section.
-
-#. In a local clone of the ``saf`` repository, move to the ``examples`` folder:
-
-   .. code-block:: bash
-
-     cd saf/examples
-
-#. Install the solution:
-
-   .. code-block:: bash
-
-       saf install -f
-
-#. Run the solution:
-
-   .. code-block:: bash
-
-     saf run
-
-
-.. _examples_instructions:
-
-Get example instructions
-==========================
 
 To get detailed instructions for examples, either click a category in the left navigation sidebar or click the corresponding card below:
 
@@ -218,6 +198,7 @@ To get detailed instructions for examples, either click a category in the left n
   :hidden:
   :maxdepth: 3
 
+  set_up_example_solution
   ui_components_visualization_examples/index
   data_file_management_examples/index
   transaction_methods_examples/index

@@ -3,8 +3,6 @@
 Plotly graphs
 #############
 
-.. _saf-ex-plotly-graph-summary:
-
 .. topic:: Objective
 
   Use Plotly graphs to display step field data in a solution UI.
@@ -12,14 +10,23 @@ Plotly graphs
   Source code for this example is in the `example solution <https://github.com/ansys/saf/tree/main/examples>`_.
 
 
-.. _saf-ex-plotly-graph-objective:
+.. _saf-ex-plotly-graph-feature-highlight:
 
-:material-outlined:`ads_click;1.25em;sd-text-primary` Objective
-==================================================================
+:material-outlined:`emoji_objects;1.25em;sd-text-primary` Feature highlight
+============================================================================
 
 The user interface (UI) of a solution app can display both **input data** (such as strings, integers, floats, and files) and **output data** (such as 1D/2D/3D graphics, 3D viewers, and images).
 
-As a solution developer, you must know how to display step field data in the UI. This example demonstrates how to display step field data a static plot in the solution UI.
+In this example, you learn how to:
+
+- :material-outlined:`functions;1.25em;saf-objective-icon` Write **business logic** that computes
+  the transcendental butterfly curve with NumPy.
+- :material-outlined:`data_object;1.25em;saf-objective-icon` Store the curve data in **typed step
+  fields** and expose a **transaction method** that (re)computes it.
+- :material-outlined:`show_chart;1.25em;saf-objective-icon` Render the data with a Dash
+  ``dcc.Graph`` component and customize its layout.
+- :material-outlined:`bolt;1.25em;saf-objective-icon` Wire a **callback** so UI controls
+  trigger the backend computation and refresh the plot.
 
 When you complete this example, you can expect the following output in the solution UI:
 
@@ -39,198 +46,163 @@ To render any Plotly-powered data visualization, you need the ``dcc.Graph`` comp
 
 .. _saf-ex-plotly-graph-solution:
 
-:octicon:`code-square;1em;sd-text-primary` Solution
+:octicon:`code-square;1em;sd-text-primary` Coding
 ======================================================
 
-To display a simple set of points in a two-dimensional Plotly graph, work through the following sequence of tabs.
+To display a set of points in a two-dimensional Plotly graph, work through the following sequence of sections.
 
 
-.. tab-set::
+.. _saf-ex-plotly-graph-logic:
 
-  .. tab-item:: 1️⃣Logic
-    :name: saf-ex-plotly-graph-logic-tab
+:material-outlined:`functions;1.25em;sd-text-primary` Logic
+------------------------------------------------------------
 
-    Write the business logic.
+Write the business logic.
 
-    .. dropdown:: Create a method to generate the data
-      :open:
+.. key-concept:: Business logic
 
-      In the ``logic`` folder, create a module named ``parametric_curves.py``.
+    Business logic is plain Python: it has no dependency on SAF and can be developed and
+    tested on its own before it is wired into a step.
 
-      In this module, create a ``compute_rd_curve`` method to generate the set of points.
+.. dropdown:: Compute the curve coordinates
+  :open:
 
-      .. code-block:: bash
-        :caption: solution/logic/parametric_curves.py
+  In the ``solution/logic`` folder, the ``butterfly_curve.py`` module exposes a
+  ``compute_butterfly_curve`` function that generates the set of points of the
+  `transcendental butterfly curve <https://en.wikipedia.org/wiki/Butterfly_curve_(transcendental)>`_
+  for the given parameters.
 
-        def compute_rd_curve(points: int = 10000) -> tuple:
-          t = np.linspace(-6, 6, points)
-          x_s = 10*np.sin(9.9*t)*np.round(np.sqrt(np.cos(np.cos(10*t))))
-          y_s = 9*np.cos(9.9*t)**2*np.sin(np.sin(10*t))
-          x, y = np.empty(0), np.empty(0)
-          for alpha in np.linspace(0, 360, 6):
-            alpha = np.radians(alpha)
-            x = np.append(x, x_s*np.cos(alpha) + y_s*np.sin(alpha), axis=0)
-            y = np.append(y, -x_s*np.sin(alpha) + y_s*np.cos(alpha), axis=0)
-          d = np.sqrt(x**2 + y**2)
-          return x.tolist(), y.tolist(), d.tolist()
+  .. literalinclude:: ../../../../examples/src/saf/solutions/examples/solution/logic/butterfly_curve.py
+    :language: python
+    :caption: solution/logic/butterfly_curve.py
+    :pyobject: compute_butterfly_curve
 
 
-  .. tab-item:: 2️⃣Backend
-    :name: saf-ex-plotly-graph-backend-tab
+.. _saf-ex-plotly-graph-backend:
 
-    Create the solution definition.
+:material-outlined:`dns;1.25em;sd-text-primary` Backend
+---------------------------------------------------------
 
-    .. dropdown:: Define the step model
-      :open:
+Create the solution definition.
 
-      Let ``x_coords`` and ``y_coords`` be the x and y coordinates of a set of points you
-      want to display in the solution UI. Declare these as step fields in the step model for the **Compute** step.
+.. key-concept:: Typed field
 
-      In the ``solution`` folder, create a module named ``compute_step.py``.
+    A field is a class attribute with a **type annotation** and a default value. SAF uses
+    the annotation to persist the field, expose it through the REST API, and surface it to
+    the frontend through the ``DashClient``.
 
-      In this module, create a ``compute_parametric_curve`` transaction method to invoke the ``compute_rd_curve`` business logic method.
+.. dropdown:: Define the step fields
+  :open:
 
-      .. code-block:: bash
-        :caption: solution/compute_step.py
+  Let ``x_coords`` and ``y_coords`` be the x and y coordinates of a set of points you
+  want to display in the solution UI. Declare these as step fields, alongside the
+  parameters that control the shape of the curve.
 
-                class ComputeStep(StepModel):
-                    """Step model of the compute step."""
+  .. literalinclude:: ../../../../examples/src/saf/solutions/examples/solution/basic_step.py
+    :language: python
+    :caption: solution/basic_step.py
+    :lines: 73-86
+    :emphasize-lines: 7-14
+    :dedent:
 
-                    x_coords: list = []
-                    y_coords: list = []
-                    distance: list = []
+.. key-concept:: Transaction method
 
-                    @transaction(
-                        self=StepSpec(
-                            upload=[
-                                "x_coords",
-                                "y_coords",
-                                "distance"
-                            ]
-                        )
-                    )
-                    def compute_parametric_curve(self) -> None:
-                        """Method to compute the sum of two numbers."""
-                        self.x_coords, self.y_coords, self.distance = parametric_curves.compute_rd_curve()
+    A **transaction method** is the only place where step fields are read and written. Any
+    method that touches a field must be decorated with ``@transaction``, which declares the
+    fields it downloads (reads) and uploads (writes) through its ``StepSpec``.
 
+.. dropdown:: Add a transaction method to compute the curve
+  :open:
 
-  .. tab-item:: 3️⃣Frontend
-    :name: saf-ex-plotly-graph-frontend-tab
+  Create a ``compute_butterfly_curve`` transaction method that invokes the
+  ``compute_butterfly_curve`` business logic function and stores the result in the step fields.
 
-    Expose the solution definition in the UI.
+  .. literalinclude:: ../../../../examples/src/saf/solutions/examples/solution/basic_step.py
+    :language: python
+    :caption: solution/basic_step.py
+    :lines: 195-222
+    :dedent:
 
-    .. dropdown:: Initialize the Plotly graph
-      :open:
+.. important::
 
-      In the ``ui/pages`` folder, create a ``compute_page.py`` module to define the page layout for the **Compute** step.
+  This example deliberately uses a **blocking** transaction method rather than a
+  long-running one. The business logic was tested beforehand and computes the curve in
+  less than a second, so blocking the UI for that duration is safe and keeps the code
+  simpler.
 
-      In the ``layout`` function, add a ``dcc.Graph`` component and pass it the data you want to show.
-
-      .. code-block:: bash
-        :caption: ui/pages/compute_page.py
-
-          dcc.Graph(
-                  id="graph",
-                  figure={
-                      "data": [
-                          {
-                              "type": "scatter",
-                              "x": step.x_coords,
-                              "y": step.y_coords
-                          },
-                      ]
-                  }
-              )
-
-    .. dropdown:: Customize the figure layout
-      :open:
-
-      In the ``dcc.Graph`` component, customize the layout of the figure using the ``layout`` key.
-
-      * Use the ``width`` and ``height`` options to control the size of the figure.
-      * Use the ``margin`` option to adjust the margins relative to the graph box.
-
-      Plotly enables many kinds of customization. For more information, see its `documentation <https://plotly.com/python-api-reference/generated/plotly.graph_objects.Layout.html>`_ .
-
-      .. code-block:: bash
-        :caption: ui/pages/compute_page.py
-
-          dcc.Graph(
-              id="graph",
-              figure={
-                  "data": [
-                      {
-                          "type": "scatter",
-                          "x": step.x_coords,
-                          "y": step.y_coords
-                      },
-                  ],
-                  "layout": {
-                      "width": 600,
-                      "height": 600,
-                      "margin": {
-                          "l": 0,
-                          "r": 0,
-                          "b": 0,
-                          "t": 0,
-                      },
-                  }
-              }
-          )
+  Nothing prevents you from converting it to a long-running transaction method by adding
+  the ``@long_running`` decorator if your own computation takes longer. For more
+  information, see :ref:`saf-ex-long-transaction`.
 
 
-    .. dropdown:: Trigger the backend processes
-      :open:
+.. _saf-ex-plotly-graph-frontend:
 
-      In the ``layout`` function, create a button to trigger the backend coordinates computation from the frontend.
+:material-outlined:`web;1.25em;sd-text-primary` Frontend
+----------------------------------------------------------
 
-      .. code-block:: bash
-        :caption: ui/pages/compute_page.py
+Expose the solution definition in the UI.
 
-        html.Div(
-            dbc.Button(
-                "Compute",
-                id="compute",
-                disabled=False,
-                style = {
-                    "display": "flex",
-                    "justify-content": "center",
-                    "align-items": "center",
-                    "fontSize": "100%",
-                    "background-color": "rgba(0, 0, 0, 1)",
-                    "border-color": "rgba(0, 0, 0, 1)",
-                    "height": "30px",
-                }
-            ),
-            className="d-grid gap-2 col-5 mx-auto",
+.. dropdown:: Initialize the Plotly graph
+  :open:
 
-    .. dropdown:: Add interactivity
-      :open:
+  In the ``ui/pages`` folder, the ``layout`` function of the page adds a ``dcc.Graph``
+  component and passes it the figure built from the step fields.
 
-      You can also introduce interactivity by adding callback to the step.
+  .. literalinclude:: ../../../../examples/src/saf/solutions/examples/ui/pages/basic/plot_page.py
+    :language: python
+    :caption: ui/pages/basic/plot_page.py
+    :lines: 251-270
+    :dedent:
 
-      For instance, the following callback updates the data you have displayed:
+.. key-concept:: Figure layout
 
-      .. code-block:: bash
-        :caption: ui/pages/compute_page.py
+    The ``layout`` key of a Plotly figure controls its size, axes and margins. Plotly
+    enables many kinds of customization. For more information, see its
+    `documentation <https://plotly.com/python-api-reference/generated/plotly.graph_objects.Layout.html>`_.
 
-          @callback(
-              Output("graph", "figure"),
-              Input("compute", "n_clicks"),
-              State("url", "pathname"),
-              State("graph", "figure"),
-              prevent_initial_call=True,
-          )
-          def update_graph_data(n_clicks, pathname, figure):
-              """Callback function to trigger the computation."""
-              project = DashClient[Cosmic_WaveSolution].get_project(pathname)
-              step = project.steps.compute_step
-              step.compute_parametric_curve()
-              figure["data"][0]["x"] = step.x_coords
-              figure["data"][0]["y"] = step.y_coords
-              return figure
+.. dropdown:: Build the figure
+  :open:
 
-      Now that your implementation is complete, continue to the :ref:`saf-ex-plotly-graph-testing` section.
+  The ``_butterfly_figure`` function builds the figure from the step fields. The points are
+  colored by their distance to the origin through the ``color`` and ``colorscale`` marker
+  options, the ``width`` and ``height`` options control the size of the figure, the
+  ``margin`` option adjusts the margins relative to the graph box, and the ``xaxis`` and
+  ``yaxis`` options display the axes with an equal aspect ratio.
+
+  .. literalinclude:: ../../../../examples/src/saf/solutions/examples/ui/pages/basic/plot_page.py
+    :language: python
+    :caption: ui/pages/basic/plot_page.py
+    :pyobject: _butterfly_figure
+
+.. dropdown:: Add controls to tune the curve parameters
+  :open:
+
+  Add a ``dmc.Slider`` component for each parameter so the user can play with the shape
+  of the curve. Each slider is initialized with the value currently stored in the step.
+
+  .. literalinclude:: ../../../../examples/src/saf/solutions/examples/ui/pages/basic/plot_page.py
+    :language: python
+    :caption: ui/pages/basic/plot_page.py
+    :pyobject: _butterfly_parameters
+
+.. key-concept:: Callback
+
+    A **callback** is a Dash-decorated function that fires in response to a UI event. In a
+    SAF solution, callbacks reach the backend through ``project.steps.<step_name>``, read or
+    write fields, and invoke transaction methods — no manual HTTP calls needed.
+
+.. dropdown:: Trigger the backend computation from the frontend
+  :open:
+
+  Write a callback that updates the curve parameter fields, invokes
+  ``compute_butterfly_curve``, and refreshes the figure with the new coordinates.
+
+  .. literalinclude:: ../../../../examples/src/saf/solutions/examples/ui/pages/basic/plot_page.py
+    :language: python
+    :caption: ui/pages/basic/plot_page.py
+    :pyobject: draw_butterfly_curve
+
+  Now that your implementation is complete, continue to the :ref:`saf-ex-plotly-graph-testing` section.
 
 
 .. _saf-ex-plotly-graph-testing:
@@ -240,5 +212,6 @@ To display a simple set of points in a two-dimensional Plotly graph, work throug
 
 Finally, test your implementation to confirm it works as expected.
 
-Run the solution and compare your results with the results shown in the :ref:`saf-ex-plotly-graph-objective` section.
+Run the solution and compare your results with the results shown in the
+:ref:`Feature highlight <saf-ex-plotly-graph-feature-highlight>` section.
 
