@@ -45,11 +45,6 @@ This example shows how to upload data a the transaction executes and add widgets
 
   Progress bar while transaction execution is in progress
 
-.. figure:: /_static/images/usage_saf_ex_long_transaction_output_3.png
-  :width: 100%
-
-  Progress bar when transaction execution is complete
-
 .. _saf-ex-long-transaction-solution:
 
 :octicon:`code-square;1em;sd-text-primary` Solution
