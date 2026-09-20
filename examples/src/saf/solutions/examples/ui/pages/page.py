@@ -94,7 +94,6 @@ def get_page_list(theme: str, active_index: str | None = None) -> list[dict[str,
 
     basic_children = [
         leaf("process_logs_page", "Process logs", "tabler:logs"),
-        leaf("file_upload_page", "File upload", "material-symbols:file-upload"),
         leaf("table_page", "Dash Table", "tabler:table-filled"),
         leaf("display_images_page", "Display Images", "material-symbols:image"),
         leaf("plot_page", "Plotly graph", "mdi:graph-line"),

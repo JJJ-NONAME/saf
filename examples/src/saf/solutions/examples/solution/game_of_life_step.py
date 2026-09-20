@@ -21,7 +21,7 @@
 
 from ansys.saf.glow.solution import StepModel, StepSpec, long_running, transaction
 
-from saf.solutions.examples.solution.game_of_life import SimulationController
+from saf.solutions.examples.solution.logic.game_of_life import SimulationController
 
 
 class GameOfLifeStep(StepModel):

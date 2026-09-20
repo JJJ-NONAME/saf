@@ -49,14 +49,6 @@ To get detailed instructions for examples, either click a category in the left n
     :gutter: 4
     :class-container: onboarding-cards
 
-    .. grid-item-card:: :material-outlined:`upload_file;1.75em` :ref:`saf-ex-file-upload`
-      :class-card: highlight-card
-      :link-type: doc
-      :link: data_file_management_examples/saf_ex_file_upload
-      :shadow: lg
-
-      Use SAF GLOW to upload files to a solution and use them to perform a simple computation.
-
     .. grid-item-card:: :material-outlined:`data_object;1.75em` :ref:`saf-ex-bdm`
       :class-card: highlight-card
       :link-type: doc

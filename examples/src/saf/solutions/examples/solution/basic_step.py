@@ -35,7 +35,7 @@ from ansys.bdm.api import NO_ENTITY, EntityHandle
 from ansys.saf.glow.solution import StepModel, StepSpec, long_running, transaction
 
 from saf.solutions.examples.solution.logic.butterfly_curve import compute_butterfly_curve
-from saf.solutions.examples.solution.scripts.table_logic import generate_table_data
+from saf.solutions.examples.solution.logic.table_logic import generate_table_data
 
 
 class BasicStep(StepModel):
@@ -72,6 +72,8 @@ class BasicStep(StepModel):
 
     result_files: list[EntityHandle] = []
     log_file: EntityHandle = NO_ENTITY
+
+    # Table data
     data_dict: dict[str, Any] = {}
     table_flag: bool = False
 

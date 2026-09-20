@@ -5,7 +5,8 @@ Plotly graphs
 
 .. topic:: Objective
 
-  Use Plotly graphs to display step field data in a solution UI.
+  Build an interactive 2D Plotly graph in a solution UI: compute the data in the backend,
+  store it in step fields, and let the user reshape the curve from the frontend.
 
   Source code for this example is in the `example solution <https://github.com/ansys/saf/tree/main/examples>`_.
 
@@ -101,8 +102,8 @@ Create the solution definition.
   .. literalinclude:: ../../../../examples/src/saf/solutions/examples/solution/basic_step.py
     :language: python
     :caption: solution/basic_step.py
-    :lines: 73-86
-    :emphasize-lines: 7-14
+    :lines: 73-88
+    :emphasize-lines: 8-16
     :dedent:
 
 .. key-concept:: Transaction method
@@ -120,7 +121,7 @@ Create the solution definition.
   .. literalinclude:: ../../../../examples/src/saf/solutions/examples/solution/basic_step.py
     :language: python
     :caption: solution/basic_step.py
-    :lines: 195-222
+    :lines: 197-224
     :dedent:
 
 .. important::
