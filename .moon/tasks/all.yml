@@ -85,7 +85,12 @@ tasks:
       - "$projectAlias"
       - "--all-extras"
       - "pytest"
-      - "$projectSource/tests/"
+      - "-p"
+      - "no:faulthandler"
+      - "--cov=."
+      - "--cov-report=term"
+      - "--cov-report=xml"
+      - "--cov-report=html"
     inputs:
       - "src/**/*"
       - "tests/**/*"
@@ -94,5 +99,3 @@ tasks:
     tags:
       - "ubuntu-latest"
       - "windows-latest"
-    options:
-      runFromWorkspaceRoot: true

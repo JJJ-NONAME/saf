@@ -167,6 +167,10 @@ concurrency:
   cancel-in-progress: true
 permissions: {}
 
+env:
+  USE_MOON: ${{ contains(inputs.package-name, 'bdm-python-api') }}
+  MOON_PYTHON_VERSION: ${{ inputs.python-version }}
+
 jobs:
   configure-tests:
     permissions:
@@ -310,6 +314,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          fetch-depth: 0 # For moon to have full git history
 
       - name: Prepare runner for tests
         if: matrix.prepare-runner == 'true' || matrix.upgrade-docker == 'true' ||
@@ -355,6 +360,7 @@ jobs:
             ]
 
       - name: Install dependencies
+        if: ${{ env.USE_MOON == 'false' }}
         id: prepare-env
         uses: ansys/saf-devops/prepare-python-environment@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
         with:
@@ -364,6 +370,17 @@ jobs:
             || '--with tests --all-extras' }}
           python-project-path: ${{ needs.configure-tests.outputs.working-directory
             }}
+
+      - name: Setup Moon Toolchain
+        if: ${{ env.USE_MOON == 'true' }}
+        uses: moonrepo/setup-toolchain-action@261c62cb5b0f580c7be7c8cd0f023a2e96756095 # v0.6.4
+        with:
+          auto-install: true
+
+      - name: Install Moon Dependencies
+        if: ${{ env.USE_MOON == 'true' }}
+        shell: bash
+        run: uv sync --python "$MOON_PYTHON_VERSION" --group dev --inexact
 
       - name: Install pim-light-server
         if: ${{ matrix.install-pim-light-server == 'true' }}
@@ -471,6 +488,7 @@ jobs:
 
       - name: Run tests
         id: run-tests
+        if: ${{ env.USE_MOON == 'false' }}
         uses: ansys/saf-devops/run-tests@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
         with:
           python-version: ${{ inputs.python-version }}
@@ -484,6 +502,27 @@ jobs:
           offline: ${{ matrix.offline || 'false' }}
           checkout: false
           skip-install: true
+
+
+
+      - name: Run moon tasks
+        if: ${{ env.USE_MOON == 'true' }}
+        shell: bash
+        env:
+          PACKAGE: bdm-python-api
+          PYTEST_ARGS: ${{ steps.pytest-args.outputs.pytest-args }}
+          REPORTS_DIR: "${{ matrix.test-report-artifact-name-suffix }}_${{ inputs.python-version
+            }}"
+        run: |
+          mkdir -p "$REPORTS_DIR"
+          moon run $PACKAGE:test -- $PYTEST_ARGS --html="$REPORTS_DIR/report.html" --md="$REPORTS_DIR/report.md"
+
+      - name: Report Moon Results
+        # Optional: Posts a clean markdown summary table of your test runs directly to the PR
+        uses: moonrepo/run-report-action@bbe7e99bf2aca819ec660ec01fc59d84bdd492d6 #v1.10.0
+        if: ${{ always() && env.USE_MOON == 'true' }}
+        with:
+          access-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish pytest logs
         if: always() && steps.run-tests.outcome != 'skipped'
