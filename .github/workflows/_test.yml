@@ -301,7 +301,7 @@ jobs:
       GITHUB_TOKEN: ${{ github.token }}
       ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
       USE_MOON: ${{ contains(inputs.package-name, 'bdm-python-api') || contains(inputs.working-directory, 'bdm-python-api') }}
-      MOON_PYTHON_VERSION: ${{ inputs.python-version }}
+      # MOON_PYTHON_VERSION: ${{ inputs.python-version }}
     steps:
       - name: Enable git long paths on Windows
         if: runner.os == 'Windows'
@@ -380,9 +380,6 @@ jobs:
       - name: Setup Moon Toolchain
         if: ${{ env.USE_MOON == 'true' }}
         uses: moonrepo/setup-toolchain@261c62cb5b0f580c7be7c8cd0f023a2e96756095 # v0.6.4
-        # with:
-        #   auto-install: false
-        #   auto-setup: true # Run "moon setup" using .moon/toolchains.yml
 
       - name: Install pim-light-server
         if: ${{ matrix.install-pim-light-server == 'true' }}

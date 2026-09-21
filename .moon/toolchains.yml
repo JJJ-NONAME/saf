@@ -1,8 +1,6 @@
 unstable_python:
   packageManager: "uv"
-  version: "3.11.10"
+  version: "3.12"
 
 unstable_uv:
   version: "0.11.11"
-  syncArgs:
-    - "--inexact" # preserves packages installed outside uv.lock, including the private dependency.
