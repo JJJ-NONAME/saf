@@ -502,7 +502,7 @@ jobs:
           checkout: false
           skip-install: true
 
-      - name: Run moon tasks
+      - name: Run tests (Moon)
         if: ${{ env.USE_MOON == 'true' }}
         shell: bash
         env:

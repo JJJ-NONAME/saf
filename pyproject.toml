@@ -62,7 +62,7 @@ doc = [
   "sphinxemoji>=0.2; python_version>='3.12'",
   "toml>=0.10.2; python_version>='3.12'",
 ]
-
+build
 
 [tool.setuptools]
 py-modules = []
