@@ -1,0 +1,5 @@
+unstable_python:
+  packageManager: "uv"
+  version: "3.11.10"
+
+unstable_uv: {}

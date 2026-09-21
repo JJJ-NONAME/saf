@@ -165,7 +165,7 @@ Never ship an installer you have not smoke-tested yourself.
              .. code-block:: text
 
                  C:\Program Files\ANSYS Inc\SAF Solutions\Game of Life Solution\1\
-              
+
              It might be necessary to run the ``.exe`` as an administrator.
 
           .. tab-item:: Linux

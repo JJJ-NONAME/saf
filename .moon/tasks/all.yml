@@ -1,0 +1,98 @@
+tasks:
+  build:
+    description: "Build wheel"
+    command:
+      - "uv"
+      - "build"
+      - "--package"
+      - "$projectAlias"
+    inputs:
+      - "src/**/*"
+      - "pyproject.toml"
+      - "/.python-version"
+    outputs:
+      - "/dist"
+    tags:
+      - "ubuntu-latest"
+    options:
+      runFromWorkspaceRoot: true
+
+  format:
+    description: "Run ruff format"
+    command:
+      - "uv"
+      - "run"
+      - "--package"
+      - "$projectAlias"
+      - "--all-extras"
+      - "ruff"
+      - "format"
+      - "--diff"
+      - "$projectSource"
+    inputs:
+      - "src/**/*"
+      - "tests/**/*"
+      - "pyproject.toml"
+      - "/.python-version"
+    tags:
+      - "ubuntu-latest"
+    options:
+      runFromWorkspaceRoot: true
+
+  format-fix:
+    description: "Fix ruff format"
+    command:
+      - "uv"
+      - "run"
+      - "--package"
+      - "$projectAlias"
+      - "--all-extras"
+      - "ruff"
+      - "format"
+      - "$projectSource"
+    options:
+      runFromWorkspaceRoot: true
+    preset: "utility"
+
+  bandit:
+    description: "Run bandit"
+    command:
+      - "uv"
+      - "run"
+      - "--package"
+      - "$projectAlias"
+      - "--all-extras"
+      - "bandit"
+      - "-r"
+      - "$projectSource/src"
+      - "--severity-level=high"
+    inputs:
+      - "src/**/*"
+      - "tests/**/*"
+      - "pyproject.toml"
+      - "/.python-version"
+    tags:
+      - "ubuntu-latest"
+    options:
+      runFromWorkspaceRoot: true
+
+  test:
+    description: "Run pytest"
+    command:
+      - "uv"
+      - "run"
+      - "--package"
+      - "$projectAlias"
+      - "--all-extras"
+      - "pytest"
+      - "$projectSource/tests/"
+    inputs:
+      - "src/**/*"
+      - "tests/**/*"
+      - "pyproject.toml"
+      - "/.python-version"
+    tags:
+      - "ubuntu-latest"
+      - "windows-latest"
+    options:
+      runFromWorkspaceRoot: true
