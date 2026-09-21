@@ -167,10 +167,6 @@ concurrency:
   cancel-in-progress: true
 permissions: {}
 
-env:
-  USE_MOON: ${{ contains(inputs.package-name, 'bdm-python-api') }}
-  MOON_PYTHON_VERSION: ${{ inputs.python-version }}
-
 jobs:
   configure-tests:
     permissions:
@@ -304,6 +300,8 @@ jobs:
       PIP_INDEX_URL: https://pypi.org/simple
       GITHUB_TOKEN: ${{ github.token }}
       ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
+      USE_MOON: ${{ contains(inputs.package-name, 'bdm-python-api') }}
+      MOON_PYTHON_VERSION: ${{ inputs.python-version }}
     steps:
       - name: Enable git long paths on Windows
         if: runner.os == 'Windows'
