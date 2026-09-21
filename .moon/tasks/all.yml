@@ -88,9 +88,15 @@ tasks:
     preset: "utility"
 
   test:
-    description: "Run pytest"
-    command:
-      - "uv"
+    command: 'noop' # A dummy entry point that merely anchors the OS tasks
+    deps:
+      - '~:pytest-windows'
+      - '~:pytest-linux'
+
+  pytest-windows:
+    description: "Run pytest on Windows"
+    command: 'uv'
+    args:
       - "run"
       - "--package"
       - "$projectAlias"
@@ -102,11 +108,38 @@ tasks:
       - "--cov-report=term"
       - "--cov-report=xml"
       - "--cov-report=html"
+    options:
+      os: 'windows'
+    env:
+      PYTEST_DEBUG_TEMPROOT: 'C:/'
     inputs:
       - "src/**/*"
       - "tests/**/*"
       - "pyproject.toml"
       - "/.python-version"
-    tags:
-      - "ubuntu-latest"
-      - "windows-latest"
+
+
+  pytest-linux:
+    description: "Run pytest on Linux"
+    command: 'uv'
+    args:
+      - "run"
+      - "--package"
+      - "$projectAlias"
+      - "--all-extras"
+      - "pytest"
+      - "-p"
+      - "no:faulthandler"
+      - "--cov=."
+      - "--cov-report=term"
+      - "--cov-report=xml"
+      - "--cov-report=html"
+    options:
+      os: 'linux'
+    env:
+      PYTEST_DEBUG_TEMPROOT: 'C:/'
+    inputs:
+      - "src/**/*"
+      - "tests/**/*"
+      - "pyproject.toml"
+      - "/.python-version"
