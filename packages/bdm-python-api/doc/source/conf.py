@@ -106,6 +106,7 @@ html_context = {
     "github_version": "main",
     "github_repo": "https://github.com/ansys/saf",
     "doc_path": "doc/source",
+    "default_mode": "dark",
 }
 
 html_theme_options = {

@@ -59,6 +59,7 @@ html_context = {
     "github_version": "main",
     "doc_path": "doc/source",
     "version": version,
+    "default_mode": "dark",
 }
 
 # Omit the generation of genindex.html
