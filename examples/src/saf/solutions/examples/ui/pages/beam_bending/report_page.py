@@ -132,8 +132,6 @@ def layout() -> html.Div:
     return html.Div(
         children=[
             html.H1("Engineering report", className="display-3", style={"font-size": "40px", "font-weight": "bold"}),
-            html.Hr(className="my-2"),
-            dmc.Space(h=20),
             dmc.Text(
                 ("Generate the engineering report from your beam bending analysis"),
                 c="dimmed",
@@ -148,7 +146,6 @@ def layout() -> html.Div:
                         leftSection=DashIconify(icon="mdi:file-document-refresh"),
                         style={
                             "font-size": "16px",
-                            "color": "var(--mantine-color-body)",
                             "background-color": "#2790F1",
                         },
                     ),
@@ -177,7 +174,13 @@ def layout() -> html.Div:
                 ],
             ),
         ],
-        style={"height": "100%", "width": "100%", "overflowY": "auto", "maxHeight": "calc(100vh - 8vh)"},
+        style={
+            "height": "100%",
+            "width": "100%",
+            "overflowY": "auto",
+            "maxHeight": "calc(100vh - 8vh)",
+            "paddingLeft": "20px",
+        },
     )
 
 

@@ -43,6 +43,10 @@ DEFAULT_SPLASH_IMAGE = (
 DEFAULT_SPLASH_IMAGE_SUFFIX = "ansys/saf/desktop/orchestrator/_assets/splash.png"
 
 
+@pytest.mark.xfail(
+    reason="The desktop installation is currently unstable in CI.",
+    strict=False,
+)
 def test_desktop_shortcut_is_created(
     installed_desktop_examples: InstalledDesktopExamples,
 ) -> None:

@@ -89,10 +89,11 @@ Where business logic belongs
 What matters is that business logic is grouped under the ``solution/`` package, next to the
 backend that orchestrates it. Beyond that, the layout is a **convention, not a constraint**:
 
-- Drop the modules at the root of ``solution/``, on the same level as ``definition.py`` and the
-  ``*_step.py`` modules. This is what you do in this tutorial.
-- Or, if the solution grows enough to justify it, group them in a sub-package of your choosing —
-  ``solution/logic/``, ``solution/solvers/``, whatever reads best for your domain.
+- Group the modules in a sub-package of your choosing — ``solution/logic/``,
+  ``solution/solvers/``, whatever reads best for your domain. This is what you do in this
+  tutorial, with ``solution/logic/``.
+- Or, for a very small solution, drop the modules at the root of ``solution/``, on the same
+  level as ``definition.py`` and the ``*_step.py`` modules.
 
 What is *not* negotiable is the separation between **what the solution computes** (the business
 logic modules) and **how it orchestrates the computation** (the ``StepModel`` classes). That
@@ -116,14 +117,14 @@ You are not going to write the engine. It already exists, and it is not the most
 
 .. practice::
 
-    #. Open `game_of_life.py <https://github.com/ansys/saf/blob/main/examples/src/saf/solutions/examples/solution/game_of_life.py>`__
+    #. Open `game_of_life.py <https://github.com/ansys/saf/blob/main/examples/src/saf/solutions/examples/solution/logic/game_of_life.py>`__
        on GitHub.
 
     #. Click the :bdg-primary:`Download raw file` button in the top-right corner of the code
        view.
 
-    #. Move the downloaded ``game_of_life.py`` into
-       ``src/saf/solutions/game_of_life/solution/``, next to ``definition.py``.
+    #. Create a ``logic`` folder in ``src/saf/solutions/game_of_life/solution/``, next to
+       ``definition.py``, and move the downloaded ``game_of_life.py`` into it.
 
 What's inside the module
 ========================
@@ -173,7 +174,7 @@ buried under framework layers is far harder to debug than one caught by a two-li
 The module ships a ``main()`` function for exactly that purpose: it seeds a 5x5 grid with the
 blinker and prints the first two generations.
 
-.. literalinclude:: ../../../../../examples/src/saf/solutions/examples/solution/game_of_life.py
+.. literalinclude:: ../../../../../examples/src/saf/solutions/examples/solution/logic/game_of_life.py
     :language: python
     :start-at: def main() -> None:
 
@@ -187,7 +188,7 @@ check, write a short throwaway script that imports the function and calls it.
 
        .. code-block:: python
 
-           from saf.solutions.game_of_life.solution.game_of_life import main
+           from saf.solutions.game_of_life.solution.logic.game_of_life import main
 
            main()
 

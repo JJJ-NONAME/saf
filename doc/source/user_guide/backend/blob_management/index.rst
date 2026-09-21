@@ -33,7 +33,7 @@ Blob Data Management (BDM)
 
   .. grid-item-card:: :material-outlined:`task_alt;1.75em` :ref:`bdm_best_practice`
     :class-card: highlight-card
-    :link-type: doc
+    :link-type: ref
     :link: bdm_best_practice
     :shadow: lg
 
@@ -80,7 +80,6 @@ Blob Data Management (BDM)
     bdm_introduction
     bdm_from_the_solution
     bdm_from_dash_client
-    bdm_best_practice
     bdm_directories
     bdm_method_asset_files
     bdm_garbage_collection

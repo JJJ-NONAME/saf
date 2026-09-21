@@ -67,8 +67,15 @@ def test_saf_install_verifies_locked_dependencies(
         f"stderr:\n{dependency_check.stderr}"
     )
 
+    # ``saf execute`` prints a line such as "Environment variables loaded from ..."
+    # to stdout before running the requested command whenever the solution has an
+    # ``.env`` file. Locate the JSON array poetry produced instead of assuming the
+    # whole stdout is JSON.
+    json_start = dependency_check.stdout.find("[")
+    assert json_start != -1, "Could not find a JSON array in the Poetry output.\n" f"Output:\n{dependency_check.stdout}"
+
     try:
-        packages = json.loads(dependency_check.stdout)
+        packages = json.loads(dependency_check.stdout[json_start:])
     except json.JSONDecodeError as error:
         raise AssertionError(
             "Poetry did not return valid JSON while reporting installed dependencies.\n"

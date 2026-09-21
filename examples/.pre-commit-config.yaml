@@ -59,6 +59,7 @@ repos:
     hooks:
       - id: add-license-headers
         files: '^examples/.*\.(py|bat|html|css|proto)$'
+        exclude: '^examples/src/saf/solutions/examples/ui/assets/css/style\.css$'
         args:
           - --custom_license=Apache-2.0
 

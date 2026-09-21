@@ -108,9 +108,7 @@ def layout(project: ExamplesSolution) -> html.Div:
                 [
                     dmc.Tooltip(
                         dmc.ActionIcon(
-                            DashIconify(
-                                icon="streamline:startup-solid", width=30, style={"color": "var(--mantine-color-body)"}
-                            ),
+                            DashIconify(icon="streamline:startup-solid", width=30),
                             id="launch-mechanical-button",
                             size="xl",
                             color="#2790F1",
@@ -122,7 +120,7 @@ def layout(project: ExamplesSolution) -> html.Div:
                     ),
                     dmc.Tooltip(
                         dmc.ActionIcon(
-                            DashIconify(icon="mdi:shutdown", width=30, style={"color": "var(--mantine-color-body)"}),
+                            DashIconify(icon="mdi:shutdown", width=30),
                             id="shutdown-mechanical-button",
                             size="xl",
                             color="#2790F1",
@@ -149,7 +147,7 @@ def layout(project: ExamplesSolution) -> html.Div:
                         leftSection=DashIconify(icon="codicon:run-all"),
                         disabled=controls["run_script"]["disabled"],
                         loading=controls["run_script"]["loading"],
-                        style={"width": "70%", "font-size": "15px", "color": "var(--mantine-color-body)"},
+                        style={"width": "70%", "font-size": "15px"},
                     ),
                     dmc.Button(
                         "Download Output File",
@@ -159,7 +157,7 @@ def layout(project: ExamplesSolution) -> html.Div:
                         leftSection=DashIconify(icon="material-symbols:download"),
                         disabled=controls["download_output_file"]["disabled"],
                         loading=controls["download_output_file"]["loading"],
-                        style={"width": "70%", "font-size": "15px", "color": "var(--mantine-color-body)"},
+                        style={"width": "70%", "font-size": "15px"},
                     ),
                 ],
                 align="center",
@@ -225,8 +223,6 @@ def layout(project: ExamplesSolution) -> html.Div:
                 className="display-3",
                 style={"font-size": "40px", "font-weight": "bold"},
             ),
-            html.Hr(className="my-2"),
-            dmc.Space(h=20),
             dmc.Blockquote(
                 "This example demonstrates how to leverage the instance management API to control Ansys Mechanical.\
                 Click the Launch button to\
@@ -271,6 +267,7 @@ def layout(project: ExamplesSolution) -> html.Div:
             html.Br(),
             html.Br(),
         ],
+        style={"paddingLeft": "20px"},
     )
 
 

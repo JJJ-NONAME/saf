@@ -79,49 +79,8 @@ Use the ``project.storage_scope`` attribute to manage data persistence and stora
         # Access the storage scope
         storage = project.storage_scope
 
-Best practices for troubleshooting
-===================================
+Troubleshooting
+===============
 
-When encountering issues with project injection, follow these debugging steps:
-
-1. **Verify type hints**: Ensure all callback arguments have proper type annotations.
-
-2. **Check Dash version**: Confirm you're using Dash 3.0.0 or higher:
-
-   .. code-block:: python
-
-       import dash
-
-       print(dash.__version__)
-
-3. **Validate project type**: Make sure your project type annotation matches your solution class:
-
-   .. code-block:: python
-
-       from ansys.solutions.your_solution.definition import YourSolution
-
-
-       @callback(State("url", "pathname"))
-       def my_callback(project: YourSolution):  # Use your actual solution class
-           pass
-
-4. **Check import statements**: Ensure you're importing the callback decorator from the correct module:
-
-   .. code-block:: python
-
-       from ansys.saf.glow.client import callback  # Correct import
-
-5. **Enable debug logging**: Add logging to help diagnose issues:
-
-   .. code-block:: python
-
-       import logging
-
-       logging.basicConfig(level=logging.DEBUG)
-
-
-       @callback(State("url", "pathname"))
-       def my_callback(project: YourSolution):
-           logging.debug(f"Project injected: {type(project)}")
-           # Your callback logic
-           pass
+If the project instance is not injected as expected into your callbacks, see
+:ref:`troubleshooting_project_injection` in the :ref:`troubleshooting` guide.

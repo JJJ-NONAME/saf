@@ -50,6 +50,22 @@ This section describes workarounds for common problems that you may encounter wh
 
       Resolve failures caused by a corporate proxy, a TLS-inspecting firewall, or a restrictive group policy.
 
+   .. grid-item-card:: :material-outlined:`web;2.25em` :ref:`troubleshooting_project_injection`
+      :class-card: highlight-card
+      :link-type: doc
+      :link: project_injection
+      :shadow: lg
+
+      Resolve issues where the solution project is not injected into a Dash callback.
+
+   .. grid-item-card:: :material-outlined:`science;2.25em` :ref:`troubleshooting_e2e_testing`
+      :class-card: highlight-card
+      :link-type: doc
+      :link: e2e_testing
+      :shadow: lg
+
+      Resolve failures of the end-to-end test suite, from installer creation to browser checks.
+
 
 .. toctree::
     :maxdepth: 3
@@ -60,3 +76,5 @@ This section describes workarounds for common problems that you may encounter wh
     deployment
     backend_operations
     corporate_environment
+    project_injection
+    e2e_testing
