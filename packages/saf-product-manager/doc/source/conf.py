@@ -112,6 +112,7 @@ html_context = {
     "github_repo": "saf-product-manager",
     "github_version": "main",
     "doc_path": "doc/source",
+    "default_mode": "dark",
 }
 
 html_theme_options = {
