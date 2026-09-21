@@ -377,15 +377,12 @@ jobs:
           python-version: ${{ matrix.python-version }}
           activate-environment: true
 
-      - name: Install Python via UV
-        run: uv python install ${{ matrix.python-version }}
-
       - name: Setup Moon Toolchain
         if: ${{ env.USE_MOON == 'true' }}
         uses: moonrepo/setup-toolchain@261c62cb5b0f580c7be7c8cd0f023a2e96756095 # v0.6.4
-        with:
-          auto-install: false
-          auto-setup: true # Run "moon setup" using .moon/toolchains.yml
+        # with:
+        #   auto-install: false
+        #   auto-setup: true # Run "moon setup" using .moon/toolchains.yml
 
       - name: Install pim-light-server
         if: ${{ matrix.install-pim-light-server == 'true' }}
