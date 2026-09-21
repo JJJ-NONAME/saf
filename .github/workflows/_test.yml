@@ -373,7 +373,7 @@ jobs:
 
       - name: Setup Moon Toolchain
         if: ${{ env.USE_MOON == 'true' }}
-        uses: moonrepo/setup-toolchain-action@261c62cb5b0f580c7be7c8cd0f023a2e96756095 # v0.6.4
+        uses: moonrepo/setup-toolchain@261c62cb5b0f580c7be7c8cd0f023a2e96756095 # v0.6.4
         with:
           auto-install: true
 
