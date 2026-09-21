@@ -49,3 +49,10 @@ repos:
         files: ^\.github/
       - id: ruff-format
         files: ^\.github/
+
+  - repo: https://github.com/tox-dev/pyproject-fmt
+    rev: 69b77b8d2436cb00c886f129dda7f68f3b2909ac # v2.11.0
+    hooks:
+      - id: pyproject-fmt
+        files: ^pyproject\.toml$
+        args: [--keep-full-version]
