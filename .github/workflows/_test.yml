@@ -369,6 +369,17 @@ jobs:
           python-project-path: ${{ needs.configure-tests.outputs.working-directory
             }}
 
+      - name: Set up uv
+        if: ${{ env.USE_MOON == 'true' }}
+        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
+        with:
+          enable-cache: true
+          python-version: ${{ matrix.python-version }}
+          activate-environment: true
+
+      - name: Install Python via UV
+        run: uv python install ${{ matrix.python-version }}
+
       - name: Setup Moon Toolchain
         if: ${{ env.USE_MOON == 'true' }}
         uses: moonrepo/setup-toolchain@261c62cb5b0f580c7be7c8cd0f023a2e96756095 # v0.6.4
@@ -497,8 +508,6 @@ jobs:
           checkout: false
           skip-install: true
 
-
-
       - name: Run moon tasks
         if: ${{ env.USE_MOON == 'true' }}
         shell: bash
@@ -507,6 +516,7 @@ jobs:
           PYTEST_ARGS: ${{ steps.pytest-args.outputs.pytest-args }}
           REPORTS_DIR: "${{ matrix.test-report-artifact-name-suffix }}_${{ inputs.python-version
             }}"
+          MOON_TOOLCHAIN_FORCE_GLOBALS: 'uv'
         run: |
           mkdir -p "$REPORTS_DIR"
           moon run $PACKAGE:test -- $PYTEST_ARGS --html="$REPORTS_DIR/report.html" --md="$REPORTS_DIR/report.md"
