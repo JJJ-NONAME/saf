@@ -300,7 +300,7 @@ jobs:
       PIP_INDEX_URL: https://pypi.org/simple
       GITHUB_TOKEN: ${{ github.token }}
       ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
-      USE_MOON: ${{ contains(inputs.package-name, 'bdm-python-api') }}
+      USE_MOON: ${{ contains(inputs.package-name, 'bdm-python-api') || contains(inputs.working-directory, 'bdm-python-api') }}
       MOON_PYTHON_VERSION: ${{ inputs.python-version }}
     steps:
       - name: Enable git long paths on Windows
@@ -374,11 +374,6 @@ jobs:
         uses: moonrepo/setup-toolchain@261c62cb5b0f580c7be7c8cd0f023a2e96756095 # v0.6.4
         with:
           auto-install: true
-
-      - name: Install Moon Dependencies
-        if: ${{ env.USE_MOON == 'true' }}
-        shell: bash
-        run: uv sync --python "$MOON_PYTHON_VERSION" --group dev --inexact
 
       - name: Install pim-light-server
         if: ${{ matrix.install-pim-light-server == 'true' }}

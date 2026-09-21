@@ -76,6 +76,17 @@ tasks:
     options:
       runFromWorkspaceRoot: true
 
+  install-dependency:
+    description: "Install a runtime-only package"
+    command:
+      - "uv"
+      - "pip"
+      - "install"
+    options:
+      cache: false
+      runFromWorkspaceRoot: true
+    preset: "utility"
+
   test:
     description: "Run pytest"
     command:
