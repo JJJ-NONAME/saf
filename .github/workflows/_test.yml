@@ -1,0 +1,503 @@
+name: Test
+
+run-name: >-
+  Test: ${{ inputs.package-name }} ${{ inputs.python-version }} ${{ inputs.runner-name
+  }} by ${{ github.actor }}
+on:
+  workflow_dispatch:
+    inputs:
+      package-name:
+        description: 'Package to test'
+        required: true
+        type: choice
+        default: saf-cli
+        options:
+          - bdm-python-api
+          - bdm-python-shared-volume
+          - glow-engine
+          - saf-desktop-installer
+          - saf-desktop-orchestrator
+          - saf-iam-oidc
+          - dash-super-components
+          - saf-cli
+          - saf-product-configuration
+          - saf-product-manager
+          - saf-templates
+          - saf-testing
+          - examples
+      runner-name:
+        description: 'Runner label used to execute tests'
+        required: true
+        type: choice
+        default: ubuntu-latest
+        options:
+          - ubuntu-latest
+          - ubuntu-latest-16-cores
+          - windows-latest
+          - windows-latest-8-cores
+          - windows-2025
+          - saf-linux-1
+          - saf-linux-2
+          - saf-windows-1
+          - saf-windows-1-fluent
+          - saf-windows-2
+          - saf-windows-2-fluent
+      pytest-command:
+        description: 'Additional pytest arguments (for example: -k test_name -m "not
+          slow")'
+        required: true
+        type: string
+        default: '-vv'
+      upgrade-docker:
+        description: 'Upgrade docker on the runner'
+        required: true
+        type: boolean
+        default: false
+      docker-version:
+        description: 'Docker version to install on the runner (if upgrade-docker is
+          true)'
+        required: true
+        type: string
+        default: '5:28.0.4-1~ubuntu.24.04~noble'
+      install-hps:
+        description: 'Install HPS on the runner'
+        required: false
+        type: boolean
+        default: false
+      install-pim-light-server:
+        description: 'Install pim-light-server on the runner'
+        required: false
+        type: boolean
+        default: false
+      install-visor:
+        description: 'Install Visor on the runner'
+        required: false
+        type: boolean
+        default: false
+      install-portal:
+        description: 'Install desktop-portal on the runner'
+        required: false
+        type: boolean
+        default: false
+      install-ansys-saf-aspire:
+        description: 'Install aspire dashboard on the runner'
+        required: false
+        type: boolean
+        default: false
+      install-minerva-python-client:
+        description: 'Install minerva-python-client on the runner'
+        required: false
+        type: boolean
+        default: false
+      install-gtk-xvfb:
+        description: 'Install GTK and XVFB utilities on the runner'
+        required: false
+        type: boolean
+        default: false
+      download-extra-packages:
+        description: 'Download extra packages for e2e tests'
+        required: false
+        type: boolean
+        default: false
+      prepare-runner:
+        description: 'Prepare the runner for tests (install dependencies, etc.)'
+        required: false
+        type: boolean
+        default: false
+      poetry-install-args:
+        description: 'Arguments for poetry install during debug runs'
+        required: true
+        type: string
+        default: '--with tests --all-extras'
+      python-version:
+        description: 'Python version'
+        required: true
+        type: choice
+        default: '3.12'
+        options:
+          - '3.11'
+          - '3.12'
+          - '3.13'
+          - '3.14'
+      run-as-admin:
+        description: 'Run tests with admin privileges (Windows-only non-admin mode
+          is disabled when true)'
+        required: true
+        type: boolean
+        default: true
+      offline:
+        description: 'Run tests in offline mode (Windows GitHub-hosted runners only)'
+        required: true
+        type: boolean
+        default: false
+  workflow_call:
+    inputs:
+      python-version:
+        description: 'Python version'
+        required: true
+        type: string
+      working-directory:
+        description: 'Working directory for the tests'
+        required: true
+        type: string
+      tests-groups-file-path:
+        type: string
+        description: 'Json file defining the groups of tests.'
+        required: true
+    secrets:
+      ANS_MINERVA_URL:
+        description: 'Minerva URL'
+        required: true
+      TEST_REP_CLIENT_SECRET:
+        description: 'Client secret for the test report service'
+        required: false
+      PYANSYS_PYPI_PRIVATE_PAT:
+        description: 'Token for the PyAnsys private PyPI'
+        required: true
+      PYANSYS_PYPI_PRIVATE_URL:
+        description: 'URL for the PyAnsys private PyPI'
+        required: true
+      LICENSE_SERVER:
+        description: 'License server for Ansys products'
+        required: true
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-test-${{ inputs.python-version }}-${{
+    inputs.tests-groups-file-path }}-${{ inputs.package-name }}
+  cancel-in-progress: true
+permissions: {}
+
+jobs:
+  configure-tests:
+    permissions:
+      contents: read # Read access to repository contents
+    name: Get test group ${{ inputs.tests-groups-file-path && inputs.tests-groups-file-path
+      || 'Manually triggered' }}
+    runs-on: ubuntu-latest
+    outputs:
+      working-directory: ${{ inputs.working-directory || (inputs.package-name == 'examples'
+        && 'examples' || format('packages/{0}', inputs.package-name)) }}
+      test-groups: ${{ steps.configure-tests.outputs.test_groups }}
+    steps:
+      - name: Checkout repository
+        if: ${{ inputs.runner-name == '' }}
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Validate manual options for runner compatibility
+        if: ${{ inputs.runner-name != '' }}
+        shell: bash
+        run: |
+          if [[ "${SELECTED_RUNNER_NAME}" == saf-* ]] && [[ "${OFFLINE}" == "true" || "${RUN_AS_ADMIN}" == "false" ]]; then
+            echo "::error::offline and non-admin modes are currently unsupported on self-hosted runners by ansys/saf-devops/run-tests."
+            exit 1
+          fi
+
+          if [[ "${SELECTED_RUNNER_NAME}" != *"Windows"* ]] && [[ "${SELECTED_RUNNER_NAME}" != *"windows-"* ]] && [[ "${OFFLINE}" == "true" || "${RUN_AS_ADMIN}" == "false" ]]; then
+            echo "::error::offline and non-admin modes are only supported on Windows GitHub-hosted runners."
+            exit 1
+          fi
+        env:
+          SELECTED_RUNNER_NAME: ${{ inputs.runner-name }}
+          RUN_AS_ADMIN: ${{ inputs.run-as-admin }}
+          OFFLINE: ${{ inputs.offline }}
+
+      - name: Retrieve test groups configuration
+        id: configure-tests
+        shell: python
+        run: |
+          import json
+          import os
+          from pathlib import Path
+
+          output_file = Path(os.environ["GITHUB_OUTPUT"])
+          github_step_summary_file = Path(os.environ["GITHUB_STEP_SUMMARY"])
+
+          def write_matrix(name: str, entries: list) -> None:
+            value = json.dumps({"include": entries}, indent=2) if entries else "{}"
+            with output_file.open("a", encoding="utf-8") as f:
+              f.write(f"{name}<<EOF\n{value}\nEOF\n")
+            with github_step_summary_file.open("a", encoding="utf-8") as f:
+              f.write(f"```json\n{value}\n```\n")
+
+          if os.environ.get("SELECTED_RUNNER_NAME"):
+            config = [
+                {
+                    "test-report-artifact-name-suffix": "manual-tests",
+                    "pytest-additional-arguments": os.environ["PYTEST_COMMAND"],
+                    "runner-name": os.environ["SELECTED_RUNNER_NAME"],
+                    "non-admin": os.environ["NON_ADMIN"],
+                    "offline": os.environ["OFFLINE"],
+                    "upgrade-docker": os.environ["UPGRADE_DOCKER"],
+                    "docker-version": os.environ["DOCKER_VERSION"],
+                    "prepare-runner": os.environ["PREPARE_RUNNER"],
+                    "install-hps": os.environ["INSTALL_HPS"],
+                    "install-pim-light-server": os.environ["INSTALL_PIM_LIGHT_SERVER"],
+                    "install-visor": os.environ["INSTALL_VISOR"],
+                    "install-portal": os.environ["INSTALL_PORTAL"],
+                    "install-ansys-saf-aspire": os.environ["INSTALL_ANSYS_SAF_ASPIRE"],
+                    "install-minerva-python-client": os.environ["INSTALL_MINERVA_PYTHON_CLIENT"],
+                    "install-gtk-xvfb": os.environ["INSTALL_GTK_XVFB"],
+                    "download-extra-packages": os.environ["DOWNLOAD_EXTRA_PACKAGES"],
+                    "poetry-install-args": os.environ["POETRY_INSTALL_ARGS"],
+                }
+            ]
+          else:
+            file_path = Path(os.environ["TEST_GROUPS_FILE"])
+            with file_path.open("r", encoding="utf-8") as f:
+              config = json.load(f)
+
+          write_matrix("test_groups", config)
+        env:
+          PYTEST_COMMAND: ${{ inputs.pytest-command }}
+          SELECTED_RUNNER_NAME: ${{ inputs.runner-name }}
+          NON_ADMIN: ${{ inputs.run-as-admin && 'false' || 'true' }}
+          OFFLINE: ${{ inputs.offline && 'true' || 'false' }}
+          UPGRADE_DOCKER: ${{ inputs.upgrade-docker && 'true' || 'false' }}
+          DOCKER_VERSION: ${{ inputs.docker-version }}
+          PREPARE_RUNNER: ${{ inputs.prepare-runner && 'true' || 'false' }}
+          INSTALL_HPS: ${{ inputs.install-hps && 'true' || 'false' }}
+          INSTALL_PIM_LIGHT_SERVER: ${{ inputs.install-pim-light-server && 'true'
+            || 'false' }}
+          INSTALL_VISOR: ${{ inputs.install-visor && 'true' || 'false' }}
+          INSTALL_PORTAL: ${{ inputs.install-portal && 'true' || 'false' }}
+          INSTALL_ANSYS_SAF_ASPIRE: ${{ inputs.install-ansys-saf-aspire && 'true'
+            || 'false' }}
+          INSTALL_MINERVA_PYTHON_CLIENT: ${{ inputs.install-minerva-python-client
+            && 'true' || 'false' }}
+          INSTALL_GTK_XVFB: ${{ inputs.install-gtk-xvfb && 'true' || 'false' }}
+          DOWNLOAD_EXTRA_PACKAGES: ${{ inputs.download-extra-packages && 'true' ||
+            'false' }}
+          POETRY_INSTALL_ARGS: ${{ inputs.poetry-install-args }}
+          TEST_GROUPS_FILE: ${{ inputs.tests-groups-file-path }}
+
+  run-tests:
+    permissions:
+      contents: read # Read access to repository contents
+      packages: write # Allows this job to publish packages
+    name: Tests ${{ inputs.python-version }} ${{ matrix.test-report-artifact-name-suffix
+      }}
+    needs:
+      - configure-tests
+    runs-on: ${{ matrix.runner-name }}
+    strategy:
+      matrix: ${{ fromJson(needs.configure-tests.outputs.test-groups) }}
+      fail-fast: false
+    env:
+      # Workaround for Python toolset mismatch on windows-2025:
+      # Python's PCbuild conditionally tries to use v140 (VS 2015 toolset) when
+      # PlatformToolset is empty. However, v140 is not available on windows-2025
+      # (which has VS 2022 Enterprise), causing an MSB8020 build error.
+      # By pre-setting PlatformToolset to v143 here, the conditional check sees a
+      # non-empty value and skips the v140 assignment, using v143 instead.
+      PlatformToolset: "v143"
+      PYTHON_VERSION: ${{ vars.PYTHON_VERSION }}
+      POETRY_VIRTUALENVS_PREFER_ACTIVE_PYTHON: true
+      HTML_REPORT_OPTION: "--html=report/report.html"
+      ANS_MINERVA_URL: ${{ secrets.ANS_MINERVA_URL }}
+      TEST_REP_CLIENT_SECRET: ${{ secrets.TEST_REP_CLIENT_SECRET }}
+      PIP_INDEX_URL: https://pypi.org/simple
+      GITHUB_TOKEN: ${{ github.token }}
+      ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
+    steps:
+      - name: Enable git long paths on Windows
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: git config --global core.longpaths true
+
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Prepare runner for tests
+        if: matrix.prepare-runner == 'true' || matrix.upgrade-docker == 'true' ||
+          matrix.install-hps == 'true'
+        uses: ansys/saf-devops/prepare-runner-for-tests@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
+        with:
+          python-version: ${{ inputs.python-version }}
+          upgrade-docker: ${{ matrix.upgrade-docker == 'true' }}
+          docker-version: ${{ matrix.docker-version }}
+          dot-net-version: '8.0.8'
+          hps-version: ${{ matrix.install-hps == 'true' && 'v1.2.217' || '' }}
+          working-directory: ${{ needs.configure-tests.outputs.working-directory }}
+          images-to-pull: >
+            [
+                {
+                    "image": "postgres:16.0",
+                    "private_image": "postgres:16.0"
+                },
+                {
+                    "image": "bitnamilegacy/postgresql:17",
+                    "private_image": "postgres:17"
+                },
+                {
+                    "image": "eqalpha/keydb:alpine_x86_64_v6.3.3",
+                    "private_image": "keydb:alpine_x86_64_v6.3.3"
+                },
+                {
+                    "image": "influxdb:1.8.10",
+                    "private_image": "influxdb:1.8.10"
+                },
+                {
+                    "image": "quay.io/keycloak/keycloak:26.1.3",
+                    "private_image": "keycloak:26.1.3"
+                },
+                {
+                    "image": "openfga/openfga:v1.8.16",
+                    "private_image": "openfga:v1.8.16"
+                },
+                {
+                    "image": "traefik:v3.3",
+                    "private_image": "traefik:v3.3"
+                }
+            ]
+
+      - name: Install dependencies
+        id: prepare-env
+        uses: ansys/saf-devops/prepare-python-environment@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
+        with:
+          python-version: ${{ inputs.python-version }}
+          poetry-version: ${{ vars.POETRY_VERSION }}
+          poetry-install-args: ${{ matrix.poetry-install-args != '' && matrix.poetry-install-args
+            || '--with tests --all-extras' }}
+          python-project-path: ${{ needs.configure-tests.outputs.working-directory
+            }}
+
+      - name: Install pim-light-server
+        if: ${{ matrix.install-pim-light-server == 'true' }}
+        shell: bash
+        run: |
+          ${PYTHON_EXE} -m pip install ansys-saf-pim-light-server==${PIM_VERSION}
+        env:
+          PYTHON_EXE: ${{ needs.configure-tests.outputs.working-directory }}/${{ steps.prepare-env.outputs.python-cmd
+            }}
+          PIM_VERSION: '0.3.12'
+          PIP_EXTRA_INDEX_URL: https://PAT:${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}@${{
+            secrets.PYANSYS_PYPI_PRIVATE_URL }}
+          PIP_QUIET: 1
+
+      - name: Install visor
+        if: ${{ matrix.install-visor == 'true' }}
+        shell: bash
+        run: |
+          ${PYTHON_EXE} -m pip install ansys-visor-viewer==${VISOR_VERSION}
+        env:
+          PYTHON_EXE: ${{ needs.configure-tests.outputs.working-directory }}/${{ steps.prepare-env.outputs.python-cmd
+            }}
+          VISOR_VERSION: '1.0.5b0.dev0+20260831'
+          PIP_EXTRA_INDEX_URL: https://PAT:${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}@${{
+            secrets.PYANSYS_PYPI_PRIVATE_URL }}
+          PIP_QUIET: 1
+
+      - name: Install desktop-portal
+        if: ${{ matrix.install-portal == 'true' }}
+        shell: bash
+        run: |
+          ${PYTHON_EXE} -m pip install --pre ansys-saf-desktop-portal==${PORTAL_VERSION}
+        env:
+          PYTHON_EXE: ${{ needs.configure-tests.outputs.working-directory }}/${{ steps.prepare-env.outputs.python-cmd
+            }}
+          PORTAL_VERSION: '0.4.dev2'
+          PIP_EXTRA_INDEX_URL: https://PAT:${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}@${{
+            secrets.PYANSYS_PYPI_PRIVATE_URL }}
+          PIP_QUIET: 1
+
+      - name: Install aspire dashboard
+        if: ${{ matrix.install-ansys-saf-aspire == 'true' }}
+        shell: bash
+        run: |
+          ${PYTHON_EXE} -m pip install ansys-saf-aspire==${ASPIRE_DASHBOARD_VERSION}
+        env:
+          PYTHON_EXE: ${{ needs.configure-tests.outputs.working-directory }}/${{ steps.prepare-env.outputs.python-cmd
+            }}
+          ASPIRE_DASHBOARD_VERSION: '9.1.6'
+          PIP_EXTRA_INDEX_URL: https://PAT:${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}@${{
+            secrets.PYANSYS_PYPI_PRIVATE_URL }}
+          PIP_QUIET: 1
+
+      - name: Install minerva-python-client
+        if: ${{ matrix.install-minerva-python-client == 'true' }}
+        shell: bash
+        run: |
+          ${PYTHON_EXE} -m pip install ansys-minerva-python-client==${MINERVA_PYTHON_CLIENT_VERSION}
+        env:
+          PYTHON_EXE: ${{ needs.configure-tests.outputs.working-directory }}/${{ steps.prepare-env.outputs.python-cmd
+            }}
+          MINERVA_PYTHON_CLIENT_VERSION: '0.3.1'
+          PIP_EXTRA_INDEX_URL: https://PAT:${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}@${{
+            secrets.PYANSYS_PYPI_PRIVATE_URL }}
+          PIP_QUIET: 1
+
+      - name: Download extra packages for e2e tests
+        if: matrix.download-extra-packages == 'true'
+        shell: bash
+        run: |
+          ${PYTHON_EXE} -m pip download --pre --no-deps ansys-saf-aspire ansys-saf-desktop-portal -d ${GITHUB_WORKSPACE}/extra_packages
+          echo "SAF_EXTRA_PACKAGES_DIR=${GITHUB_WORKSPACE}/extra_packages" >> "$GITHUB_ENV"
+        env:
+          PYTHON_EXE: ${{ needs.configure-tests.outputs.working-directory }}/${{ steps.prepare-env.outputs.python-cmd
+            }}
+          PIP_INDEX_URL: https://pypi.org/simple
+          PIP_EXTRA_INDEX_URL: https://PAT:${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}@${{
+            secrets.PYANSYS_PYPI_PRIVATE_URL }}
+          PIP_QUIET: 1
+
+      - name: Install GTK and XVFB utilities
+        if: matrix.install-gtk-xvfb == 'true'
+        shell: bash
+        run: |
+          sudo apt install -y libgtk-3-bin xvfb
+          which gtk-launch
+          which xvfb-run
+
+      - name: Configure PYTEST_DEBUG_TEMPROOT
+        if: runner.os != 'Linux'
+        shell: bash
+        run: echo "PYTEST_DEBUG_TEMPROOT=C:/" >> $GITHUB_ENV
+
+      - name: Build pytest additional arguments
+        id: pytest-args
+        shell: bash
+        env:
+          MARKERS: ${{ matrix.pytest-markers }}
+          COMBINED: ${{ matrix.pytest-additional-arguments }}
+        run: |
+          if [[ -n "${MARKERS}" ]]; then
+            COMBINED="${COMBINED} -m \"${MARKERS}\""
+          fi
+          echo "pytest-args=${COMBINED}" >> "${GITHUB_OUTPUT}"
+
+      - name: Run tests
+        id: run-tests
+        uses: ansys/saf-devops/run-tests@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
+        with:
+          python-version: ${{ inputs.python-version }}
+          poetry-version: ${{ vars.POETRY_VERSION}}
+          test-reports: "${{ matrix.test-report-artifact-name-suffix }}_${{ inputs.python-version
+            }}"
+          pytest-additional-arguments: ${{ steps.pytest-args.outputs.pytest-args }}
+          poetry-install-args: ""
+          working-directory: ${{ needs.configure-tests.outputs.working-directory }}
+          non-admin: ${{ matrix.non-admin || 'false' }}
+          offline: ${{ matrix.offline || 'false' }}
+          checkout: false
+          skip-install: true
+
+      - name: Publish pytest logs
+        if: always() && steps.run-tests.outcome != 'skipped'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: "pytest_logs_${{ matrix.test-report-artifact-name-suffix }}_${{ inputs.python-version
+            }}"
+          path: "${{ needs.configure-tests.outputs.working-directory }}/pytest_logs/**/*"
+          if-no-files-found: warn
+
+      - name: Collect hps logs
+        if: ${{ always() && steps.run-tests.outcome != 'cancelled' && steps.run-tests.outcome
+          != 'skipped' && matrix.install-hps == 'true' }}
+        uses: ansys/saf-devops/collect-hps-logs@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
+        with:
+          artifact-prefix: "hps_test_reports_${{ matrix.test-report-artifact-name-suffix
+            }}_${{ inputs.python-version }}_${{ runner.os }}"

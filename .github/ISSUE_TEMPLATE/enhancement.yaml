@@ -1,0 +1,41 @@
+name: ⛏️ Enhancement Request
+description: Suggest an enhancement or improvement
+labels: ["enhancement"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ⚠️ Warning
+        **Please do not share:**
+        - Sensitive customer information or data
+        - Links to Ansys/Synopsys or any internal websites
+        - Confidential or proprietary information
+
+        This is a public repository and all information submitted will be visible to everyone.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What would you like to be added?
+      description: Describe the request in detail, including the desired outcome.
+    validations:
+      required: true
+
+  - type: textarea
+    id: justification
+    attributes:
+      label: Why is this needed?
+      description: Describe the added value.
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: List the criteria that must be met for the enhancement to be considered
+        complete.
+      placeholder: "- Given [context], when [action], then [outcome]"
+    validations:
+      required: true

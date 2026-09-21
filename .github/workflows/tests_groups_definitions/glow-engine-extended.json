@@ -1,0 +1,128 @@
+[
+    {
+        "test-report-artifact-name-suffix": "glow_pim_linux",
+        "pytest-additional-arguments": "tests/ --docker --reruns 3",
+        "pytest-markers": "use_pim and not (use_containerized or use_ui or use_ansys_python or use_minerva)",
+        "runner-name": "ubuntu-latest",
+        "prepare-runner": "true",
+        "upgrade-docker": "true",
+        "install-pim-light-server": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "glow_pim_windows",
+        "pytest-additional-arguments": "tests/ --reruns 3",
+        "pytest-markers": "use_pim and not (use_containerized or use_ui or use_ansys_python or use_minerva)",
+        "runner-name": "windows-latest-8-cores",
+        "install-pim-light-server": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "glow_e2e_ui_windows",
+        "pytest-additional-arguments": "tests/e2e --reruns 3",
+        "pytest-markers": "use_ui and not (use_containerized or use_hps)",
+        "runner-name": "windows-latest-8-cores",
+        "install-pim-light-server": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "glow_containerized_linux",
+        "pytest-additional-arguments": "tests/e2e -n 12 --docker --reruns 3",
+        "pytest-markers": "use_containerized and not (use_hps or use_pim or use_ansys_python or use_minerva or use_ui)",
+        "runner-name": "ubuntu-latest-16-cores",
+        "prepare-runner": "true",
+        "upgrade-docker": "true",
+        "install-minerva-python-client": "true",
+        "_comment": "reduced number of workers to avoid docker network shortage issue."
+    },
+    {
+        "test-report-artifact-name-suffix": "glow_containerized_pim_linux",
+        "pytest-additional-arguments": "tests/e2e --docker --reruns 3",
+        "pytest-markers": "use_containerized and use_pim and not (use_hps or use_ansys_python or use_minerva or use_ui)",
+        "runner-name": "ubuntu-latest-16-cores",
+        "prepare-runner": "true",
+        "upgrade-docker": "true",
+        "install-pim-light-server": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "glow_containerized_hps_instances_bdm_linux",
+        "pytest-additional-arguments": "tests/e2e -n 0 --docker --reruns 3",
+        "pytest-markers": "use_containerized and use_hps and use_instances and not (use_pim or use_ansys_python or use_minerva or use_ui)",
+        "runner-name": "ubuntu-latest-16-cores",
+        "prepare-runner": "true",
+        "install-hps": "true",
+        "docker-version": "5:28.0.4-1~ubuntu.24.04~noble",
+        "upgrade-docker": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "glow_containerized_hps_others_linux",
+        "pytest-additional-arguments": "tests/e2e -n 0 --docker --reruns 3",
+        "pytest-markers": "use_containerized and use_hps and not (use_instances or use_pim or use_ansys_python or use_minerva or use_ui)",
+        "runner-name": "ubuntu-latest-16-cores",
+        "prepare-runner": "true",
+        "install-hps": "true",
+        "docker-version": "5:28.0.4-1~ubuntu.24.04~noble",
+        "upgrade-docker": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "glow_containerized_ui_linux",
+        "pytest-additional-arguments": "tests/e2e -n 0 --docker --reruns 3",
+        "pytest-markers": "use_containerized and use_ui and not (use_ansys_python or use_minerva)",
+        "runner-name": "ubuntu-latest-16-cores",
+        "prepare-runner": "true",
+        "install-hps": "true",
+        "docker-version": "5:28.0.4-1~ubuntu.24.04~noble",
+        "upgrade-docker": "true",
+        "install-pim-light-server": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "glow_hps_instances_bdm_linux",
+        "pytest-additional-arguments": "tests/ --docker -n 0 --reruns 3",
+        "pytest-markers": "use_hps and use_instances and not (use_containerized or use_ui or use_ansys_python or use_minerva)",
+        "prepare-runner": "true",
+        "install-hps": "true",
+        "runner-name": "ubuntu-latest-16-cores",
+        "upgrade-docker": "true",
+        "docker-version": "5:28.0.4-1~ubuntu.24.04~noble",
+        "_comments": "HPS tests are executed separately, with 1 worker and in a github-hosted runner to avoid concurrency issues, garbage collection, etc."
+    },
+    {
+        "test-report-artifact-name-suffix": "glow_hps_batch_job_bdm_linux",
+        "pytest-additional-arguments": "tests/ --docker -n 0 --reruns 3",
+        "pytest-markers": "use_hps and use_batch_job and not (use_containerized or use_ui or use_ansys_python or use_minerva)",
+        "prepare-runner": "true",
+        "install-hps": "true",
+        "runner-name": "ubuntu-latest-16-cores",
+        "upgrade-docker": "true",
+        "docker-version": "5:28.0.4-1~ubuntu.24.04~noble",
+        "_comments": "HPS tests are executed separately, with 1 worker and in a github-hosted runner to avoid concurrency issues, garbage collection, etc."
+    },
+    {
+        "test-report-artifact-name-suffix": "glow_hps_others_linux",
+        "pytest-additional-arguments": "tests/ --docker -n 0 --reruns 3",
+        "pytest-markers": "use_hps and not (use_instances or use_batch_job or use_containerized or use_ui or use_ansys_python or use_minerva)",
+        "prepare-runner": "true",
+        "install-hps": "true",
+        "runner-name": "ubuntu-latest-16-cores",
+        "upgrade-docker": "true",
+        "docker-version": "5:28.0.4-1~ubuntu.24.04~noble",
+        "_comments": "HPS tests are executed separately, with 1 worker and in a github-hosted runner to avoid concurrency issues, garbage collection, etc."
+    },
+    {
+        "test-report-artifact-name-suffix": "glow_e2e_ui_linux",
+        "pytest-additional-arguments": "tests/e2e --docker --reruns 3",
+        "pytest-markers": "use_ui and not use_containerized",
+        "runner-name": "ubuntu-latest-16-cores",
+        "prepare-runner": "true",
+        "install-hps": "true",
+        "docker-version": "5:28.0.4-1~ubuntu.24.04~noble",
+        "upgrade-docker": "true",
+        "install-pim-light-server": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "glow_hps_ansys_python_linux",
+        "pytest-additional-arguments": "tests/e2e --docker -n 0 --reruns 3",
+        "pytest-markers": "use_ansys_python",
+        "runner-name": "use_ansys_python",
+        "prepare-runner": "true",
+        "install-hps": "true",
+        "upgrade-docker": "true"
+    }
+]

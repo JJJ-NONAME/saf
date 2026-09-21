@@ -1,0 +1,86 @@
+[
+    {
+        "test-report-artifact-name-suffix": "test_aedt_design_name_linux",
+        "pytest-additional-arguments": "tests/e2e/test_aedt_design_name.py --docker",
+        "pytest-markers": "use_aedt and use_pim",
+        "runner-name": "testing-runner-lin",
+        "prepare-runner": "true",
+        "upgrade-docker": "true",
+        "install-pim-light-server": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_aedt_design_name_windows",
+        "pytest-additional-arguments": "tests/e2e/test_aedt_design_name.py",
+        "pytest-markers": "use_aedt and use_pim",
+        "runner-name": "testing-runner-win",
+        "install-pim-light-server": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_hps_aedt_design_name_linux",
+        "pytest-additional-arguments": "tests/e2e/test_aedt_design_name.py --docker -n 0",
+        "pytest-markers": "use_aedt and use_hps",
+        "runner-name": "testing-runner-lin",
+        "prepare-runner": "true",
+        "install-hps": "true",
+        "upgrade-docker": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_icepak_hfss_linux",
+        "pytest-additional-arguments": "tests/e2e/test_aedt_icepak_hfss.py --docker",
+        "pytest-markers": "use_aedt and use_pim",
+        "runner-name": "testing-runner-lin",
+        "prepare-runner": "true",
+        "upgrade-docker": "true",
+        "install-pim-light-server": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_aedt_maxwell_2d_linux",
+        "pytest-additional-arguments": "tests/e2e/test_aedt_maxwell_2d.py --docker -k 'not secure'",
+        "pytest-markers": "use_aedt and use_pim",
+        "runner-name": "testing-runner-lin",
+        "prepare-runner": "true",
+        "upgrade-docker": "true",
+        "install-pim-light-server": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_aedt_maxwell_2d_windows",
+        "pytest-additional-arguments": "tests/e2e/test_aedt_maxwell_2d.py -k 'not secure'",
+        "pytest-markers": "use_aedt and use_pim",
+        "runner-name": "testing-runner-win",
+        "install-pim-light-server": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_hps_aedt_maxwell_2d_linux",
+        "pytest-additional-arguments": "tests/e2e/test_aedt_maxwell_2d.py --docker -k 'not secure'",
+        "pytest-markers": "use_aedt and use_hps",
+        "runner-name": "testing-runner-lin",
+        "prepare-runner": "true",
+        "upgrade-docker": "true",
+        "install-hps": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_aedt_maxwell_2d_secure_pim_linux",
+        "pytest-additional-arguments": "tests/e2e/test_aedt_maxwell_2d.py::TestMaxwell2DSecurePIM --docker",
+        "pytest-markers": "use_aedt and use_pim",
+        "runner-name": "testing-runner-lin",
+        "prepare-runner": "true",
+        "upgrade-docker": "true",
+        "install-pim-light-server": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_aedt_maxwell_2d_secure_pim_windows",
+        "pytest-additional-arguments": "tests/e2e/test_aedt_maxwell_2d.py::TestMaxwell2DSecurePIM",
+        "pytest-markers": "use_aedt and use_pim",
+        "runner-name": "testing-runner-win",
+        "install-pim-light-server": "true"
+    },
+    {
+        "test-report-artifact-name-suffix": "test_aedt_maxwell_2d_secure_hps_linux",
+        "pytest-additional-arguments": "tests/e2e/test_aedt_maxwell_2d.py::TestMaxwell2DSecureHPS --docker -n 0",
+        "pytest-markers": "use_aedt and use_hps",
+        "runner-name": "testing-runner-lin",
+        "prepare-runner": "true",
+        "install-hps": "true",
+        "upgrade-docker": "true"
+    }
+]

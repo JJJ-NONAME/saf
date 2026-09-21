@@ -1,0 +1,22 @@
+version: 1
+disable_existing_loggers: False
+formatters:
+  streamFormat:
+    format: "%(asctime)s %(levelname)s [%(name)s] [%(filename)s:%(lineno)d] [trace_id=%(otelTraceID)s
+      span_id=%(otelSpanID)s resource.service.name=%(otelServiceName)s]- %(message)s"
+handlers:
+  stream:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: streamFormat
+    stream: ext://sys.stderr
+
+root:
+  level: WARNING
+  handlers: [stream]
+
+loggers:
+  ansys:
+    level: INFO
+    handlers: [stream]
+    propagate: false

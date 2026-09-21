@@ -1,0 +1,6 @@
+- name: "GRPC_Service"
+  command_line_template: "python -m tests.integration.additional_services.grpc_server
+    --port $PORT"
+  health_check:
+    type: "GRPC"
+    route: ""

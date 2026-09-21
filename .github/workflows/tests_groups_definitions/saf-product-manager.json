@@ -1,0 +1,12 @@
+[
+    {
+        "test-report-artifact-name-suffix": "saf_product_manager_linux",
+        "pytest-additional-arguments": "tests/unit --reruns 2",
+        "runner-name": "ubuntu-latest"
+    },
+    {
+        "test-report-artifact-name-suffix": "saf_product_manager_windows",
+        "pytest-additional-arguments": "tests/unit --reruns 2",
+        "runner-name": "windows-latest"
+    }
+]

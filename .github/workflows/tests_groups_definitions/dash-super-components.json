@@ -1,0 +1,12 @@
+[
+    {
+        "test-report-artifact-name-suffix": "dash_super_components_linux",
+        "pytest-additional-arguments": "",
+        "runner-name": "ubuntu-latest"
+    },
+    {
+        "test-report-artifact-name-suffix": "dash_super_components_windows",
+        "pytest-additional-arguments": "",
+        "runner-name": "windows-latest"
+    }
+]

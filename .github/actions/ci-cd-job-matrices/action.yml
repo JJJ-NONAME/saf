@@ -1,0 +1,67 @@
+# Copyright (C) 2026 ANSYS, Inc. and/or its affiliates.
+# SPDX-License-Identifier: Apache-2.0
+#
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Retrieve the job matrices for the CI/CD workflow
+
+description: |
+  Retrieve the job matrices for the CI/CD workflow
+
+outputs:
+  pr-changes:
+    value: ${{ steps.script.outputs.pr_changes }}
+  packages-matrix:
+    value: ${{ steps.script.outputs.packages_matrix }}
+  code-style-matrix:
+    value: ${{ steps.script.outputs.code_style_matrix }}
+  compatibility-matrix:
+    value: ${{ steps.script.outputs.compatibility_matrix }}
+  tests-matrix:
+    value: ${{ steps.script.outputs.tests_matrix }}
+  tests-generated-solution-flag:
+    value: ${{ steps.script.outputs.tests_generated_solution_flag }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+
+    - name: Detect changed packages
+      id: detect-packages
+      uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4.0.3
+      with:
+        base: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha
+          || github.event.before }}
+        ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha
+          || github.sha }}
+        predicate-quantifier: some-with-excludes
+        filters: .github/changes_pr_filters.yaml
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+      with:
+        python-version: 3.12
+        enable-cache: false
+
+    - name: Run CI/CD job matrices script
+      id: script
+      env:
+        PR_CHANGES_JSON: ${{ steps.detect-packages.outputs.changes }}
+      shell: bash
+      run: uv run "${GITHUB_ACTION_PATH}/ci_cd_job_matrices.py"

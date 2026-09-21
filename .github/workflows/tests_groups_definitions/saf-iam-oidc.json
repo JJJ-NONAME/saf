@@ -1,0 +1,12 @@
+[
+    {
+        "test-report-artifact-name-suffix": "iam_oidc_linux",
+        "pytest-additional-arguments": "",
+        "runner-name": "ubuntu-latest"
+    },
+    {
+        "test-report-artifact-name-suffix": "iam_oidc_windows",
+        "pytest-additional-arguments": "",
+        "runner-name": "windows-latest"
+    }
+]

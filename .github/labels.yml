@@ -1,0 +1,97 @@
+- name: bdm-python-api
+  description: Package bdm-python-api
+  color: ffffff
+- name: bdm-python-shared-volume
+  description: Package bdm-python-shared-volume
+  color: ffffff
+- name: glow-engine
+  description: Package glow-engine
+  color: ffffff
+- name: saf-iam-oidc
+  description: Package saf-iam-oidc
+  color: ffffff
+- name: saf-cli
+  description: Package saf-cli
+  color: ffffff
+- name: saf-product-configuration
+  description: Package saf-product-configuration
+  color: ffffff
+- name: saf-product-manager
+  description: Package saf-product-manager
+  color: #0052cc
+- name: saf-templates
+  description: Package saf-templates
+  color: '#0052cc'
+- name: saf-testing
+  description: Package saf-testing
+  color: ffffff
+- name: saf-desktop-installer
+  description: Package saf-desktop-installer
+  color: ffffff
+- name: dash-super-components
+  description: Package dash-super-components
+  color: ffffff
+- name: saf-desktop-orchestrator
+  description: Package saf-desktop-orchestrator
+  color: ffffff
+- name: saf-sdk
+  description: Package saf-sdk
+  color: ffffff
+- name: devops
+  description: DevOps related changes
+  color: #0052cc
+- name: documentation
+  description: Documentation related changes
+  color: #0052cc
+- name: dependencies
+  description: Dependency related changes
+  color: #0052cc
+- name: testing
+  description: Testing related changes
+  color: #0052cc
+- name: enhancement
+  description: Enhancement related changes
+  color: #0052cc
+- name: bug
+  description: Bug related changes
+  color: #d93f0b
+
+- name: triage
+  description: Requires triage
+  color: cccccc
+
+- name: test-plan
+  description: Test plan for manual testing
+  color: 0677ba
+
+- name: 'docs:run'
+  description: Triggers documentation generation
+  color: 0677ba
+
+- name: 'core-tests:run'
+  description: Triggers test execution
+  color: 0677ba
+
+- name: 'minerva-tests:run'
+  description: Triggers test execution
+  color: 0677ba
+
+- name: 'hps-tests:run'
+  description: Triggers test execution
+  color: 0677ba
+
+- name: 'pim-tests:run'
+  description: Triggers test execution
+  color: 0677ba
+
+- name: 'ui-tests:run'
+  description: Triggers test execution
+  color: 0677ba
+
+- name: 'containerized-tests:run'
+  description: Triggers test execution
+  color: 0677ba
+
+- name: 'flagship-tests:run'
+  description: Triggers test execution
+  color: 0677ba

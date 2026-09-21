@@ -1,0 +1,1765 @@
+{
+    "time": "2024-09-23T14:11:18.715649",
+    "data": [
+        {
+            "name": "client_connection",
+            "median_duration": 0.2062690258026123,
+            "mean_duration": 0.2062690258026123,
+            "maximum_duration": 0.2062690258026123,
+            "minimum_duration": 0.2062690258026123,
+            "parameters": {}
+        },
+        {
+            "name": "create project",
+            "median_duration": 0.023223519325256348,
+            "mean_duration": 0.039810121059417725,
+            "maximum_duration": 0.09640789031982422,
+            "minimum_duration": 0.015785694122314453,
+            "parameters": {}
+        },
+        {
+            "name": "store into empty project",
+            "median_duration": 0.061779022216796875,
+            "mean_duration": 0.061779022216796875,
+            "maximum_duration": 0.061779022216796875,
+            "minimum_duration": 0.061779022216796875,
+            "parameters": {
+                "project_size": 128.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.053647756576538086,
+            "mean_duration": 0.055364089012146,
+            "maximum_duration": 0.10368132591247559,
+            "minimum_duration": 0.045980215072631836,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 128.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.017364501953125,
+            "mean_duration": 0.017628812789916994,
+            "maximum_duration": 0.026839256286621094,
+            "minimum_duration": 0.010604143142700195,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 128.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.04173552989959717,
+            "mean_duration": 0.04376418590545654,
+            "maximum_duration": 0.06665921211242676,
+            "minimum_duration": 0.03260064125061035,
+            "parameters": {
+                "previous_size": 1048576.0,
+                "project_size": 128.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.06950843334197998,
+            "mean_duration": 0.07030840873718262,
+            "maximum_duration": 0.09442973136901855,
+            "minimum_duration": 0.05867743492126465,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 128.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.025075197219848633,
+            "mean_duration": 0.023820862770080567,
+            "maximum_duration": 0.03200101852416992,
+            "minimum_duration": 0.014552831649780273,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 128.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.05089247226715088,
+            "mean_duration": 0.05192220211029053,
+            "maximum_duration": 0.10411405563354492,
+            "minimum_duration": 0.034748077392578125,
+            "parameters": {
+                "previous_size": 2097152.0,
+                "project_size": 128.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.09464418888092041,
+            "mean_duration": 0.09691132068634033,
+            "maximum_duration": 0.12134575843811035,
+            "minimum_duration": 0.08397507667541504,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 128.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.04750800132751465,
+            "mean_duration": 0.04792268276214599,
+            "maximum_duration": 0.07483482360839844,
+            "minimum_duration": 0.034861087799072266,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 128.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.051647186279296875,
+            "mean_duration": 0.05392258644104004,
+            "maximum_duration": 0.10295557975769043,
+            "minimum_duration": 0.045651912689208984,
+            "parameters": {
+                "previous_size": 4194304.0,
+                "project_size": 128.0
+            }
+        },
+        {
+            "name": "store into empty project",
+            "median_duration": 0.040987253189086914,
+            "mean_duration": 0.040987253189086914,
+            "maximum_duration": 0.040987253189086914,
+            "minimum_duration": 0.040987253189086914,
+            "parameters": {
+                "project_size": 256.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.05694389343261719,
+            "mean_duration": 0.05867576122283936,
+            "maximum_duration": 0.08041882514953613,
+            "minimum_duration": 0.05379891395568848,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 256.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.018082141876220703,
+            "mean_duration": 0.018504600524902343,
+            "maximum_duration": 0.02699422836303711,
+            "minimum_duration": 0.016507625579833984,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 256.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.0440366268157959,
+            "mean_duration": 0.045313515663146973,
+            "maximum_duration": 0.09409427642822266,
+            "minimum_duration": 0.039377450942993164,
+            "parameters": {
+                "previous_size": 1048576.0,
+                "project_size": 256.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.07042360305786133,
+            "mean_duration": 0.07444461822509765,
+            "maximum_duration": 0.11623692512512207,
+            "minimum_duration": 0.06590104103088379,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 256.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.02897012233734131,
+            "mean_duration": 0.0294217586517334,
+            "maximum_duration": 0.03984951972961426,
+            "minimum_duration": 0.026776552200317383,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 256.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.049034953117370605,
+            "mean_duration": 0.050028600692749024,
+            "maximum_duration": 0.07678389549255371,
+            "minimum_duration": 0.04437088966369629,
+            "parameters": {
+                "previous_size": 2097152.0,
+                "project_size": 256.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.10116779804229736,
+            "mean_duration": 0.10476449012756348,
+            "maximum_duration": 0.13329720497131348,
+            "minimum_duration": 0.0926063060760498,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 256.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.05038273334503174,
+            "mean_duration": 0.05288784027099609,
+            "maximum_duration": 0.07337832450866699,
+            "minimum_duration": 0.04828953742980957,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 256.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.056458115577697754,
+            "mean_duration": 0.057693376541137695,
+            "maximum_duration": 0.10720396041870117,
+            "minimum_duration": 0.05015158653259277,
+            "parameters": {
+                "previous_size": 4194304.0,
+                "project_size": 256.0
+            }
+        },
+        {
+            "name": "store into empty project",
+            "median_duration": 0.039089202880859375,
+            "mean_duration": 0.039089202880859375,
+            "maximum_duration": 0.039089202880859375,
+            "minimum_duration": 0.039089202880859375,
+            "parameters": {
+                "project_size": 512.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.05862545967102051,
+            "mean_duration": 0.059720788002014163,
+            "maximum_duration": 0.07638287544250488,
+            "minimum_duration": 0.052103519439697266,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 512.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.019006729125976562,
+            "mean_duration": 0.019074726104736327,
+            "maximum_duration": 0.02499985694885254,
+            "minimum_duration": 0.017011642456054688,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 512.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.04507124423980713,
+            "mean_duration": 0.047058115005493166,
+            "maximum_duration": 0.10122179985046387,
+            "minimum_duration": 0.040880680084228516,
+            "parameters": {
+                "previous_size": 1048576.0,
+                "project_size": 512.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.07452785968780518,
+            "mean_duration": 0.07519473552703858,
+            "maximum_duration": 0.09087586402893066,
+            "minimum_duration": 0.0677332878112793,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 512.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.030165910720825195,
+            "mean_duration": 0.03126147747039795,
+            "maximum_duration": 0.04762673377990723,
+            "minimum_duration": 0.02832937240600586,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 512.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.05268096923828125,
+            "mean_duration": 0.05342099189758301,
+            "maximum_duration": 0.07102274894714355,
+            "minimum_duration": 0.047692298889160156,
+            "parameters": {
+                "previous_size": 2097152.0,
+                "project_size": 512.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.10989272594451904,
+            "mean_duration": 0.10952622890472412,
+            "maximum_duration": 0.13278675079345703,
+            "minimum_duration": 0.09554839134216309,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 512.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.053524017333984375,
+            "mean_duration": 0.05708256244659424,
+            "maximum_duration": 0.07354283332824707,
+            "minimum_duration": 0.05111193656921387,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 512.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.06333863735198975,
+            "mean_duration": 0.06466775894165039,
+            "maximum_duration": 0.11751103401184082,
+            "minimum_duration": 0.05712151527404785,
+            "parameters": {
+                "previous_size": 4194304.0,
+                "project_size": 512.0
+            }
+        },
+        {
+            "name": "store into empty project",
+            "median_duration": 0.04420042037963867,
+            "mean_duration": 0.04420042037963867,
+            "maximum_duration": 0.04420042037963867,
+            "minimum_duration": 0.04420042037963867,
+            "parameters": {
+                "project_size": 1024.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.06043815612792969,
+            "mean_duration": 0.06370205879211426,
+            "maximum_duration": 0.12599587440490723,
+            "minimum_duration": 0.05527210235595703,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 1024.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.019277572631835938,
+            "mean_duration": 0.01957169532775879,
+            "maximum_duration": 0.02619171142578125,
+            "minimum_duration": 0.01708507537841797,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 1024.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.04497575759887695,
+            "mean_duration": 0.046454672813415525,
+            "maximum_duration": 0.07084274291992188,
+            "minimum_duration": 0.04011964797973633,
+            "parameters": {
+                "previous_size": 1048576.0,
+                "project_size": 1024.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.07654619216918945,
+            "mean_duration": 0.08075462341308594,
+            "maximum_duration": 0.15617990493774414,
+            "minimum_duration": 0.07161808013916016,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 1024.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.03162992000579834,
+            "mean_duration": 0.03193929195404053,
+            "maximum_duration": 0.038360595703125,
+            "minimum_duration": 0.028191566467285156,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 1024.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.056282997131347656,
+            "mean_duration": 0.057319722175598144,
+            "maximum_duration": 0.0782172679901123,
+            "minimum_duration": 0.04972267150878906,
+            "parameters": {
+                "previous_size": 2097152.0,
+                "project_size": 1024.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.13761258125305176,
+            "mean_duration": 0.1402500629425049,
+            "maximum_duration": 0.18957161903381348,
+            "minimum_duration": 0.12225055694580078,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 1024.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.057637691497802734,
+            "mean_duration": 0.06052499771118164,
+            "maximum_duration": 0.08028960227966309,
+            "minimum_duration": 0.05439949035644531,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 1024.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.08632850646972656,
+            "mean_duration": 0.0862853479385376,
+            "maximum_duration": 0.09732580184936523,
+            "minimum_duration": 0.07668018341064453,
+            "parameters": {
+                "previous_size": 4194304.0,
+                "project_size": 1024.0
+            }
+        },
+        {
+            "name": "store into empty project",
+            "median_duration": 0.06280779838562012,
+            "mean_duration": 0.06280779838562012,
+            "maximum_duration": 0.06280779838562012,
+            "minimum_duration": 0.06280779838562012,
+            "parameters": {
+                "project_size": 2048.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.08459353446960449,
+            "mean_duration": 0.08776955604553223,
+            "maximum_duration": 0.1407947540283203,
+            "minimum_duration": 0.07603240013122559,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 2048.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.02001321315765381,
+            "mean_duration": 0.02055129051208496,
+            "maximum_duration": 0.027419090270996094,
+            "minimum_duration": 0.01669168472290039,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 2048.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.06187856197357178,
+            "mean_duration": 0.06352917194366454,
+            "maximum_duration": 0.08660125732421875,
+            "minimum_duration": 0.0552220344543457,
+            "parameters": {
+                "previous_size": 1048576.0,
+                "project_size": 2048.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.28943300247192383,
+            "mean_duration": 0.2946444463729858,
+            "maximum_duration": 0.3793509006500244,
+            "minimum_duration": 0.24729514122009277,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 2048.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.13036417961120605,
+            "mean_duration": 0.12967778205871583,
+            "maximum_duration": 0.14386582374572754,
+            "minimum_duration": 0.09720396995544434,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 2048.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.20456886291503906,
+            "mean_duration": 0.20716891765594483,
+            "maximum_duration": 0.26448893547058105,
+            "minimum_duration": 0.1855320930480957,
+            "parameters": {
+                "previous_size": 2097152.0,
+                "project_size": 2048.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.14084291458129883,
+            "mean_duration": 0.14381240367889403,
+            "maximum_duration": 0.1950068473815918,
+            "minimum_duration": 0.128312349319458,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 2048.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.05978250503540039,
+            "mean_duration": 0.06304154872894287,
+            "maximum_duration": 0.0848245620727539,
+            "minimum_duration": 0.055906057357788086,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 2048.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.08687710762023926,
+            "mean_duration": 0.08775183200836181,
+            "maximum_duration": 0.10479211807250977,
+            "minimum_duration": 0.08049130439758301,
+            "parameters": {
+                "previous_size": 4194304.0,
+                "project_size": 2048.0
+            }
+        },
+        {
+            "name": "store into empty project",
+            "median_duration": 0.054430246353149414,
+            "mean_duration": 0.054430246353149414,
+            "maximum_duration": 0.054430246353149414,
+            "minimum_duration": 0.054430246353149414,
+            "parameters": {
+                "project_size": 4096.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.08704638481140137,
+            "mean_duration": 0.08868569374084473,
+            "maximum_duration": 0.14087939262390137,
+            "minimum_duration": 0.07874751091003418,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 4096.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.020487666130065918,
+            "mean_duration": 0.021622366905212402,
+            "maximum_duration": 0.032073259353637695,
+            "minimum_duration": 0.019083261489868164,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 4096.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.06505036354064941,
+            "mean_duration": 0.06572146415710449,
+            "maximum_duration": 0.07875657081604004,
+            "minimum_duration": 0.05710959434509277,
+            "parameters": {
+                "previous_size": 1048576.0,
+                "project_size": 4096.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.10688245296478271,
+            "mean_duration": 0.10854633331298828,
+            "maximum_duration": 0.13213729858398438,
+            "minimum_duration": 0.09729170799255371,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 4096.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.034462809562683105,
+            "mean_duration": 0.03508305549621582,
+            "maximum_duration": 0.050809621810913086,
+            "minimum_duration": 0.03249835968017578,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 4096.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.07877099514007568,
+            "mean_duration": 0.07939340591430664,
+            "maximum_duration": 0.13042736053466797,
+            "minimum_duration": 0.06850910186767578,
+            "parameters": {
+                "previous_size": 2097152.0,
+                "project_size": 4096.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.14518213272094727,
+            "mean_duration": 0.148030424118042,
+            "maximum_duration": 0.1975858211517334,
+            "minimum_duration": 0.13169240951538086,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 4096.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.06255114078521729,
+            "mean_duration": 0.06541628837585449,
+            "maximum_duration": 0.08638525009155273,
+            "minimum_duration": 0.05816841125488281,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 4096.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.09244823455810547,
+            "mean_duration": 0.09284540176391602,
+            "maximum_duration": 0.11465620994567871,
+            "minimum_duration": 0.0836484432220459,
+            "parameters": {
+                "previous_size": 4194304.0,
+                "project_size": 4096.0
+            }
+        },
+        {
+            "name": "store into empty project",
+            "median_duration": 0.05802774429321289,
+            "mean_duration": 0.05802774429321289,
+            "maximum_duration": 0.05802774429321289,
+            "minimum_duration": 0.05802774429321289,
+            "parameters": {
+                "project_size": 8192.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.0870743989944458,
+            "mean_duration": 0.08792003631591797,
+            "maximum_duration": 0.10889148712158203,
+            "minimum_duration": 0.08029317855834961,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 8192.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.021644949913024902,
+            "mean_duration": 0.02252331256866455,
+            "maximum_duration": 0.04274463653564453,
+            "minimum_duration": 0.01999807357788086,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 8192.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.06368553638458252,
+            "mean_duration": 0.06583606243133545,
+            "maximum_duration": 0.1212005615234375,
+            "minimum_duration": 0.05708765983581543,
+            "parameters": {
+                "previous_size": 1048576.0,
+                "project_size": 8192.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.1362926959991455,
+            "mean_duration": 0.1966023588180542,
+            "maximum_duration": 0.3704710006713867,
+            "minimum_duration": 0.09955644607543945,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 8192.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.047133445739746094,
+            "mean_duration": 0.08418079853057861,
+            "maximum_duration": 0.15819048881530762,
+            "minimum_duration": 0.020181655883789062,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 8192.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.09079194068908691,
+            "mean_duration": 0.14495322704315186,
+            "maximum_duration": 0.3457987308502197,
+            "minimum_duration": 0.07319760322570801,
+            "parameters": {
+                "previous_size": 2097152.0,
+                "project_size": 8192.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.44824540615081787,
+            "mean_duration": 0.44916358947753904,
+            "maximum_duration": 0.5511667728424072,
+            "minimum_duration": 0.3624131679534912,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 8192.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.24678575992584229,
+            "mean_duration": 0.24660796642303467,
+            "maximum_duration": 0.2832343578338623,
+            "minimum_duration": 0.2059168815612793,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 8192.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.28373777866363525,
+            "mean_duration": 0.28767982482910154,
+            "maximum_duration": 0.3747880458831787,
+            "minimum_duration": 0.24260711669921875,
+            "parameters": {
+                "previous_size": 4194304.0,
+                "project_size": 8192.0
+            }
+        },
+        {
+            "name": "store into empty project",
+            "median_duration": 0.16017818450927734,
+            "mean_duration": 0.16017818450927734,
+            "maximum_duration": 0.16017818450927734,
+            "minimum_duration": 0.16017818450927734,
+            "parameters": {
+                "project_size": 16384.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.25228333473205566,
+            "mean_duration": 0.2565993547439575,
+            "maximum_duration": 0.3322794437408447,
+            "minimum_duration": 0.21015429496765137,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 16384.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.07979989051818848,
+            "mean_duration": 0.08263564109802246,
+            "maximum_duration": 0.10962796211242676,
+            "minimum_duration": 0.06460237503051758,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 16384.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.17430531978607178,
+            "mean_duration": 0.1825522232055664,
+            "maximum_duration": 0.33074140548706055,
+            "minimum_duration": 0.151137113571167,
+            "parameters": {
+                "previous_size": 1048576.0,
+                "project_size": 16384.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.32626378536224365,
+            "mean_duration": 0.32388159275054934,
+            "maximum_duration": 0.41167187690734863,
+            "minimum_duration": 0.26798105239868164,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 16384.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.14160394668579102,
+            "mean_duration": 0.14402550220489502,
+            "maximum_duration": 0.17799997329711914,
+            "minimum_duration": 0.12559843063354492,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 16384.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.23944509029388428,
+            "mean_duration": 0.24150438785552977,
+            "maximum_duration": 0.29874420166015625,
+            "minimum_duration": 0.20450377464294434,
+            "parameters": {
+                "previous_size": 2097152.0,
+                "project_size": 16384.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.49374425411224365,
+            "mean_duration": 0.497376389503479,
+            "maximum_duration": 0.6445615291595459,
+            "minimum_duration": 0.4014863967895508,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 16384.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.26726019382476807,
+            "mean_duration": 0.26571192264556887,
+            "maximum_duration": 0.3127772808074951,
+            "minimum_duration": 0.22233366966247559,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 16384.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.3248906135559082,
+            "mean_duration": 0.3227980422973633,
+            "maximum_duration": 0.4088306427001953,
+            "minimum_duration": 0.267974853515625,
+            "parameters": {
+                "previous_size": 4194304.0,
+                "project_size": 16384.0
+            }
+        },
+        {
+            "name": "store into empty project",
+            "median_duration": 0.15699052810668945,
+            "mean_duration": 0.15699052810668945,
+            "maximum_duration": 0.15699052810668945,
+            "minimum_duration": 0.15699052810668945,
+            "parameters": {
+                "project_size": 32768.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.26484906673431396,
+            "mean_duration": 0.2661727857589722,
+            "maximum_duration": 0.34571337699890137,
+            "minimum_duration": 0.2305293083190918,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 32768.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.09077930450439453,
+            "mean_duration": 0.08838504314422607,
+            "maximum_duration": 0.11003589630126953,
+            "minimum_duration": 0.0759439468383789,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 32768.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.17421889305114746,
+            "mean_duration": 0.18150543212890624,
+            "maximum_duration": 0.3301701545715332,
+            "minimum_duration": 0.1431136131286621,
+            "parameters": {
+                "previous_size": 1048576.0,
+                "project_size": 32768.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.3182215690612793,
+            "mean_duration": 0.2747026491165161,
+            "maximum_duration": 0.4254186153411865,
+            "minimum_duration": 0.10889434814453125,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 32768.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.14164578914642334,
+            "mean_duration": 0.11953582286834717,
+            "maximum_duration": 0.20265769958496094,
+            "minimum_duration": 0.033165693283081055,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 32768.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.23531484603881836,
+            "mean_duration": 0.19760305404663087,
+            "maximum_duration": 0.32100439071655273,
+            "minimum_duration": 0.0781850814819336,
+            "parameters": {
+                "previous_size": 2097152.0,
+                "project_size": 32768.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.16324782371520996,
+            "mean_duration": 0.16416885375976562,
+            "maximum_duration": 0.2139267921447754,
+            "minimum_duration": 0.12886691093444824,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 32768.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.06873559951782227,
+            "mean_duration": 0.07049796581268311,
+            "maximum_duration": 0.10077381134033203,
+            "minimum_duration": 0.05689716339111328,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 32768.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.10840725898742676,
+            "mean_duration": 0.10624446868896484,
+            "maximum_duration": 0.12285661697387695,
+            "minimum_duration": 0.08621692657470703,
+            "parameters": {
+                "previous_size": 4194304.0,
+                "project_size": 32768.0
+            }
+        },
+        {
+            "name": "store into empty project",
+            "median_duration": 0.04307198524475098,
+            "mean_duration": 0.04307198524475098,
+            "maximum_duration": 0.04307198524475098,
+            "minimum_duration": 0.04307198524475098,
+            "parameters": {
+                "project_size": 65536.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.07224094867706299,
+            "mean_duration": 0.07448856830596924,
+            "maximum_duration": 0.09963250160217285,
+            "minimum_duration": 0.06396174430847168,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 65536.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.019466042518615723,
+            "mean_duration": 0.020614967346191407,
+            "maximum_duration": 0.031537771224975586,
+            "minimum_duration": 0.011888504028320312,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 65536.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.05260610580444336,
+            "mean_duration": 0.054092187881469724,
+            "maximum_duration": 0.10182499885559082,
+            "minimum_duration": 0.04205918312072754,
+            "parameters": {
+                "previous_size": 1048576.0,
+                "project_size": 65536.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.10226523876190186,
+            "mean_duration": 0.10394580841064453,
+            "maximum_duration": 0.1318519115447998,
+            "minimum_duration": 0.09150099754333496,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 65536.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.039809346199035645,
+            "mean_duration": 0.04116621017456055,
+            "maximum_duration": 0.06751298904418945,
+            "minimum_duration": 0.025126218795776367,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 65536.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.07576382160186768,
+            "mean_duration": 0.0775988483428955,
+            "maximum_duration": 0.13245677947998047,
+            "minimum_duration": 0.06607389450073242,
+            "parameters": {
+                "previous_size": 2097152.0,
+                "project_size": 65536.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.1512143611907959,
+            "mean_duration": 0.1527393102645874,
+            "maximum_duration": 0.19815826416015625,
+            "minimum_duration": 0.13253235816955566,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 65536.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.08884429931640625,
+            "mean_duration": 0.08712974071502685,
+            "maximum_duration": 0.09937167167663574,
+            "minimum_duration": 0.0684654712677002,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 65536.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.09755337238311768,
+            "mean_duration": 0.10008682250976562,
+            "maximum_duration": 0.12309384346008301,
+            "minimum_duration": 0.09056925773620605,
+            "parameters": {
+                "previous_size": 4194304.0,
+                "project_size": 65536.0
+            }
+        },
+        {
+            "name": "store into empty project",
+            "median_duration": 0.051859140396118164,
+            "mean_duration": 0.051859140396118164,
+            "maximum_duration": 0.051859140396118164,
+            "minimum_duration": 0.051859140396118164,
+            "parameters": {
+                "project_size": 131072.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.07597875595092773,
+            "mean_duration": 0.07688007831573486,
+            "maximum_duration": 0.09976482391357422,
+            "minimum_duration": 0.06687498092651367,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 131072.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.02270793914794922,
+            "mean_duration": 0.022891268730163575,
+            "maximum_duration": 0.028546571731567383,
+            "minimum_duration": 0.014193058013916016,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 131072.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.05146169662475586,
+            "mean_duration": 0.05340786457061768,
+            "maximum_duration": 0.07912015914916992,
+            "minimum_duration": 0.04233717918395996,
+            "parameters": {
+                "previous_size": 1048576.0,
+                "project_size": 131072.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.11549174785614014,
+            "mean_duration": 0.1142331075668335,
+            "maximum_duration": 0.14941191673278809,
+            "minimum_duration": 0.09105038642883301,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 131072.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.04295170307159424,
+            "mean_duration": 0.04286602020263672,
+            "maximum_duration": 0.06963992118835449,
+            "minimum_duration": 0.029623985290527344,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 131072.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.08772122859954834,
+            "mean_duration": 0.089165678024292,
+            "maximum_duration": 0.131455659866333,
+            "minimum_duration": 0.06895995140075684,
+            "parameters": {
+                "previous_size": 2097152.0,
+                "project_size": 131072.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.18079757690429688,
+            "mean_duration": 0.19678176879882814,
+            "maximum_duration": 0.5357263088226318,
+            "minimum_duration": 0.16663002967834473,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 131072.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.09243714809417725,
+            "mean_duration": 0.10511761665344238,
+            "maximum_duration": 0.31208276748657227,
+            "minimum_duration": 0.06993961334228516,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 131072.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.11962306499481201,
+            "mean_duration": 0.13762157917022705,
+            "maximum_duration": 0.42519426345825195,
+            "minimum_duration": 0.1106102466583252,
+            "parameters": {
+                "previous_size": 4194304.0,
+                "project_size": 131072.0
+            }
+        },
+        {
+            "name": "store into empty project",
+            "median_duration": 0.2243025302886963,
+            "mean_duration": 0.2243025302886963,
+            "maximum_duration": 0.2243025302886963,
+            "minimum_duration": 0.2243025302886963,
+            "parameters": {
+                "project_size": 262144.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.2755016088485718,
+            "mean_duration": 0.28274079322814943,
+            "maximum_duration": 0.45929574966430664,
+            "minimum_duration": 0.23405885696411133,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 262144.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.11245715618133545,
+            "mean_duration": 0.113798508644104,
+            "maximum_duration": 0.15517067909240723,
+            "minimum_duration": 0.10077095031738281,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 262144.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.193231463432312,
+            "mean_duration": 0.20105629920959472,
+            "maximum_duration": 0.33701300621032715,
+            "minimum_duration": 0.1674196720123291,
+            "parameters": {
+                "previous_size": 1048576.0,
+                "project_size": 262144.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.3631618022918701,
+            "mean_duration": 0.36491936206817627,
+            "maximum_duration": 0.45986509323120117,
+            "minimum_duration": 0.30661582946777344,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 262144.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.18658947944641113,
+            "mean_duration": 0.1873060655593872,
+            "maximum_duration": 0.2202448844909668,
+            "minimum_duration": 0.1609494686126709,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 262144.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.28075385093688965,
+            "mean_duration": 0.28055049896240236,
+            "maximum_duration": 0.41536784172058105,
+            "minimum_duration": 0.23031878471374512,
+            "parameters": {
+                "previous_size": 2097152.0,
+                "project_size": 262144.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.5364222526550293,
+            "mean_duration": 0.5432494878768921,
+            "maximum_duration": 0.7804486751556396,
+            "minimum_duration": 0.4417400360107422,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 262144.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.3182591199874878,
+            "mean_duration": 0.3177577018737793,
+            "maximum_duration": 0.36037373542785645,
+            "minimum_duration": 0.2617363929748535,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 262144.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.39850783348083496,
+            "mean_duration": 0.40289103031158446,
+            "maximum_duration": 0.5448122024536133,
+            "minimum_duration": 0.34908246994018555,
+            "parameters": {
+                "previous_size": 4194304.0,
+                "project_size": 262144.0
+            }
+        },
+        {
+            "name": "store into empty project",
+            "median_duration": 0.27258729934692383,
+            "mean_duration": 0.27258729934692383,
+            "maximum_duration": 0.27258729934692383,
+            "minimum_duration": 0.27258729934692383,
+            "parameters": {
+                "project_size": 524288.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.2636181116104126,
+            "mean_duration": 0.2675422191619873,
+            "maximum_duration": 0.34526824951171875,
+            "minimum_duration": 0.21141934394836426,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 524288.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.1344437599182129,
+            "mean_duration": 0.13534409999847413,
+            "maximum_duration": 0.15961647033691406,
+            "minimum_duration": 0.11116313934326172,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 524288.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.17713308334350586,
+            "mean_duration": 0.18450220584869384,
+            "maximum_duration": 0.2599005699157715,
+            "minimum_duration": 0.15952634811401367,
+            "parameters": {
+                "previous_size": 1048576.0,
+                "project_size": 524288.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.12466561794281006,
+            "mean_duration": 0.1362723684310913,
+            "maximum_duration": 0.3468801975250244,
+            "minimum_duration": 0.09310674667358398,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 524288.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.0552293062210083,
+            "mean_duration": 0.06318959712982178,
+            "maximum_duration": 0.20436716079711914,
+            "minimum_duration": 0.040205955505371094,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 524288.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.08687067031860352,
+            "mean_duration": 0.09644750595092773,
+            "maximum_duration": 0.2831578254699707,
+            "minimum_duration": 0.07353043556213379,
+            "parameters": {
+                "previous_size": 2097152.0,
+                "project_size": 524288.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.20830786228179932,
+            "mean_duration": 0.21463184356689452,
+            "maximum_duration": 0.371870756149292,
+            "minimum_duration": 0.14503908157348633,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 524288.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.11581003665924072,
+            "mean_duration": 0.12225998878479004,
+            "maximum_duration": 0.18598532676696777,
+            "minimum_duration": 0.09569525718688965,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 524288.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.14150512218475342,
+            "mean_duration": 0.14495011806488037,
+            "maximum_duration": 0.35092687606811523,
+            "minimum_duration": 0.1009213924407959,
+            "parameters": {
+                "previous_size": 4194304.0,
+                "project_size": 524288.0
+            }
+        },
+        {
+            "name": "store into empty project",
+            "median_duration": 0.12740230560302734,
+            "mean_duration": 0.12740230560302734,
+            "maximum_duration": 0.12740230560302734,
+            "minimum_duration": 0.12740230560302734,
+            "parameters": {
+                "project_size": 1048576.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.09900391101837158,
+            "mean_duration": 0.09963004589080811,
+            "maximum_duration": 0.1284017562866211,
+            "minimum_duration": 0.07398533821105957,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 1048576.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.04519760608673096,
+            "mean_duration": 0.04445742130279541,
+            "maximum_duration": 0.05431795120239258,
+            "minimum_duration": 0.034905195236206055,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 1048576.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.07029497623443604,
+            "mean_duration": 0.07026165962219239,
+            "maximum_duration": 0.1271345615386963,
+            "minimum_duration": 0.051694631576538086,
+            "parameters": {
+                "previous_size": 1048576.0,
+                "project_size": 1048576.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.1356346607208252,
+            "mean_duration": 0.13559862613677978,
+            "maximum_duration": 0.15465283393859863,
+            "minimum_duration": 0.1218576431274414,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 1048576.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.06475841999053955,
+            "mean_duration": 0.06682408332824707,
+            "maximum_duration": 0.0900113582611084,
+            "minimum_duration": 0.052706003189086914,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 1048576.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.09878242015838623,
+            "mean_duration": 0.10094314575195312,
+            "maximum_duration": 0.16463446617126465,
+            "minimum_duration": 0.08722972869873047,
+            "parameters": {
+                "previous_size": 2097152.0,
+                "project_size": 1048576.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.19201529026031494,
+            "mean_duration": 0.1955721664428711,
+            "maximum_duration": 0.23730087280273438,
+            "minimum_duration": 0.17656660079956055,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 1048576.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.11871182918548584,
+            "mean_duration": 0.11882444858551025,
+            "maximum_duration": 0.13217425346374512,
+            "minimum_duration": 0.0994865894317627,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 1048576.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.13349497318267822,
+            "mean_duration": 0.1346188449859619,
+            "maximum_duration": 0.15738511085510254,
+            "minimum_duration": 0.11533236503601074,
+            "parameters": {
+                "previous_size": 4194304.0,
+                "project_size": 1048576.0
+            }
+        },
+        {
+            "name": "store into empty project",
+            "median_duration": 0.23698949813842773,
+            "mean_duration": 0.23698949813842773,
+            "maximum_duration": 0.23698949813842773,
+            "minimum_duration": 0.23698949813842773,
+            "parameters": {
+                "project_size": 2097152.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.10372889041900635,
+            "mean_duration": 0.10472187519073486,
+            "maximum_duration": 0.1344311237335205,
+            "minimum_duration": 0.08955264091491699,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 2097152.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.0645289421081543,
+            "mean_duration": 0.06399734497070313,
+            "maximum_duration": 0.0798792839050293,
+            "minimum_duration": 0.05634808540344238,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 2097152.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.07273554801940918,
+            "mean_duration": 0.07330117225646973,
+            "maximum_duration": 0.11199307441711426,
+            "minimum_duration": 0.060427188873291016,
+            "parameters": {
+                "previous_size": 1048576.0,
+                "project_size": 2097152.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.13367831707000732,
+            "mean_duration": 0.1349157953262329,
+            "maximum_duration": 0.15287089347839355,
+            "minimum_duration": 0.11938047409057617,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 2097152.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.08630907535552979,
+            "mean_duration": 0.08742681980133056,
+            "maximum_duration": 0.10913586616516113,
+            "minimum_duration": 0.07134795188903809,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 2097152.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.09853923320770264,
+            "mean_duration": 0.10150021076202392,
+            "maximum_duration": 0.15064644813537598,
+            "minimum_duration": 0.09077811241149902,
+            "parameters": {
+                "previous_size": 2097152.0,
+                "project_size": 2097152.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.19418752193450928,
+            "mean_duration": 0.19303839206695556,
+            "maximum_duration": 0.25566840171813965,
+            "minimum_duration": 0.15536093711853027,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 2097152.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.1358327865600586,
+            "mean_duration": 0.1363557767868042,
+            "maximum_duration": 0.15227770805358887,
+            "minimum_duration": 0.11314511299133301,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 2097152.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.13799512386322021,
+            "mean_duration": 0.13794952392578125,
+            "maximum_duration": 0.19206786155700684,
+            "minimum_duration": 0.11610603332519531,
+            "parameters": {
+                "previous_size": 4194304.0,
+                "project_size": 2097152.0
+            }
+        },
+        {
+            "name": "store into empty project",
+            "median_duration": 0.44518589973449707,
+            "mean_duration": 0.44518589973449707,
+            "maximum_duration": 0.44518589973449707,
+            "minimum_duration": 0.44518589973449707,
+            "parameters": {
+                "project_size": 4194304.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.10365474224090576,
+            "mean_duration": 0.10545481204986572,
+            "maximum_duration": 0.12450289726257324,
+            "minimum_duration": 0.09060120582580566,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 4194304.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.12426447868347168,
+            "mean_duration": 0.1231510066986084,
+            "maximum_duration": 0.1411573886871338,
+            "minimum_duration": 0.09885549545288086,
+            "parameters": {
+                "field_size": 1048576.0,
+                "project_size": 4194304.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.07127368450164795,
+            "mean_duration": 0.07533674716949462,
+            "maximum_duration": 0.15424776077270508,
+            "minimum_duration": 0.0626978874206543,
+            "parameters": {
+                "previous_size": 1048576.0,
+                "project_size": 4194304.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.14296722412109375,
+            "mean_duration": 0.14389432907104494,
+            "maximum_duration": 0.17727971076965332,
+            "minimum_duration": 0.12017369270324707,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 4194304.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.1433887481689453,
+            "mean_duration": 0.1434312391281128,
+            "maximum_duration": 0.16273093223571777,
+            "minimum_duration": 0.1287693977355957,
+            "parameters": {
+                "field_size": 2097152.0,
+                "project_size": 4194304.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.10363447666168213,
+            "mean_duration": 0.10668325901031495,
+            "maximum_duration": 0.15494322776794434,
+            "minimum_duration": 0.09176373481750488,
+            "parameters": {
+                "previous_size": 2097152.0,
+                "project_size": 4194304.0
+            }
+        },
+        {
+            "name": "store field",
+            "median_duration": 0.19740545749664307,
+            "mean_duration": 0.20240976333618163,
+            "maximum_duration": 0.31894469261169434,
+            "minimum_duration": 0.18176937103271484,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 4194304.0
+            }
+        },
+        {
+            "name": "fetch field",
+            "median_duration": 0.17550289630889893,
+            "mean_duration": 0.1751500463485718,
+            "maximum_duration": 0.20275115966796875,
+            "minimum_duration": 0.15842366218566895,
+            "parameters": {
+                "field_size": 4194304.0,
+                "project_size": 4194304.0
+            }
+        },
+        {
+            "name": "empty field",
+            "median_duration": 0.15023088455200195,
+            "mean_duration": 0.15115105152130126,
+            "maximum_duration": 0.20694255828857422,
+            "minimum_duration": 0.13339638710021973,
+            "parameters": {
+                "previous_size": 4194304.0,
+                "project_size": 4194304.0
+            }
+        }
+    ]
+}

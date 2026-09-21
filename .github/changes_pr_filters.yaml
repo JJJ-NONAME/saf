@@ -1,0 +1,86 @@
+bdm-python-api:
+  - 'packages/bdm-python-api/**'
+  - '!packages/bdm-python-api/doc/**'
+  - '.github/workflows/tests_groups_definitions/bdm-python-api.json'
+  - '.github/workflows/_test.yml'
+  - '.github/workflows/ci_cd_pr.yml'
+bdm-python-shared-volume:
+  - 'packages/bdm-python-shared-volume/**'
+  - '.github/workflows/tests_groups_definitions/bdm-python-shared-volume.json'
+dash-super-components:
+  - 'packages/dash-super-components/**'
+  - '!packages/dash-super-components/doc/**'
+  - '.github/workflows/tests_groups_definitions/dash-super-components.json'
+glow-engine:
+  - 'packages/glow-engine/**'
+  - '!packages/glow-engine/doc/**'
+  - '.github/workflows/tests_groups_definitions/glow-engine.json'
+  - '.github/workflows/tests_groups_definitions/glow-engine-extended.json'
+saf-cli:
+  - 'packages/saf-cli/**'
+  - '.github/workflows/tests_groups_definitions/saf-cli.json'
+  - '.github/workflows/tests_groups_definitions/saf-cli-extended.json'
+  - '.github/workflows/_test_generated_solution.yml'
+saf-desktop-installer:
+  - 'packages/saf-desktop-installer/**'
+  - '.github/workflows/tests_groups_definitions/saf-desktop-installer.json'
+  - '.github/workflows/tests_groups_definitions/saf-desktop-installer-extended.json'
+saf-desktop-orchestrator:
+  - 'packages/saf-desktop-orchestrator/**'
+  - '.github/workflows/tests_groups_definitions/saf-desktop-orchestrator.json'
+saf-iam-oidc:
+  - 'packages/saf-iam-oidc/**'
+  - '!packages/saf-iam-oidc/doc/**'
+  - '.github/workflows/tests_groups_definitions/saf-iam-oidc.json'
+saf-product-configuration:
+  - 'packages/saf-product-configuration/**'
+  - '!packages/saf-product-configuration/doc/**'
+  - '.github/workflows/tests_groups_definitions/saf-product-configuration.json'
+saf-product-manager:
+  - 'packages/saf-product-manager/**'
+  - '!packages/saf-product-manager/doc/**'
+  - '.github/workflows/tests_groups_definitions/saf-product-manager.json'
+  - '.github/workflows/tests_groups_definitions/saf-product-manager-extended.json'
+saf-product-manager-aedt:
+  - 'packages/saf-product-manager/src/ansys/saf/product_manager/aedt/**'
+  - 'packages/saf-product-manager/tests/e2e/test_aedt*.py'
+  - '.github/workflows/tests_groups_definitions/saf-product-manager-aedt.json'
+saf-product-manager-fluent:
+  - 'packages/saf-product-manager/src/ansys/saf/product_manager/fluent/**'
+  - 'packages/saf-product-manager/tests/e2e/test_fluent*.py'
+  - '.github/workflows/tests_groups_definitions/saf-product-manager-fluent.json'
+saf-product-manager-geometry:
+  - 'packages/saf-product-manager/src/ansys/saf/product_manager/geometry/**'
+  - 'packages/saf-product-manager/tests/e2e/test_geometry*.py'
+  - '.github/workflows/tests_groups_definitions/saf-product-manager-geometry.json'
+saf-product-manager-mapdl:
+  - 'packages/saf-product-manager/src/ansys/saf/product_manager/mapdl/**'
+  - 'packages/saf-product-manager/tests/e2e/test_mapdl*.py'
+  - '.github/workflows/tests_groups_definitions/saf-product-manager-mapdl.json'
+saf-product-manager-mechanical:
+  - 'packages/saf-product-manager/src/ansys/saf/product_manager/mechanical/**'
+  - 'packages/saf-product-manager/tests/e2e/test_mechanical*.py'
+  - '.github/workflows/tests_groups_definitions/saf-product-manager-mechanical.json'
+saf-product-manager-optislang:
+  - 'packages/saf-product-manager/src/ansys/saf/product_manager/optislang_wrapper/**'
+  - 'packages/saf-product-manager/tests/e2e/test_optislang*.py'
+  - '.github/workflows/tests_groups_definitions/saf-product-manager-optislang.json'
+saf-product-manager-visor:
+  - 'packages/saf-product-manager/src/ansys/saf/product_manager/visor/**'
+  - 'packages/saf-product-manager/tests/e2e/test_visor*.py'
+  - '.github/workflows/tests_groups_definitions/saf-product-manager-visor.json'
+saf-templates:
+  - 'packages/saf-templates/**'
+  - '.github/workflows/tests_groups_definitions/saf-templates.json'
+saf-testing:
+  - 'packages/saf-testing/**'
+  - '.github/workflows/tests_groups_definitions/saf-testing.json'
+ci-cd-job-matrices:
+  - '.github/actions/ci-cd-job-matrices/**'
+examples:
+  - 'examples/**'
+  - '.github/workflows/tests_groups_definitions/examples.json'
+saf-sdk:
+  - '.github/actions/sdk-meta-package/**'
+  - '.github/workflows/ci_cd_meta_package.yml'
+  - 'packages/saf-sdk/**'

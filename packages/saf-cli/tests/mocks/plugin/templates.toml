@@ -1,0 +1,13 @@
+[templates.several-deps-step]
+location = "steps/several_deps_step"
+type = "step"
+description = "a step that performs custom calculator operations"
+
+[templates.several-deps-step.dependencies.main]
+humanize = "^4.15.0"
+msgpack = { version = "^1.0.0", allow-prereleases = true }
+
+[templates.second-step]
+location = "steps/second_step"
+type = "step"
+description = "a step that is second to another step"

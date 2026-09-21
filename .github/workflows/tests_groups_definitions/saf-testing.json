@@ -1,0 +1,4 @@
+[
+    {"test-report-artifact-name-suffix": "saf_testing_linux", "pytest-additional-arguments": "tests --reruns 2", "runner-name": "ubuntu-latest"},
+    {"test-report-artifact-name-suffix": "saf_testing_windows", "pytest-additional-arguments": "tests --reruns 2", "runner-name": "windows-latest"}
+]

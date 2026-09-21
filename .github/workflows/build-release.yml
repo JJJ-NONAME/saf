@@ -1,0 +1,20 @@
+name: Build Release (TEST)
+
+on:
+  workflow_dispatch:
+
+permissions: {}
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-build
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: "Build"
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - name: Place holder
+        run: echo "This is a placeholder step. This workflow is used by _test_generated_solution.yml.
+          Do not change the name of this file."
