@@ -72,3 +72,5 @@ jobs:
         with:
           python-version: ${{ inputs.python-version }}
           wheel-artifact: ${{ inputs.library-name }}-${{ inputs.python-version }}-artifacts
+        env:
+          UV_VENV_CLEAR: 1
