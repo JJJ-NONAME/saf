@@ -14,7 +14,7 @@ on:
         type: boolean
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}-build
+  group: ${{ github.workflow }}-${{ github.ref }}-build-${{ inputs.library-name }}-${{ inputs.python-version }}-${{ inputs.use-moon }}  
   cancel-in-progress: true
 
 permissions: {}
