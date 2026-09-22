@@ -518,7 +518,7 @@ jobs:
       - validate-issue-template-labels
       - github-workflows-lint
       - vulnerabilities
-      - code-style-check
+      - code-style-moon
       - code-style
       - check-dependencies-licenses
       - build-wheel
