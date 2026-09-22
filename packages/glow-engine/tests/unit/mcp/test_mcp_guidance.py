@@ -17,6 +17,7 @@ from pathlib import Path
 
 from fastmcp.client import Client
 from fastmcp.client.transports import FastMCPTransport
+from mcp.types import TextContent
 from pytest_mock import MockerFixture
 
 from ansys.saf.glow._mcp.server import build_app
@@ -37,6 +38,7 @@ async def test_mcp_solution_workflow_tool(mcp_unit_client: Client[FastMCPTranspo
 async def test_mcp_saf_concepts_tool(mcp_unit_client: Client[FastMCPTransport]):
     result = await mcp_unit_client.call_tool("saf_concepts")
     assert len(result.content) == 1
+    assert isinstance(result.content[0], TextContent)
     text = result.content[0].text
     for keyword in ["Project", "Step", "Field", "Entity handle", "Transaction", "Long-running transaction"]:
         assert keyword in text

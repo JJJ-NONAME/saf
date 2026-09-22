@@ -15,6 +15,7 @@
 # limitations under the License.
 from fastmcp import Client as MCPClient
 from fastmcp.client.transports import StreamableHttpTransport
+from mcp.types import TextContent
 import pytest
 
 from tests.e2e.mcp.conftest import assert_mcp_response
@@ -36,6 +37,7 @@ class TestMCPGuidance:
     async def test_mcp_saf_concepts_tool(self, mcp_client: MCPClient[StreamableHttpTransport]):
         result = await mcp_client.call_tool("saf_concepts")
         assert len(result.content) == 1
+        assert isinstance(result.content[0], TextContent)
         text = result.content[0].text
         for keyword in ["Project", "Step", "Field", "Entity handle", "Transaction", "Long-running transaction"]:
             assert keyword in text

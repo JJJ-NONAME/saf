@@ -19,13 +19,13 @@ from typing import Any
 from fastmcp import FastMCP
 
 from ansys.saf.glow._mcp._data_tools import register_data_tools
+from ansys.saf.glow._mcp._guidance_tools import register_guidance_tools
 from ansys.saf.glow._mcp._project_tools import register_project_tools
 from ansys.saf.glow._mcp._resolution import (
     SOLUTION_API_URL_ATTR,
     SOLUTION_CLASS_ATTR,
     SOLUTION_WORKFLOW_ATTR,
 )
-from ansys.saf.glow._mcp._guidance_tools import register_guidance_tools
 from ansys.saf.glow._mcp._transaction_tools import register_transaction_tools
 from ansys.saf.glow._mcp.solution_doc import SolutionDoc
 from ansys.saf.glow.client import Client
