@@ -388,7 +388,7 @@ jobs:
     name: Run compatibility tests
     needs:
       - ci-cd-config
-      - build-wheel
+      - build-wheel-poetry
     if: ${{ needs.ci-cd-config.outputs.compatibility-matrix != '{}' }}
     runs-on: ubuntu-latest
     strategy:
@@ -400,7 +400,7 @@ jobs:
         with:
           python-version: ${{ vars.PYTHON_VERSION }}
           compatibility-packages: 'git+https://github.com/ansys/pyansys.git'
-          wheel-artifact-name: '${{ matrix.library-name }}-artifacts'
+          wheel-artifact-name: '${{ matrix.library-name }}-${{ vars.PYTHON_VERSION }}-artifacts'
         timeout-minutes: 15
 
   sbom:
