@@ -17,7 +17,8 @@ on:
         type: boolean
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}-build-${{ inputs.library-name }}-${{ inputs.python-version }}-${{ inputs.use-moon }}-${{ inputs.artifact-name }}
+  group: ${{ github.workflow }}-${{ github.ref }}-build-${{ inputs.library-name }}-${{
+    inputs.python-version }}-${{ inputs.use-moon }}-${{ inputs.artifact-name }}
   cancel-in-progress: true
 
 permissions: {}
@@ -59,7 +60,7 @@ jobs:
       - name: Set up uv
         uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
         with:
-          enable-cache: true
+          enable-cache: false
           python-version: ${{ inputs.python-version }}
           activate-environment: true
 
@@ -90,4 +91,4 @@ jobs:
       - name: Generate build provenance attestation
         uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
         with:
-            subject-path: dist/
+          subject-path: dist/

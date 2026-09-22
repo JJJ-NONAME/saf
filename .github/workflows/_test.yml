@@ -300,7 +300,8 @@ jobs:
       PIP_INDEX_URL: https://pypi.org/simple
       GITHUB_TOKEN: ${{ github.token }}
       ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
-      USE_MOON: ${{ contains(inputs.package-name, 'bdm-python-api') || contains(inputs.working-directory, 'bdm-python-api') }}
+      USE_MOON: ${{ contains(inputs.package-name, 'bdm-python-api') || contains(inputs.working-directory,
+        'bdm-python-api') }}
       # MOON_PYTHON_VERSION: ${{ inputs.python-version }}
     steps:
       - name: Enable git long paths on Windows
@@ -373,7 +374,7 @@ jobs:
         if: ${{ env.USE_MOON == 'true' }}
         uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
         with:
-          enable-cache: true
+          enable-cache: false
           python-version: ${{ matrix.python-version }}
           activate-environment: true
 
