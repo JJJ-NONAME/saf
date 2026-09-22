@@ -99,7 +99,6 @@ jobs:
           path: doc/_build/html
           retention-days: 7
 
-
   doc-api-build-moon:
     name: "API documentation building (Moon)"
     needs: doc-get-changes
@@ -118,6 +117,7 @@ jobs:
           persist-credentials: false
           ref: ${{ (inputs.ref != '' && contains(inputs.ref, matrix.package)) && inputs.ref
             || (inputs.ref != '' && 'main' || github.ref) }}
+          fetch-depth: 0
 
       - name: Set up uv
         uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
