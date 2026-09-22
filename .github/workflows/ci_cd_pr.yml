@@ -98,6 +98,7 @@ jobs:
     outputs:
       pr-changes: ${{ steps.info.outputs.pr-changes }}
       packages-matrix: ${{ steps.info.outputs.packages-matrix }}
+      moon-packages-matrix: ${{ steps.info.outputs.moon-packages-matrix }}
       code-style-matrix: ${{ steps.info.outputs.code-style-matrix }}
       compatibility-matrix: ${{ steps.info.outputs.compatibility-matrix }}
       tests-matrix: ${{ steps.info.outputs.tests-matrix }}
@@ -331,14 +332,17 @@ jobs:
   build-wheel-moon:
     name: "Build wheel (Moon)"
     needs: ci-cd-config
-    if: ${{ contains(needs.ci-cd-config.outputs.packages-matrix, 'bdm-python-api') }}
+    if: ${{ needs.ci-cd-config.outputs.moon-packages-matrix != '{}' }}
     permissions:
       attestations: write # Write attestation for uploaded distribution artifacts
       contents: read # Read the source code of the project
       id-token: write # Write access to a temporary token for signing attestations
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.ci-cd-config.outputs.moon-packages-matrix) }}
     uses: ./.github/workflows/_build.yml
     with:
-      library-name: bdm-python-api
+      library-name: ${{ matrix.library-name }}
       python-version: ${{ vars.PYTHON_VERSION }}
 
   build-wheel:
