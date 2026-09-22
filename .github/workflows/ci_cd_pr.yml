@@ -172,8 +172,35 @@ jobs:
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(needs.ci-cd-config.outputs.packages-matrix) }}
+    env:
+      USE_MOON: ${{ contains(needs.ci-cd-config.outputs.moon-packages-matrix, matrix.library-name) }}
     steps:
-      - uses: ansys/saf-devops/check-deps-vulnerabilities@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Set up uv
+        if: ${{ env.USE_MOON == 'true' }}
+        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
+        with:
+          enable-cache: false
+          python-version: ${{ matrix.python-version }}
+          activate-environment: true
+
+      - name: Setup Moon Toolchain
+        if: ${{ env.USE_MOON == 'true' }}
+        uses: moonrepo/setup-toolchain@261c62cb5b0f580c7be7c8cd0f023a2e96756095 # v0.6.4
+
+      - name: Export Requirements
+        if: ${{ env.USE_MOON == 'true' }}
+        shell: bash
+        env:
+          PACKAGE: ${{ matrix.library-name }}
+        run: moon run ${PACKAGE}:export
+
+      - uses: ansys/saf-devops/check-deps-vulnerabilities@feat/allow-requirement-file-input-dor-check-dependencies
         with:
           python-version: ${{ vars.PYTHON_VERSION }}
           poetry-version: ${{ vars.POETRY_VERSION }}
@@ -181,6 +208,9 @@ jobs:
           upgrade-pip: true
           poetry-parent-directory: packages/${{ matrix.library-name }}
           max-allowed-severity: medium
+          skip-install: ${{ env.USE_MOON == 'true' }}
+          checkout: false
+          requirements-file: "dist/${{ matrix.library-name }}/requirements.txt"
 
   check-dependencies-licenses:
     name: "Check dependencies licenses"

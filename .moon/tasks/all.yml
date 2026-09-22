@@ -141,3 +141,26 @@ tasks:
       - "/.python-version"
     options:
       runFromWorkspaceRoot: true
+
+  export:
+    description: "Export the project"
+    command: 'uv'
+    args:
+      - "export"
+      - "--package"
+      - "$projectAlias"
+      - "--no-emit-project"
+      - "--no-hashes"
+      - "--format"
+      - "requirements-txt"
+      - "--output-file"
+      - "dist/$projectAlias-requirements.txt"
+    inputs:
+      - "src/**/*"
+      - "pyproject.toml"
+      - "/.python-version"
+      - "uv.lock"
+    outputs:
+      - "/dist/$projectAlias-requirements.txt"
+    options:
+      runFromWorkspaceRoot: true
