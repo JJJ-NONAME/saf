@@ -18,13 +18,14 @@ classifiers = [
   "Topic :: Scientific/Engineering :: Information Analysis",
 ]
 dependencies = [
-  "ansys-bdm-api"
+  "ansys-bdm-api",
 ]
 
 [dependency-groups]
 dev = [
-   "pre-commit==4.6.0",
-   "bandit[toml]==1.9.4",
+  "bandit[toml]==1.9.4",
+  "pre-commit==4.6.0",
+  { include-group = "doc" },
   { include-group = "tests" },
 ]
 tests = [
@@ -63,17 +64,17 @@ doc = [
   "toml>=0.10.2; python_version>='3.12'",
 ]
 
-[tool.setuptools]
-py-modules = []
-
 [tool.poetry.group.doc]
 optional = true
+
+[tool.setuptools]
+py-modules = [  ]
+
+[tool.coverage.report]
+show_missing = true
 
 [tool.uv.sources]
 ansys-bdm-api = { workspace = true }
 
 [tool.uv.workspace]
-members = ["packages/bdm-python-api"]
-
-[tool.coverage.report]
-show_missing = true
+members = [ "packages/bdm-python-api" ]

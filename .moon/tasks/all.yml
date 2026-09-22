@@ -1,12 +1,15 @@
 tasks:
   pre-commit:
-    command: 'uv run pre-commit run --files $MOON_AFFECTED_FILES'
+    description: "Run pre-commit against this package's files and root-level files only (other packages are not yet converted)"
+    script: 'uv run pre-commit run --files $(git ls-files -- "*" ":!:*/*") $(git ls-files -- "doc") $(git ls-files -- "$projectSource")'
     inputs:
       - 'src/**/*'
       - 'tests/**/*'
       - '/.pre-commit-config.yaml'
       - 'pyproject.toml'
       - 'uv.lock'
+    options:
+      runFromWorkspaceRoot: true
 
   build:
     description: "Build wheel"

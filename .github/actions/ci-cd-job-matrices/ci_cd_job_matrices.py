@@ -81,6 +81,8 @@ TESTS_DEFINITIONS_PER_TARGET = {
     "examples": ["examples"],
 }
 
+UV_PACKAGES = ["bdm-python-api"]
+
 
 def write_output(name: str, value: str) -> None:
     """Append a multiline output to the ``GITHUB_OUTPUT`` file."""
@@ -123,11 +125,6 @@ def get_changed_packages(pr_changes: list[str]) -> list[str]:
 def get_code_style_matrix_entries(
     changed_packages: list[str], pr_changes: list[str] | None = None
 ) -> None:
-    root_entry = {
-        "target-directory": ".github",
-        "dependency-manager": "uv",
-        "poetry-install-args": "",
-    }
     package_entries = [
         {
             "target-directory": f"packages/{pkg}",
@@ -137,9 +134,9 @@ def get_code_style_matrix_entries(
             ),
         }
         for pkg in changed_packages
-        if pkg in SAF_PACKAGES
+        if pkg in SAF_PACKAGES and pkg not in UV_PACKAGES
     ]
-    code_style_entries = [root_entry, *package_entries]
+    code_style_entries = [*package_entries]
     if pr_changes and "examples" in pr_changes:
         code_style_entries.append(
             {
