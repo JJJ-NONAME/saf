@@ -346,7 +346,7 @@ jobs:
       library-name: ${{ matrix.library-name }}
       python-version: ${{ vars.PYTHON_VERSION }}
       use-moon: false
-      artifact-name: ${{ matrix.library-name }}-${{ vars.PYTHON_VERSION }}-artifacts
+      artifact-name: ${{ matrix.library-name }}-${{ vars.PYTHON_VERSION }}
 
   check-wheel-can-be-pip-installed-moon:
     name: "Check wheel can be pip installed (Moon)"
