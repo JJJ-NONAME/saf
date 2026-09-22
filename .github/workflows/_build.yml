@@ -20,7 +20,9 @@ jobs:
   build:
     name: "Build (Moon)"
     permissions:
-      contents: read
+      attestations: write # Write attestation for uploaded distribution artifacts
+      contents: read # Read the source code of the project
+      id-token: write # Write access to a temporary token for signing attestations
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout repository"
