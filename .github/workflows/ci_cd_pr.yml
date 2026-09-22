@@ -253,6 +253,7 @@ jobs:
     permissions:
       contents: read
     runs-on: ubuntu-latest
+    if: ${{ needs.ci-cd-config.outputs.code-style-matrix != '{}' }}
     strategy:
       matrix: ${{ fromJson(needs.ci-cd-config.outputs.code-style-matrix) }}
       fail-fast: false
@@ -321,8 +322,8 @@ jobs:
     permissions:
       contents: write # Required to push to gh-pages branch
       pull-requests: read # Required to read the pull-request to check if it has documentation changes
-    # if: ${{ github.event_name == 'push' || (github.event_name == 'pull_request' &&
-    #   github.event.pull_request.draft == false) }}
+    if: ${{ github.event_name == 'push' || (github.event_name == 'pull_request' &&
+      github.event.pull_request.draft == false) }}
     uses: ./.github/workflows/_doc.yml
     secrets:
       PYANSYS_CI_BOT_TOKEN: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
