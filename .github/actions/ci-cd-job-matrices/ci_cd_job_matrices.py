@@ -116,7 +116,7 @@ def get_pr_changes() -> list[str]:
 
 def get_changed_moon_packages(pr_changes: list[str]) -> list[str]:
     changed_packages = [
-        pkg for pkg in pr_changes if pkg in SAF_PACKAGES and pkg in UV_PACKAGES
+        pkg for pkg in pr_changes if pkg in UV_PACKAGES
     ]
     write_matrix_to_output(
         "moon_packages_matrix", [{"library-name": pkg} for pkg in changed_packages]

@@ -359,7 +359,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix: ${{ fromJson(needs.ci-cd-config.outputs.packages-matrix) }}
+      matrix: ${{ fromJson(needs.ci-cd-config.outputs.moon-packages-matrix) }}
     steps:
       - name: Check if wheel can be pip installed
         uses: ansys/saf-devops/pip-install-production-wheel@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
