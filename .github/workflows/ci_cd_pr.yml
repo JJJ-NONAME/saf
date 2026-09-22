@@ -210,7 +210,7 @@ jobs:
           max-allowed-severity: medium
           skip-install: ${{ env.USE_MOON == 'true' }}
           checkout: false
-          requirements-file: ${{ env.USE_MOON == 'true' && 'dist/${{ matrix.library-name }}/requirements.txt' || 'dependencies.txt' }}
+          requirements-file: ${{ env.USE_MOON == 'true' && format('dist/{0}/requirements.txt', matrix.library-name) || 'dependencies.txt' }}
         env:
           UV_VENV_CLEAR: ${{ env.USE_MOON == 'true' }}
 
@@ -418,16 +418,36 @@ jobs:
           python-version: ${{ vars.PYTHON_VERSION }}
           wheel-artifact: '${{ matrix.library-name }}-${{ vars.PYTHON_VERSION }}-artifacts'
 
-  compatibility-tests:
+  compatibility-tests-moon:
+    name: Run compatibility tests
+    needs:
+      - ci-cd-config
+      - build-wheel-moon
+    if: ${{ needs.ci-cd-config.outputs.moon-packages-matrix != '{}' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.ci-cd-config.outputs.moon-packages-matrix) }}
+    steps:
+      - name: Checks compatibility with pyansys
+        uses: ansys/saf-devops/compatibility-scan@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
+        with:
+          python-version: ${{ vars.PYTHON_VERSION }}
+          compatibility-packages: 'git+https://github.com/ansys/pyansys.git'
+          wheel-artifact-name: '${{ matrix.library-name }}-${{ vars.PYTHON_VERSION
+            }}-artifacts'
+        timeout-minutes: 15
+
+  compatibility-tests-poetry:
     name: Run compatibility tests
     needs:
       - ci-cd-config
       - build-wheel-poetry
-    if: ${{ needs.ci-cd-config.outputs.compatibility-matrix != '{}' }}
+    if: ${{ needs.ci-cd-config.outputs.poetry-packages-matrix != '{}' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix: ${{ fromJson(needs.ci-cd-config.outputs.compatibility-matrix) }}
+      matrix: ${{ fromJson(needs.ci-cd-config.outputs.poetry-packages-matrix) }}
     steps:
       - name: Checks compatibility with pyansys
         uses: ansys/saf-devops/compatibility-scan@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
