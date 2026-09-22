@@ -220,15 +220,9 @@ jobs:
 
   code-style-check:
     name: "Check code style"
-    needs: ci-cd-config
     permissions:
       contents: read
     runs-on: ubuntu-latest
-    strategy:
-      matrix: ${{ fromJson(needs.ci-cd-config.outputs.code-style-matrix) }}
-      fail-fast: false
-    env:
-      LIBRARY_NAME: ${{ matrix.target-directory }}
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -240,7 +234,7 @@ jobs:
         uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
         with:
           enable-cache: true
-          python-version: ${{ matrix.python-version }}
+          python-version: ${{ vars.PYTHON_VERSION }}
           activate-environment: true
 
       - name: Setup Moon Toolchain
