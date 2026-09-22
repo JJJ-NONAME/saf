@@ -210,7 +210,7 @@ jobs:
           max-allowed-severity: medium
           skip-install: ${{ env.USE_MOON == 'true' }}
           checkout: false
-          requirements-file: ${{ env.USE_MOON == 'true' && format('dist/{0}-requirements.txt', matrix.library-name) || 'dependencies.txt' }}
+          requirements-file: ${{ env.USE_MOON == 'true' && format('dist/packages/{0}-requirements.txt', matrix.library-name) || 'dependencies.txt' }}
         env:
           UV_VENV_CLEAR: ${{ env.USE_MOON == 'true' }}
 

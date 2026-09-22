@@ -154,13 +154,13 @@ tasks:
       - "--format"
       - "requirements-txt"
       - "--output-file"
-      - "dist/$projectAlias-requirements.txt"
+      - "dist/$projectSource-requirements.txt"
     inputs:
       - "src/**/*"
       - "pyproject.toml"
       - "/.python-version"
       - "uv.lock"
     outputs:
-      - "/dist/$projectAlias-requirements.txt"
+      - "/dist/$projectSource-requirements.txt"
     options:
       runFromWorkspaceRoot: true
