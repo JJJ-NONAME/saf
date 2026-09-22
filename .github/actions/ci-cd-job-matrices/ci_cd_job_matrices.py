@@ -114,8 +114,16 @@ def get_pr_changes() -> list[str]:
     return pr_changes
 
 
+def get_changed_moon_packages(pr_changes: list[str]) -> list[str]:
+    changed_packages = [pkg for pkg in pr_changes if pkg in SAF_PACKAGES and pkg in UV_PACKAGES]
+    write_matrix_to_output(
+        "moon_packages_matrix", [{"library-name": pkg} for pkg in changed_packages]
+    )
+    return changed_packages
+
+
 def get_changed_packages(pr_changes: list[str]) -> list[str]:
-    changed_packages = [pkg for pkg in pr_changes if pkg in SAF_PACKAGES]
+    changed_packages = [pkg for pkg in pr_changes if pkg in SAF_PACKAGES and not pkg in UV_PACKAGES]
     write_matrix_to_output(
         "packages_matrix", [{"library-name": pkg} for pkg in changed_packages]
     )
@@ -201,6 +209,7 @@ def get_tests_generated_solution_flag(changed_packages: list[str]) -> None:
 
 pr_changes = get_pr_changes()
 changed_packages = get_changed_packages(pr_changes)
+get_changed_moon_packages(pr_changes)
 get_code_style_matrix_entries(changed_packages, pr_changes)
 get_compatibility_matrix_entries(changed_packages)
 get_tests_matrix_entries(pr_changes, changed_packages)

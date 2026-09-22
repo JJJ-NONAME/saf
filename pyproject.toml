@@ -25,6 +25,7 @@ dependencies = [
 dev = [
   "bandit[toml]==1.9.4",
   "pre-commit==4.6.0",
+  { include-group = "build" },
   { include-group = "doc" },
   { include-group = "tests" },
 ]
@@ -62,6 +63,9 @@ doc = [
   "sphinxcontrib-mermaid>=0.7.1; python_version>='3.12'",
   "sphinxemoji>=0.2; python_version>='3.12'",
   "toml>=0.10.2; python_version>='3.12'",
+]
+build = [
+  "twine==7.0.0",
 ]
 
 [tool.poetry.group.doc]

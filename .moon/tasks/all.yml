@@ -29,75 +29,18 @@ tasks:
     options:
       runFromWorkspaceRoot: true
 
-  format:
-    description: "Run ruff format"
-    command:
-      - "uv"
+  twine-check:
+    description: "Check distribution with twine"
+    command: "uv"
+    args:
       - "run"
-      - "--package"
-      - "$projectAlias"
-      - "--all-extras"
-      - "ruff"
-      - "format"
-      - "--diff"
-      - "$projectSource"
+      - "twine"
+      - "check"
+      - "dist/*"
     inputs:
-      - "src/**/*"
-      - "tests/**/*"
-      - "pyproject.toml"
-      - "/.python-version"
-    tags:
-      - "ubuntu-latest"
+      - "dist/*"
     options:
       runFromWorkspaceRoot: true
-
-  format-fix:
-    description: "Fix ruff format"
-    command:
-      - "uv"
-      - "run"
-      - "--package"
-      - "$projectAlias"
-      - "--all-extras"
-      - "ruff"
-      - "format"
-      - "$projectSource"
-    options:
-      runFromWorkspaceRoot: true
-    preset: "utility"
-
-  bandit:
-    description: "Run bandit"
-    command:
-      - "uv"
-      - "run"
-      - "--package"
-      - "$projectAlias"
-      - "--all-extras"
-      - "bandit"
-      - "-r"
-      - "$projectSource/src"
-      - "--severity-level=high"
-    inputs:
-      - "src/**/*"
-      - "tests/**/*"
-      - "pyproject.toml"
-      - "/.python-version"
-    tags:
-      - "ubuntu-latest"
-    options:
-      runFromWorkspaceRoot: true
-
-  install-dependency:
-    description: "Install a runtime-only package"
-    command:
-      - "uv"
-      - "pip"
-      - "install"
-    options:
-      cache: false
-      runFromWorkspaceRoot: true
-    preset: "utility"
 
   test:
     command: 'noop'

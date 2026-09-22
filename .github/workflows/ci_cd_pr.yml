@@ -218,8 +218,8 @@ jobs:
             }}/activate"
           checkout: false
 
-  code-style-check:
-    name: "Check code style"
+  code-style-moon:
+    name: "Check code style (moon)"
     permissions:
       contents: read
     runs-on: ubuntu-latest
@@ -321,11 +321,24 @@ jobs:
     permissions:
       contents: write # Required to push to gh-pages branch
       pull-requests: read # Required to read the pull-request to check if it has documentation changes
-    if: ${{ github.event_name == 'push' || (github.event_name == 'pull_request' &&
-      github.event.pull_request.draft == false) }}
+    # if: ${{ github.event_name == 'push' || (github.event_name == 'pull_request' &&
+    #   github.event.pull_request.draft == false) }}
     uses: ./.github/workflows/_doc.yml
     secrets:
       PYANSYS_CI_BOT_TOKEN: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+
+  build-wheel-moon:
+    name: "Build wheel (Moon)"
+    needs: ci-cd-config
+    if: ${{ contains(needs.ci-cd-config.outputs.packages-matrix, 'bdm-python-api') }}
+    permissions:
+      attestations: write # Write attestation for uploaded distribution artifacts
+      contents: read # Read the source code of the project
+      id-token: write # Write access to a temporary token for signing attestations
+    uses: ./.github/workflows/_build.yml
+    with:
+      library-name: bdm-python-api
+      python-version: ${{ vars.PYTHON_VERSION }}
 
   build-wheel:
     name: "Wheel"
@@ -341,6 +354,7 @@ jobs:
       matrix: ${{ fromJson(needs.ci-cd-config.outputs.packages-matrix) }}
     steps:
       - name: "Build wheel"
+        if: ${{ matrix.library-name != 'bdm-python-api'}}
         uses: ansys/actions/build-library@3ad3b285bd9b67045477dafc7f9865a3aa39f692 # v11.0.6
         with:
           library-name: ${{ matrix.library-name }}
@@ -504,6 +518,7 @@ jobs:
       - validate-issue-template-labels
       - github-workflows-lint
       - vulnerabilities
+      - code-style-check
       - code-style
       - check-dependencies-licenses
       - build-wheel
