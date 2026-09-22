@@ -43,7 +43,8 @@ tests = [
   "pytest-xdist>=3.6.1,<4",
 ]
 doc = [
-  "ansys-sphinx-theme>=1.9; python_version>='3.12'",
+  "ansys-sphinx-theme[autoapi]>=1.9; python_version>='3.12'",
+  "autodoc-pydantic>=2.2.0; python_version>='3.12'",
   "click>=8.3.2; python_version>='3.12'",
   "docutils>=0.21; python_version>='3.12' and python_version<'4.0'",
   "linkchecker>=10.6.0; python_version>='3.12'",
