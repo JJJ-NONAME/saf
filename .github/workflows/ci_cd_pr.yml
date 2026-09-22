@@ -211,6 +211,8 @@ jobs:
           skip-install: ${{ env.USE_MOON == 'true' }}
           checkout: false
           requirements-file: "dist/${{ matrix.library-name }}/requirements.txt"
+        env:
+          UV_VENV_CLEAR: ${{ env.USE_MOON == 'true' }}
 
   check-dependencies-licenses:
     name: "Check dependencies licenses"
