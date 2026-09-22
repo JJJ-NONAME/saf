@@ -48,6 +48,7 @@ with tempfile.TemporaryDirectory() as temp_dir:
         write_matrix_to_output,
         get_pr_changes,
         get_changed_moon_packages,
+        get_changed_poetry_packages,
         get_changed_packages,
         get_code_style_matrix_entries,
         get_compatibility_matrix_entries,
@@ -350,24 +351,55 @@ class TestGetChangedPackages:
     def test_get_changed_packages_all_valid_packages(
         self, github_env: tuple[Path, Path]
     ):
-        """All non-Moon SAF packages can be in the input."""
+        """All SAF packages can be in the input."""
         result = get_changed_packages(SAF_PACKAGES)
-        assert result == [
-            package for package in SAF_PACKAGES if package != "bdm-python-api"
-        ]
+        assert result == SAF_PACKAGES
 
-    def test_get_changed_packages_excludes_moon_packages(
+    def test_get_changed_packages_includes_moon_packages(
+        self, github_env: tuple[Path, Path]
+    ):
+        """Moon-managed packages are included in the package matrix."""
+        output_file, _ = github_env
+        result = get_changed_packages(["bdm-python-api", "glow-engine"])
+
+        assert result == ["bdm-python-api", "glow-engine"]
+        outputs = parse_outputs(output_file)
+        assert json.loads(outputs["packages_matrix"]) == {
+            "include": [
+                {"library-name": "bdm-python-api"},
+                {"library-name": "glow-engine"},
+            ]
+        }
+
+
+class TestGetChangedPoetryPackages:
+    """Test the get_changed_poetry_packages function."""
+
+    def test_get_changed_poetry_packages_excludes_moon_packages(
         self, github_env: tuple[Path, Path]
     ):
         """Moon-managed packages are excluded from the Poetry package matrix."""
         output_file, _ = github_env
-        result = get_changed_packages(["bdm-python-api", "glow-engine"])
+
+        result = get_changed_poetry_packages(["bdm-python-api", "glow-engine"])
 
         assert result == ["glow-engine"]
         outputs = parse_outputs(output_file)
-        assert json.loads(outputs["packages_matrix"]) == {
+        assert json.loads(outputs["poetry_packages_matrix"]) == {
             "include": [{"library-name": "glow-engine"}]
         }
+
+    def test_get_changed_poetry_packages_empty_input(
+        self, github_env: tuple[Path, Path]
+    ):
+        """Empty input returns no Poetry packages."""
+        output_file, _ = github_env
+
+        result = get_changed_poetry_packages([])
+
+        assert result == []
+        outputs = parse_outputs(output_file)
+        assert outputs["poetry_packages_matrix"] == "{}"
 
 
 class TestGetChangedMoonPackages:

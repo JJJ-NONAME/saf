@@ -98,6 +98,7 @@ jobs:
     outputs:
       pr-changes: ${{ steps.info.outputs.pr-changes }}
       packages-matrix: ${{ steps.info.outputs.packages-matrix }}
+      poetry-packages-matrix: ${{ steps.info.outputs.poetry-packages-matrix }}
       moon-packages-matrix: ${{ steps.info.outputs.moon-packages-matrix }}
       code-style-matrix: ${{ steps.info.outputs.code-style-matrix }}
       compatibility-matrix: ${{ steps.info.outputs.compatibility-matrix }}
@@ -274,7 +275,6 @@ jobs:
             ${{ matrix.target-directory == 'packages/glow-engine' && '.github/scripts/' || '' }}
 
       - uses: ansys/saf-devops/prepare-python-environment@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
-        if: ${{ matrix.dependency-manager == 'poetry' }}
         id: prepare-python
         with:
           python-version: ${{ vars.PYTHON_VERSION }}
@@ -292,25 +292,8 @@ jobs:
           ${PYTHON_CMD} -m pip install --upgrade pip
           ${PYTHON_CMD} -m pip install pre-commit
 
-      - name: Install uv
-        if: ${{ matrix.dependency-manager == 'uv' }}
-        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
-        with:
-          python-version: ${{ vars.PYTHON_VERSION }}
-          enable-cache: false
-
-      - name: Install dependencies
-        if: ${{ matrix.dependency-manager == 'uv' }}
-        env:
-          PYTHON_VERSION: ${{ vars.PYTHON_VERSION }}
-        shell: bash
-        run: |
-          uv venv .venv --python ${PYTHON_VERSION}
-          uv pip install pre-commit
-
       - name: Run pre-commit
-        working-directory: ${{ matrix.dependency-manager == 'poetry' && matrix.target-directory
-          || '.' }}
+        working-directory: ${{ matrix.target-directory }}
         env:
           ACTIVATE_CMD: '.venv/bin/activate'
         shell: bash
@@ -330,7 +313,7 @@ jobs:
       PYANSYS_CI_BOT_TOKEN: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
 
   build-wheel-moon:
-    name: "Build wheel (Moon)"
+    name: "Build wheel"
     needs: ci-cd-config
     if: ${{ needs.ci-cd-config.outputs.moon-packages-matrix != '{}' }}
     permissions:
@@ -344,37 +327,33 @@ jobs:
     with:
       library-name: ${{ matrix.library-name }}
       python-version: ${{ vars.PYTHON_VERSION }}
+      use-moon: true
 
-  build-wheel:
-    name: "Wheel"
+  build-wheel-poetry:
+    name: "Build wheel"
     needs: ci-cd-config
-    if: ${{ needs.ci-cd-config.outputs.packages-matrix != '{}' }}
-    runs-on: ubuntu-latest
+    if: ${{ needs.ci-cd-config.outputs.poetry-packages-matrix != '{}' }}
     permissions:
       attestations: write # Write attestation for uploaded distribution artifacts
       contents: read # Read the source code of the project
       id-token: write # Write access to a temporary token for signing attestations
     strategy:
       fail-fast: false
-      matrix: ${{ fromJson(needs.ci-cd-config.outputs.packages-matrix) }}
-    steps:
-      - name: "Build wheel"
-        uses: ansys/actions/build-library@7410037bfb276c79ae91eb3617b9f5d2876f0c94 # v11.0.8
-        with:
-          library-name: ${{ matrix.library-name }}
-          working-directory: packages/${{ matrix.library-name }}
-          python-version: ${{ vars.PYTHON_VERSION }}
-          attest-provenance: true
-          validate-build: true
+      matrix: ${{ fromJson(needs.ci-cd-config.outputs.poetry-packages-matrix) }}
+    uses: ./.github/workflows/_build.yml
+    with:
+      library-name: ${{ matrix.library-name }}
+      python-version: ${{ vars.PYTHON_VERSION }}
+      use-moon: false
 
-  check-wheel-can-be-pip-installed:
-    name: "Check wheel can be pip installed"
+  check-wheel-can-be-pip-installed-moon:
+    name: "Check wheel can be pip installed (Moon)"
     permissions:
       contents: read
     needs:
       - ci-cd-config
-      - build-wheel
-    if: ${{ needs.ci-cd-config.outputs.packages-matrix != '{}' }}
+      - build-wheel-moon
+    if: ${{ needs.ci-cd-config.outputs.moon-packages-matrix != '{}' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -384,7 +363,26 @@ jobs:
         uses: ansys/saf-devops/pip-install-production-wheel@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
         with:
           python-version: ${{ vars.PYTHON_VERSION }}
-          wheel-artifact: '${{ matrix.library-name }}-artifacts'
+          wheel-artifact: '${{ matrix.library-name }}-${{ vars.PYTHON_VERSION }}-artifacts'
+
+  check-wheel-can-be-pip-installed-poetry:
+    name: "Check wheel can be pip installed"
+    permissions:
+      contents: read
+    needs:
+      - ci-cd-config
+      - build-wheel-poetry
+    if: ${{ needs.ci-cd-config.outputs.poetry-packages-matrix != '{}' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.ci-cd-config.outputs.poetry-packages-matrix) }}
+    steps:
+      - name: Check if wheel can be pip installed
+        uses: ansys/saf-devops/pip-install-production-wheel@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
+        with:
+          python-version: ${{ vars.PYTHON_VERSION }}
+          wheel-artifact: '${{ matrix.library-name }}-${{ vars.PYTHON_VERSION }}-artifacts'
 
   compatibility-tests:
     name: Run compatibility tests
@@ -525,8 +523,10 @@ jobs:
       - code-style-moon
       - code-style
       - check-dependencies-licenses
-      - build-wheel
-      - check-wheel-can-be-pip-installed
+      - build-wheel-poetry
+      - check-wheel-can-be-pip-installed-poetry
+      - build-wheel-moon
+      - check-wheel-can-be-pip-installed-moon
       - run-tests
       - run-github-workflows-of-generated-solution
       - run-tests-actions
