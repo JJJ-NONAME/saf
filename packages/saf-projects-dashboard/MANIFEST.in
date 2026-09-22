@@ -1,0 +1,2 @@
+recursive-include ansys_saf_projects_dashboard/** *.js *.css *.json *.html *.ttf *.svg *.woff *.woff2
+prune tests

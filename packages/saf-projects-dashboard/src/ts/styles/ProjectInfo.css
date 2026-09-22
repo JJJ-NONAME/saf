@@ -1,0 +1,60 @@
+.project-info-container {
+  background-color: transparent;
+  border-radius: var(--awc-core-radius-medium);
+  padding: 0;
+}
+
+.project-info-card {
+  position: relative;
+  background: var(--awc-theme-background-neutral-background-1);
+  padding: var(--awc-common-size-6x);
+  border-radius: var(--awc-common-radius-card);
+  border: var(--awc-common-border-basic-width)
+    var(--awc-common-border-basic-style) var(--awc-theme-border-neutral-default);
+  animation: slideIn var(--awc-core-motion-duration-medium)
+    var(--awc-core-motion-timing-ease-in-out);
+}
+
+.project-info-card h3 {
+  margin: 0 0 var(--awc-common-size-4x) 0;
+  color: var(--awc-theme-foreground-neutral-default);
+  font-size: var(--awc-common-typography-medium-heading-semibold-size);
+  font-weight: var(--awc-common-typography-medium-heading-semibold-weight);
+  line-height: var(--awc-common-typography-medium-heading-semibold-line-height);
+  padding-right: var(--awc-common-size-8x);
+}
+
+.project-info-close {
+  position: absolute;
+  top: var(--awc-common-size-3x);
+  right: var(--awc-common-size-3x);
+}
+
+.project-info-row {
+  display: flex;
+  gap: var(--awc-common-size-3x);
+  align-items: baseline;
+  margin-bottom: var(--awc-common-size-3x);
+}
+
+.project-info-row .info-label {
+  min-width: 90px;
+  color: var(--awc-theme-foreground-neutral-subtle);
+  font-weight: var(--awc-core-typography-font-weight-semibold);
+}
+
+.project-info-row .info-value {
+  color: var(--awc-theme-foreground-neutral-default);
+  font-family: var(--awc-core-typography-font-family-mono);
+  word-break: break-word;
+}
+
+.project-info-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--awc-common-size-6x);
+}
+
+.project-info-actions .awc-btn {
+  min-width: 120px;
+}

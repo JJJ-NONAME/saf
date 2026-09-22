@@ -1,0 +1,392 @@
+/**
+ * Dashboard styles for Projects Dashboard component
+ * Uses AWC design system tokens from default.css
+ */
+
+/* Page-level theming: ensure body inherits AWC theme tokens */
+html,
+body {
+  background-color: var(--awc-theme-background-neutral-background-1);
+  color: var(--awc-theme-foreground-neutral-default);
+  transition: background-color var(--awc-core-motion-duration-fast)
+    var(--awc-core-motion-timing-ease-in-out);
+}
+
+.dashboard-container {
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: var(--awc-common-size-5x);
+  font-family: var(--awc-core-typography-font-family-sans);
+  color: var(--awc-theme-foreground-neutral-default);
+}
+
+.dashboard-topbar {
+  display: flex;
+  margin-right: 0;
+  margin-bottom: var(--awc-common-size-3x);
+  gap: var(--awc-common-size-3x);
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: stretch;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--awc-common-size-3x);
+}
+
+/* Theme toggle button — top-right of header */
+.theme-toggle-btn {
+  color: var(--awc-theme-foreground-neutral-default);
+}
+
+.dashboard-header h4 {
+  margin: 0;
+  color: var(--awc-theme-foreground-neutral-default);
+  font-weight: var(--awc-common-typography-2x-large-heading-bold-weight);
+}
+
+.subtitle {
+  color: var(--awc-theme-foreground-neutral-subtle);
+  margin-top: var(--awc-common-size-3x);
+  font-size: var(--awc-common-typography-medium-body-regular-size);
+  font-style: italic;
+  line-height: var(--awc-common-typography-medium-body-regular-line-height);
+}
+
+.dashboard-actions {
+  display: flex;
+  gap: var(--awc-common-size-3x);
+  margin-bottom: var(--awc-common-size-3x);
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* View toggle group (grid / table) */
+.view-toggle {
+  display: flex;
+  gap: var(--awc-common-size-1x);
+  border: var(--awc-common-border-basic-width)
+    var(--awc-common-border-basic-style) var(--awc-theme-border-neutral-default);
+  border-radius: var(--awc-common-radius-interactive);
+  padding: var(--awc-common-size-1x);
+}
+
+.view-toggle .btn-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--awc-common-radius-interactive);
+}
+
+.btn-icon-active {
+  /* background-color: var(--awc-core-color-global-brand-accent) !important;
+  color: var(--awc-core-color-global-black) !important; */
+  background-color: var(
+    --awc-component-button-type-secondary-active-container-background-color
+  );
+  border: var(
+      --awc-component-button-type-secondary-active-container-border-width,
+      var(--awc-component-button-base-container-border-width)
+    )
+    var(
+      --awc-component-button-type-secondary-active-container-border-style,
+      var(--awc-component-button-base-container-border-style)
+    )
+    var(
+      --awc-component-button-type-secondary-active-container-border-color,
+      var(--awc-component-button-base-container-border-color)
+    );
+}
+
+.align-right {
+  display: flex;
+  margin-left: auto;
+  gap: var(--awc-common-size-3x);
+}
+
+.awc-btn {
+  padding: var(--awc-common-size-2x) var(--awc-common-size-2x);
+  border: var(--awc-common-border-basic-width)
+    var(--awc-common-border-basic-style) transparent;
+  border-radius: var(--awc-component-button-base-container-radius);
+  cursor: pointer;
+  font-family: var(--awc-core-typography-font-family-sans);
+  font-size: var(--awc-common-typography-medium-body-semibold-size);
+  font-weight: var(--awc-common-typography-medium-body-semibold-weight);
+  line-height: var(--awc-common-typography-medium-body-semibold-line-height);
+  transition: background-color var(--awc-core-motion-duration-fast)
+    var(--awc-core-motion-timing-ease-in-out);
+}
+
+.awc-btn:disabled {
+  opacity: var(--awc-common-opacity-disabled);
+  cursor: not-allowed;
+}
+
+.awc-btn-primary {
+  background: var(
+    --awc-component-button-type-primary-resting-container-background-color
+  );
+  color: var(
+    --awc-component-button-type-primary-resting-content-label-text-color
+  );
+}
+
+.main-btn {
+  min-width: var(--awc-component-button-size-large-container-height);
+}
+
+.awc-btn-primary:hover:not(:disabled) {
+  background-color: var(
+    --awc-component-button-type-primary-hover-container-background-color
+  );
+  color: var(--awc-theme-foreground-neutral-inverted);
+}
+
+.awc-btn-secondary {
+  background: var(
+    --awc-component-button-type-secondary-resting-container-background-color
+  );
+  border: var(
+      --awc-component-button-type-secondary-resting-container-border-width,
+      var(--awc-component-button-base-container-border-width)
+    )
+    var(
+      --awc-component-button-type-secondary-resting-container-border-style,
+      var(--awc-component-button-base-container-border-style)
+    )
+    var(
+      --awc-component-button-type-secondary-resting-container-border-color,
+      var(--awc-component-button-base-container-border-color)
+    );
+  color: var(
+    --awc-component-button-type-secondary-resting-content-label-text-color
+  );
+  font-family: var(--awc-component-button-base-content-label-typography-font);
+  font-size: var(--awc-component-button-base-content-label-typography-size);
+  font-weight: var(--awc-component-button-base-content-label-typography-weight);
+  line-height: var(
+    --awc-component-button-base-content-label-typography-line-height
+  );
+  opacity: var(--awc-component-button-base-container-opacity);
+}
+
+.awc-btn-secondary:hover:not(:disabled) {
+  color: var(
+    --awc-component-button-type-secondary-resting-content-label-text-color
+  );
+  background-color: var(
+    --awc-component-button-type-secondary-hover-container-background-color
+  );
+}
+
+.awc-btn-tertiary {
+  background: var(
+    --awc-component-button-type-tertiary-resting-container-background-color
+  );
+  box-sizing: border-box;
+  border: var(
+      --awc-component-button-type-tertiary-resting-container-border-width,
+      var(--awc-component-button-base-container-border-width)
+    )
+    var(
+      --awc-component-button-type-tertiary-resting-container-border-style,
+      var(--awc-component-button-base-container-border-style)
+    )
+    var(
+      --awc-component-button-type-tertiary-resting-container-border-color,
+      var(--awc-component-button-base-container-border-color)
+    );
+  border-radius: var(--awc-component-button-base-container-radius);
+  color: var(
+    --awc-component-button-type-tertiary-resting-content-label-text-color
+  );
+  font-family:
+    var(--awc-component-button-base-content-label-typography-font)
+      "Source Sans 3",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Noto Sans",
+    Ubuntu,
+    Cantarell,
+    "Helvetica Neue",
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji";
+  font-size: var(--awc-component-button-base-content-label-typography-size);
+  font-weight: var(--awc-component-button-base-content-label-typography-weight);
+  line-height: var(
+      --awc-component-button-base-content-label-typography-line-height
+    )
+    1.25rem;
+  padding: var(--awc-common-size-2x) var(--awc-common-size-2x);
+  cursor: pointer;
+  transition: background-color var(--awc-core-motion-duration-fast)
+    var(--awc-core-motion-timing-ease-in-out);
+}
+
+.awc-btn-tertiary:hover:not(:disabled) {
+  background-color: var(
+    --awc-component-button-type-tertiary-hover-container-background-color
+  );
+}
+
+.notification {
+  padding: var(--awc-common-size-4x);
+  border-radius: var(--awc-common-radius-card);
+  margin-bottom: var(--awc-common-size-5x);
+  border-left: var(--awc-common-size-1x) solid;
+  animation: slideIn var(--awc-core-motion-duration-medium)
+    var(--awc-core-motion-timing-ease-in-out);
+  font-size: var(--awc-common-typography-medium-body-semibold-size);
+  font-weight: var(--awc-common-typography-medium-body-semibold-weight);
+}
+
+.notification-success {
+  background-color: var(--awc-theme-background-success-subtle);
+  color: var(--awc-theme-foreground-success-strong);
+  border-left-color: var(--awc-theme-border-success-default);
+}
+
+.notification-error {
+  background-color: var(--awc-theme-background-danger-subtle);
+  color: var(--awc-theme-foreground-danger-strong);
+  border-left-color: var(--awc-theme-border-danger-default);
+}
+
+.notification-info {
+  background-color: var(--awc-theme-background-information-subtle);
+  color: var(--awc-theme-foreground-information-strong);
+  border-left-color: var(--awc-theme-border-information-default);
+}
+
+.notification-warning {
+  background-color: var(--awc-theme-background-warning-subtle);
+  color: var(--awc-theme-foreground-warning-strong);
+  border-left-color: var(--awc-theme-border-warning-default);
+}
+
+.error-message {
+  background-color: var(--awc-theme-background-danger-subtle);
+  color: var(--awc-theme-foreground-danger-strong);
+  padding: var(--awc-common-size-4x);
+  border-radius: var(--awc-common-radius-card);
+  margin-bottom: var(--awc-common-size-5x);
+  border-left: var(--awc-common-size-1x) solid
+    var(--awc-theme-border-danger-default);
+}
+
+.loading {
+  text-align: center;
+  padding: var(--awc-common-size-10x);
+  font-size: var(--awc-common-typography-large-body-regular-size);
+  color: var(--awc-theme-foreground-neutral-subtle);
+}
+
+/* Delete confirmation modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(var(--awc-theme-shadow-default), 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: var(--awc-core-z-index-1000);
+}
+
+.modal-content {
+  background: var(--awc-theme-background-neutral-background-1);
+  background-color: var(--awc-theme-background-neutral-background-1) !important;
+  padding: var(--awc-common-size-8x);
+  border-radius: var(--awc-core-radius-medium) !important;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+}
+
+.modal-content.modal-form {
+  max-width: 500px;
+  text-align: left;
+  padding: 0;
+}
+
+.modal-content.modal-form .project-form-container {
+  margin-bottom: 0;
+  background-color: transparent;
+  padding: 0;
+}
+
+.modal-content.modal-form .project-form-card {
+  border: none;
+}
+
+.modal-content h3 {
+  margin: 0 0 var(--awc-common-size-4x) 0;
+  color: var(--awc-theme-foreground-neutral-default);
+}
+
+.modal-content p {
+  margin: 0 0 var(--awc-common-size-5x) 0;
+  color: var(--awc-theme-foreground-neutral-subtle);
+}
+
+.modal-actions {
+  display: flex;
+  gap: var(--awc-common-size-3x);
+  justify-content: center;
+}
+
+.awc-btn-delete {
+  background-color: var(--awc-theme-background-danger-default);
+  color: var(--awc-theme-foreground-neutral-inverted);
+}
+
+.awc-btn-delete:hover {
+  background-color: var(--awc-theme-background-danger-hovered);
+}
+
+/* Inline SVG icon styles */
+.awc-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--awc-component-icon-size-medium-container-width, 1.5rem);
+  height: var(--awc-component-icon-size-medium-container-height, 1.5rem);
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.awc-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.awc-btn .awc-icon,
+.btn-action .awc-icon {
+  margin-right: var(--awc-common-size-2x);
+}
+
+.notification .awc-icon {
+  margin-right: var(--awc-common-size-2x);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
