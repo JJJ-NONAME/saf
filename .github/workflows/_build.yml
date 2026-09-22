@@ -71,4 +71,4 @@ jobs:
         uses: ansys/saf-devops/pip-install-production-wheel@baa22e0dcc7e6598c662b4c003b2aac5b860f466 # v1.0.0
         with:
           python-version: ${{ inputs.python-version }}
-          wheel-artifact: '${{ inputs.library-name }}-artifacts'
+          wheel-artifact: ${{ inputs.library-name }}-${{ inputs.python-version }}-artifacts
