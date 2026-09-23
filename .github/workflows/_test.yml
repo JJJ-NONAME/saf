@@ -34,7 +34,6 @@ on:
           - ubuntu-latest
           - public-ubuntu-latest-16-cores
           - windows-latest
-          - windows-latest
           - windows-2025
           - saf-linux-1
           - saf-linux-2
