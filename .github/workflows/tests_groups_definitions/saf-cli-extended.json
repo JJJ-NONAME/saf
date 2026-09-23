@@ -2,13 +2,13 @@
     {
         "test-report-artifact-name-suffix": "saf_cli_install_solution_linux",
         "pytest-additional-arguments": "-k 'test_install_solution' --dist=load",
-        "runner-name": "ubuntu-latest-16-cores",
+        "runner-name": "public-ubuntu-latest-16-cores",
         "_comment": "Separated because they are slow tests"
     },
     {
         "test-report-artifact-name-suffix": "saf_cli_install_solution_windows",
         "pytest-additional-arguments": "-k 'test_install_solution' --dist=load",
-        "runner-name": "windows-latest-8-cores",
+        "runner-name": "windows-latest",
         "_comment": "Separated because they are slow tests"
     },
     {
@@ -16,14 +16,14 @@
         "install-gtk-xvfb": "true",
         "download-extra-packages": "true",
         "pytest-additional-arguments": "-k 'test_solution_lifecycle' -n 0",
-        "runner-name": "ubuntu-latest-16-cores",
+        "runner-name": "public-ubuntu-latest-16-cores",
         "_comment": "Separated because it is by far the slowest test and it is prone to fail especially when run in parallel with other tests"
     },
     {
         "test-report-artifact-name-suffix": "saf_cli_solution_lifecycle_windows",
         "download-extra-packages": "true",
         "pytest-additional-arguments": "-k 'test_solution_lifecycle' -n 0",
-        "runner-name": "windows-latest-8-cores",
+        "runner-name": "windows-latest",
         "_comment": "Separated because it is by far the slowest test and it is prone to fail especially when run in parallel with other tests"
     },
     {
@@ -31,21 +31,21 @@
         "download-extra-packages": "true",
         "pytest-additional-arguments": "-n 0",
         "pytest-markers": "use_session_solution and not use_custom_plugins",
-        "runner-name": "ubuntu-latest-16-cores"
+        "runner-name": "public-ubuntu-latest-16-cores"
     },
     {
         "test-report-artifact-name-suffix": "saf_cli_shared_solution_tests_windows",
         "download-extra-packages": "true",
         "pytest-additional-arguments": "-n 0",
         "pytest-markers": "use_session_solution and not use_custom_plugins",
-        "runner-name": "windows-latest-8-cores"
+        "runner-name": "windows-latest"
     },
     {
         "test-report-artifact-name-suffix": "saf_cli_plugin_e2e_tests_linux",
         "download-extra-packages": "true",
         "pytest-additional-arguments": "-n 0",
         "pytest-markers": "use_custom_plugins",
-        "runner-name": "ubuntu-latest-16-cores",
+        "runner-name": "public-ubuntu-latest-16-cores",
         "_comment": "Separated because it needs to be run in isolation from other tests that install plugins in saf-cli's environment"
     },
     {
@@ -53,7 +53,7 @@
         "download-extra-packages": "true",
         "pytest-additional-arguments": "-n 0",
         "pytest-markers": "use_custom_plugins",
-        "runner-name": "windows-latest-8-cores",
+        "runner-name": "windows-latest",
         "_comment": "Separated because it needs to be run in isolation from other tests that install plugins in saf-cli's environment"
     },
     {
@@ -61,14 +61,14 @@
         "download-extra-packages": "true",
         "pytest-additional-arguments": " --docker  tests/e2e/test_solution_deployment.py::test_solution_standalone_deployment",
         "upgrade-docker": "true",
-        "runner-name": "ubuntu-latest-16-cores"
+        "runner-name": "public-ubuntu-latest-16-cores"
     },
     {
         "test-report-artifact-name-suffix": "saf_cli_solution_standalone_deployment_using_get_data_with_url_substitution",
         "download-extra-packages": "true",
         "pytest-additional-arguments": " --docker  tests/e2e/test_solution_deployment.py::test_solution_standalone_deployment_using_get_data_with_url_substitution",
         "upgrade-docker": "true",
-        "runner-name": "ubuntu-latest-16-cores"
+        "runner-name": "public-ubuntu-latest-16-cores"
     },
     {
         "test-report-artifact-name-suffix": "saf_cli_solution_deployment_with_hps",
@@ -77,7 +77,7 @@
         "pytest-markers": "use_hps",
         "prepare-runner": "true",
         "install-hps": "true",
-        "runner-name": "ubuntu-latest-16-cores",
+        "runner-name": "public-ubuntu-latest-16-cores",
         "upgrade-docker": "true",
         "docker-version": "5:28.0.4-1~ubuntu.24.04~noble",
         "_comments": "HPS tests are executed separately, with 1 worker and in a github-hosted runner to avoid concurrency issues, garbage collection, etc."
@@ -89,7 +89,7 @@
         "pytest-markers": "use_hps",
         "prepare-runner": "true",
         "install-hps": "true",
-        "runner-name": "ubuntu-latest-16-cores",
+        "runner-name": "public-ubuntu-latest-16-cores",
         "upgrade-docker": "true",
         "docker-version": "5:28.0.4-1~ubuntu.24.04~noble",
         "_comments": "HPS tests are executed separately, with 1 worker and in a github-hosted runner to avoid concurrency issues, garbage collection, etc."
@@ -100,7 +100,7 @@
         "pytest-markers": "use_hps",
         "prepare-runner": "true",
         "install-hps": "true",
-        "runner-name": "ubuntu-latest-16-cores",
+        "runner-name": "public-ubuntu-latest-16-cores",
         "upgrade-docker": "true",
         "docker-version": "5:28.0.4-1~ubuntu.24.04~noble",
         "_comments": "HPS tests are executed separately, with 1 worker and in a github-hosted runner to avoid concurrency issues, garbage collection, etc."
@@ -109,12 +109,12 @@
         "test-report-artifact-name-suffix": "saf_cli_other_e2e_linux",
         "pytest-additional-arguments": "-k 'not test_solution_lifecycle and not test_install_solution and not test_solution_deployment and not tests/unit'",
         "pytest-markers": "not use_session_solution and not use_custom_plugins and not use_hps and not use_minerva",
-        "runner-name": "ubuntu-latest-16-cores"
+        "runner-name": "public-ubuntu-latest-16-cores"
     },
     {
         "test-report-artifact-name-suffix": "saf_cli_other_e2e_windows",
         "pytest-additional-arguments": "-k 'not test_solution_lifecycle and not test_install_solution and not test_solution_deployment and not tests/unit'",
         "pytest-markers": "not use_session_solution and not use_custom_plugins and not use_hps and not use_minerva",
-        "runner-name": "windows-latest-8-cores"
+        "runner-name": "windows-latest"
     }
 ]

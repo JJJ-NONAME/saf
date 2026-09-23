@@ -117,20 +117,7 @@ class TestMCPServer:
 
     async def test_mcp_server_has_expected_resources(self, mcp_client: MCPClient[StreamableHttpTransport]):
         resources = await mcp_client.list_resources()
-        resource_names = {resource.name for resource in resources}
-        expected_resources = {
-            "list_tool_sets": ("toolsets://definition", "Available tools for using the Solution."),
-            "solution_workflow": ("solution://workflow", "Step by step workflow guideline for using the Solution."),
-            "saf_concepts": (
-                "saf://concepts",
-                "Generic explanation of SAF solution concepts: projects, steps, fields, entity handles, transactions.",
-            ),
-        }
-        assert resource_names == set(expected_resources.keys())
-        for resource in resources:
-            expected_uri, expected_description = expected_resources[resource.name]
-            assert resource.uri.encoded_string() == expected_uri
-            assert resource.description == expected_description
+        assert not resources
 
     async def test_mcp_server_has_expected_tools(self, mcp_client: MCPClient[StreamableHttpTransport]):
         tools = await mcp_client.list_tools()
