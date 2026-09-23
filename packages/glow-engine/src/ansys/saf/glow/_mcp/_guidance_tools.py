@@ -13,18 +13,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from collections.abc import Sequence
-
 from fastmcp import FastMCP
 
 
-def register_resources(app: FastMCP, workflow: str, transaction_tool_names: Sequence[str]) -> None:
-    @app.resource("solution://workflow")
+def register_guidance_tools(app: FastMCP, workflow: str) -> None:
+    @app.tool()
     def solution_workflow() -> str:  # pyright: ignore[reportUnusedFunction]
         """Step by step workflow guideline for using the Solution."""
         return workflow
 
-    @app.resource("saf://concepts")
+    @app.tool()
     def saf_concepts() -> str:  # pyright: ignore[reportUnusedFunction]
         """Generic explanation of SAF solution concepts: projects, steps, fields, entity handles, transactions."""
         return """\
@@ -35,7 +33,7 @@ def register_resources(app: FastMCP, workflow: str, transaction_tool_names: Sequ
         import_project, export_project) to manage projects.
         - Step: a named stage of the workflow (e.g. "geometry", "mesh", "solve"). Each step owns a set of
         fields and the transactions that operate on them. Discover a solution's steps and transactions via
-        the "toolsets://definition" and "solution://workflow" resources.
+        the "solution_workflow" tool.
         - Field: a typed piece of data owned by a step (numbers, strings, booleans, custom pydantic models,
         or entity handles). Read and write fields with the get_fields and set_fields tools.
         - Entity handle: a field type that references file content (inputs, results, meshes, images, etc.)
@@ -51,30 +49,3 @@ def register_resources(app: FastMCP, workflow: str, transaction_tool_names: Sequ
         files, run transactions in the order the workflow describes, then read output fields and download
         output files.
         """
-
-    @app.resource("toolsets://definition")
-    def list_tool_sets() -> list[dict[str, str | list[str]]]:  # pyright: ignore[reportUnusedFunction]
-        """Available tools for using the Solution."""
-        return [
-            {
-                "name": "project",
-                "description": "Tools for managing projects",
-                "tools": [
-                    "create_project",
-                    "list_projects",
-                    "delete_projects",
-                    "import_project",
-                    "export_project",
-                ],
-            },
-            {
-                "name": "data",
-                "description": "Tools for setting and retrieving fields and files",
-                "tools": ["set_fields", "get_fields", "upload_file", "download_file"],
-            },
-            {
-                "name": "transactions",
-                "description": "Tools for running transactions",
-                "tools": [*sorted(transaction_tool_names), "wait_for_longrunning_transaction"],
-            },
-        ]

@@ -2,11 +2,11 @@
     {
         "test-report-artifact-name-suffix": "saf_cli_linux",
         "pytest-additional-arguments": "tests/unit --reruns 2",
-        "runner-name": "ubuntu-latest-16-cores"
+        "runner-name": "public-ubuntu-latest-16-cores"
     },
     {
         "test-report-artifact-name-suffix": "saf_cli_windows",
         "pytest-additional-arguments": "tests/unit --reruns 2",
-        "runner-name": "windows-latest-8-cores"
+        "runner-name": "windows-latest"
     }
 ]
