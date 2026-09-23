@@ -236,20 +236,7 @@ async def test_mcp_server_instructions_can_be_customized(tmp_path: Path, mocker:
 
 async def test_mcp_server_has_expected_resources(mcp_unit_client: Client[FastMCPTransport]):
     resources = await mcp_unit_client.list_resources()
-    resource_names = {resource.name for resource in resources}
-    expected_resources = {
-        "list_tool_sets": ("toolsets://definition", "Available tools for using the Solution."),
-        "solution_workflow": ("solution://workflow", "Step by step workflow guideline for using the Solution."),
-        "saf_concepts": (
-            "saf://concepts",
-            "Generic explanation of SAF solution concepts: projects, steps, fields, entity handles, transactions.",
-        ),
-    }
-    assert resource_names == set(expected_resources.keys())
-    for resource in resources:
-        expected_uri, expected_description = expected_resources[resource.name]
-        assert resource.uri.encoded_string() == expected_uri
-        assert resource.description == expected_description
+    assert not resources
 
 
 async def test_mcp_server_has_expected_prompts(mcp_unit_client: Client[FastMCPTransport]):

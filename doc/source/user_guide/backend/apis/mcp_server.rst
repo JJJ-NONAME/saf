@@ -111,7 +111,7 @@ The file uses standard Markdown with two recognised level-2 headings:
    ## Workflow
 
    <A step-by-step description of how to use the solution.
-   This text is served via the `solution://workflow` resource.>
+  This text is returned by the ``solution_workflow`` tool.>
 
    ## Other section
 
@@ -122,8 +122,8 @@ Both sections are optional and any other section will be ignored. If a section i
 .. tip::
   Generic SAF concepts (what a project, step, field, or entity handle is, that transactions download and
   upload step fields, or that long-running transactions must be awaited with
-  ``wait_for_longrunning_transaction``) are already explained to the agent via the ``saf://concepts``
-  resource. Keep ``SOLUTION.md`` focused on what is specific to your solution: the meaning of its steps
+  ``wait_for_longrunning_transaction``) are already explained to the agent by the ``saf_concepts``
+  tool. Keep ``SOLUTION.md`` focused on what is specific to your solution: the meaning of its steps
   and fields, the order transactions must run in, and any domain constraints, rather than restating how
   SAF or its generic tools work.
 
@@ -149,30 +149,26 @@ Example
    6. Download the results on the `post_processing` step, field `result_file`.
 
 
-Available resources
-===================
+Available tools
+===============
+
+**Workflow guidance**
 
 .. list-table::
    :header-rows: 1
    :widths: 30 70
 
-   * - URI
+   * - Tool
      - Description
 
-   * - ``solution://workflow``
+   * - ``solution_workflow``
      - Returns the step-by-step workflow guide for the solution, sourced from the ``## Workflow`` section
        of ``SOLUTION.md``. If the section is missing, a default generated from the available solution's information is returned.
 
-   * - ``saf://concepts``
+   * - ``saf_concepts``
      - Explains the generic SAF solution concepts (projects, steps, fields, entity handles, transactions,
        long-running transactions) that apply to every solution, regardless of its specific steps or fields.
 
-   * - ``toolsets://definition``
-     - Lists all available tools grouped into named tool sets (``project``, ``data``, ``transactions``).
-
-
-Available tools
-===============
 
 **Project management**
 
