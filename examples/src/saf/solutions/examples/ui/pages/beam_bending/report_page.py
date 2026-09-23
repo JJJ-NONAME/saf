@@ -40,6 +40,24 @@ dash.register_page(
 )
 
 
+def _adr_report(report_html_content: str):
+    return html.Div(
+        [
+            html.Iframe(
+                id="solution-report-iframe",
+                srcDoc=report_html_content,
+                style={
+                    "width": "100%",
+                    "height": "calc(100vh - 250px)",
+                    "minHeight": "800px",
+                    "border": "none",
+                },
+            ),
+        ],
+        style={"height": "100%", "width": "100%"},
+    )
+
+
 def report_empty_state() -> dmc.Center:
     """Empty state shown when report is not yet available."""
     return dmc.Center(
@@ -174,13 +192,6 @@ def layout() -> html.Div:
                 ],
             ),
         ],
-        style={
-            "height": "100%",
-            "width": "100%",
-            "overflowY": "auto",
-            "maxHeight": "calc(100vh - 8vh)",
-            "paddingLeft": "20px",
-        },
     )
 
 
