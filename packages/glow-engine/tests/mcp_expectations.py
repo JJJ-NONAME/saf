@@ -20,6 +20,10 @@ import pytest
 from tests.mocks.solution_end_to_end.solution.definition import EndToEndSolution
 
 STATIC_TOOL_DESCRIPTIONS = {
+    "solution_workflow": "Step by step workflow guideline for using the Solution.",
+    "saf_concepts": (
+        "Generic explanation of SAF solution concepts: projects, steps, fields, entity handles, transactions."
+    ),
     "create_project": "Create a solution project.",
     "list_projects": (
         "List solution projects with pagination, ordering, and optional filtering.\n"

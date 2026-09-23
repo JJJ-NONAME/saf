@@ -1,0 +1,214 @@
+/**
+ * ProjectsFilter styles — uses AWC design tokens so light/dark themes apply
+ * automatically.
+ */
+
+.projects-filter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--awc-common-size-3x);
+  flex-wrap: wrap;
+  margin-top: var(--awc-common-size-2x);
+  margin-bottom: var(--awc-common-size-2x);
+  font-family: var(--awc-core-typography-font-family-sans);
+  color: var(--awc-theme-foreground-neutral-default);
+}
+
+.projects-filter-fields {
+  display: flex;
+  align-items: center;
+  gap: var(--awc-common-size-3x);
+  flex-wrap: wrap;
+}
+.main-btn {
+  min-width: var(--awc-component-button-size-large-container-height);
+}
+
+.awc-btn-tertiary {
+  background: var(
+    --awc-component-button-type-tertiary-resting-container-background-color
+  );
+  box-sizing: border-box;
+  border: var(
+      --awc-component-button-type-tertiary-resting-container-border-width,
+      var(--awc-component-button-base-container-border-width)
+    )
+    var(
+      --awc-component-button-type-tertiary-resting-container-border-style,
+      var(--awc-component-button-base-container-border-style)
+    )
+    var(
+      --awc-component-button-type-tertiary-resting-container-border-color,
+      var(--awc-component-button-base-container-border-color)
+    );
+  border-radius: var(--awc-component-button-base-container-radius);
+  color: var(
+    --awc-component-button-type-tertiary-resting-content-label-text-color
+  );
+  font-family:
+    var(--awc-component-button-base-content-label-typography-font)
+      "Source Sans 3",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Noto Sans",
+    Ubuntu,
+    Cantarell,
+    "Helvetica Neue",
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji";
+  font-size: var(--awc-component-button-base-content-label-typography-size);
+  font-weight: var(--awc-component-button-base-content-label-typography-weight);
+  line-height: var(
+      --awc-component-button-base-content-label-typography-line-height
+    )
+    1.25rem;
+  padding: var(--awc-common-size-2x) var(--awc-common-size-2x);
+  cursor: pointer;
+  transition: background-color var(--awc-core-motion-duration-fast)
+    var(--awc-core-motion-timing-ease-in-out);
+}
+
+/* Inline SVG icon styles */
+.awc-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--awc-component-icon-size-medium-container-width, 1.5rem);
+  height: var(--awc-component-icon-size-medium-container-height, 1.5rem);
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.awc-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.projects-filter-field {
+  position: relative;
+  display: inline-flex;
+}
+
+.projects-filter-search-field {
+  align-items: center;
+  min-width: 14rem;
+}
+
+.projects-search-filter {
+  width: 100%;
+  height: var(--awc-component-button-size-large-container-height);
+  padding: 0
+    calc(var(--awc-common-size-2x) + 1.5rem + var(--awc-common-size-1x)) 0
+    calc(var(--awc-common-size-2x) + 1.5rem + var(--awc-common-size-1x));
+  border: var(--awc-common-border-basic-width)
+    var(--awc-common-border-basic-style) var(--awc-theme-border-neutral-default);
+  border-radius: var(--awc-common-radius-interactive);
+  background-color: var(--awc-theme-background-neutral-background-1);
+  color: var(--awc-theme-foreground-neutral-default);
+}
+
+.projects-search-prefix-icon {
+  position: absolute;
+  left: var(--awc-common-size-2x);
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--awc-component-icon-size-medium-container-width, 1.5rem);
+  height: var(--awc-component-icon-size-medium-container-height, 1.5rem);
+  color: var(--awc-theme-foreground-neutral-subtle);
+  pointer-events: none;
+}
+
+.projects-search-prefix-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.projects-filter-clear-btn {
+  position: absolute;
+  right: var(--awc-common-size-1x);
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--awc-component-button-size-large-container-height);
+  height: var(--awc-component-button-size-large-container-height);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.projects-filter-clear-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.projects-filter-trigger {
+  min-width: 10rem;
+  padding: var(--awc-common-size-2x) var(--awc-common-size-3x);
+  text-align: left;
+}
+
+.projects-filter-popover {
+  position: absolute;
+  top: calc(100% + var(--awc-common-size-1x));
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--awc-common-size-2x);
+  min-width: 14rem;
+  padding: var(--awc-common-size-3x);
+  background-color: var(--awc-theme-background-neutral-background-1);
+  color: var(--awc-theme-foreground-neutral-default);
+  border: var(--awc-common-border-basic-width)
+    var(--awc-common-border-basic-style) var(--awc-theme-border-neutral-default);
+  border-radius: var(--awc-common-radius-interactive);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: var(--awc-core-z-index-1000);
+}
+
+.projects-filter-date-label {
+  font-size: var(--awc-common-typography-medium-body-regular-size);
+  color: var(--awc-theme-foreground-neutral-subtle);
+}
+
+.projects-filter-date-input {
+  width: 100%;
+  padding: var(--awc-common-size-2x);
+  font-family: inherit;
+  font-size: var(--awc-common-typography-medium-body-regular-size);
+  color: var(--awc-theme-foreground-neutral-default);
+  background-color: var(--awc-theme-background-neutral-background-1);
+  border: var(--awc-common-border-basic-width)
+    var(--awc-common-border-basic-style) var(--awc-theme-border-neutral-default);
+  border-radius: var(--awc-common-radius-interactive);
+}
+
+.projects-filter-range-warning {
+  margin: 0;
+  font-size: var(--awc-common-typography-small-body-regular-size);
+  color: var(--awc-theme-foreground-status-danger-default, #c62828);
+}
+
+.projects-filter-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--awc-common-size-3x);
+  margin-left: auto;
+}
+
+@media (max-width: 768px) {
+  .projects-search-filter {
+    min-width: 11rem;
+  }
+
+  .projects-filter-actions {
+    margin-left: 0;
+  }
+}

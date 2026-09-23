@@ -424,6 +424,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
           attest-provenance: true
           validate-build: true
+          use-uv: false
 
   check-wheel-can-be-pip-installed:
     name: "Check wheel can be pip installed"

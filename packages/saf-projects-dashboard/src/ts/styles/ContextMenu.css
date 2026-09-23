@@ -1,0 +1,99 @@
+/**
+ * ContextMenu styles
+ * Uses AWC design system tokens
+ */
+
+.context-menu {
+  position: relative;
+}
+
+.context-menu-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: var(--awc-common-radius-interactive);
+  background: transparent;
+  color: var(--awc-theme-foreground-neutral-subtle);
+  cursor: pointer;
+  transition: background-color var(--awc-core-motion-duration-fast)
+    var(--awc-core-motion-timing-ease-in-out);
+}
+
+.context-menu-trigger:hover {
+  background: var(--awc-theme-background-neutral-background-3);
+  color: var(--awc-theme-foreground-neutral-default);
+}
+
+.context-menu-trigger .awc-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.context-menu-trigger .awc-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.context-menu-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 100;
+  min-width: 110px;
+  margin: var(--awc-common-size-1x) 0 0 0;
+  padding: var(--awc-common-size-1x) 0;
+  list-style: none;
+  background: var(--awc-theme-background-neutral-background-1);
+  border: var(--awc-common-border-basic-width)
+    var(--awc-common-border-basic-style) var(--awc-theme-border-neutral-default);
+  border-radius: var(--awc-common-radius-card);
+  box-shadow: 0 var(--awc-theme-medium-shadow2-y)
+    var(--awc-theme-medium-shadow2-spread) var(--awc-theme-medium-shadow2-blur)
+    rgba(
+      var(--awc-theme-shadow-default),
+      var(--awc-theme-medium-shadow2-opacity)
+    );
+}
+
+.context-menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--awc-common-size-2x);
+  width: 100%;
+  padding: var(--awc-common-size-2x) var(--awc-common-size-3x);
+  border: none;
+  background: transparent;
+  color: var(--awc-theme-foreground-neutral-default);
+  font-family: var(--awc-core-typography-font-family-sans);
+  font-size: var(--awc-common-typography-medium-body-regular-size);
+  cursor: pointer;
+  transition: background-color var(--awc-core-motion-duration-fast)
+    var(--awc-core-motion-timing-ease-in-out);
+}
+
+.context-menu-item:hover {
+  background: var(--awc-theme-background-neutral-background-3);
+}
+
+.context-menu-item .awc-icon {
+  display: flex;
+  align-items: center;
+}
+
+.context-menu-item .awc-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.context-menu-item.menu-item-danger {
+  color: var(--awc-theme-foreground-danger-default);
+}
+
+.context-menu-item.menu-item-danger:hover {
+  background: var(--awc-theme-background-danger-subtle);
+}

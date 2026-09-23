@@ -1,0 +1,99 @@
+/**
+ * SolutionMetadata styles
+ * Displays the solution image and description in a responsive 16:9 row layout.
+ */
+
+.solution-metadata {
+  display: flex;
+  flex-direction: row;
+  gap: var(--awc-common-size-3x);
+  align-items: stretch;
+  justify-content: center;
+  max-width: 960px;
+  margin: 0 auto;
+  margin-bottom: var(--awc-common-size-3x);
+}
+
+/* Shared card tile */
+.solution-metadata-card {
+  flex: 1 1 0;
+  border: 1px solid var(--awc-theme-border-neutral-default);
+  border-radius: var(--awc-common-radius-card);
+  background-color: var(--awc-theme-background-neutral-background-2);
+  box-shadow:
+    0 var(--awc-theme-small-shadow1-y) var(--awc-theme-small-shadow1-spread)
+      var(--awc-theme-small-shadow1-blur)
+      rgba(
+        var(--awc-theme-shadow-default),
+        var(--awc-theme-small-shadow1-opacity)
+      ),
+    0 var(--awc-theme-small-shadow2-y) var(--awc-theme-small-shadow2-spread)
+      var(--awc-theme-small-shadow2-blur)
+      rgba(
+        var(--awc-theme-shadow-default),
+        var(--awc-theme-small-shadow2-opacity)
+      );
+  overflow: hidden;
+  display: flex;
+}
+
+/* Image container — 16:9 ratio, resizable */
+.solution-metadata-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.solution-metadata-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.solution-metadata-image .awc-icon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.solution-metadata-image .awc-icon svg {
+  width: 60%;
+  height: 60%;
+}
+
+/* Description container */
+.solution-metadata-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--awc-common-size-5x);
+  min-width: 0;
+}
+
+.solution-metadata-description h2 {
+  margin: 0 0 var(--awc-common-size-2x) 0;
+  color: var(--awc-theme-foreground-neutral-default);
+  font-size: var(--awc-common-typography-x-large-heading-bold-size);
+  font-weight: var(--awc-common-typography-x-large-heading-bold-weight);
+  line-height: var(--awc-common-typography-x-large-heading-bold-line-height);
+}
+
+.solution-metadata-description p {
+  margin: 0;
+  color: var(--awc-theme-foreground-neutral-subtle);
+  font-size: var(--awc-common-typography-large-body-regular-size);
+  line-height: var(--awc-common-typography-large-body-regular-line-height);
+}
+
+/* Responsive: stack vertically on small screens */
+@media (max-width: 640px) {
+  .solution-metadata {
+    flex-direction: column;
+    max-width: 100%;
+  }
+}
