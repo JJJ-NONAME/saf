@@ -3,11 +3,11 @@
         "test-report-artifact-name-suffix": "saf_desktop_installer_core",
         "install-gtk-xvfb": "true",
         "pytest-additional-arguments": "tests/unit",
-        "runner-name": "ubuntu-latest-16-cores"
+        "runner-name": "public-ubuntu-latest-16-cores"
     },
     {
         "test-report-artifact-name-suffix": "saf_desktop_installer_core_windows",
         "pytest-additional-arguments": "tests/unit",
-        "runner-name": "windows-latest-8-cores"
+        "runner-name": "windows-latest"
     }
 ]

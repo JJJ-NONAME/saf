@@ -32,9 +32,9 @@ on:
         default: ubuntu-latest
         options:
           - ubuntu-latest
-          - ubuntu-latest-16-cores
+          - public-ubuntu-latest-16-cores
           - windows-latest
-          - windows-latest-8-cores
+          - windows-latest
           - windows-2025
           - saf-linux-1
           - saf-linux-2
