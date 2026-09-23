@@ -193,6 +193,7 @@ filterwarnings = [
   "ignore:Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.",
   "ignore:defusedxml.cElementTree is deprecated:DeprecationWarning",
   "ignore:the imp module is deprecated in favour of importlib and slated for removal in Python 3.12; see the module's documentation for alternative uses:DeprecationWarning",
+  "ignore:The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.:DeprecationWarning",
 ]
 
 [tool.coverage.run]

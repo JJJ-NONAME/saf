@@ -1,0 +1,190 @@
+/**
+ * ImportExport styles
+ * Uses AWC design system tokens from default.css
+ */
+
+.import-export-container {
+  /* margin-bottom: var(--awc-common-size-5x); */
+}
+
+/* Import Modal */
+.import-modal {
+  max-width: 500px;
+  width: 90%;
+}
+
+.import-modal h3 {
+  margin: 0 0 var(--awc-common-size-5x) 0;
+  color: var(--awc-theme-foreground-neutral-default);
+}
+
+.import-modal .form-group {
+  margin-bottom: var(--awc-common-size-5x);
+}
+
+.import-modal .form-group label {
+  display: block;
+  margin-bottom: var(--awc-common-size-2x);
+  font-weight: var(--awc-core-typography-font-weight-semibold);
+  color: var(--awc-theme-foreground-neutral-default);
+}
+
+.import-modal .form-group input[type="text"] {
+  width: 100%;
+  padding: var(--awc-common-size-3x) var(--awc-common-size-4x);
+  border: var(--awc-common-border-basic-width)
+    var(--awc-common-border-basic-style) var(--awc-theme-border-neutral-default);
+  border-radius: var(--awc-common-radius-interactive);
+  background-color: var(--awc-theme-background-neutral-background-1);
+  font-family: var(--awc-core-typography-font-family-sans);
+  font-size: var(--awc-common-typography-medium-body-regular-size);
+  color: var(--awc-theme-foreground-neutral-default);
+  transition: border-color var(--awc-core-motion-duration-fast)
+    var(--awc-core-motion-timing-ease-in-out);
+  box-sizing: border-box;
+}
+
+.import-modal .form-group input[type="text"]:focus {
+  outline: var(--awc-common-focus-width) var(--awc-common-focus-style)
+    var(--awc-common-focus-border-color);
+  outline-offset: var(--awc-common-focus-offset);
+  border-color: var(--awc-theme-border-neutral-strong);
+}
+
+/* Drag & Drop Zone */
+.drop-zone {
+  border: var(--awc-common-border-medium-width) dashed
+    var(--awc-theme-border-neutral-default);
+  border-radius: var(--awc-common-radius-card);
+  padding: var(--awc-common-size-10x) var(--awc-common-size-5x);
+  text-align: center;
+  cursor: pointer;
+  transition:
+    border-color var(--awc-core-motion-duration-fast)
+      var(--awc-core-motion-timing-ease-in-out),
+    background-color var(--awc-core-motion-duration-fast)
+      var(--awc-core-motion-timing-ease-in-out);
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drop-zone:hover {
+  border-color: var(--awc-core-color-global-brand-accent);
+  background-color: var(--awc-theme-background-neutral-background-2);
+}
+
+.drop-zone.dragging {
+  border-color: var(--awc-core-color-global-brand-accent);
+  background-color: var(--awc-theme-background-warning-subtle);
+  border-style: solid;
+}
+
+.drop-zone.has-file {
+  border-color: var(--awc-theme-border-success-default);
+  background-color: var(--awc-theme-background-success-subtle);
+  cursor: default;
+  padding: var(--awc-common-size-5x);
+}
+
+.drop-zone-content {
+  color: var(--awc-theme-foreground-neutral-subtle);
+}
+
+.drop-icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--awc-common-size-3x);
+}
+
+.drop-text {
+  font-size: var(--awc-common-typography-medium-body-regular-size);
+  line-height: var(--awc-common-typography-medium-body-regular-line-height);
+}
+
+.drop-text strong {
+  color: var(--awc-theme-foreground-neutral-default);
+}
+
+.browse-link {
+  color: var(--awc-core-color-global-brand-accent);
+  font-weight: var(--awc-core-typography-font-weight-semibold);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.browse-link:hover {
+  color: var(--awc-theme-foreground-secondary-default);
+}
+
+/* File Info Display */
+.file-info {
+  display: flex;
+  align-items: center;
+  gap: var(--awc-common-size-3x);
+  width: 100%;
+  text-align: left;
+}
+
+.file-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.file-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.file-details strong {
+  display: block;
+  color: var(--awc-theme-foreground-neutral-default);
+  word-break: break-all;
+  margin-bottom: var(--awc-common-size-1x);
+}
+
+.file-size {
+  color: var(--awc-theme-foreground-neutral-subtle);
+  font-size: var(--awc-common-typography-small-body-regular-size);
+}
+
+.btn-clear-file {
+  background: none;
+  border: none;
+  color: var(--awc-theme-foreground-neutral-subtler);
+  font-size: 18px;
+  cursor: pointer;
+  padding: var(--awc-common-size-1x) var(--awc-common-size-2x);
+  border-radius: var(--awc-common-radius-interactive);
+  transition: all var(--awc-core-motion-duration-fast)
+    var(--awc-core-motion-timing-ease-in-out);
+  flex-shrink: 0;
+}
+
+.btn-clear-file:hover {
+  color: var(--awc-theme-foreground-danger-default);
+  background-color: var(--awc-theme-background-danger-subtle);
+}
+
+.import-modal .form-group input[type="text"].input-error {
+  border-color: var(--awc-theme-border-danger-default);
+}
+
+.import-modal .error-text {
+  display: block;
+  color: var(--awc-theme-foreground-danger-default);
+  font-size: var(--awc-common-typography-small-body-regular-size);
+  margin-top: var(--awc-common-size-1x);
+}
+
+/* Error Message */
+.import-error {
+  color: var(--awc-theme-foreground-danger-strong);
+  background-color: var(--awc-theme-background-danger-subtle);
+  border-left: var(--awc-common-size-1x) solid
+    var(--awc-theme-border-danger-default);
+  padding: var(--awc-common-size-3x) var(--awc-common-size-4x);
+  border-radius: var(--awc-common-radius-interactive);
+  font-size: var(--awc-common-typography-medium-body-regular-size);
+  margin-bottom: var(--awc-common-size-4x);
+}
