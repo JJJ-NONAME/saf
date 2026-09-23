@@ -39,6 +39,7 @@ dash.register_page(
     icon_asset_path="icons",
 )
 
+
 def _adr_report(report_html_content: str):
     return html.Div(
         [
@@ -55,6 +56,7 @@ def _adr_report(report_html_content: str):
         ],
         style={"height": "100%", "width": "100%"},
     )
+
 
 def report_empty_state() -> dmc.Center:
     """Empty state shown when report is not yet available."""
