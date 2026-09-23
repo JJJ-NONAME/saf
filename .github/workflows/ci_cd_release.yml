@@ -280,6 +280,7 @@ jobs:
           attest-provenance: true
           validate-build: true
           checkout: false
+          use-uv: false
 
   bump-version:
     name: Bump Version
