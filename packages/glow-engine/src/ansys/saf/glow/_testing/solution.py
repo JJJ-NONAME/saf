@@ -24,8 +24,7 @@ from pathlib import Path
 import random
 from typing import Any, TypeVar
 
-from anyio.abc import BlockingPortal
-from anyio.from_thread import start_blocking_portal
+from anyio.from_thread import BlockingPortal, start_blocking_portal
 from fastapi.testclient import TestClient
 from httpx2 import Response
 import pytest

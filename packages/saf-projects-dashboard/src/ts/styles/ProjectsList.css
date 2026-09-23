@@ -1,0 +1,182 @@
+/**
+ * ProjectsList styles
+ * Uses AWC design system tokens from default.css
+ */
+
+.projects-list {
+  margin-top: var(--awc-common-size-8x);
+}
+
+.projects-list h2 {
+  margin-bottom: var(--awc-common-size-5x);
+  color: var(--awc-theme-foreground-neutral-default);
+  font-size: var(--awc-common-typography-medium-heading-semibold-size);
+  font-weight: var(--awc-common-typography-medium-heading-semibold-weight);
+  line-height: var(--awc-common-typography-medium-heading-semibold-line-height);
+}
+
+.no-projects {
+  text-align: center;
+  padding: var(--awc-common-size-16x) var(--awc-common-size-5x);
+  color: var(--awc-theme-foreground-neutral-subtle);
+  font-size: var(--awc-common-typography-large-body-regular-size);
+}
+
+.projectid-label {
+  display: block;
+  font-size: var(--awc-common-typography-small-caption-regular-line-height);
+  color: var(--awc-theme-foreground-neutral-subtle);
+  white-space: nowrap;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+  gap: var(--awc-common-size-5x);
+}
+
+.project-card {
+  background: var(--awc-theme-background-neutral-background-1);
+  border: var(--awc-common-border-basic-width)
+    var(--awc-common-border-basic-style) var(--awc-theme-border-neutral-default);
+  border-radius: var(--awc-common-radius-card);
+  padding: var(--awc-common-size-5x);
+  transition:
+    box-shadow var(--awc-core-motion-duration-medium)
+      var(--awc-core-motion-timing-ease-in-out),
+    transform var(--awc-core-motion-duration-medium)
+      var(--awc-core-motion-timing-ease-in-out);
+}
+
+.project-card:hover {
+  box-shadow: 0 var(--awc-theme-medium-shadow2-y)
+    var(--awc-theme-medium-shadow2-spread) var(--awc-theme-medium-shadow2-blur)
+    rgba(
+      var(--awc-theme-shadow-default),
+      var(--awc-theme-medium-shadow2-opacity)
+    );
+  transform: translateY(-2px);
+}
+
+.project-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--awc-common-size-3x);
+  margin-bottom: var(--awc-common-size-4x);
+  justify-content: space-between;
+}
+
+.project-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--awc-theme-foreground-primary-default);
+}
+
+img.project-card-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.project-card-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.project-card-header h6 {
+  flex: 1;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.project-name-text {
+  display: block;
+  color: var(--awc-theme-background-primary-default);
+  font-size: var(--awc-common-typography-large-body-semibold-size);
+  font-weight: bolder;
+  line-height: var(--awc-common-typography-large-body-semibold-line-height);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.project-name-text > h6 {
+  color: var(--awc-theme-background-primary-default);
+}
+
+.project-info {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--awc-common-size-2x) 0;
+}
+
+.project-info:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-weight: var(--awc-core-typography-font-weight-semibold);
+  color: var(--awc-theme-foreground-neutral-subtle);
+  font-size: var(--awc-common-typography-large-body-semibold-size);
+}
+
+.info-value {
+  color: var(--awc-theme-foreground-neutral-default);
+  font-size: var(--awc-common-typography-small-body-regular-size);
+}
+
+/* Footer */
+.project-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--awc-common-size-2x);
+}
+
+.btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: none;
+  border-radius: var(--awc-common-radius-interactive);
+  background: transparent;
+  color: var(--awc-theme-foreground-neutral-subtle);
+  cursor: pointer;
+  transition:
+    color var(--awc-core-motion-duration-fast)
+      var(--awc-core-motion-timing-ease-in-out),
+    background-color var(--awc-core-motion-duration-fast)
+      var(--awc-core-motion-timing-ease-in-out);
+}
+
+.btn-icon:hover {
+  background: var(--awc-theme-background-neutral-background-3);
+  color: var(--awc-theme-foreground-neutral-default);
+}
+
+.btn-icon .awc-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon .awc-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Clickable card styles */
+.project-card-clickable {
+  cursor: pointer;
+}
+
+.project-card-clickable:focus {
+  outline: var(--awc-common-focus-width) var(--awc-common-focus-style)
+    var(--awc-common-focus-border-color);
+  outline-offset: var(--awc-common-focus-offset);
+}
