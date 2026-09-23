@@ -1,0 +1,130 @@
+/**
+ * ProjectForm styles
+ * Uses AWC design system tokens from default.css
+ */
+
+.project-form-container {
+  background-color: var(--awc-theme-background-neutral-background-2);
+  border-radius: var(--awc-core-radius-medium);
+  padding: var(--awc-common-size-5x);
+  margin-bottom: var(--awc-common-size-5x);
+  animation: slideIn var(--awc-core-motion-duration-medium)
+    var(--awc-core-motion-timing-ease-in-out);
+}
+
+.project-form-card {
+  background: var(--awc-theme-background-neutral-background-1);
+  padding: var(--awc-common-size-6x);
+  border-radius: var(--awc-common-radius-card);
+  border: var(--awc-common-border-basic-width)
+    var(--awc-common-border-basic-style) var(--awc-theme-border-neutral-default);
+}
+
+.project-form-card h3 {
+  margin: 0 0 var(--awc-common-size-5x) 0;
+  color: var(--awc-theme-foreground-neutral-default);
+  font-size: var(--awc-common-typography-medium-heading-semibold-size);
+  font-weight: var(--awc-common-typography-medium-heading-semibold-weight);
+  line-height: var(--awc-common-typography-medium-heading-semibold-line-height);
+}
+
+.form-group {
+  margin-bottom: var(--awc-common-size-5x);
+}
+
+.form-group label {
+  display: block;
+  margin-top: var(--awc-common-size-4x);
+  margin-bottom: var(--awc-common-size-2x);
+  color: var(--awc-theme-foreground-neutral-default);
+  font-weight: var(--awc-core-typography-font-weight-semibold);
+  font-size: var(--awc-common-typography-medium-body-regular-size);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: var(--awc-common-size-3x) var(--awc-common-size-4x);
+  border: var(--awc-common-border-basic-width)
+    var(--awc-common-border-basic-style) var(--awc-theme-border-neutral-default);
+  border-radius: var(--awc-common-radius-interactive);
+  background-color: var(--awc-theme-background-neutral-background-1);
+  font-family: var(--awc-core-typography-font-family-sans);
+  font-size: var(--awc-common-typography-medium-body-regular-size);
+  color: var(--awc-theme-foreground-neutral-default);
+  transition: border-color var(--awc-core-motion-duration-fast)
+    var(--awc-core-motion-timing-ease-in-out);
+  box-sizing: border-box;
+}
+
+.form-group textarea {
+  resize: vertical;
+  font-family: var(--awc-core-typography-font-family-sans);
+  line-height: var(--awc-common-typography-medium-body-regular-line-height);
+}
+
+.form-group input:hover,
+.form-group textarea:hover {
+  background-color: var(--awc-theme-background-neutral-background-1-hovered);
+  border-color: var(--awc-theme-border-neutral-default-hovered);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: var(--awc-common-focus-width) var(--awc-common-focus-style)
+    var(--awc-common-focus-border-color);
+  outline-offset: var(--awc-common-focus-offset);
+  border-color: var(--awc-theme-border-neutral-strong);
+}
+
+.form-group input.input-error,
+.form-group textarea.input-error {
+  border-color: var(--awc-theme-border-danger-default);
+}
+
+.error-text {
+  display: block;
+  color: var(--awc-theme-foreground-danger-default);
+  font-size: var(--awc-common-typography-small-body-regular-size);
+  margin-top: var(--awc-common-size-1x);
+}
+
+.form-info {
+  display: flex;
+  padding: var(--awc-common-size-3x);
+  background-color: var(--awc-theme-background-neutral-background-3);
+  border-radius: var(--awc-common-radius-interactive);
+  margin-bottom: var(--awc-common-size-5x);
+  gap: var(--awc-common-size-3x);
+}
+
+.form-info .info-label {
+  font-weight: var(--awc-core-typography-font-weight-semibold);
+  color: var(--awc-theme-foreground-neutral-subtle);
+}
+
+.form-info .info-value {
+  color: var(--awc-theme-foreground-neutral-default);
+  font-family: var(--awc-core-typography-font-family-mono);
+}
+
+.form-actions {
+  display: flex;
+  gap: var(--awc-common-size-3x);
+  margin-top: var(--awc-common-size-5x);
+}
+
+.form-actions .awc-btn {
+  flex: 1;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

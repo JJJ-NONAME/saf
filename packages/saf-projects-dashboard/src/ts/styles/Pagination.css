@@ -1,0 +1,91 @@
+/**
+ * Pagination styles — uses AWC design tokens so light/dark themes apply
+ * automatically.
+ */
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--awc-common-size-3x);
+  margin-top: var(--awc-common-size-5x);
+  margin-left: auto;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  font-family: var(--awc-core-typography-font-family-sans);
+  color: var(--awc-theme-foreground-neutral-default);
+}
+
+.pagination-nav-btn {
+  padding: var(--awc-common-size-2x) var(--awc-common-size-3x);
+}
+
+.pagination-current {
+  min-width: 2rem;
+  text-align: center;
+  font-weight: var(--awc-common-typography-medium-body-semibold-weight);
+  color: var(--awc-theme-foreground-neutral-default);
+  padding: 0 var(--awc-common-size-2x);
+}
+
+.pagination-size {
+  position: relative;
+  display: inline-flex;
+}
+
+.pagination-size-btn {
+  min-width: 4rem;
+  padding: var(--awc-common-size-2x) var(--awc-common-size-3x);
+}
+
+.pagination-size-menu {
+  position: absolute;
+  bottom: calc(100% + var(--awc-common-size-1x));
+  right: 0;
+  margin: 0;
+  padding: var(--awc-common-size-1x) 0;
+  list-style: none;
+  min-width: 100%;
+  background-color: var(--awc-theme-background-neutral-background-1);
+  color: var(--awc-theme-foreground-neutral-default);
+  border: var(--awc-common-border-basic-width)
+    var(--awc-common-border-basic-style) var(--awc-theme-border-neutral-default);
+  border-radius: var(--awc-common-radius-interactive);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: var(--awc-core-z-index-1000);
+}
+
+.pagination-size-option {
+  display: block;
+  width: 100%;
+  padding: var(--awc-common-size-2x) var(--awc-common-size-4x);
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+  font-family: inherit;
+  font-size: var(--awc-common-typography-medium-body-regular-size);
+}
+
+.pagination-size-option:hover {
+  background-color: var(
+    --awc-component-button-type-secondary-hover-container-background-color
+  );
+}
+
+.pagination-size-option-active {
+  font-weight: var(--awc-common-typography-medium-body-semibold-weight);
+  background-color: var(
+    --awc-component-button-type-secondary-active-container-background-color
+  );
+}
+
+.pagination-info {
+  color: var(--awc-theme-foreground-neutral-subtle);
+  font-size: var(--awc-common-typography-medium-body-regular-size);
+}
+
+.pagination-total {
+  color: var(--awc-theme-foreground-neutral-default);
+  font-weight: var(--awc-common-typography-medium-body-semibold-weight);
+}
